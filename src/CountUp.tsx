@@ -73,13 +73,21 @@ export default function CountUp({
     }
   }, [to, duration])
 
+  /*
+   * inline-block, not inline-grid, and the difference is only visible in the
+   * clipboard. Both reserve the width correctly and both render flush against
+   * the following comma (measured at 0px). But a grid box makes the selection
+   * algorithm treat the number as its own block, so copying the sentence
+   * produced "6.9% , about one in fourteen" with a stray space. This is a page
+   * people may quote, so the copied text has to be clean.
+   */
   return (
-    <span ref={ref} className="inline-grid tabular-nums" aria-label={format(to)}>
+    <span ref={ref} className="relative inline-block tabular-nums" aria-label={format(to)}>
       {/* Reserves the box. Never changes, so the line never re-wraps. */}
-      <span aria-hidden className="invisible [grid-area:1/1]">
+      <span aria-hidden className="invisible">
         {format(to)}
       </span>
-      <span aria-hidden className="[grid-area:1/1] text-left">
+      <span aria-hidden className="absolute inset-0 text-left">
         {format(value)}
       </span>
     </span>

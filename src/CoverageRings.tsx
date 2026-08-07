@@ -1,9 +1,9 @@
 import data from './data/recalls.json'
 
 /**
- * Sized from the type, not picked by eye. The widest label is "35.3%", measured
- * at 57 x 21px, so its corners sit 30.4px from centre. R of 46 gives an inner
- * radius of 42.5 and about 12px of corner clearance.
+ * Sized from the type. The widest label is "35.3%", measured at 57 x 21px, so
+ * its corners sit 30.4px from centre. R of 46 gives an inner radius of 42.5 and
+ * about 12px of corner clearance.
  */
 const R = 46
 const STROKE = 7
@@ -14,104 +14,67 @@ const cov = data.coverage
 
 type Field = { label: string; value: number; note: string; trend?: 'manufacturer' | 'importer' }
 
-/**
- * WHY THIS IS SPLIT INTO TWO GROUPS.
- *
- * Six of these sit between 99.7% and 100%. On a ring that difference is 0.3% of
- * a circle, roughly one degree, which is under a pixel at any size that fits on
- * the page. Drawing six rings and implying the reader can compare them would be
- * a chart pretending to carry information it cannot carry.
- *
- * So the six are grouped and labelled as what they are, complete, at a size
- * that suits a glance. The two that are genuinely incomplete get the full ring
- * and a trend line, because there the arc IS legible and the movement matters.
- * The layout carries the finding instead of flattening it.
- */
-const COMPLETE: Field[] = [
+const FIELDS: Field[] = [
   { label: 'Product images', value: cov.images, note: 'Every recall ships photography.' },
-  { label: 'Retailer', value: cov.retailers, note: 'The field this piece rests on.' },
-  { label: 'Injuries', value: cov.injuries, note: 'Prose, not counts.' },
-  { label: 'Hazard', value: cov.hazards, note: 'Free text, always present.' },
-  { label: 'Remedy type', value: cov.remedyOptions, note: 'A clean enum. Rare here.' },
+  { label: 'Retailer', value: cov.retailers, note: 'The field this whole piece rests on.' },
+  { label: 'Injuries', value: cov.injuries, note: 'Prose, not counts. Parsed, never asserted.' },
+  { label: 'Hazard', value: cov.hazards, note: 'Free text, but always present.' },
+  { label: 'Remedy type', value: cov.remedyOptions, note: 'A clean enum. Rare in this dataset.' },
   { label: 'Country of origin', value: cov.manufacturerCountries, note: 'Reliable.' },
-]
-
-const INCOMPLETE: Field[] = [
   {
     label: 'Importer',
     value: cov.importers,
-    note: 'Roughly two in three, and falling. Usable, but not something to build on.',
+    note: 'Roughly two in three, and falling.',
     trend: 'importer',
   },
   {
     label: 'Manufacturer',
     value: cov.manufacturers,
-    note: 'Mostly empty, and emptier every year. Nothing on this page relies on it.',
+    note: 'Mostly empty, and emptier every year. Nothing here relies on it.',
     trend: 'manufacturer',
   },
 ]
 
-const lowest = Math.min(...COMPLETE.map((f) => f.value))
+/**
+ * Every arc is drawn to its own value, full stop.
+ *
+ * Six of these land between 99.7% and 100%, so those six rings look nearly
+ * identical. That is not a flaw to tune out: they ARE nearly identical, and a
+ * ring that exaggerated a third of a percent to make it visible would be doing
+ * exactly what this page spends a section warning about. The arcs are honest
+ * and the numbers underneath carry the precision.
+ */
+function tone(v: number) {
+  if (v >= 99) return 'var(--color-ink-faint)'
+  if (v >= 50) return 'var(--color-alt-1)'
+  return 'var(--color-signal)'
+}
 
 export default function CoverageRings() {
   return (
-    <div className="grid gap-x-16 gap-y-14 lg:grid-cols-[1fr_auto]">
-      <section>
-        <Heading>Complete, all six</Heading>
-        <p className="mt-3 mb-8 max-w-[46ch] text-[16px] leading-[1.6] text-[var(--color-ink-faint)]">
-          Every one of these is above {lowest}% in every year since {data.firstYear}. The gaps
-          between them are fractions of a percent, so they are listed rather than drawn: a ring
-          cannot show a third of a percent and it would be dishonest to imply otherwise.
-        </p>
-        <ul className="m-0 grid list-none gap-x-8 gap-y-5 p-0 sm:grid-cols-2">
-          {COMPLETE.map((f) => (
-            <li
-              key={f.label}
-              className="flex items-baseline justify-between gap-4 border-b border-[var(--color-rule)] pb-3"
-            >
-              <span className="text-[17px] text-[var(--color-ink)]">{f.label}</span>
-              <span className="shrink-0 text-[17px] tabular-nums text-[var(--color-ink-soft)]">
-                {f.value}%
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <Heading>Incomplete</Heading>
-        <p className="mt-3 mb-8 max-w-[38ch] text-[16px] leading-[1.6] text-[var(--color-ink-faint)]">
-          These two are worth drawing, because the arc is legible and both are moving in the
-          wrong direction.
-        </p>
-        <ul className="m-0 flex list-none flex-wrap gap-x-12 gap-y-10 p-0">
-          {INCOMPLETE.map((f) => (
-            <li key={f.label} className="flex flex-col items-center text-center">
-              <Ring value={f.value} />
-              <p className="m-0 mt-5 text-[17px] font-semibold text-[var(--color-ink)]">{f.label}</p>
-              <p className="m-0 mt-1.5 max-w-[24ch] text-[14px] leading-snug text-[var(--color-ink-faint)]">
-                {f.note}
-              </p>
-              {f.trend && <Sparkline points={data.trend[f.trend]} />}
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
-  )
-}
-
-function Heading({ children }: { children: React.ReactNode }) {
-  return (
-    <h4 className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
-      {children}
-    </h4>
+    <ul className="m-0 grid list-none gap-x-8 gap-y-12 p-0 [grid-template-columns:repeat(auto-fit,minmax(196px,1fr))]">
+      {FIELDS.map((f) => (
+        <li key={f.label} className="flex flex-col items-center text-center">
+          <Ring value={f.value} />
+          <p
+            className={`m-0 mt-5 text-[17px] text-[var(--color-ink)] ${
+              f.value < 99 ? 'font-semibold' : ''
+            }`}
+          >
+            {f.label}
+          </p>
+          <p className="m-0 mt-1.5 max-w-[25ch] text-[14px] leading-snug text-[var(--color-ink-faint)]">
+            {f.note}
+          </p>
+          {f.trend && <Sparkline points={data.trend[f.trend]} />}
+        </li>
+      ))}
+    </ul>
   )
 }
 
 function Ring({ value }: { value: number }) {
-  // Under half is the story. Between half and complete is a caution.
-  const color = value < 50 ? 'var(--color-signal)' : 'var(--color-alt-1)'
+  const color = tone(value)
   return (
     <div className="relative" role="img" aria-label={`${value} percent populated`}>
       <svg width={BOX} height={BOX} viewBox={`0 0 ${BOX} ${BOX}`} className="-rotate-90">
@@ -129,8 +92,10 @@ function Ring({ value }: { value: number }) {
       </svg>
       <span
         aria-hidden
-        className="absolute inset-0 flex items-center justify-center text-[18px] font-semibold tabular-nums"
-        style={{ color }}
+        className={`absolute inset-0 flex items-center justify-center text-[18px] tabular-nums ${
+          value < 99 ? 'font-semibold' : ''
+        }`}
+        style={{ color: value < 99 ? color : 'var(--color-ink-soft)' }}
       >
         {value}%
       </span>
@@ -138,12 +103,17 @@ function Ring({ value }: { value: number }) {
   )
 }
 
+/**
+ * Only the two fields that actually move get a trend. The other six sit between
+ * 99.4% and 100% in every year since 2015, so a line for them would be a flat
+ * rule pretending to be information.
+ */
 function Sparkline({ points }: { points: Array<{ year: number; pct: number | null }> }) {
   const vals = points.filter((p) => p.pct != null) as Array<{ year: number; pct: number }>
   if (vals.length < 2) return null
 
-  const w = 132
-  const h = 30
+  const w = 128
+  const h = 28
   const max = Math.max(...vals.map((v) => v.pct))
   const min = Math.min(...vals.map((v) => v.pct))
   const span = Math.max(1, max - min)

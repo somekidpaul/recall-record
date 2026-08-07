@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T19:25:14.392Z",
+  "generatedAt": "2026-08-07T20:55:24.815Z",
   "partialYear": {
     "year": 2026,
     "throughDate": "2026-07-30",
@@ -595,6 +595,54 @@
       "url": "https://www.cpsc.gov/Recalls/2026/Dupray-USA-Recalls-Neat-Steam-Cleaners-Due-to-Risk-of-Burn-Hazards-or-Serious-Injury",
       "retailerText": "Online at dupray.com and in stores and online at Home Depot, Lowe's, Macy's, Walmart, Amazon.com and other retailers nationwide from April 2018 through December 2025 for about $150.",
       "hazard": "The steam cleaner's boiler can rupture if it is overfilled, corroded and the pressure release valve malfunctions, posing risk of burn hazards or serious injury to users or bystanders."
+    },
+    {
+      "title": "Greenworks Tools Recalls 24V and 48V Kobalt Yard Power Tools with USB-C Batteries Due to Risk of Serious Injury from Fire Hazard",
+      "product": "Kobalt 24V and 48V Trimmers, Blowers, Mowers, Chainsaws and Pruning Saws with USB-C Batteries",
+      "units": 554780,
+      "unitsRaw": "About 554,780",
+      "date": "2026-07-09",
+      "image": "https://www.cpsc.gov/s3fs-public/kbalt-1.gif",
+      "imageCaption": "Recalled Kobalt yard power tools",
+      "url": "https://www.cpsc.gov/Recalls/2026/Greenworks-Tools-Recalls-24V-and-48V-Kobalt-Yard-Power-Tools-with-USB-C-Batteries-Due-to-Risk-of-Serious-Injury-from-Fire-Hazard",
+      "retailerText": "Lowe's stores nationwide and online at Lowes.com from January 2026 through May 2026 for between $20 and $482.",
+      "hazard": "Charging the lithium-ion batteries through the USB-C port, while the batteries are inserted in the yard power tools can cause the batteries to short-circuit, posing a risk of serious injury from fire hazard."
+    },
+    {
+      "title": "Joyin Expands Recall of Sloosh Dive Sticks Due to Risk of Serious Injury from Impalement; Violate Federal Dive Sticks Ban",
+      "product": "Sloosh Dive Sticks, models 40041, 40003 and 16154",
+      "units": 404000,
+      "unitsRaw": "About 404,000 (Joyin previously recalled 254,000 dive sticks on June 11, 2026, which are included in the total of 404,000)",
+      "date": "2026-07-30",
+      "image": "https://www.cpsc.gov/s3fs-public/sloosh-1_0.jpg",
+      "imageCaption": "Recalled Sloosh Dive Sticks, Model 40041 (front of box)",
+      "url": "https://www.cpsc.gov/Recalls/2026/Joyin-Expands-Recall-of-Sloosh-Dive-Sticks-Due-to-Risk-of-Serious-Injury-from-Impalement-Violate-Federal-Dive-Sticks-Ban",
+      "retailerText": "Model 40041 - sold on Amazon.com, Temu.com, Wayfair.com, Target.com and SHEIN.com from February 2019 through October 2025 for between $17 and $22. Model 40003 - sold on Amazon.com, Target.com and SHEIN.com from January 2017 through December 2025 for between $14 and $16. Model 16154 - sold on Amazon.com and Target.com from October 2023 through December 2025 for between $10 and $15.",
+      "hazard": "The recalled dive sticks violate the federal dive sticks ban because they exceeded the compress limit, posing an impalement hazard. In shallow water, children may fall or land on a dive stick, resulting in serious piercing injuries. Facial and eye injuries are also possible when children attempt to retrieve the sticks underwater."
+    },
+    {
+      "title": "Vitaquest International Recalls Multiple Iron Supplement Bottles and Packets Due to Risk of Serious Injury or Death from Poisoning to Young Children; Violates Mandatory Standard for Child-Resistant Packaging",
+      "product": "Various Brands of Iron-Containing Dietary Supplements",
+      "units": 356140,
+      "unitsRaw": "About 356,140",
+      "date": "2026-04-09",
+      "image": "https://www.cpsc.gov/s3fs-public/vitaquest-1.png",
+      "imageCaption": "Recalled Arey, Not Today, Grey (180ct) - front",
+      "url": "https://www.cpsc.gov/Recalls/2026/Vitaquest-International-Recalls-Multiple-Iron-Supplement-Bottles-and-Packets-Due-to-Risk-of-Serious-Injury-or-Death-from-Poisoning-to-Young-Children-Violates-Mandatory-Standard-for-Child-Resistant-Packaging",
+      "retailerText": "Credo Beauty, Erewhon, Healf, Nutrition World, The Vitamin Shoppe, Fullscript, Ulta Beauty stores nationwide, medical practitioners' offices, brands' websites and Amazon.com from April 2023 through February 2026 for between $13 and $130 depending on brand and size.",
+      "hazard": "The dietary supplements contain iron, which must be in child-resistant packaging as required by the Poison Prevention Packaging Act. The packaging of the supplements is not child-resistant, posing a risk of serious injury or death from poisoning if the contents are swallowed by young children."
+    },
+    {
+      "title": "Curtis International Expands Recall of Frigidaire-brand Minifridges Due to Fire and Burn Hazards",
+      "product": "Frigidaire-brand Minifridges, model EFMIS121, with limited serial numbers",
+      "units": 330000,
+      "unitsRaw": "About 330,000, Curtis International previously recalled 634,000 minifridges in July 2024",
+      "date": "2026-01-15",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture4_20.jpg",
+      "imageCaption": "Recalled Curtis International Minifridge Model EFMIS121 – serial numbers between A2001 to A2310",
+      "url": "https://www.cpsc.gov/Recalls/2026/Curtis-International-Expands-Recall-of-Frigidaire-brand-Minifridges-Due-to-Fire-and-Burn-Hazards",
+      "retailerText": "Sold exclusively at Target stores nationwide and online at Target.com from January 2020 through October 2023 for around $30.",
+      "hazard": "The minifridges' internal electrical components can short circuit and ignite the surrounding plastic housing, posing fire and burn hazards."
     }
   ],
   "trackedRetailers": [

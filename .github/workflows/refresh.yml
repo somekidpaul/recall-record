@@ -1,0 +1,48 @@
+name: Refresh CPSC data
+
+on:
+  schedule:
+    # 07:00 UTC Mondays. CPSC publishes on weekdays and the API runs about a
+    # week behind, so a Monday pull picks up the previous week in full.
+    - cron: '0 7 * * 1'
+  workflow_dispatch: # so it can be run by hand without waiting a week
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Fetches CPSC, recomputes every figure, and exits non-zero if the corpus
+      # shrank, a year's retailer field fell below 95%, or the newest recall is
+      # more than 28 days old. A silent failure here would leave the site
+      # confidently displaying stale numbers, which is the one thing it must not do.
+      - name: Rebuild figures
+        run: npm run data
+
+      - name: Typecheck and build
+        run: npx tsc -b && npx vite build
+
+      - name: Commit if the data moved
+        run: |
+          git config user.name  "recall-record bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/recalls.json public/recall-data.json public/recall-data.csv public/sitemap.xml
+          if git diff --staged --quiet; then
+            echo "No change in the figures. Nothing to publish."
+          else
+            NEWEST=$(node -p "require('./src/data/recalls.json').newestRecallDate")
+            TOTAL=$(node -p "require('./src/data/recalls.json').corpusTotal")
+            git commit -m "Data refresh: ${TOTAL} recalls, newest ${NEWEST}"
+            git push
+          fi

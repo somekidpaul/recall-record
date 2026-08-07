@@ -118,6 +118,49 @@ p { text-wrap: pretty; }
   to { stroke-dashoffset: 0; }
 }
 
+/* The sliding pill on the theme control. Snappy, with a small overshoot so it
+   reads as a switch being thrown rather than a box fading. */
+.pill { transition: transform 170ms cubic-bezier(0.34, 1.35, 0.55, 1); }
+:root[data-motion="reduced"] .pill { transition: none; }
+
+/*
+  Cards grow on hover and push their siblings aside.
+
+  :has() lets the CONTAINER react to which child is hovered, which is the only
+  way to shrink the siblings. Focus-within is included so keyboard users get the
+  same behaviour, not a lesser one. Modest on purpose: too much travel and it
+  reads unstable while someone is trying to read the card.
+*/
+.card-row > * { transition: flex-grow 220ms cubic-bezier(0.22, 1, 0.36, 1); flex-grow: 1; }
+:root[data-motion="reduced"] .card-row > * { transition: none; }
+
+@media (min-width: 640px) and (hover: hover) {
+  .card-row:has(> :hover) > *,
+  .card-row:has(> :focus-within) > * { flex-grow: 0.82; }
+  .card-row > :hover,
+  .card-row > :focus-within { flex-grow: 1.36; }
+}
+
+/*
+  Paragraphs and figures arrive as they enter the viewport.
+
+  Scroll-linked, so it tracks the scroll position rather than firing a timer.
+  Deliberately NOT a typewriter: the two paragraphs this runs on carry the
+  headline numbers, and making someone wait to read a number is the opposite of
+  what this piece is for. Fade and a short rise, nothing more.
+*/
+@supports (animation-timeline: view()) {
+  :root[data-motion="full"] .arrive {
+    animation: arrive linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 32%;
+  }
+}
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(0.6rem); }
+  to { opacity: 1; transform: none; }
+}
+
 /* Visually hidden but available to screen readers and to find-in-page. */
 .sr-only:not(:focus):not(:active) {
   clip-path: inset(50%);

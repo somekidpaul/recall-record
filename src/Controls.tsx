@@ -12,11 +12,25 @@ export default function Controls() {
 
   return (
     <div className="no-print flex items-center gap-3">
+      {/*
+        The pill is one element that slides, not three that light up. It is the
+        same object moving, which is what makes the control read as a physical
+        switch rather than three separate buttons. Snappy on purpose: 170ms with
+        a small overshoot. Under reduce-motion it jumps, no transition at all.
+      */}
       <div
         role="group"
         aria-label="Colour theme"
-        className="flex items-center rounded-full border border-[var(--color-rule)] p-0.5"
+        className="relative grid grid-cols-3 rounded-full border border-[var(--color-rule)] p-0.5"
       >
+        <span
+          aria-hidden
+          className="pill absolute inset-y-0.5 left-0.5 rounded-full bg-[var(--color-ink)]"
+          style={{
+            width: `calc((100% - 0.25rem) / 3)`,
+            transform: `translateX(${THEMES.findIndex((t) => t.key === theme) * 100}%)`,
+          }}
+        />
         {THEMES.map((t) => {
           const on = theme === t.key
           return (
@@ -26,10 +40,8 @@ export default function Controls() {
               onClick={() => setTheme(t.key)}
               aria-pressed={on}
               title={`${t.label} theme`}
-              className={`rounded-full px-2.5 py-1 text-[12px] transition-colors ${
-                on
-                  ? 'bg-[var(--color-ink)] text-[var(--color-paper)]'
-                  : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
+              className={`relative z-10 flex items-center justify-center rounded-full px-2.5 py-1 text-[12px] transition-colors duration-150 ${
+                on ? 'text-[var(--color-paper)]' : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
               }`}
             >
               <Glyph kind={t.key} />

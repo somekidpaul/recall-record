@@ -163,7 +163,51 @@ function build(all) {
     manufacturers: cov((r) => (r.Manufacturers ?? []).length > 0),
     manufacturerCountries: cov((r) => (r.ManufacturerCountries ?? []).length > 0),
     hazards: cov((r) => (r.Hazards ?? []).length > 0),
+    importers: cov((r) => (r.Importers ?? []).length > 0),
   }
+
+  /**
+   * Per-year coverage, but only for the fields that actually move.
+   *
+   * Six of the ten fields checked sit between 99.4% and 100% in every single
+   * year (Images is 100.0 twelve years running), so charting them over time
+   * would be twelve identical flat lines. Only Manufacturer and Importer have a
+   * trend, so only those two get one.
+   */
+  const trend = Object.fromEntries(
+    ['Manufacturers', 'Importers'].map((field) => [
+      field === 'Manufacturers' ? 'manufacturer' : 'importer',
+      years.map((year) => {
+        const v = byYear.get(year)
+        return { year: Number(year), pct: pct(v.filter((r) => (r[field] ?? []).length > 0).length, v.length) }
+      }),
+    ]),
+  )
+
+  /**
+   * A claim we do NOT make, computed so the page can say why.
+   *
+   * The obvious follow-on from "manufacturer identification is collapsing" is
+   * "because these are anonymous marketplace sellers". Tested, and it fails.
+   * Aggregated it looks convincing, but the gap is a time artifact: Amazon-only
+   * recalls cluster in the recent years where manufacturer coverage is low for
+   * everyone. Year by year the gap flips sign, and in the two most recent years
+   * with the largest samples it is roughly zero.
+   */
+  const known = (rs) => pct(rs.filter((r) => (r.Manufacturers ?? []).length > 0).length, rs.length)
+  const manufacturerTest = years.map((year) => {
+    const v = byYear.get(year)
+    const amz = v.filter((r) => {
+      const b = retailerText(r)
+      return b.includes('amazon') && !OTHER_RETAILERS.some((o) => b.includes(o))
+    })
+    const rest = v.filter((r) => !amz.includes(r))
+    return {
+      year: Number(year),
+      amazonOnly: { n: amz.length, manufacturerKnown: known(amz) },
+      everythingElse: { n: rest.length, manufacturerKnown: known(rest) },
+    }
+  })
 
   const dates = scope.map((r) => r.RecallDate).filter(Boolean).sort()
 
@@ -185,6 +229,8 @@ function build(all) {
     newestRecallDate: dates.at(-1)?.slice(0, 10) ?? null,
     series,
     coverage,
+    trend,
+    manufacturerTest,
     trackedRetailers: TRACKED.map(({ key, label }) => ({ key, label })),
   }
 }

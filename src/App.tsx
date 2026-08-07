@@ -1,5 +1,8 @@
 import RetailerChart from './RetailerChart'
 import Controls from './Controls'
+import CoverageRings from './CoverageRings'
+import CountUp from './CountUp'
+import MotionNotice from './MotionNotice'
 import data from './data/recalls.json'
 
 const last = data.series.at(-1)!
@@ -31,11 +34,14 @@ export default function App() {
         <h2 className="mt-6 mb-0 max-w-[19ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.5vw,5.5rem)] font-normal leading-[1.02] tracking-[-0.02em]">
           Half of every product recall in America is something you could only buy on Amazon.
         </h2>
-        <p className="mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
-          In {first.year} it was {first.amazonOnly}%, about one in fourteen. This year it is{' '}
-          <strong className="font-semibold text-[var(--color-ink)]">{last.amazonOnly}%</strong>, or{' '}
-          {last.amazonOnlyCount} of {last.recalls} recalls, where Amazon is the only retailer the
-          government names.
+        <p className="arrive mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
+          In {first.year} it was <CountUp to={first.amazonOnly!} suffix="%" />, about one in
+          fourteen. This year it is{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            <CountUp to={last.amazonOnly!} suffix="%" />
+          </strong>
+          , or {last.amazonOnlyCount} of {last.recalls} recalls, where Amazon is the only retailer
+          the government names.
         </p>
       </section>
 
@@ -43,11 +49,12 @@ export default function App() {
         <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
           One retailer is rising. The others are not.
         </h3>
-        <p className="mt-5 mb-12 max-w-[50ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        <p className="arrive mt-5 mb-12 max-w-[50ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           Every US consumer product recall since {first.year}, sorted by which retailer the
           recall notice names. Amazon quadruples. Walmart peaks and falls. Target and Home
           Depot barely move.
         </p>
+        <MotionNotice />
         <RetailerChart />
       </section>
 
@@ -118,6 +125,13 @@ function Methodology() {
   const p = data.partialYear!
   const shortFirst = first.amazonAmongShort!
   const shortLast = last.amazonAmongShort!
+  const mfrFirst = data.trend.manufacturer[0].pct
+  const mfrLast = data.trend.manufacturer.at(-1)!.pct
+  const t25 = data.manufacturerTest.at(-2)!
+  const t26 = data.manufacturerTest.at(-1)!
+  const round1 = (n: number) => Math.round(n * 10) / 10
+  const gap25 = round1(t25.everythingElse.manufacturerKnown! - t25.amazonOnly.manufacturerKnown!)
+  const gap26 = round1(t26.everythingElse.manufacturerKnown! - t26.amazonOnly.manufacturerKnown!)
 
   return (
     <section className="border-t border-[var(--color-rule)] py-20">
@@ -125,7 +139,7 @@ function Methodology() {
         How this was counted, and where it is weak.
       </h3>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-3">
+      <div className="card-row mt-10 flex flex-col gap-4 sm:flex-row">
         <Card label="Source" value="CPSC">
           The federal recall database, US Government public domain.{' '}
           <a
@@ -193,6 +207,19 @@ function Methodology() {
           , a steeper climb than the headline, because more recalls now have exactly one
           retailer to name.
         </Note>
+        <Note title="A claim this piece does not make">
+          Manufacturer identification is collapsing: {mfrFirst}% of {first.year} recalls named
+          one, against {mfrLast}% this year. The tempting conclusion is that marketplace sellers
+          are anonymous, so Amazon-only recalls hide the maker. I tested it and it is not true.
+          Aggregated it looks convincing, but the gap is a calendar artifact, because Amazon-only
+          recalls cluster in the recent years when coverage is low for everyone. Year by year the
+          gap flips sign, and in the two most recent years, with the largest samples, it is{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {gap25 > 0 ? '+' : ''}{gap25} and {gap26 > 0 ? '+' : ''}{gap26} points
+          </strong>
+          . So the fields are degrading for everyone, and the interesting version of this story
+          is one I cannot support.
+        </Note>
       </div>
 
       <div className="mt-14">
@@ -202,49 +229,11 @@ function Methodology() {
         <p className="mt-4 mb-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
           How much of each field CPSC actually fills in, across the{' '}
           {cov.total.toLocaleString()} recalls analyzed. The weak ones are published beside the
-          strong ones because a number you cannot see the gaps in is not worth trusting.
+          strong ones, because a number you cannot see the gaps in is not worth trusting. Six of
+          these sit above 99% in every year since {first.year}, so only the two that actually move
+          carry a trend line.
         </p>
-        <ul className="m-0 grid list-none gap-x-10 gap-y-4 p-0 sm:grid-cols-2">
-          {[
-            ['Product images', cov.images, 'Every recall ships photography.'],
-            ['Retailer', cov.retailers, 'The field this whole piece rests on.'],
-            ['Injuries', cov.injuries, 'Prose, not counts. Parsed, never asserted.'],
-            ['Hazard', cov.hazards, 'Free text.'],
-            ['Country of origin', cov.manufacturerCountries, 'Reliable.'],
-            ['Remedy type', cov.remedyOptions, 'A clean enum. Rare in this dataset.'],
-            ['Manufacturer', cov.manufacturers, 'Mostly empty. Nothing here relies on it.'],
-          ].map(([label, value, note]) => (
-            <li key={label as string}>
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="text-[17px] text-[var(--color-ink)]">{label}</span>
-                <span
-                  className={`text-[17px] tabular-nums ${
-                    (value as number) < 50
-                      ? 'font-semibold text-[var(--color-signal)]'
-                      : 'text-[var(--color-ink-soft)]'
-                  }`}
-                >
-                  {value}%
-                </span>
-              </div>
-              <div
-                className="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--color-rule)]"
-                role="img"
-                aria-label={`${label}: ${value}% populated`}
-              >
-                <div
-                  className="h-full rounded-full"
-                  style={{
-                    width: `${value}%`,
-                    background:
-                      (value as number) < 50 ? 'var(--color-signal)' : 'var(--color-ink-faint)',
-                  }}
-                />
-              </div>
-              <p className="m-0 mt-2 text-[14px] text-[var(--color-ink-faint)]">{note}</p>
-            </li>
-          ))}
-        </ul>
+        <CoverageRings />
       </div>
     </section>
   )

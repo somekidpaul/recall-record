@@ -260,8 +260,12 @@ function build(all) {
   const latestYear = series.at(-1)
   const monthsElapsed = newest ? Number(newest.slice(5, 7)) : null
 
+  /* No build timestamp in the payload, deliberately. It made every run differ
+     from the last, so the weekly job committed every week whether or not a
+     single figure had moved. The data vintage is newestRecallDate and the run
+     time is the commit date; a field that only records "I ran" is noise that
+     defeats change detection. */
   return {
-    generatedAt: new Date().toISOString(),
     partialYear: latestYear
       ? { year: latestYear.year, throughDate: newest?.slice(0, 10) ?? null, monthsElapsed }
       : null,

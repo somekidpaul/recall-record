@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T16:22:46.745Z",
+  "generatedAt": "2026-08-07T19:25:14.392Z",
   "partialYear": {
     "year": 2026,
     "throughDate": "2026-07-30",
@@ -521,6 +521,80 @@
         "n": 178,
         "manufacturerKnown": 20.8
       }
+    }
+  ],
+  "biggest": [
+    {
+      "title": "Conair Recalls Over One Million Cuisinart Grill Brushes Due to Ingestion Hazard",
+      "product": "Metal Wire Bristle Grill Brushes",
+      "units": 1719995,
+      "unitsRaw": "About 1,719,995",
+      "date": "2026-07-02",
+      "image": "https://www.cpsc.gov/s3fs-public/triplebristle.png",
+      "imageCaption": "Triple Bristle Grill Cleaning Brush",
+      "url": "https://www.cpsc.gov/Recalls/2026/Conair-Recalls-Over-One-Million-Cuisinart-Grill-Brushes-Due-to-Ingestion-Hazard",
+      "retailerText": "Burlington, TJ Maxx and Ross stores and online including Amazon.com and Cuisinart.com from June 2009 through March 2026 for between $8 and $20.",
+      "hazard": "Small metal wire bristles can detach from the brushes and stick to the grill or food, posing an ingestion hazard and risk of serious internal injuries that could require surgery."
+    },
+    {
+      "title": "Thrasio Recalls Angry Orange Enzyme Stain Removers Due to Risk of Exposure to Bacteria",
+      "product": "Angry Orange Enzyme Stain Removers",
+      "units": 1500000,
+      "unitsRaw": "About 1,500,000 (In addition, about 43,700 were sold in Canada)",
+      "date": "2026-01-22",
+      "image": "https://www.cpsc.gov/s3fs-public/OrangeTwist-1.jpg",
+      "imageCaption": "Recalled Orange Twist Angry Orange Enzyme Stain Remover",
+      "url": "https://www.cpsc.gov/Recalls/2026/Thrasio-Recalls-Angry-Orange-Enzyme-Stain-Removers-Due-to-Risk-of-Exposure-to-Bacteria",
+      "retailerText": "Walmart, Target, The Home Depot, Meijer, Staples, TJ Maxx and other major retailers nationwide and online at Amazon.com, Walmart.com, Target.com, AngryOrange.com and Chewy.com from March 2019 through December 2025 for between $4 and $60.",
+      "hazard": "The recalled products can contain bacteria, including Pseudomonas aeruginosa, an environmental organism found widely in soil and water. People with weakened immune systems, external medical devices, or underlying lung conditions who are exposed to Pseudomonas aeruginosa face a risk of serious infection that may require medical treatment. The bacteria can enter the body if inhaled, through the eyes, or through a break in the skin. People with healthy immune systems are usually not affected by bacteria."
+    },
+    {
+      "title": "Bayer Recalls 6 mL Size Afrin Original Nasal Spray Bottles Due to Risk of Serious Injury or Illness from Child Poisoning; Violates Mandatory Standard for Child-Resistant Packaging",
+      "product": "Travel Size Afrin® Original Nasal Spray 6 mL Bottles",
+      "units": 786100,
+      "unitsRaw": "About 786,100",
+      "date": "2026-04-30",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture1_165.png",
+      "imageCaption": "Recalled Afrin® 6mL Size Original Nasal Spray Bottles (Front of Bottle)",
+      "url": "https://www.cpsc.gov/Recalls/2026/Bayer-Recalls-6-mL-Size-Afrin-Original-Nasal-Spray-Bottles-Due-to-Risk-of-Serious-Injury-or-Illness-from-Child-Poisoning-Violates-Mandatory-Standard-for-Child-Resistant-Packaging",
+      "retailerText": "Retailers such as convenience stores and travel hubs including airports from September 2024 to April 2026 for about $7 to $9.",
+      "hazard": "The 6 mL nasal sprays contain an imidazoline, which must be in child-resistant packaging or meet the labeling requirements for non-complying packaging, as required by the Poison Prevention Packaging Act. The 6 mL nasal spray's packaging is not child-resistant nor bears the required labeling statement, posing a risk of serious injury or illness from poisoning, if the contents are swallowed by young children."
+    },
+    {
+      "title": "E Mishan Recalls Granitestone Diamond Pro Blue Stainless Sauté Pans Due to Impact and Burn Hazards",
+      "product": "Granitestone Diamond Pro Blue Sauté Pans",
+      "units": 740000,
+      "unitsRaw": "About 740,000",
+      "date": "2026-04-02",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledGranitestoneDiamondProBlueStainlessSautePans%20.png",
+      "imageCaption": "Recalled Granitestone Diamond Pro Blue Stainless 10” & 11.5” Sauté Pans",
+      "url": "https://www.cpsc.gov/Recalls/2026/E-Mishan-Recalls-Granitestone-Diamond-Pro-Blue-Stainless-Saute-Pans-Due-to-Impact-and-Burn-Hazards",
+      "retailerText": "The recalled sauté pans were sold in stores at Costco and online at Costco.com, Walmart.com, and Amazon.com from August 2021 through February 2026 for about $40.",
+      "hazard": "The metal cap on the screw that connects the sauté pan to the handle can become detached and forcefully eject when heated, posing impact and burn hazards to consumers."
+    },
+    {
+      "title": "Wagner Spray Tech Recalls 900 Series Power Steamers Due to Burn Hazard",
+      "product": "Wagner 900 Series Power Steamers",
+      "units": 700000,
+      "unitsRaw": "About 700,000 (In addition, about 8,000 in Canada)",
+      "date": "2026-03-19",
+      "image": "https://www.cpsc.gov/s3fs-public/wagner-1.png",
+      "imageCaption": "Recalled Wagner Model 905e Auto Steamer, pictured with included accessories",
+      "url": "https://www.cpsc.gov/Recalls/2026/Wagner-Spray-Tech-Recalls-900-Series-Power-Steamers-Due-to-Burn-Hazard",
+      "retailerText": "The Home Depot, Lowe's, Walmart, Target, HSN and QVC, and online at Amazon.com and www.wagnerspraytech.com from November 2018 to March 2026 for between $130 and $200.",
+      "hazard": "The attached hose can get excessively hot and the nozzle/gun can expel hot water during use and after the trigger is engaged, posing a serious burn hazard to consumers."
+    },
+    {
+      "title": "Dupray USA Recalls Neat Steam Cleaners Due to Risk of Burn Hazards or Serious Injury",
+      "product": "Dupray Neat Steam Cleaners",
+      "units": 651145,
+      "unitsRaw": "About 651,145 (In addition, about 96,530 were sold in Canada)",
+      "date": "2026-02-26",
+      "image": "https://www.cpsc.gov/s3fs-public/neatsteam-1.png",
+      "imageCaption": "Recalled Dupray Neat Steam Cleaner",
+      "url": "https://www.cpsc.gov/Recalls/2026/Dupray-USA-Recalls-Neat-Steam-Cleaners-Due-to-Risk-of-Burn-Hazards-or-Serious-Injury",
+      "retailerText": "Online at dupray.com and in stores and online at Home Depot, Lowe's, Macy's, Walmart, Amazon.com and other retailers nationwide from April 2018 through December 2025 for about $150.",
+      "hazard": "The steam cleaner's boiler can rupture if it is overfilled, corroded and the pressure release valve malfunctions, posing risk of burn hazards or serious injury to users or bystanders."
     }
   ],
   "trackedRetailers": [

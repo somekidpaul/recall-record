@@ -3,6 +3,7 @@ import Controls from './Controls'
 import CoverageRings from './CoverageRings'
 import CountUp from './CountUp'
 import MotionNotice from './MotionNotice'
+import BiggestRecalls from './BiggestRecalls'
 import data from './data/recalls.json'
 
 const last = data.series.at(-1)!
@@ -58,6 +59,7 @@ export default function App() {
         <RetailerChart />
       </section>
 
+      <BiggestRecalls />
       <Methodology />
       <FieldCoverage />
 
@@ -83,11 +85,18 @@ export default function App() {
 
           <div className="no-print flex flex-wrap gap-3">
             <a
+              href="/recall-data.csv"
+              download
+              className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+            >
+              Download CSV
+            </a>
+            <a
               href="/recall-data.json"
               download
               className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
             >
-              Download the figures
+              JSON
             </a>
             <a
               href={data.source}

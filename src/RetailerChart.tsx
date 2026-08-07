@@ -426,15 +426,13 @@ export default function RetailerChart() {
         </p>
         <p className="mt-3 mb-0">
           {showControl ? (
-            <>
-              Online selling overall grew <strong className="text-[var(--color-ink)]">{ctlGrowth.toFixed(1)}×</strong>{' '}
-              since {first.year}. Amazon grew{' '}
-              <strong className="text-[var(--color-ink)]">{(amzLast / amzFirst).toFixed(1)}×</strong>. The
-              growth of e-commerce does not account for the gap, and Walmart, Target and
-              Home Depot are flat or falling over the same period.
-            </>
+            <strong className="font-semibold text-[var(--color-ink)]">
+              Online selling overall grew {ctlGrowth.toFixed(1)}× since {first.year}. Amazon grew{' '}
+              {(amzLast / amzFirst).toFixed(1)}×. The growth of e-commerce does not account for the
+              gap, and Walmart, Target and Home Depot are flat or falling over the same period.
+            </strong>
           ) : (
-            <>The obvious objection is that everyone shops online now. Turn it on and see whether it holds.</>
+            <strong className="font-semibold text-[var(--color-ink)]">The obvious objection is that everyone shops online now. Turn it on and see whether it holds.</strong>
           )}
         </p>
       </figcaption>

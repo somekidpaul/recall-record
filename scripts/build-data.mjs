@@ -209,6 +209,49 @@ function build(all) {
     }
   })
 
+  /**
+   * The biggest recalls of the latest year, by units, with their photography.
+   *
+   * NumberOfUnits is prose, not a number: "About 1,719,995" or
+   * "About 1,500,000 (In addition, about 43,700 were sold in Canada)". We take
+   * the FIRST figure only, which is the US count, and keep the original string
+   * so the page can show what it parsed from. Anything unparseable is dropped
+   * rather than guessed at.
+   */
+  const parseUnits = (s) => {
+    const m = String(s ?? '').match(/([\d,]{2,})/)
+    return m ? Number(m[1].replace(/,/g, '')) : null
+  }
+
+  const latest = years.at(-1)
+  const biggest = byYear
+    .get(latest)
+    .map((r) => {
+      const products = r.Products ?? []
+      const units = products.map((p) => parseUnits(p.NumberOfUnits)).filter((n) => n != null)
+      const image = (r.Images ?? [])[0]
+      if (!units.length || !image?.URL) return null
+      // At least one CPSC image URL ships with a literal space in the filename.
+      // Browsers cope, most other clients do not, so encode it here.
+      const imageUrl = image.URL.replace(/ /g, '%20')
+      return {
+        title: r.Title ?? '',
+        product: products[0]?.Name ?? '',
+        units: Math.max(...units),
+        unitsRaw: products.find((p) => parseUnits(p.NumberOfUnits) === Math.max(...units))
+          ?.NumberOfUnits ?? '',
+        date: (r.RecallDate ?? '').slice(0, 10),
+        image: imageUrl,
+        imageCaption: image.Caption ?? '',
+        url: r.URL ?? '',
+        retailerText: (r.Retailers ?? [])[0]?.Name ?? '',
+        hazard: (r.Hazards ?? [])[0]?.Name ?? '',
+      }
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.units - a.units)
+    .slice(0, 6)
+
   const dates = scope.map((r) => r.RecallDate).filter(Boolean).sort()
 
   /* How much of the latest year is actually in hand, so the page can state the
@@ -231,6 +274,7 @@ function build(all) {
     coverage,
     trend,
     manufacturerTest,
+    biggest,
     trackedRetailers: TRACKED.map(({ key, label }) => ({ key, label })),
   }
 }
@@ -275,6 +319,20 @@ await writeFile(OUT, JSON.stringify(data, null, 2))
 const PUB = join(ROOT, 'public', 'recall-data.json')
 await mkdir(dirname(PUB), { recursive: true })
 await writeFile(PUB, JSON.stringify(data, null, 2))
+
+/* CSV as well as JSON. "Download the figures" usually means a spreadsheet, and
+   a journalist or researcher should not need a parser to check the numbers. */
+const cols = ['year', 'recalls', 'amazon', 'amazonOnly', 'amazonOnlyCount',
+  'walmart', 'target', 'homeDepot', 'ebay', 'soldOnline']
+const csv = [
+  cols.join(','),
+  ...data.series.map((d) => [
+    d.year, d.recalls, d.retailers.amazon, d.amazonOnly, d.amazonOnlyCount,
+    d.retailers.walmart, d.retailers.target, d.retailers.homeDepot,
+    d.retailers.ebay, d.online.mid,
+  ].join(',')),
+].join('\n')
+await writeFile(join(ROOT, 'public', 'recall-data.csv'), csv + '\n')
 
 const latest = data.series.at(-1)
 console.log(`\n  ${data.corpusTotal} recalls, ${data.series.length} years, newest ${data.newestRecallDate}`)

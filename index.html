@@ -3,19 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Recall Record</title>
+
+    <title>The Recall Record: half of US product recalls now name only Amazon</title>
     <meta
       name="description"
-      content="Half of every US consumer product recall this year names Amazon as the only retailer. A weekly visual record built from CPSC public-domain data."
+      content="Half of every US consumer product recall in 2026 names Amazon as the only retailer, up from one in fourteen a decade ago. A weekly record built from CPSC public-domain data, with the methodology and the gaps published in full."
     />
-    <meta property="og:title" content="The Recall Record" />
+    <link rel="canonical" href="https://recall-record.pages.dev/" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#100c0a" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="The Recall Record" />
+    <meta property="og:url" content="https://recall-record.pages.dev/" />
+    <meta property="og:title" content="Half of US product recalls now name only Amazon" />
     <meta
       property="og:description"
-      content="Half of every US consumer product recall this year names Amazon as the only retailer. It was one in fourteen a decade ago."
+      content="In 2015 it was one in fourteen. This year it is one in two. The obvious objection is that everyone shops online now, and the data does not support it."
     />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://recall-record.pages.dev/og.png" />
+    <meta property="og:image:alt" content="A line chart showing Amazon's share of US product recalls rising from 14.8% in 2015 to 61.2% in 2026 while Walmart, Target and Home Depot stay flat." />
+
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="twitter:title" content="Half of US product recalls now name only Amazon" />
+    <meta
+      name="twitter:description"
+      content="In 2015 it was one in fourteen. This year it is one in two. Built from CPSC public-domain data."
+    />
+    <meta name="twitter:image" content="https://recall-record.pages.dev/og.png" />
+
+    <!--
+      Structured data. Dataset rather than Article, because the thing of value
+      here is the computed figures and their provenance, and that is what a
+      search engine or an LLM should be able to read without parsing the page.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "The Recall Record: retailer share of US consumer product recalls",
+        "description": "Share of US consumer product recalls whose CPSC retailer description names each major retailer, by year, 2015 onward. Includes three independent definitions of online sale, a verbosity control, and per-field source coverage.",
+        "url": "https://recall-record.pages.dev/",
+        "license": "https://www.usa.gov/government-works",
+        "isAccessibleForFree": true,
+        "creator": {
+          "@type": "Person",
+          "name": "Paul Buczkowski",
+          "url": "https://somekidpaul.com"
+        },
+        "isBasedOn": {
+          "@type": "Dataset",
+          "name": "CPSC Recalls API",
+          "url": "https://www.saferproducts.gov/RestWebServices/Recall?format=json"
+        },
+        "distribution": [
+          {
+            "@type": "DataDownload",
+            "encodingFormat": "text/csv",
+            "contentUrl": "https://recall-record.pages.dev/recall-data.csv"
+          },
+          {
+            "@type": "DataDownload",
+            "encodingFormat": "application/json",
+            "contentUrl": "https://recall-record.pages.dev/recall-data.json"
+          }
+        ]
+      }
+    </script>
 
     <!--
       Resolve theme and motion before first paint.

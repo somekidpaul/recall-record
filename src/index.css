@@ -159,14 +159,31 @@ p { text-wrap: pretty; }
   same behaviour, not a lesser one. Modest on purpose: too much travel and it
   reads unstable while someone is trying to read the card.
 */
-.card-row > * { transition: flex-grow 220ms cubic-bezier(0.22, 1, 0.36, 1); flex-grow: 1; }
+/* flex-basis 0 is what makes them EQUAL. With the default `auto` each card is
+   sized by its own text, so the three came out different widths. */
+.card-row > * {
+  flex: 1 1 0;
+  /* Flex items default to min-width:auto, which floors them at min-content. That
+     floor capped the hover effect at 1.42x instead of the intended 1.5x, because
+     the two shrinking cards could not give up the last few pixels. */
+  min-width: 0;
+  transition: flex-grow 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 :root[data-motion="reduced"] .card-row > * { transition: none; }
 
+/* Hovered card goes to 1.5x its resting width, the other two give up the
+   difference.
+
+   The grow values are 1.6 / 0.7, not the 1.5 / 0.75 the arithmetic suggests.
+   Fixed gaps do not scale with the flex ratio, so the naive numbers measured
+   1.416x. These were derived by sweeping values against the real layout:
+   1.5/0.75 gave 1.416x, 1.7/0.65 gave 1.582x, 1.6/0.7 gives 1.498x. Siblings
+   land at 221px, still wide enough to read. */
 @media (min-width: 640px) and (hover: hover) {
   .card-row:has(> :hover) > *,
-  .card-row:has(> :focus-within) > * { flex-grow: 0.82; }
+  .card-row:has(> :focus-within) > * { flex-grow: 0.7; }
   .card-row > :hover,
-  .card-row > :focus-within { flex-grow: 1.36; }
+  .card-row > :focus-within { flex-grow: 1.6; }
 }
 
 /*

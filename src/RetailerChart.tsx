@@ -1,4 +1,4 @@
-import { useId, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import data from './data/recalls.json'
 
 type Row = (typeof data.series)[number]
@@ -35,6 +35,35 @@ function seriesPoints(pick: (d: Row) => number | null): Array<[number, number]> 
     .map((d) => [x(d.year), y(pick(d) as number)] as [number, number])
 }
 
+const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
+
+/**
+ * Every series' value at one year, sorted high to low so the tooltip reads
+ * like a standing. Amazon keeps its own color; comparators keep theirs.
+ */
+function readout(d: Row, soleOnly: boolean) {
+  const rows = [
+    {
+      key: 'amazon',
+      label: soleOnly ? 'Amazon only' : 'Amazon',
+      value: (soleOnly ? d.amazonOnly : d.retailers.amazon) as number,
+      color: 'var(--color-signal)',
+    },
+    ...COMPARATORS.map((c) => ({
+      key: c.key as string,
+      label: c.label,
+      value: d.retailers[c.key] as number,
+      color: c.color,
+    })),
+  ]
+  return rows.filter((r) => r.value != null).sort((a, b) => b.value - a.value)
+}
+
+/** Highest point across all series at this year, so the tooltip clears them all. */
+function topOf(d: Row, soleOnly: boolean) {
+  return Math.min(...readout(d, soleOnly).map((s) => y(s.value)))
+}
+
 /**
  * Push overlapping end-labels apart while keeping their order.
  * Target, Home Depot and eBay all sit in the low single digits, so their
@@ -57,7 +86,6 @@ export default function RetailerChart() {
   const [showControl, setShowControl] = useState(false)
   const [soleOnly, setSoleOnly] = useState(false)
   const [hover, setHover] = useState<Row | null>(null)
-  const uid = useId().replace(/:/g, '')
 
   const amazon = useMemo(
     () => seriesPoints((d) => (soleOnly ? d.amazonOnly : d.retailers.amazon)),
@@ -193,15 +221,30 @@ export default function RetailerChart() {
             )
           })}
 
-          {data.series.map((d) => (
-            <circle
-              key={d.year} cx={x(d.year)} cy={y(soleOnly ? d.amazonOnly! : d.retailers.amazon!)}
-              r={hover?.year === d.year ? 5 : 3} fill="var(--color-signal)"
-              style={{ anchorName: `--pt-${uid}-${d.year}` } as React.CSSProperties}
+          {/* Crosshair. Appears at the hovered year, behind the dots. */}
+          {hover && (
+            <line
+              x1={x(hover.year)} x2={x(hover.year)} y1={PAD.top} y2={PAD.top + PLOT_H}
+              stroke="var(--color-ink-faint)" strokeWidth={1} strokeDasharray="3 3"
             />
-          ))}
+          )}
 
-          {/* Wide invisible hit targets, so hovering is forgiving. */}
+          {/* Every series gets a dot at the hovered year, not just the subject.
+              A dot on one line only implied the others were not measured. */}
+          {hover &&
+            readout(hover, soleOnly).map((s) => (
+              <circle
+                key={s.key} cx={x(hover.year)} cy={y(s.value)} r={s.key === 'amazon' ? 5 : 4}
+                fill={s.color} stroke="var(--color-paper)" strokeWidth={1.5}
+              />
+            ))}
+
+          {/* Resting state: a single dot marks the latest Amazon value. */}
+          {!hover && (
+            <circle cx={x(last.year)} cy={y(amzLast)} r={4} fill="var(--color-signal)" />
+          )}
+
+          {/* One wide hit target per year, so hovering is forgiving. */}
           {data.series.map((d) => (
             <rect
               key={d.year} x={x(d.year) - PLOT_W / (years.length * 2)} y={PAD.top}
@@ -213,22 +256,49 @@ export default function RetailerChart() {
 
         {hover && (
           <div
-            className="anchored z-10 rounded-lg border border-[var(--color-rule)] bg-[var(--color-paper)] px-3 py-2 shadow-lg pointer-events-none"
-            style={{ '--anchor': `--pt-${uid}-${hover.year}` } as React.CSSProperties}
+            className="pointer-events-none absolute z-10 w-max max-w-[16rem] -translate-x-1/2 -translate-y-full rounded-lg border border-[var(--color-rule)] bg-[var(--color-paper)] px-3.5 py-2.5 shadow-xl"
+            style={{
+              // Positioned from the viewBox in percentages, so it tracks the
+              // point at every container width without a resize listener.
+              left: `${clamp((x(hover.year) / W) * 100, 12, 88)}%`,
+              top: `${(topOf(hover, soleOnly) / H) * 100}%`,
+              marginTop: '-14px',
+            }}
           >
-            <div className="font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-faint)]">
+            <div className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-wider text-[var(--color-ink-faint)]">
               {hover.year} · {hover.recalls} recalls
             </div>
-            <div className="mt-1 text-[17px] font-semibold text-[var(--color-signal)] tabular-nums">
-              {soleOnly ? hover.amazonOnly : hover.retailers.amazon}%
-              <span className="ml-1.5 font-normal text-[var(--color-ink-soft)]">
-                {soleOnly ? 'Amazon only' : 'name Amazon'}
-              </span>
-            </div>
+            <dl className="mt-2 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1">
+              {readout(hover, soleOnly).map((s) => (
+                <div key={s.key} className="contents">
+                  <dt
+                    className={`flex items-center gap-2 text-[14px] ${
+                      s.key === 'amazon' ? 'font-semibold' : 'text-[var(--color-ink-soft)]'
+                    }`}
+                    style={s.key === 'amazon' ? { color: s.color } : undefined}
+                  >
+                    <span
+                      aria-hidden
+                      className="inline-block size-2 shrink-0 rounded-full"
+                      style={{ background: s.color }}
+                    />
+                    {s.label}
+                  </dt>
+                  <dd
+                    className={`m-0 text-right text-[14px] tabular-nums ${
+                      s.key === 'amazon' ? 'font-semibold' : 'text-[var(--color-ink-soft)]'
+                    }`}
+                    style={s.key === 'amazon' ? { color: s.color } : undefined}
+                  >
+                    {s.value}%
+                  </dd>
+                </div>
+              ))}
+            </dl>
             {soleOnly && (
-              <div className="text-[13px] text-[var(--color-ink-faint)] tabular-nums">
-                {hover.amazonOnlyCount} of {hover.recalls}
-              </div>
+              <p className="m-0 mt-2 border-t border-[var(--color-rule)] pt-2 text-[13px] text-[var(--color-ink-faint)] tabular-nums">
+                {hover.amazonOnlyCount} of {hover.recalls} name Amazon and no one else
+              </p>
             )}
           </div>
         )}

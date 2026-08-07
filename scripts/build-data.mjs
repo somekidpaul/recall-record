@@ -250,7 +250,7 @@ function build(all) {
     })
     .filter(Boolean)
     .sort((a, b) => b.units - a.units)
-    .slice(0, 6)
+    .slice(0, 10)
 
   const dates = scope.map((r) => r.RecallDate).filter(Boolean).sort()
 

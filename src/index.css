@@ -68,9 +68,18 @@ body {
   margin: 0;
 }
 
-/* Optical refinement. Baseline in current browsers, degrades silently. */
-h1, h2, h3, h4, blockquote { text-wrap: balance; }
-p { text-wrap: pretty; }
+/*
+  Optical refinement. Baseline in current browsers, degrades silently.
+
+  These are the LONGHANDS, deliberately. `text-wrap: pretty` is a shorthand
+  that also resets text-wrap-mode to `wrap`, which silently defeats any
+  truncation: two rows of the recall list were wrapping to a second line
+  despite carrying Tailwind's `truncate`, because this rule was quietly
+  overriding its white-space: nowrap. Setting only the style leaves wrapping
+  mode alone.
+*/
+h1, h2, h3, h4, blockquote { text-wrap-style: balance; }
+p { text-wrap-style: pretty; }
 
 :where(a, button, [tabindex]):focus-visible {
   outline: 2px solid var(--color-signal);
@@ -171,19 +180,51 @@ p { text-wrap: pretty; }
 }
 :root[data-motion="reduced"] .card-row > * { transition: none; }
 
-/* Hovered card goes to 1.5x its resting width, the other two give up the
-   difference.
+/*
+  Hover does two jobs at once, on purpose.
 
-   The grow values are 1.6 / 0.7, not the 1.5 / 0.75 the arithmetic suggests.
-   Fixed gaps do not scale with the flex ratio, so the naive numbers measured
-   1.416x. These were derived by sweeping values against the real layout:
-   1.5/0.75 gave 1.416x, 1.7/0.65 gave 1.582x, 1.6/0.7 gives 1.498x. Siblings
-   land at 221px, still wide enough to read. */
+  flex-grow widens the card in real layout, which is what pushes the siblings
+  aside. transform: scale lifts it off the page. They are separate because
+  scale enlarges the TYPE as well, and on a page this typographic a card whose
+  body copy is visibly larger than its neighbours reads as broken rather than
+  as emphasised. So the width comes almost entirely from flex, where the text
+  stays at its correct size, and scale contributes only the last bit of lift.
+
+  Grow values were swept against the real layout rather than derived, because
+  the fixed 16px gaps do not scale with the flex ratio: 1.5/0.75 measured
+  1.416x, 1.6/0.7 measured 1.498x. The pair in use, grow 1.9/0.55 with scale 1.12,
+  measures 1.958x effective against a 295px resting card, with siblings at
+  185px, still wide enough to read. 2.1/0.45 reached 2.105x but dropped the
+  siblings to 160px, which broke their text.
+*/
 @media (min-width: 640px) and (hover: hover) {
   .card-row:has(> :hover) > *,
-  .card-row:has(> :focus-within) > * { flex-grow: 0.7; }
+  .card-row:has(> :focus-within) > * { flex-grow: 0.55; }
+
   .card-row > :hover,
-  .card-row > :focus-within { flex-grow: 1.6; }
+  .card-row > :focus-within {
+    flex-grow: 1.9;
+    transform: scale(1.12);
+    z-index: 2;
+    border-color: var(--color-ink-faint);
+    box-shadow:
+      0 1px 2px oklch(0% 0 0 / 0.07),
+      0 12px 28px -8px oklch(0% 0 0 / 0.18),
+      0 32px 64px -24px oklch(0% 0 0 / 0.22);
+  }
+}
+
+.card-row > * {
+  position: relative;
+  transform-origin: center;
+  will-change: transform;
+}
+:root[data-motion="full"] .card-row > * {
+  transition:
+    flex-grow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease,
+    border-color 260ms ease;
 }
 
 /*
@@ -205,6 +246,13 @@ p { text-wrap: pretty; }
   from { opacity: 0; transform: translateY(0.6rem); }
   to { opacity: 1; transform: none; }
 }
+
+/* Recall thumbnails lift on hover. The image scales inside a fixed-size box, so
+   the row height never changes and the list stays on its grid. */
+.thumb img { transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1); }
+.thumb:hover img,
+.thumb:focus-visible img { transform: scale(1.18); }
+:root[data-motion="reduced"] .thumb img { transition: none; }
 
 /* Visually hidden but available to screen readers and to find-in-page. */
 .sr-only:not(:focus):not(:active) {

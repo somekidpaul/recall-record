@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import data from './data/recalls.json'
 
 const year = data.series.at(-1)!.year
@@ -6,15 +7,21 @@ const year = data.series.at(-1)!.year
 const US_HOUSEHOLDS = 132_216_000
 
 /**
- * The six largest recalls of the year, by units, with the government's own
- * photography.
+ * The largest recalls of the year, by units, as a ranked list.
  *
- * Two honest constraints are visible on the face of it. The unit count is prose
- * in the source ("About 1,719,995"), so the parsed figure sits next to the
- * string it came from. And several recalls also cover Canada, which is excluded
- * here, because the rest of this piece counts US recalls.
+ * This was a card grid first and the grid was wrong. Hazard text in the source
+ * runs from 139 to 506 characters, so every card was a different height and the
+ * section read as ragged rather than designed. A list fixes that structurally:
+ * each row is one line of description regardless of how much text exists behind
+ * it, and the rest is available on demand.
+ *
+ * Two honest constraints stay visible. The unit count is prose in the source
+ * ("About 1,719,995"), so the parsed figure sits beside the string it came from
+ * in the expanded view. And several notices also cover Canada, excluded here so
+ * the number matches the rest of the page.
  */
 export default function BiggestRecalls() {
+  const [open, setOpen] = useState<number | null>(null)
   const biggest = data.biggest
   if (!biggest?.length) return null
 
@@ -23,67 +30,124 @@ export default function BiggestRecalls() {
       <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
         The biggest recalls of {year}.
       </h3>
-      <p className="mt-5 mb-12 max-w-[54ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-        Ranked by units. Every photograph below is the government's own, published with the
-        recall notice and in the public domain, which is why this page has pictures at all.
+      <p className="mt-5 mb-12 max-w-[56ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        The ten largest by units. Every photograph is the government's own, published with the
+        notice and in the public domain, which is why this page has pictures at all. Open a row
+        for the full hazard description.
       </p>
 
-      <ol className="m-0 grid list-none gap-x-8 gap-y-12 p-0 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
+      <ol className="m-0 list-none border-t border-[var(--color-rule)] p-0">
         {biggest.map((r, i) => {
-          const perHouseholds = Math.round(US_HOUSEHOLDS / r.units)
+          const isOpen = open === i
+          const panelId = `recall-panel-${i}`
           return (
-            <li key={r.url || r.title} className="flex flex-col">
-              <div className="mb-5 aspect-4/3 overflow-hidden rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)]">
-                <img
-                  src={r.image}
-                  alt={r.imageCaption || r.product}
-                  loading={i < 2 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  className="size-full object-contain p-3"
-                />
+            <li key={r.url || r.title} className="border-b border-[var(--color-rule)]">
+              <div className="grid grid-cols-[2.5rem_auto_1fr] items-center gap-x-4 py-5 sm:grid-cols-[3rem_auto_1fr_auto] sm:gap-x-6">
+                <span className="self-start font-[family-name:var(--font-display)] text-[26px] leading-none text-[var(--color-ink-faint)] tabular-nums sm:text-[30px]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+
+                {/* The thumbnail is the disclosure control, so it is a real
+                    button rather than an image with a click handler. */}
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  className="thumb group relative size-16 shrink-0 overflow-hidden rounded-lg border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] sm:size-20"
+                >
+                  <img
+                    src={r.image}
+                    alt=""
+                    loading={i < 3 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    className="size-full object-contain p-1.5"
+                  />
+                  <span className="sr-only">
+                    {isOpen ? 'Hide' : 'Show'} details for {r.product}
+                  </span>
+                </button>
+
+                <div className="min-w-0">
+                  <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)] tabular-nums">
+                    {r.date}
+                    <span className="mx-2 opacity-50">/</span>
+                    <span className="text-[var(--color-signal)]">
+                      {r.units.toLocaleString()} units
+                    </span>
+                  </p>
+                  <p className="m-0 mt-1.5 truncate text-[18px] leading-snug text-[var(--color-ink)]">
+                    {r.product}
+                  </p>
+                  {/* Clamped to one line. This is the whole reason the section is
+                      a list: every row is the same height no matter how much
+                      hazard text the source happens to carry. */}
+                  <p className="m-0 mt-1 line-clamp-1 text-[15px] leading-snug text-[var(--color-ink-faint)]">
+                    {r.hazard}
+                  </p>
+                </div>
+
+                <div className="col-start-2 col-end-4 mt-3 flex flex-wrap gap-2 sm:col-auto sm:mt-0 sm:justify-self-end">
+                  <button
+                    type="button"
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+                  >
+                    {isOpen ? 'Hide product' : 'View product'}
+                  </button>
+                  {r.url && (
+                    <a
+                      href={r.url}
+                      className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+                    >
+                      Read the notice
+                    </a>
+                  )}
+                </div>
               </div>
 
-              <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)] tabular-nums">
-                {r.date}
-              </p>
-              <p className="m-0 mt-2 font-[family-name:var(--font-display)] text-[26px] leading-none tracking-tight text-[var(--color-signal)] tabular-nums">
-                {r.units.toLocaleString()}
-              </p>
-              <p className="m-0 mt-2.5 text-[18px] leading-snug text-[var(--color-ink)]">
-                {r.product}
-              </p>
-              <p className="m-0 mt-2 text-[15px] leading-[1.55] text-[var(--color-ink-soft)]">
-                Enough for one in every {perHouseholds.toLocaleString()} American households.
-              </p>
-
-              {r.hazard && (
-                <p className="m-0 mt-3 text-[15px] leading-snug text-[var(--color-ink-faint)]">
-                  {r.hazard}
-                </p>
-              )}
-
-              {/* The parsed number beside the string it was read from, same rule
-                  the rest of the piece follows. */}
-              <p className="m-0 mt-3 border-t border-[var(--color-rule)] pt-3 font-[family-name:var(--font-mono)] text-[12px] leading-snug text-[var(--color-ink-faint)]">
-                Source field: “{r.unitsRaw}”
-              </p>
-
-              {r.url && (
-                <a
-                  href={r.url}
-                  className="mt-3 self-start text-[15px] text-[var(--color-ink-soft)] underline decoration-[var(--color-rule)] underline-offset-4 hover:text-[var(--color-ink)] hover:decoration-[var(--color-ink)]"
+              {isOpen && (
+                <div
+                  id={panelId}
+                  className="grid gap-x-10 gap-y-6 pb-8 sm:grid-cols-[minmax(0,18rem)_1fr] sm:pl-[4.5rem]"
                 >
-                  Read the notice
-                </a>
+                  <img
+                    src={r.image}
+                    alt={r.imageCaption || r.product}
+                    className="w-full rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] object-contain p-4"
+                  />
+                  <div>
+                    <p className="m-0 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+                      {r.hazard}
+                    </p>
+                    <p className="m-0 mt-4 text-[16px] leading-[1.6] text-[var(--color-ink-soft)]">
+                      Enough for one in every{' '}
+                      <strong className="font-semibold text-[var(--color-ink)] tabular-nums">
+                        {Math.round(US_HOUSEHOLDS / r.units).toLocaleString()}
+                      </strong>{' '}
+                      American households.
+                    </p>
+                    {r.retailerText && (
+                      <p className="m-0 mt-4 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+                        {r.retailerText}
+                      </p>
+                    )}
+                    <p className="m-0 mt-4 border-t border-[var(--color-rule)] pt-3 font-[family-name:var(--font-mono)] text-[12px] leading-snug text-[var(--color-ink-faint)]">
+                      Units parsed from: “{r.unitsRaw}”
+                    </p>
+                  </div>
+                </div>
               )}
             </li>
           )
         })}
       </ol>
 
-      <p className="m-0 mt-12 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        Unit counts are US only. Several of these notices also cover Canada, and those figures
-        are excluded so the number matches the rest of this page. Household scale uses{' '}
+      <p className="m-0 mt-10 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+        Unit counts are US only. Several of these notices also cover Canada, and those figures are
+        excluded so the number matches the rest of this page. Household scale uses{' '}
         {US_HOUSEHOLDS.toLocaleString()} US households from the 2024 American Community Survey.
       </p>
     </section>

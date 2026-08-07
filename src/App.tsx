@@ -47,42 +47,175 @@ export default function App() {
         <RetailerChart />
       </section>
 
+      <Methodology />
+
       <footer className="border-t border-[var(--color-rule)] py-10">
-        <dl className="grid gap-x-10 gap-y-6 text-[16px] sm:grid-cols-3">
-          <Fact label="Source">
-            <a
-              className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
-              href="https://www.saferproducts.gov/RestWebServices/Recall?format=json"
-            >
-              CPSC Recalls API
-            </a>
-            , US Government public domain
-          </Fact>
-          <Fact label="Corpus">
-            {data.corpusTotal.toLocaleString()} recalls, {first.year}–{last.year} analyzed
-          </Fact>
-          <Fact label="Rebuilt">
-            Weekly. Newest recall {data.newestRecallDate}.
-          </Fact>
-        </dl>
-        <p className="mt-8 mb-0 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-          {last.year} is a partial year. Figures count recalls whose retailer description names a
-          company, which is not the same as units sold or market share. The retailer field is
-          populated on {last.retailerFieldPopulated}% of records. A full methodology page,
-          including the fields this dataset does not populate, is coming with Issue 02.
+        <p className="m-0 text-[15px] text-[var(--color-ink-faint)]">
+          Built from public-domain federal data. No tracking, no cookies, no accounts.
         </p>
       </footer>
     </main>
   )
 }
 
-function Fact({ label, children }: { label: string; children: React.ReactNode }) {
+function Card({ label, value, children }: { label: string; value: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-6">
+      <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+        {label}
+      </p>
+      <p className="m-0 mt-3 font-[family-name:var(--font-display)] text-[30px] leading-none tracking-tight text-[var(--color-ink)] tabular-nums">
+        {value}
+      </p>
+      <p className="m-0 mt-3 text-[15px] leading-[1.55] text-[var(--color-ink-soft)]">{children}</p>
+    </div>
+  )
+}
+
+function Methodology() {
+  const cov = data.coverage
+  const p = data.partialYear!
+  const shortFirst = first.amazonAmongShort!
+  const shortLast = last.amazonAmongShort!
+
+  return (
+    <section className="border-t border-[var(--color-rule)] py-20">
+      <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
+        How this was counted, and where it is weak.
+      </h3>
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-3">
+        <Card label="Source" value="CPSC">
+          The federal recall database, US Government public domain.{' '}
+          <a
+            className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
+            href={data.source}
+          >
+            Fetch it yourself
+          </a>
+          .
+        </Card>
+        <Card label="Corpus" value={data.corpusTotal.toLocaleString()}>
+          Recalls back to 1973. This piece analyzes the {cov.total.toLocaleString()} since{' '}
+          {first.year}, when Amazon's retail share first became meaningful.
+        </Card>
+        <Card label="Rebuilt" value="Weekly">
+          Newest recall {data.newestRecallDate}. The build fails rather than publish if the
+          corpus shrinks or the data goes more than three weeks stale.
+        </Card>
+      </div>
+
+      <div className="mt-14 grid gap-x-14 gap-y-10 lg:grid-cols-2">
+        <Note title="What the number actually means">
+          CPSC does not publish a list of retailers. It publishes one prose sentence per
+          recall, like <em>“Online at Amazon.com from August 2024 through April 2026 for
+          about $140.”</em> So every figure here is the share of recalls whose retailer
+          sentence <strong className="font-semibold text-[var(--color-ink)]">names</strong> a
+          company. It is not units sold, and it is not market share. Those would be different
+          claims and this data cannot support them.
+        </Note>
+
+        <Note title={`Why ${p.year} is not a full year`}>
+          Because it has not happened yet. The data runs through {data.newestRecallDate},
+          about {p.monthsElapsed} months in. That matters less than it sounds, because every
+          figure is a share rather than a count, so a shorter year is not a smaller one. I
+          checked month by month for a seasonal pattern that could tilt a partial year and
+          found none. The chart draws the final segment dashed so you can see which part is
+          still moving.
+        </Note>
+
+        <Note title="The obvious objection, tested three ways">
+          If e-commerce simply grew, every online retailer should have risen together. To make
+          sure that answer did not depend on how I defined “sold online,” I ran three
+          definitions, from strict to loose. Online selling grew{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {(last.online.strict! / first.online.strict!).toFixed(1)}×,{' '}
+            {(last.online.mid! / first.online.mid!).toFixed(1)}× and{' '}
+            {(last.online.loose! / first.online.loose!).toFixed(1)}×
+          </strong>{' '}
+          respectively. Amazon grew{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {(last.retailers.amazon! / first.retailers.amazon!).toFixed(1)}×
+          </strong>
+          . The conclusion does not depend on the definition.
+        </Note>
+
+        <Note title="The way this could have been fake">
+          If CPSC had started writing longer retailer sentences, more names would match by
+          accident and everyone's share would drift up. It went the other way. The median
+          retailer sentence got <em>shorter</em>, from {first.medianDescriptionChars} characters
+          in {first.year} to {last.medianDescriptionChars} in {last.year}. Holding length
+          roughly constant by looking only at short sentences, Amazon still goes from{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {shortFirst}% to {shortLast}%
+          </strong>
+          , a steeper climb than the headline, because more recalls now have exactly one
+          retailer to name.
+        </Note>
+      </div>
+
+      <div className="mt-14">
+        <h4 className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+          Field coverage, including the failures
+        </h4>
+        <p className="mt-4 mb-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
+          How much of each field CPSC actually fills in, across the{' '}
+          {cov.total.toLocaleString()} recalls analyzed. The weak ones are published beside the
+          strong ones because a number you cannot see the gaps in is not worth trusting.
+        </p>
+        <ul className="m-0 grid list-none gap-x-10 gap-y-4 p-0 sm:grid-cols-2">
+          {[
+            ['Product images', cov.images, 'Every recall ships photography.'],
+            ['Retailer', cov.retailers, 'The field this whole piece rests on.'],
+            ['Injuries', cov.injuries, 'Prose, not counts. Parsed, never asserted.'],
+            ['Hazard', cov.hazards, 'Free text.'],
+            ['Country of origin', cov.manufacturerCountries, 'Reliable.'],
+            ['Remedy type', cov.remedyOptions, 'A clean enum. Rare in this dataset.'],
+            ['Manufacturer', cov.manufacturers, 'Mostly empty. Nothing here relies on it.'],
+          ].map(([label, value, note]) => (
+            <li key={label as string}>
+              <div className="flex items-baseline justify-between gap-4">
+                <span className="text-[17px] text-[var(--color-ink)]">{label}</span>
+                <span
+                  className={`text-[17px] tabular-nums ${
+                    (value as number) < 50
+                      ? 'font-semibold text-[var(--color-signal)]'
+                      : 'text-[var(--color-ink-soft)]'
+                  }`}
+                >
+                  {value}%
+                </span>
+              </div>
+              <div
+                className="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--color-rule)]"
+                role="img"
+                aria-label={`${label}: ${value}% populated`}
+              >
+                <div
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${value}%`,
+                    background:
+                      (value as number) < 50 ? 'var(--color-signal)' : 'var(--color-ink-faint)',
+                  }}
+                />
+              </div>
+              <p className="m-0 mt-2 text-[14px] text-[var(--color-ink-faint)]">{note}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+function Note({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
-        {label}
-      </dt>
-      <dd className="m-0 mt-2 text-[var(--color-ink-soft)]">{children}</dd>
+      <h4 className="m-0 font-[family-name:var(--font-display)] text-[21px] font-normal leading-snug tracking-tight text-[var(--color-ink)]">
+        {title}
+      </h4>
+      <p className="mt-3 mb-0 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">{children}</p>
     </div>
   )
 }

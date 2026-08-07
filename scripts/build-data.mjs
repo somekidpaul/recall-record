@@ -122,6 +122,21 @@ function build(all) {
       Object.entries(ONLINE_DEFS).map(([k, f]) => [k, pct(blobs.filter(f).length, n)]),
     )
 
+    /**
+     * Robustness check, computed rather than asserted.
+     *
+     * The obvious way this finding could be fake: if CPSC started writing
+     * LONGER retailer descriptions, more names would match by accident and
+     * every retailer's share would drift up together.
+     *
+     * So we also measure Amazon's share among only the SHORT descriptions,
+     * holding length roughly constant. If the trend survives that, it is not a
+     * verbosity artifact. (It does, and it gets steeper, because more recalls
+     * now have exactly one retailer to name.)
+     */
+    const lens = blobs.map((b) => b.length).sort((a, b) => a - b)
+    const short = blobs.filter((b) => b.length <= 150)
+
     return {
       year: Number(year),
       recalls: n,
@@ -130,6 +145,9 @@ function build(all) {
       amazonOnly: pct(amazonOnly, n),
       amazonOnlyCount: amazonOnly,
       online,
+      medianDescriptionChars: lens[Math.floor(lens.length / 2)] ?? null,
+      amazonAmongShort: pct(short.filter((b) => b.includes('amazon')).length, short.length),
+      shortCount: short.length,
     }
   })
 
@@ -149,8 +167,17 @@ function build(all) {
 
   const dates = scope.map((r) => r.RecallDate).filter(Boolean).sort()
 
+  /* How much of the latest year is actually in hand, so the page can state the
+     partial-year caveat precisely instead of just waving at it. */
+  const newest = dates.at(-1) ?? null
+  const latestYear = series.at(-1)
+  const monthsElapsed = newest ? Number(newest.slice(5, 7)) : null
+
   return {
     generatedAt: new Date().toISOString(),
+    partialYear: latestYear
+      ? { year: latestYear.year, throughDate: newest?.slice(0, 10) ?? null, monthsElapsed }
+      : null,
     source: API,
     license: 'US Government public domain',
     corpusTotal: all.length,

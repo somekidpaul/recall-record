@@ -41,7 +41,7 @@ function seriesPoints(pick: (d: Row) => number | null): Array<[number, number]> 
  * natural label positions collide. Nudging the label without moving the line
  * is the honest fix: the data stays where it is, only the type moves.
  */
-function declutter(vals: number[], minGap = 15): number[] {
+function declutter(vals: number[], minGap = 19): number[] {
   const order = vals.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v)
   let prev = -Infinity
   for (const o of order) {
@@ -105,7 +105,7 @@ export default function RetailerChart() {
               />
               <text
                 x={PAD.left - 10} y={y(v)} dy="0.32em" textAnchor="end"
-                className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+                className="fill-[var(--color-ink-faint)] text-[15px] tabular-nums"
               >
                 {v}%
               </text>
@@ -115,7 +115,7 @@ export default function RetailerChart() {
           {data.series.map((d) => (
             <text
               key={d.year} x={x(d.year)} y={H - 16} textAnchor="middle"
-              className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+              className="fill-[var(--color-ink-faint)] text-[15px] tabular-nums"
             >
               {d.year % 100 === 15 || d.year % 5 === 0 || d.year === last.year ? `’${String(d.year).slice(2)}` : ''}
             </text>
@@ -139,13 +139,13 @@ export default function RetailerChart() {
               />
               <text
                 x={x(last.year) + 10} y={y(last.online.mid!)} dy="0.32em"
-                className="fill-[var(--color-control)] text-[13px] font-medium"
+                className="fill-[var(--color-control)] text-[15px] font-semibold"
               >
                 Sold online
               </text>
               <text
                 x={x(last.year) + 10} y={y(last.online.mid!) + 17} dy="0.32em"
-                className="fill-[var(--color-ink-faint)] text-[12px] tabular-nums"
+                className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
               >
                 {ctlGrowth.toFixed(1)}× since ’{String(first.year).slice(2)}
               </text>
@@ -160,13 +160,13 @@ export default function RetailerChart() {
 
           <text
             x={x(last.year) + 10} y={y(amzLast)} dy="0.32em"
-            className="fill-[var(--color-signal)] text-[14px] font-semibold"
+            className="fill-[var(--color-signal)] text-[16px] font-semibold"
           >
             Amazon
           </text>
           <text
             x={x(last.year) + 10} y={y(amzLast) + 17} dy="0.32em"
-            className="fill-[var(--color-ink-faint)] text-[12px] tabular-nums"
+            className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
           >
             {(amzLast / amzFirst).toFixed(1)}× since ’{String(first.year).slice(2)}
           </text>
@@ -185,7 +185,7 @@ export default function RetailerChart() {
                 )}
                 <text
                   x={x(last.year) + 10} y={ly} dy="0.32em"
-                  className="text-[12px]" fill={c.color}
+                  className="text-[13px] font-medium" fill={c.color}
                 >
                   {c.label}
                 </text>
@@ -216,17 +216,17 @@ export default function RetailerChart() {
             className="anchored z-10 rounded-lg border border-[var(--color-rule)] bg-[var(--color-paper)] px-3 py-2 shadow-lg pointer-events-none"
             style={{ '--anchor': `--pt-${uid}-${hover.year}` } as React.CSSProperties}
           >
-            <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-faint)]">
+            <div className="font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-faint)]">
               {hover.year} · {hover.recalls} recalls
             </div>
-            <div className="mt-1 text-[15px] font-semibold text-[var(--color-signal)] tabular-nums">
+            <div className="mt-1 text-[17px] font-semibold text-[var(--color-signal)] tabular-nums">
               {soleOnly ? hover.amazonOnly : hover.retailers.amazon}%
               <span className="ml-1.5 font-normal text-[var(--color-ink-soft)]">
                 {soleOnly ? 'Amazon only' : 'name Amazon'}
               </span>
             </div>
             {soleOnly && (
-              <div className="text-[12px] text-[var(--color-ink-faint)] tabular-nums">
+              <div className="text-[13px] text-[var(--color-ink-faint)] tabular-nums">
                 {hover.amazonOnlyCount} of {hover.recalls}
               </div>
             )}
@@ -234,7 +234,7 @@ export default function RetailerChart() {
         )}
       </div>
 
-      <figcaption className="mt-8 max-w-[62ch] text-[15px] leading-relaxed text-[var(--color-ink-soft)]">
+      <figcaption className="mt-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
         <p className="m-0">
           Share of US consumer product recalls whose retailer description names each
           company. CPSC records where a product was sold as one prose sentence, so this
@@ -264,7 +264,7 @@ function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; c
       type="button"
       onClick={onClick}
       aria-pressed={on}
-      className={`rounded-full border px-4 py-2 text-[14px] transition-colors ${
+      className={`rounded-full border px-5 py-2.5 text-[15px] transition-colors ${
         on
           ? 'border-[var(--color-signal)] bg-[var(--color-signal)] text-[var(--color-paper)]'
           : 'border-[var(--color-rule)] text-[var(--color-ink-soft)] hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'

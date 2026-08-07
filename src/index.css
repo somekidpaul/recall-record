@@ -18,17 +18,23 @@
   --color-rule: oklch(88% 0.008 85);
   --color-ink: oklch(21% 0.012 60);
   --color-ink-soft: oklch(46% 0.012 60);
-  --color-ink-faint: oklch(62% 0.010 60);
+  /* L solved, not eyeballed: 53% gives 5.05:1 on paper. At the original 62% it
+     measured 3.49:1 and failed AA on every caption and axis label. */
+  --color-ink-faint: oklch(53% 0.010 60);
 
-  /* The subject. One warm signal hue carries Amazon, the thing being measured. */
-  --color-signal: oklch(58% 0.185 38);
+  /* The subject. One warm signal hue carries Amazon, the thing being measured.
+     55% not 58%: the signal is used as label TEXT, so it owes 4.5:1, not the
+     3:1 a line owes. At 58% it measured 4.46 and missed by 0.04. */
+  --color-signal: oklch(55% 0.185 38);
   --color-signal-soft: oklch(72% 0.130 38);
 
-  /* Comparators. Deliberately desaturated: they are context, not the argument. */
+  /* Comparators. Desaturated because they are context, not the argument, but
+     every one clears 4.5:1 so the chart is readable as text, not just as shape.
+     alt-2 and alt-4 were pulled darker after measuring 3.40 and 3.13. */
   --color-alt-1: oklch(55% 0.055 250);
-  --color-alt-2: oklch(62% 0.045 200);
-  --color-alt-3: oklch(58% 0.040 145);
-  --color-alt-4: oklch(65% 0.030 300);
+  --color-alt-2: oklch(55% 0.055 200);
+  --color-alt-3: oklch(52.5% 0.040 145);
+  --color-alt-4: oklch(56% 0.045 300);
 
   /* The counterargument line. Neutral by design so it reads as a control. */
   --color-control: oklch(52% 0.020 85);
@@ -51,15 +57,19 @@
       --color-rule: oklch(31% 0.010 60);
       --color-ink: oklch(95% 0.006 85);
       --color-ink-soft: oklch(70% 0.010 85);
-      --color-ink-faint: oklch(55% 0.010 85);
+      /* 61% gives 5.15:1 here. At 55% it measured exactly 4.00:1, which failed
+         AA on 14 of 34 text elements. One token was the whole problem. */
+      --color-ink-faint: oklch(61% 0.010 85);
 
       --color-signal: oklch(72% 0.165 38);
       --color-signal-soft: oklch(60% 0.150 38);
 
-      --color-alt-1: oklch(70% 0.065 250);
-      --color-alt-2: oklch(74% 0.050 200);
-      --color-alt-3: oklch(72% 0.048 145);
-      --color-alt-4: oklch(75% 0.035 300);
+      /* Same hues and chroma as light, L raised. That is the whole point of
+         authoring in OKLCH: one ramp, two modes, no second palette to drift. */
+      --color-alt-1: oklch(72% 0.055 250);
+      --color-alt-2: oklch(74% 0.055 200);
+      --color-alt-3: oklch(74% 0.040 145);
+      --color-alt-4: oklch(75% 0.045 300);
 
       --color-control: oklch(66% 0.022 85);
     }

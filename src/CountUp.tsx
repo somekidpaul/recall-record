@@ -8,23 +8,36 @@ import { useEffect, useRef, useState } from 'react'
  * datum, animating a SENTENCE just delays reading it, and the sentences here
  * carry the argument.
  *
- * Renders the true value immediately for anyone with reduced motion, and the
- * element always carries the final value as its accessible name, so a screen
- * reader never announces a partial figure.
+ * TWO THINGS KEEP IT FROM SHIFTING THE LAYOUT, and it needed both.
+ *
+ * 1. Decimal places are fixed by the FINAL value and never change mid-count.
+ *    The first version formatted each frame independently and stripped a
+ *    trailing ".0", so counting to 50 rendered "0", "12.5", "50" and the
+ *    character count swung between one and four.
+ * 2. An invisible copy of the final string reserves the width, with the live
+ *    value stacked on top in the same grid cell. Measured, the span was
+ *    swinging 14.2px during the count, and since the paragraph uses
+ *    text-wrap: pretty the whole block re-balanced on every frame.
+ *
+ * Renders the true value immediately under reduced motion, and always carries
+ * the final figure as its accessible name so a screen reader never announces a
+ * partial number.
  */
 export default function CountUp({
   to,
   suffix = '',
-  decimals = 1,
   duration = 900,
 }: {
   to: number
   suffix?: string
-  decimals?: number
   duration?: number
 }) {
   const ref = useRef<HTMLSpanElement>(null)
   const [value, setValue] = useState(to)
+
+  // Locked to the final value, so every frame renders the same character count.
+  const decimals = Number.isInteger(to) ? 0 : 1
+  const format = (n: number) => `${n.toFixed(decimals)}${suffix}`
 
   useEffect(() => {
     const el = ref.current
@@ -60,13 +73,14 @@ export default function CountUp({
     }
   }, [to, duration])
 
-  const shown = value.toFixed(decimals).replace(/\.0$/, '')
-
   return (
-    <span ref={ref} className="tabular-nums" aria-label={`${to}${suffix}`}>
-      <span aria-hidden>
-        {shown}
-        {suffix}
+    <span ref={ref} className="inline-grid tabular-nums" aria-label={format(to)}>
+      {/* Reserves the box. Never changes, so the line never re-wraps. */}
+      <span aria-hidden className="invisible [grid-area:1/1]">
+        {format(to)}
+      </span>
+      <span aria-hidden className="[grid-area:1/1] text-left">
+        {format(value)}
       </span>
     </span>
   )

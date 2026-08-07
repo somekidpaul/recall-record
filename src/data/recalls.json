@@ -1,0 +1,270 @@
+{
+  "generatedAt": "2026-08-07T13:50:57.369Z",
+  "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
+  "license": "US Government public domain",
+  "corpusTotal": 9927,
+  "firstYear": 2015,
+  "newestRecallDate": "2026-07-30",
+  "series": [
+    {
+      "year": 2015,
+      "recalls": 305,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 14.8,
+        "walmart": 6.9,
+        "target": 4.6,
+        "homeDepot": 5.6,
+        "ebay": 0.3
+      },
+      "amazonOnly": 6.9,
+      "amazonOnlyCount": 21,
+      "online": {
+        "strict": 39,
+        "mid": 50.2,
+        "loose": 50.2
+      }
+    },
+    {
+      "year": 2016,
+      "recalls": 330,
+      "retailerFieldPopulated": 99.4,
+      "retailers": {
+        "amazon": 24.5,
+        "walmart": 5.5,
+        "target": 7.6,
+        "homeDepot": 5.5,
+        "ebay": 1.8
+      },
+      "amazonOnly": 13,
+      "amazonOnlyCount": 43,
+      "online": {
+        "strict": 53.3,
+        "mid": 62.1,
+        "loose": 62.1
+      }
+    },
+    {
+      "year": 2017,
+      "recalls": 280,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 23.9,
+        "walmart": 8.2,
+        "target": 8.6,
+        "homeDepot": 3.9,
+        "ebay": 0.4
+      },
+      "amazonOnly": 12.1,
+      "amazonOnlyCount": 34,
+      "online": {
+        "strict": 46.4,
+        "mid": 59.3,
+        "loose": 59.3
+      }
+    },
+    {
+      "year": 2018,
+      "recalls": 258,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 21.7,
+        "walmart": 6.2,
+        "target": 5.8,
+        "homeDepot": 6.6,
+        "ebay": 1.9
+      },
+      "amazonOnly": 8.5,
+      "amazonOnlyCount": 22,
+      "online": {
+        "strict": 49.2,
+        "mid": 57.4,
+        "loose": 57.4
+      }
+    },
+    {
+      "year": 2019,
+      "recalls": 241,
+      "retailerFieldPopulated": 99.6,
+      "retailers": {
+        "amazon": 19.9,
+        "walmart": 6.2,
+        "target": 5.8,
+        "homeDepot": 2.5,
+        "ebay": 4.6
+      },
+      "amazonOnly": 9.5,
+      "amazonOnlyCount": 23,
+      "online": {
+        "strict": 49.8,
+        "mid": 58.1,
+        "loose": 58.1
+      }
+    },
+    {
+      "year": 2020,
+      "recalls": 257,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 28.8,
+        "walmart": 9.7,
+        "target": 7,
+        "homeDepot": 2.7,
+        "ebay": 3.5
+      },
+      "amazonOnly": 16,
+      "amazonOnlyCount": 41,
+      "online": {
+        "strict": 58,
+        "mid": 71.2,
+        "loose": 71.6
+      }
+    },
+    {
+      "year": 2021,
+      "recalls": 219,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 34.2,
+        "walmart": 12.8,
+        "target": 5.5,
+        "homeDepot": 5.5,
+        "ebay": 5
+      },
+      "amazonOnly": 16,
+      "amazonOnlyCount": 35,
+      "online": {
+        "strict": 63.5,
+        "mid": 71.7,
+        "loose": 71.7
+      }
+    },
+    {
+      "year": 2022,
+      "recalls": 292,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 33.2,
+        "walmart": 12,
+        "target": 8.6,
+        "homeDepot": 4.8,
+        "ebay": 2.7
+      },
+      "amazonOnly": 16.4,
+      "amazonOnlyCount": 48,
+      "online": {
+        "strict": 65.4,
+        "mid": 73.3,
+        "loose": 73.3
+      }
+    },
+    {
+      "year": 2023,
+      "recalls": 324,
+      "retailerFieldPopulated": 99.7,
+      "retailers": {
+        "amazon": 38.3,
+        "walmart": 12,
+        "target": 8,
+        "homeDepot": 7.4,
+        "ebay": 3.1
+      },
+      "amazonOnly": 24.1,
+      "amazonOnlyCount": 78,
+      "online": {
+        "strict": 63.3,
+        "mid": 75.3,
+        "loose": 75.3
+      }
+    },
+    {
+      "year": 2024,
+      "recalls": 305,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 42.3,
+        "walmart": 17.7,
+        "target": 9.8,
+        "homeDepot": 4.6,
+        "ebay": 3.6
+      },
+      "amazonOnly": 23.6,
+      "amazonOnlyCount": 72,
+      "online": {
+        "strict": 61.3,
+        "mid": 78,
+        "loose": 78.7
+      }
+    },
+    {
+      "year": 2025,
+      "recalls": 420,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 51.2,
+        "walmart": 15.7,
+        "target": 5.7,
+        "homeDepot": 4.3,
+        "ebay": 2.1
+      },
+      "amazonOnly": 34.3,
+      "amazonOnlyCount": 144,
+      "online": {
+        "strict": 49.5,
+        "mid": 74,
+        "loose": 86
+      }
+    },
+    {
+      "year": 2026,
+      "recalls": 356,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 61.2,
+        "walmart": 11.2,
+        "target": 4.8,
+        "homeDepot": 3.1,
+        "ebay": 1.1
+      },
+      "amazonOnly": 50,
+      "amazonOnlyCount": 178,
+      "online": {
+        "strict": 77.2,
+        "mid": 87.1,
+        "loose": 87.1
+      }
+    }
+  ],
+  "coverage": {
+    "total": 3587,
+    "retailers": 99.9,
+    "injuries": 99.9,
+    "remedyOptions": 99.8,
+    "images": 100,
+    "manufacturers": 35.3,
+    "manufacturerCountries": 99.7,
+    "hazards": 99.9
+  },
+  "trackedRetailers": [
+    {
+      "key": "amazon",
+      "label": "Amazon"
+    },
+    {
+      "key": "walmart",
+      "label": "Walmart"
+    },
+    {
+      "key": "target",
+      "label": "Target"
+    },
+    {
+      "key": "homeDepot",
+      "label": "Home Depot"
+    },
+    {
+      "key": "ebay",
+      "label": "eBay"
+    }
+  ]
+}

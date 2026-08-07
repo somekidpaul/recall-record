@@ -1,0 +1,276 @@
+import { useId, useMemo, useState } from 'react'
+import data from './data/recalls.json'
+
+type Row = (typeof data.series)[number]
+
+const W = 900
+const H = 420
+const PAD = { top: 28, right: 132, bottom: 44, left: 52 }
+const PLOT_W = W - PAD.left - PAD.right
+const PLOT_H = H - PAD.top - PAD.bottom
+const Y_MAX = 90
+
+const COMPARATORS = [
+  { key: 'walmart', label: 'Walmart', color: 'var(--color-alt-1)' },
+  { key: 'target', label: 'Target', color: 'var(--color-alt-2)' },
+  { key: 'homeDepot', label: 'Home Depot', color: 'var(--color-alt-3)' },
+  { key: 'ebay', label: 'eBay', color: 'var(--color-alt-4)' },
+] as const
+
+const years = data.series.map((d) => d.year)
+const x = (year: number) =>
+  PAD.left + ((year - years[0]) / (years.at(-1)! - years[0])) * PLOT_W
+const y = (v: number) => PAD.top + PLOT_H - (v / Y_MAX) * PLOT_H
+
+const path = (pts: Array<[number, number]>) =>
+  pts.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)},${py.toFixed(1)}`).join(' ')
+
+/** Rough polyline length, used to seed the scroll-driven draw animation. */
+const length = (pts: Array<[number, number]>) =>
+  pts.reduce((n, p, i) => (i === 0 ? 0 : n + Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1])), 0)
+
+function seriesPoints(pick: (d: Row) => number | null): Array<[number, number]> {
+  return data.series
+    .filter((d) => pick(d) != null)
+    .map((d) => [x(d.year), y(pick(d) as number)] as [number, number])
+}
+
+/**
+ * Push overlapping end-labels apart while keeping their order.
+ * Target, Home Depot and eBay all sit in the low single digits, so their
+ * natural label positions collide. Nudging the label without moving the line
+ * is the honest fix: the data stays where it is, only the type moves.
+ */
+function declutter(vals: number[], minGap = 15): number[] {
+  const order = vals.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v)
+  let prev = -Infinity
+  for (const o of order) {
+    o.v = Math.max(o.v, prev + minGap)
+    prev = o.v
+  }
+  const out = new Array<number>(vals.length)
+  for (const o of order) out[o.i] = o.v
+  return out
+}
+
+export default function RetailerChart() {
+  const [showControl, setShowControl] = useState(false)
+  const [soleOnly, setSoleOnly] = useState(false)
+  const [hover, setHover] = useState<Row | null>(null)
+  const uid = useId().replace(/:/g, '')
+
+  const amazon = useMemo(
+    () => seriesPoints((d) => (soleOnly ? d.amazonOnly : d.retailers.amazon)),
+    [soleOnly],
+  )
+  const control = useMemo(() => seriesPoints((d) => d.online.mid), [])
+  const comparators = useMemo(
+    () => COMPARATORS.map((c) => ({ ...c, pts: seriesPoints((d) => d.retailers[c.key]) })),
+    [],
+  )
+
+  const first = data.series[0]
+  const last = data.series.at(-1)!
+  const comparatorLabelY = useMemo(
+    () => declutter(COMPARATORS.map((c) => y(last.retailers[c.key]!))),
+    [last],
+  )
+  const amzFirst = soleOnly ? first.amazonOnly! : first.retailers.amazon!
+  const amzLast = soleOnly ? last.amazonOnly! : last.retailers.amazon!
+  const ctlGrowth = last.online.mid! / first.online.mid!
+
+  return (
+    <figure className="m-0">
+      <div className="mb-6 flex flex-wrap gap-2">
+        <Toggle on={showControl} onClick={() => setShowControl((v) => !v)}>
+          Show the obvious objection
+        </Toggle>
+        <Toggle on={soleOnly} onClick={() => setSoleOnly((v) => !v)}>
+          Count only where Amazon is the sole retailer
+        </Toggle>
+      </div>
+
+      <div className="relative">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          className="w-full h-auto overflow-visible"
+          role="img"
+          aria-label={`Share of US consumer product recalls naming each retailer, ${years[0]} to ${years.at(-1)}. Amazon rises from ${amzFirst} percent to ${amzLast} percent.`}
+        >
+          {[0, 25, 50, 75].map((v) => (
+            <g key={v}>
+              <line
+                x1={PAD.left} x2={PAD.left + PLOT_W} y1={y(v)} y2={y(v)}
+                stroke="var(--color-rule)" strokeWidth={1}
+              />
+              <text
+                x={PAD.left - 10} y={y(v)} dy="0.32em" textAnchor="end"
+                className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+              >
+                {v}%
+              </text>
+            </g>
+          ))}
+
+          {data.series.map((d) => (
+            <text
+              key={d.year} x={x(d.year)} y={H - 16} textAnchor="middle"
+              className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+            >
+              {d.year % 100 === 15 || d.year % 5 === 0 || d.year === last.year ? `’${String(d.year).slice(2)}` : ''}
+            </text>
+          ))}
+
+          {/* Comparators first, so the subject sits on top of its context. */}
+          {comparators.map((c) => (
+            <path
+              key={c.key} d={path(c.pts)} fill="none" stroke={c.color}
+              strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round"
+              className="draw-in" style={{ '--len': length(c.pts) } as React.CSSProperties}
+            />
+          ))}
+
+          {/* The counterargument. Dashed, neutral, deliberately unglamorous. */}
+          {showControl && (
+            <>
+              <path
+                d={path(control)} fill="none" stroke="var(--color-control)"
+                strokeWidth={2} strokeDasharray="7 5" strokeLinecap="round"
+              />
+              <text
+                x={x(last.year) + 10} y={y(last.online.mid!)} dy="0.32em"
+                className="fill-[var(--color-control)] text-[13px] font-medium"
+              >
+                Sold online
+              </text>
+              <text
+                x={x(last.year) + 10} y={y(last.online.mid!) + 17} dy="0.32em"
+                className="fill-[var(--color-ink-faint)] text-[12px] tabular-nums"
+              >
+                {ctlGrowth.toFixed(1)}× since ’{String(first.year).slice(2)}
+              </text>
+            </>
+          )}
+
+          <path
+            d={path(amazon)} fill="none" stroke="var(--color-signal)"
+            strokeWidth={3.25} strokeLinecap="round" strokeLinejoin="round"
+            className="draw-in" style={{ '--len': length(amazon) } as React.CSSProperties}
+          />
+
+          <text
+            x={x(last.year) + 10} y={y(amzLast)} dy="0.32em"
+            className="fill-[var(--color-signal)] text-[14px] font-semibold"
+          >
+            Amazon
+          </text>
+          <text
+            x={x(last.year) + 10} y={y(amzLast) + 17} dy="0.32em"
+            className="fill-[var(--color-ink-faint)] text-[12px] tabular-nums"
+          >
+            {(amzLast / amzFirst).toFixed(1)}× since ’{String(first.year).slice(2)}
+          </text>
+
+          {comparators.map((c, i) => {
+            const ly = comparatorLabelY[i]
+            const ty = y(last.retailers[c.key]!)
+            return (
+              <g key={c.key}>
+                {/* Leader line, drawn only when the label had to move. */}
+                {Math.abs(ly - ty) > 2 && (
+                  <path
+                    d={`M${x(last.year) + 3},${ty} L${x(last.year) + 7},${ly}`}
+                    stroke={c.color} strokeWidth={1} fill="none" opacity={0.55}
+                  />
+                )}
+                <text
+                  x={x(last.year) + 10} y={ly} dy="0.32em"
+                  className="text-[12px]" fill={c.color}
+                >
+                  {c.label}
+                </text>
+              </g>
+            )
+          })}
+
+          {data.series.map((d) => (
+            <circle
+              key={d.year} cx={x(d.year)} cy={y(soleOnly ? d.amazonOnly! : d.retailers.amazon!)}
+              r={hover?.year === d.year ? 5 : 3} fill="var(--color-signal)"
+              style={{ anchorName: `--pt-${uid}-${d.year}` } as React.CSSProperties}
+            />
+          ))}
+
+          {/* Wide invisible hit targets, so hovering is forgiving. */}
+          {data.series.map((d) => (
+            <rect
+              key={d.year} x={x(d.year) - PLOT_W / (years.length * 2)} y={PAD.top}
+              width={PLOT_W / years.length} height={PLOT_H} fill="transparent"
+              onMouseEnter={() => setHover(d)} onMouseLeave={() => setHover(null)}
+            />
+          ))}
+        </svg>
+
+        {hover && (
+          <div
+            className="anchored z-10 rounded-lg border border-[var(--color-rule)] bg-[var(--color-paper)] px-3 py-2 shadow-lg pointer-events-none"
+            style={{ '--anchor': `--pt-${uid}-${hover.year}` } as React.CSSProperties}
+          >
+            <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-faint)]">
+              {hover.year} · {hover.recalls} recalls
+            </div>
+            <div className="mt-1 text-[15px] font-semibold text-[var(--color-signal)] tabular-nums">
+              {soleOnly ? hover.amazonOnly : hover.retailers.amazon}%
+              <span className="ml-1.5 font-normal text-[var(--color-ink-soft)]">
+                {soleOnly ? 'Amazon only' : 'name Amazon'}
+              </span>
+            </div>
+            {soleOnly && (
+              <div className="text-[12px] text-[var(--color-ink-faint)] tabular-nums">
+                {hover.amazonOnlyCount} of {hover.recalls}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <figcaption className="mt-8 max-w-[62ch] text-[15px] leading-relaxed text-[var(--color-ink-soft)]">
+        <p className="m-0">
+          Share of US consumer product recalls whose retailer description names each
+          company. CPSC records where a product was sold as one prose sentence, so this
+          measures <em>mentions</em>, not units sold or market share.
+        </p>
+        <p className="mt-3 mb-0">
+          {showControl ? (
+            <>
+              Online selling overall grew <strong className="text-[var(--color-ink)]">{ctlGrowth.toFixed(1)}×</strong>{' '}
+              since {first.year}. Amazon grew{' '}
+              <strong className="text-[var(--color-ink)]">{(amzLast / amzFirst).toFixed(1)}×</strong>. The
+              growth of e-commerce does not account for the gap, and Walmart, Target and
+              Home Depot are flat or falling over the same period.
+            </>
+          ) : (
+            <>The obvious objection is that everyone shops online now. Turn it on and see whether it holds.</>
+          )}
+        </p>
+      </figcaption>
+    </figure>
+  )
+}
+
+function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={on}
+      className={`rounded-full border px-4 py-2 text-[14px] transition-colors ${
+        on
+          ? 'border-[var(--color-signal)] bg-[var(--color-signal)] text-[var(--color-paper)]'
+          : 'border-[var(--color-rule)] text-[var(--color-ink-soft)] hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
+      }`}
+    >
+      {children}
+    </button>
+  )
+}

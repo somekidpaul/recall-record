@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/*
+  Palette is built in OKLCH, not hex, on purpose.
+
+  The piece needs one severity/emphasis ramp that stays PERCEPTUALLY even in
+  both light and dark. In hex you tune two palettes by eye and they drift. In
+  OKLCH the L channel is perceptual lightness, so a dark-mode variant is the
+  same hue and chroma with L flipped around the midpoint, and the steps between
+  rungs stay visually equal. That is the whole reason for the choice, and it is
+  worth saying out loud in the writeup.
+*/
+
+@theme {
+  /* Ink and paper. Slightly warm neutrals, editorial rather than clinical. */
+  --color-paper: oklch(98.5% 0.004 85);
+  --color-paper-sunk: oklch(96.2% 0.006 85);
+  --color-rule: oklch(88% 0.008 85);
+  --color-ink: oklch(21% 0.012 60);
+  --color-ink-soft: oklch(46% 0.012 60);
+  --color-ink-faint: oklch(62% 0.010 60);
+
+  /* The subject. One warm signal hue carries Amazon, the thing being measured. */
+  --color-signal: oklch(58% 0.185 38);
+  --color-signal-soft: oklch(72% 0.130 38);
+
+  /* Comparators. Deliberately desaturated: they are context, not the argument. */
+  --color-alt-1: oklch(55% 0.055 250);
+  --color-alt-2: oklch(62% 0.045 200);
+  --color-alt-3: oklch(58% 0.040 145);
+  --color-alt-4: oklch(65% 0.030 300);
+
+  /* The counterargument line. Neutral by design so it reads as a control. */
+  --color-control: oklch(52% 0.020 85);
+
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+@layer theme {
+  :root {
+    color-scheme: light dark;
+  }
+
+  /* Same hues, same chroma. Only the L channel moves. */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-paper: oklch(16% 0.008 60);
+      --color-paper-sunk: oklch(20% 0.010 60);
+      --color-rule: oklch(31% 0.010 60);
+      --color-ink: oklch(95% 0.006 85);
+      --color-ink-soft: oklch(70% 0.010 85);
+      --color-ink-faint: oklch(55% 0.010 85);
+
+      --color-signal: oklch(72% 0.165 38);
+      --color-signal-soft: oklch(60% 0.150 38);
+
+      --color-alt-1: oklch(70% 0.065 250);
+      --color-alt-2: oklch(74% 0.050 200);
+      --color-alt-3: oklch(72% 0.048 145);
+      --color-alt-4: oklch(75% 0.035 300);
+
+      --color-control: oklch(66% 0.022 85);
+    }
+  }
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+/* Optical refinement, Baseline in current browsers, degrades silently. */
+h1, h2, h3, blockquote {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* The chart lines draw themselves as the chart scrolls into view.
+   Scroll-driven animation, no JS, no observer. Falls back to fully drawn. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .draw-in {
+      stroke-dasharray: var(--len);
+      stroke-dashoffset: var(--len);
+      animation: draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+  }
+}
+
+/* Tooltip pinned to its data point with anchor positioning, no JS math. */
+@supports (anchor-name: --a) {
+  .anchored {
+    position: absolute;
+    position-anchor: var(--anchor);
+    position-area: block-start center;
+    margin-bottom: 0.5rem;
+  }
+}

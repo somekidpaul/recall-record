@@ -59,6 +59,7 @@ export default function App() {
       </section>
 
       <Methodology />
+      <FieldCoverage />
 
       <footer className="border-t border-[var(--color-rule)] py-12">
         <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-8">
@@ -222,19 +223,25 @@ function Methodology() {
         </Note>
       </div>
 
-      <div className="mt-14">
-        <h4 className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
-          Field coverage, including the failures
-        </h4>
-        <p className="mt-4 mb-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
-          How much of each field CPSC actually fills in, across the{' '}
-          {cov.total.toLocaleString()} recalls analyzed. The weak ones are published beside the
-          strong ones, because a number you cannot see the gaps in is not worth trusting. Six of
-          these sit above 99% in every year since {first.year}, so only the two that actually move
-          carry a trend line.
-        </p>
-        <CoverageRings />
-      </div>
+    </section>
+  )
+}
+
+function FieldCoverage() {
+  const cov = data.coverage
+  return (
+    <section className="border-t border-[var(--color-rule)] py-20">
+      <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
+        Field coverage, including the failures.
+      </h3>
+      <p className="mt-5 mb-14 max-w-[58ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        How much of each field CPSC actually fills in, across the{' '}
+        {cov.total.toLocaleString()} recalls analyzed. The weak ones are published beside the
+        strong ones, because a number you cannot see the gaps in is not worth trusting. Six of
+        these sit above 99% in every year since {first.year}, so only the two that actually move
+        carry a trend line.
+      </p>
+      <CoverageRings />
     </section>
   )
 }

@@ -96,7 +96,13 @@ p {
 }
 
 /* The chart lines draw themselves as the chart scrolls into view.
-   Scroll-driven animation, no JS, no observer. Falls back to fully drawn. */
+   Scroll-driven, no JS, no observer, no timer.
+
+   Two behaviours on purpose. With motion allowed the line draws along its own
+   length, which is movement. With Reduce Motion on, drawing a line across the
+   screen is exactly the kind of thing that setting exists to stop, so those
+   users get a fade instead: still tied to scroll, still an entrance, no travel.
+   Both degrade to fully drawn where view() is unsupported. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .draw-in {
@@ -104,10 +110,22 @@ p {
       stroke-dashoffset: var(--len);
       animation: draw linear both;
       animation-timeline: view();
-      animation-range: entry 20% cover 45%;
+      animation-range: entry 25% cover 60%;
     }
     @keyframes draw {
       to { stroke-dashoffset: 0; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .draw-in {
+      animation: fade-in linear both;
+      animation-timeline: view();
+      animation-range: entry 25% cover 55%;
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   }
 }

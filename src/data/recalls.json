@@ -1,5 +1,10 @@
 {
-  "generatedAt": "2026-08-07T14:24:31.996Z",
+  "generatedAt": "2026-08-07T14:52:37.755Z",
+  "partialYear": {
+    "year": 2026,
+    "throughDate": "2026-07-30",
+    "monthsElapsed": 7
+  },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
   "corpusTotal": 9927,
@@ -23,7 +28,10 @@
         "strict": 39,
         "mid": 50.2,
         "loose": 50.2
-      }
+      },
+      "medianDescriptionChars": 127,
+      "amazonAmongShort": 6.7,
+      "shortCount": 195
     },
     {
       "year": 2016,
@@ -42,7 +50,10 @@
         "strict": 53.3,
         "mid": 62.1,
         "loose": 62.1
-      }
+      },
+      "medianDescriptionChars": 141,
+      "amazonAmongShort": 13.4,
+      "shortCount": 186
     },
     {
       "year": 2017,
@@ -61,7 +72,10 @@
         "strict": 46.4,
         "mid": 59.3,
         "loose": 59.3
-      }
+      },
+      "medianDescriptionChars": 129,
+      "amazonAmongShort": 16.9,
+      "shortCount": 172
     },
     {
       "year": 2018,
@@ -80,7 +94,10 @@
         "strict": 49.2,
         "mid": 57.4,
         "loose": 57.4
-      }
+      },
+      "medianDescriptionChars": 131,
+      "amazonAmongShort": 13.5,
+      "shortCount": 155
     },
     {
       "year": 2019,
@@ -99,7 +116,10 @@
         "strict": 49.8,
         "mid": 58.1,
         "loose": 58.1
-      }
+      },
+      "medianDescriptionChars": 127,
+      "amazonAmongShort": 14.1,
+      "shortCount": 170
     },
     {
       "year": 2020,
@@ -118,7 +138,10 @@
         "strict": 58,
         "mid": 71.2,
         "loose": 71.6
-      }
+      },
+      "medianDescriptionChars": 125,
+      "amazonAmongShort": 27.1,
+      "shortCount": 177
     },
     {
       "year": 2021,
@@ -137,7 +160,10 @@
         "strict": 63.5,
         "mid": 71.7,
         "loose": 71.7
-      }
+      },
+      "medianDescriptionChars": 128,
+      "amazonAmongShort": 28.8,
+      "shortCount": 139
     },
     {
       "year": 2022,
@@ -156,7 +182,10 @@
         "strict": 65.4,
         "mid": 73.3,
         "loose": 73.3
-      }
+      },
+      "medianDescriptionChars": 141,
+      "amazonAmongShort": 28,
+      "shortCount": 161
     },
     {
       "year": 2023,
@@ -175,7 +204,10 @@
         "strict": 63.3,
         "mid": 75.3,
         "loose": 75.3
-      }
+      },
+      "medianDescriptionChars": 136,
+      "amazonAmongShort": 36.6,
+      "shortCount": 194
     },
     {
       "year": 2024,
@@ -194,7 +226,10 @@
         "strict": 61.3,
         "mid": 78,
         "loose": 78.7
-      }
+      },
+      "medianDescriptionChars": 126,
+      "amazonAmongShort": 37.1,
+      "shortCount": 194
     },
     {
       "year": 2025,
@@ -213,7 +248,10 @@
         "strict": 49.5,
         "mid": 74,
         "loose": 86
-      }
+      },
+      "medianDescriptionChars": 103,
+      "amazonAmongShort": 53.3,
+      "shortCount": 306
     },
     {
       "year": 2026,
@@ -232,7 +270,10 @@
         "strict": 77.2,
         "mid": 87.1,
         "loose": 87.1
-      }
+      },
+      "medianDescriptionChars": 85,
+      "amazonAmongShort": 63.8,
+      "shortCount": 301
     }
   ],
   "coverage": {

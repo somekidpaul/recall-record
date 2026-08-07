@@ -112,12 +112,4 @@ p {
   }
 }
 
-/* Tooltip pinned to its data point with anchor positioning, no JS math. */
-@supports (anchor-name: --a) {
-  .anchored {
-    position: absolute;
-    position-anchor: var(--anchor);
-    position-area: block-start center;
-    margin-bottom: 0.5rem;
-  }
-}
+

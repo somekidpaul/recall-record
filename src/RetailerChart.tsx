@@ -123,15 +123,6 @@ export default function RetailerChart() {
     else if (e.key === 'Escape') setHover(null)
   }
 
-  /** Replay is user-initiated, so it runs regardless of the motion setting. */
-  const replay = () => {
-    const paths = svgRef.current?.querySelectorAll<SVGPathElement>('.draw-in')
-    paths?.forEach((p) => {
-      p.classList.remove('replay')
-      void p.getBoundingClientRect() // force reflow so the animation restarts
-      p.classList.add('replay')
-    })
-  }
 
   const amazon = useMemo(
     () => seriesPoints((d) => (soleOnly ? d.amazonOnly : d.retailers.amazon)),
@@ -162,14 +153,7 @@ export default function RetailerChart() {
         <Toggle on={soleOnly} onClick={() => setSoleOnly((v) => !v)}>
           Count only where Amazon is the sole retailer
         </Toggle>
-        <button
-          type="button"
-          onClick={replay}
-          title="Redraw the lines"
-          className="no-print ml-auto rounded-full border border-[var(--color-rule)] px-4 py-2.5 text-[15px] text-[var(--color-ink-faint)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-        >
-          Replay
-        </button>
+
       </div>
 
       <div className="relative">

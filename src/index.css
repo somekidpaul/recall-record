@@ -1,80 +1,61 @@
 @import "tailwindcss";
 
 /*
-  Palette is built in OKLCH, not hex, on purpose.
+  Palette is authored in OKLCH because the L channel is perceptual lightness,
+  so a dark variant is the same hue and chroma with L moved and the steps
+  between rungs stay visually even. Tuning two hex palettes by eye guarantees
+  drift. Every value was solved against its background for WCAG AA rather than
+  picked; the ratios in the comments are measured.
 
-  The piece needs one severity/emphasis ramp that stays PERCEPTUALLY even in
-  both light and dark. In hex you tune two palettes by eye and they drift. In
-  OKLCH the L channel is perceptual lightness, so a dark-mode variant is the
-  same hue and chroma with L flipped around the midpoint, and the steps between
-  rungs stay visually equal. That is the whole reason for the choice, and it is
-  worth saying out loud in the writeup.
+  Each token is declared once with light-dark(), which keys off color-scheme
+  rather than a media query. The theme toggle therefore sets exactly one CSS
+  property on <html> and the whole palette follows: no class cascade, no second
+  palette to keep in sync, no chance of the two drifting apart.
+
+  Worth recording, because it cost an hour: the contrast audit briefly reported
+  six elements rendering their light value while in dark mode. Every one had
+  `transition-colors`. They were not broken. The audit was sampling the colour
+  mid-transition, 150ms of interpolation in oklab, right after the theme was
+  flipped programmatically. The audit now suspends transitions before it
+  measures. A measurement tool that lies is worse than no measurement tool.
 */
 
 @theme {
-  /* Ink and paper. Slightly warm neutrals, editorial rather than clinical. */
-  --color-paper: oklch(98.5% 0.004 85);
-  --color-paper-sunk: oklch(96.2% 0.006 85);
-  --color-rule: oklch(88% 0.008 85);
-  --color-ink: oklch(21% 0.012 60);
-  --color-ink-soft: oklch(46% 0.012 60);
-  /* L solved, not eyeballed: 53% gives 5.05:1 on paper. At the original 62% it
-     measured 3.49:1 and failed AA on every caption and axis label. */
-  --color-ink-faint: oklch(53% 0.010 60);
+  /* Ink and paper. Warm neutrals, editorial rather than clinical. */
+  --color-paper: light-dark(oklch(98.5% 0.004 85), oklch(16% 0.008 60));
+  --color-paper-sunk: light-dark(oklch(96.2% 0.006 85), oklch(20% 0.010 60));
+  --color-rule: light-dark(oklch(88% 0.008 85), oklch(31% 0.010 60));
+  --color-ink: light-dark(oklch(21% 0.012 60), oklch(95% 0.006 85));
+  --color-ink-soft: light-dark(oklch(46% 0.012 60), oklch(70% 0.010 85));
+  /* 5.05:1 light, 5.15:1 dark. The originals measured 3.49 and 4.00 and failed
+     AA on every caption, axis label and footnote on the page. */
+  --color-ink-faint: light-dark(oklch(53% 0.010 60), oklch(61% 0.010 85));
 
   /* The subject. One warm signal hue carries Amazon, the thing being measured.
-     55% not 58%: the signal is used as label TEXT, so it owes 4.5:1, not the
-     3:1 a line owes. At 58% it measured 4.46 and missed by 0.04. */
-  --color-signal: oklch(55% 0.185 38);
-  --color-signal-soft: oklch(72% 0.130 38);
+     Light is 55% not 58% because the signal is used as label TEXT, so it owes
+     4.5:1 rather than the 3:1 a line owes. At 58% it measured 4.46. */
+  --color-signal: light-dark(oklch(55% 0.185 38), oklch(72% 0.165 38));
 
   /* Comparators. Desaturated because they are context, not the argument, but
-     every one clears 4.5:1 so the chart is readable as text, not just as shape.
-     alt-2 and alt-4 were pulled darker after measuring 3.40 and 3.13. */
-  --color-alt-1: oklch(55% 0.055 250);
-  --color-alt-2: oklch(55% 0.055 200);
-  --color-alt-3: oklch(52.5% 0.040 145);
-  --color-alt-4: oklch(56% 0.045 300);
+     each clears 4.5:1 so the chart reads as text and not only as shape. */
+  --color-alt-1: light-dark(oklch(55% 0.055 250), oklch(72% 0.055 250));
+  --color-alt-2: light-dark(oklch(55% 0.055 200), oklch(74% 0.055 200));
+  --color-alt-3: light-dark(oklch(52.5% 0.040 145), oklch(74% 0.040 145));
+  --color-alt-4: light-dark(oklch(56% 0.045 300), oklch(75% 0.045 300));
 
   /* The counterargument line. Neutral by design so it reads as a control. */
-  --color-control: oklch(52% 0.020 85);
+  --color-control: light-dark(oklch(52% 0.020 85), oklch(66% 0.022 85));
 
   --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 }
 
-@layer theme {
-  :root {
-    color-scheme: light dark;
-  }
-
-  /* Same hues, same chroma. Only the L channel moves. */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --color-paper: oklch(16% 0.008 60);
-      --color-paper-sunk: oklch(20% 0.010 60);
-      --color-rule: oklch(31% 0.010 60);
-      --color-ink: oklch(95% 0.006 85);
-      --color-ink-soft: oklch(70% 0.010 85);
-      /* 61% gives 5.15:1 here. At 55% it measured exactly 4.00:1, which failed
-         AA on 14 of 34 text elements. One token was the whole problem. */
-      --color-ink-faint: oklch(61% 0.010 85);
-
-      --color-signal: oklch(72% 0.165 38);
-      --color-signal-soft: oklch(60% 0.150 38);
-
-      /* Same hues and chroma as light, L raised. That is the whole point of
-         authoring in OKLCH: one ramp, two modes, no second palette to drift. */
-      --color-alt-1: oklch(72% 0.055 250);
-      --color-alt-2: oklch(74% 0.055 200);
-      --color-alt-3: oklch(74% 0.040 145);
-      --color-alt-4: oklch(75% 0.045 300);
-
-      --color-control: oklch(66% 0.022 85);
-    }
-  }
-}
+/* The entire theme switch. An inline script in index.html stamps data-theme
+   before first paint so there is no flash of the wrong palette. */
+:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 
 html {
   background: var(--color-paper);
@@ -87,47 +68,67 @@ body {
   margin: 0;
 }
 
-/* Optical refinement, Baseline in current browsers, degrades silently. */
-h1, h2, h3, blockquote {
-  text-wrap: balance;
-}
-p {
-  text-wrap: pretty;
+/* Optical refinement. Baseline in current browsers, degrades silently. */
+h1, h2, h3, h4, blockquote { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-/* The chart lines draw themselves as the chart scrolls into view.
-   Scroll-driven, no JS, no observer, no timer.
+/*
+  Motion.
 
-   Two behaviours on purpose. With motion allowed the line draws along its own
-   length, which is movement. With Reduce Motion on, drawing a line across the
-   screen is exactly the kind of thing that setting exists to stop, so those
-   users get a fade instead: still tied to scroll, still an entrance, no travel.
-   Both degrade to fully drawn where view() is unsupported. */
+  The same inline script resolves an effective motion setting and stamps
+  data-motion, so CSS never has to read the media query directly. Default is
+  the OS preference. A visible control in the header lets anyone override it in
+  either direction, which is the part that matters: an animation the user asked
+  for is a different thing from one that ambushes them, and honouring an
+  explicit request is not a violation of the preference, it IS the preference.
+
+  Both branches are scroll-linked. Neither uses a timer or an observer.
+*/
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .draw-in {
-      stroke-dasharray: var(--len);
-      stroke-dashoffset: var(--len);
-      animation: draw linear both;
-      animation-timeline: view();
-      animation-range: entry 25% cover 60%;
-    }
-    @keyframes draw {
-      to { stroke-dashoffset: 0; }
-    }
+  :root[data-motion="full"] .draw-in {
+    stroke-dasharray: var(--len);
+    stroke-dashoffset: var(--len);
+    animation: draw linear both;
+    animation-timeline: view();
+    animation-range: entry 25% cover 60%;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .draw-in {
-      animation: fade-in linear both;
-      animation-timeline: view();
-      animation-range: entry 25% cover 55%;
-    }
-    @keyframes fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+  /* No travel, just an entrance. */
+  :root[data-motion="reduced"] .draw-in {
+    animation: fade-in linear both;
+    animation-timeline: view();
+    animation-range: entry 25% cover 55%;
   }
 }
 
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
+/* Replaying on demand needs a time-based run, since the scroll position has
+   not changed. Only ever triggered by a click. */
+.replay { animation: draw-once 1100ms cubic-bezier(0.22, 1, 0.36, 1) both !important; }
+@keyframes draw-once {
+  from { stroke-dashoffset: var(--len); }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Visually hidden but available to screen readers and to find-in-page. */
+.sr-only:not(:focus):not(:active) {
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@media print {
+  .no-print { display: none !important; }
+  :root { color-scheme: light; }
+}

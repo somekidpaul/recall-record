@@ -224,6 +224,12 @@ assertSane(data)
 await mkdir(dirname(OUT), { recursive: true })
 await writeFile(OUT, JSON.stringify(data, null, 2))
 
+// Same figures, served as a downloadable file. If someone wants to check the
+// numbers or reuse them, they should not have to scrape the page to do it.
+const PUB = join(ROOT, 'public', 'recall-data.json')
+await mkdir(dirname(PUB), { recursive: true })
+await writeFile(PUB, JSON.stringify(data, null, 2))
+
 const latest = data.series.at(-1)
 console.log(`\n  ${data.corpusTotal} recalls, ${data.series.length} years, newest ${data.newestRecallDate}`)
 console.log(`  ${latest.year}: Amazon named in ${latest.retailers.amazon}%, sole retailer in ${latest.amazonOnly}%`)

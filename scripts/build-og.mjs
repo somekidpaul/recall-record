@@ -43,5 +43,20 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 </svg>`
 
 await writeFile(join(ROOT, 'public/og.svg'), svg)
-await run('rsvg-convert', ['-w', String(W), '-h', String(H), '-o', join(ROOT, 'public/og.png'), join(ROOT, 'public/og.svg')])
-console.log(`  og.png rendered ${W}x${H}: Amazon ${first.retailers.amazon}% -> ${last.retailers.amazon}%`)
+
+/*
+ * The PNG needs a rasteriser, and a missing binary must not take the data
+ * refresh down with it. CI installs librsvg2-bin; if it is absent anywhere
+ * else the SVG is still written and the previous PNG stays in place, which is
+ * a stale social card rather than a failed build. Cosmetic asset, real data.
+ */
+try {
+  await run('rsvg-convert', ['-w', String(W), '-h', String(H), '-o', join(ROOT, 'public/og.png'), join(ROOT, 'public/og.svg')])
+  console.log(`  og.png rendered ${W}x${H}: Amazon ${first.retailers.amazon}% -> ${last.retailers.amazon}%`)
+} catch (err) {
+  if (err.code === 'ENOENT') {
+    console.warn('  rsvg-convert not found. og.svg written, og.png left as-is.')
+  } else {
+    throw err
+  }
+}

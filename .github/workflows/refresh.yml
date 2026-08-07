@@ -21,6 +21,11 @@ jobs:
           node-version: 22
           cache: npm
 
+      # The OG card is rasterised from SVG at build time. Not preinstalled on
+      # the runner, and the data step calls it.
+      - name: Install SVG rasteriser
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq librsvg2-bin
+
       - run: npm ci
 
       # Fetches CPSC, recomputes every figure, and exits non-zero if the corpus

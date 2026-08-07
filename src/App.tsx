@@ -1,4 +1,5 @@
 import RetailerChart from './RetailerChart'
+import Controls from './Controls'
 import data from './data/recalls.json'
 
 const last = data.series.at(-1)!
@@ -11,10 +12,13 @@ const asOf = new Date(data.newestRecallDate!).toLocaleDateString('en-US', {
 export default function App() {
   return (
     <main className="mx-auto max-w-[1080px] px-6 pb-32 sm:px-10">
-      <header className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b border-[var(--color-rule)] py-6">
-        <h1 className="m-0 font-[family-name:var(--font-display)] text-[22px] font-normal tracking-tight">
-          The Recall Record
-        </h1>
+      <header className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-b border-[var(--color-rule)] py-5">
+        <div className="flex items-center gap-5">
+          <h1 className="m-0 font-[family-name:var(--font-display)] text-[22px] font-normal tracking-tight">
+            The Recall Record
+          </h1>
+          <Controls />
+        </div>
         <p className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
           Issue 01 · Data through {asOf}
         </p>
@@ -49,9 +53,46 @@ export default function App() {
 
       <Methodology />
 
-      <footer className="border-t border-[var(--color-rule)] py-10">
-        <p className="m-0 text-[15px] text-[var(--color-ink-faint)]">
-          Built from public-domain federal data. No tracking, no cookies, no accounts.
+      <footer className="border-t border-[var(--color-rule)] py-12">
+        <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-8">
+          <div className="max-w-[46ch]">
+            <p className="m-0 text-[19px] leading-[1.55] text-[var(--color-ink)]">
+              Designed and built by{' '}
+              <a
+                className="font-semibold underline decoration-[var(--color-signal)] decoration-2 underline-offset-4"
+                href="https://somekidpaul.com"
+              >
+                Paul Buczkowski
+              </a>
+              .
+            </p>
+            <p className="m-0 mt-3 text-[16px] leading-[1.6] text-[var(--color-ink-soft)]">
+              I design the thing and direct AI to build it. Ten years of hand-writing HTML and
+              CSS is what lets me tell when the answer coming back is wrong, which is most of
+              the job.
+            </p>
+          </div>
+
+          <div className="no-print flex flex-wrap gap-3">
+            <a
+              href="/recall-data.json"
+              download
+              className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+            >
+              Download the figures
+            </a>
+            <a
+              href={data.source}
+              className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+            >
+              Go to the raw CPSC data
+            </a>
+          </div>
+        </div>
+
+        <p className="m-0 mt-10 text-[15px] text-[var(--color-ink-faint)]">
+          Public-domain federal data. No tracking, no cookies, no accounts. Every figure on this
+          page is computed at build time from the source above, so it cannot drift from the data.
         </p>
       </footer>
     </main>

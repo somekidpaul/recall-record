@@ -4,7 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Recall Record</title>
-    <meta name="description" content="A weekly visual record of US consumer product recalls, built from CPSC public-domain data." />
+    <meta
+      name="description"
+      content="Half of every US consumer product recall this year names Amazon as the only retailer. A weekly visual record built from CPSC public-domain data."
+    />
+    <meta property="og:title" content="The Recall Record" />
+    <meta
+      property="og:description"
+      content="Half of every US consumer product recall this year names Amazon as the only retailer. It was one in fourteen a decade ago."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!--
+      Resolve theme and motion before first paint.
+
+      Both default to the OS preference and both can be overridden by the
+      controls in the header. Doing it here rather than in React avoids a
+      flash of the wrong theme, and stamping an explicit data-motion value
+      means the CSS never has to read the media query itself.
+    -->
+    <script>
+      (function () {
+        var r = document.documentElement
+        try {
+          var t = localStorage.getItem('rr-theme')
+          if (t === 'light' || t === 'dark') r.setAttribute('data-theme', t)
+
+          var m = localStorage.getItem('rr-motion')
+          if (m !== 'full' && m !== 'reduced') {
+            m = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced' : 'full'
+          }
+          r.setAttribute('data-motion', m)
+        } catch (e) {
+          r.setAttribute('data-motion', 'reduced')
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

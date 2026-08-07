@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import data from './data/recalls.json'
 
 type Row = (typeof data.series)[number]
@@ -40,8 +40,12 @@ const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v
 /**
  * Every series' value at one year, sorted high to low so the tooltip reads
  * like a standing. Amazon keeps its own color; comparators keep theirs.
+ *
+ * When the counterargument line is showing, its value belongs in the readout
+ * too. Drawing a line the tooltip refuses to explain would be the exact
+ * sleight of hand this piece is arguing against.
  */
-function readout(d: Row, soleOnly: boolean) {
+function readout(d: Row, soleOnly: boolean, showControl = false) {
   const rows = [
     {
       key: 'amazon',
@@ -56,12 +60,25 @@ function readout(d: Row, soleOnly: boolean) {
       color: c.color,
     })),
   ]
-  return rows.filter((r) => r.value != null).sort((a, b) => b.value - a.value)
+  const sorted = rows.filter((r) => r.value != null).sort((a, b) => b.value - a.value)
+
+  // The baseline is not a retailer, so it sits apart rather than in the ranking.
+  return showControl && d.online.mid != null
+    ? [
+        ...sorted,
+        {
+          key: 'control',
+          label: 'Sold online, any',
+          value: d.online.mid as number,
+          color: 'var(--color-control)',
+        },
+      ]
+    : sorted
 }
 
 /** Highest point across all series at this year, so the tooltip clears them all. */
-function topOf(d: Row, soleOnly: boolean) {
-  return Math.min(...readout(d, soleOnly).map((s) => y(s.value)))
+function topOf(d: Row, soleOnly: boolean, showControl: boolean) {
+  return Math.min(...readout(d, soleOnly, showControl).map((s) => y(s.value)))
 }
 
 /**
@@ -86,6 +103,35 @@ export default function RetailerChart() {
   const [showControl, setShowControl] = useState(false)
   const [soleOnly, setSoleOnly] = useState(false)
   const [hover, setHover] = useState<Row | null>(null)
+  const svgRef = useRef<SVGSVGElement>(null)
+
+  /**
+   * Arrow keys walk the series, Home and End jump to the ends, Escape clears.
+   * A chart you can only read with a mouse is a chart half the point of this
+   * piece is arguing against.
+   */
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    const i = hover ? data.series.indexOf(hover) : -1
+    const go = (n: number) => {
+      e.preventDefault()
+      setHover(data.series[clamp(n, 0, data.series.length - 1)])
+    }
+    if (e.key === 'ArrowRight') go(i < 0 ? 0 : i + 1)
+    else if (e.key === 'ArrowLeft') go(i < 0 ? data.series.length - 1 : i - 1)
+    else if (e.key === 'Home') go(0)
+    else if (e.key === 'End') go(data.series.length - 1)
+    else if (e.key === 'Escape') setHover(null)
+  }
+
+  /** Replay is user-initiated, so it runs regardless of the motion setting. */
+  const replay = () => {
+    const paths = svgRef.current?.querySelectorAll<SVGPathElement>('.draw-in')
+    paths?.forEach((p) => {
+      p.classList.remove('replay')
+      void p.getBoundingClientRect() // force reflow so the animation restarts
+      p.classList.add('replay')
+    })
+  }
 
   const amazon = useMemo(
     () => seriesPoints((d) => (soleOnly ? d.amazonOnly : d.retailers.amazon)),
@@ -116,14 +162,26 @@ export default function RetailerChart() {
         <Toggle on={soleOnly} onClick={() => setSoleOnly((v) => !v)}>
           Count only where Amazon is the sole retailer
         </Toggle>
+        <button
+          type="button"
+          onClick={replay}
+          title="Redraw the lines"
+          className="no-print ml-auto rounded-full border border-[var(--color-rule)] px-4 py-2.5 text-[15px] text-[var(--color-ink-faint)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+        >
+          Replay
+        </button>
       </div>
 
       <div className="relative">
         <svg
+          ref={svgRef}
           viewBox={`0 0 ${W} ${H}`}
           className="w-full h-auto overflow-visible"
-          role="img"
-          aria-label={`Share of US consumer product recalls naming each retailer, ${years[0]} to ${years.at(-1)}. Amazon rises from ${amzFirst} percent to ${amzLast} percent.`}
+          role="application"
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          onBlur={() => setHover(null)}
+          aria-label={`Share of US consumer product recalls naming each retailer, ${years[0]} to ${years.at(-1)}. Amazon rises from ${amzFirst} to ${amzLast} percent. Use arrow keys to read each year. Full figures are in the table below.`}
         >
           {[0, 25, 50, 75].map((v) => (
             <g key={v}>
@@ -246,7 +304,7 @@ export default function RetailerChart() {
           {/* Every series gets a dot at the hovered year, not just the subject.
               A dot on one line only implied the others were not measured. */}
           {hover &&
-            readout(hover, soleOnly).map((s) => (
+            readout(hover, soleOnly, showControl).map((s) => (
               <circle
                 key={s.key} cx={x(hover.year)} cy={y(s.value)} r={s.key === 'amazon' ? 5 : 4}
                 fill={s.color} stroke="var(--color-paper)" strokeWidth={1.5}
@@ -275,7 +333,7 @@ export default function RetailerChart() {
               // Positioned from the viewBox in percentages, so it tracks the
               // point at every container width without a resize listener.
               left: `${clamp((x(hover.year) / W) * 100, 12, 88)}%`,
-              top: `${(topOf(hover, soleOnly) / H) * 100}%`,
+              top: `${(topOf(hover, soleOnly, showControl) / H) * 100}%`,
               marginTop: '-14px',
             }}
           >
@@ -289,7 +347,7 @@ export default function RetailerChart() {
               </span>
             </div>
             <dl className="mt-3.5 grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2.5">
-              {readout(hover, soleOnly).map((s) => (
+              {readout(hover, soleOnly, showControl).map((s) => (
                 <div key={s.key} className="contents">
                   <dt
                     className={`flex items-center gap-2.5 ${
@@ -332,6 +390,49 @@ export default function RetailerChart() {
           </div>
         )}
       </div>
+
+      {/* Announced to screen readers as the keyboard selection moves. */}
+      <p className="sr-only" role="status" aria-live="polite">
+        {hover
+          ? `${hover.year}: ${readout(hover, soleOnly, showControl)
+              .map((s) => `${s.label} ${s.value} percent`)
+              .join(', ')}`
+          : ''}
+      </p>
+
+      {/* The same figures as a real table. A chart is a rendering of data, not
+          a replacement for it, so the data itself stays reachable. */}
+      <table className="sr-only">
+        <caption>
+          Share of US consumer product recalls naming each retailer, by year
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Year</th>
+            <th scope="col">Recalls</th>
+            <th scope="col">Amazon</th>
+            <th scope="col">Amazon only</th>
+            {COMPARATORS.map((c) => (
+              <th key={c.key} scope="col">{c.label}</th>
+            ))}
+            <th scope="col">Sold online, any</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.series.map((d) => (
+            <tr key={d.year}>
+              <th scope="row">{d.year}</th>
+              <td>{d.recalls}</td>
+              <td>{d.retailers.amazon}%</td>
+              <td>{d.amazonOnly}%</td>
+              {COMPARATORS.map((c) => (
+                <td key={c.key}>{d.retailers[c.key]}%</td>
+              ))}
+              <td>{d.online.mid}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <figcaption className="mt-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
         <p className="m-0">

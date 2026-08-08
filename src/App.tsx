@@ -282,8 +282,13 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
   const [open, setOpen] = useState(false)
   const id = useId()
 
+  /* The row separator is DOTTED, not solid. A 1px solid rule here is the same
+     mark the page uses to end a section, so a separator between rows read as
+     "the list stopped and an item is missing below it". Dotted says "another
+     row follows". The group's own top border stays solid, because that one is
+     genuinely a boundary. */
   return (
-    <div className="border-b border-[var(--color-rule)] last:border-b-0">
+    <div className="border-b border-dotted border-[var(--color-rule)] last:border-b-0">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}

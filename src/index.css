@@ -279,19 +279,18 @@ p { text-wrap-style: pretty; }
   opacity: 0;
 }
 .disclosure > * { overflow: hidden; }
-.note[open] > .disclosure,
 .disclosure[data-open="true"] {
   grid-template-rows: 1fr;
   opacity: 1;
 }
 
-.note .chev { transition: transform var(--dur-base) var(--ease-signature); }
-.note[open] .chev { transform: rotate(180deg); }
+.chev { transition: transform var(--dur-base) var(--ease-signature); }
+.chev[data-open="true"] { transform: rotate(180deg); }
 
 /* The row warms under the cursor so the whole line reads as one target rather
    than just the chevron. */
-.note > summary { transition: background-color var(--dur-fast) var(--ease-signature); }
-.note > summary:hover { background-color: var(--color-paper-sunk); }
+.note-row { transition: background-color var(--dur-fast) var(--ease-signature); }
+.note-row:hover { background-color: var(--color-paper-sunk); }
 
 
 

@@ -1,3 +1,4 @@
+import { useId, useState } from 'react'
 import RetailerChart from './RetailerChart'
 import Controls from './Controls'
 import CoverageRings from './CoverageRings'
@@ -265,16 +266,31 @@ function FieldCoverage() {
 /**
  * One row of the methodology accordion.
  *
- * These were a two-column grid of five paragraphs, which is a wall of text in
- * the exact place a sceptical reader arrives with a question. As a disclosure
- * list the questions are scannable and the reader opens only the one they came
- * for. Uses <details>, so it works before hydration, survives find-in-page, and
- * gets keyboard and screen-reader behaviour from the browser instead of from me.
+ * Deliberately NOT built on <details>, which is where this started. The native
+ * element flips content-visibility to hidden the instant it closes, so the
+ * closing transition never runs, and on reopen the content emerges from a
+ * skipped subtree where transitions do not fire on the first frame. The result
+ * was an accordion that animated once and then snapped for the rest of the
+ * session. Verified on the live site before rewriting it.
+ *
+ * So the state is React's and the semantics are hand-built: a real button, an
+ * aria-expanded that tracks it, and aria-controls pointing at the region. That
+ * is the same mechanism the recall panels use, and it animates in both
+ * directions every time.
  */
 function Note({ title, children }: { title: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false)
+  const id = useId()
+
   return (
-    <details className="note group border-b border-[var(--color-rule)]">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 marker:hidden [&::-webkit-details-marker]:hidden">
+    <div className="border-b border-[var(--color-rule)]">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={id}
+        className="note-row group flex w-full cursor-pointer items-center justify-between gap-6 py-5 text-left"
+      >
         <h4 className="m-0 font-[family-name:var(--font-display)] text-[clamp(1.1rem,2.2vw,1.4rem)] font-normal leading-snug tracking-tight text-[var(--color-ink)]">
           {title}
         </h4>
@@ -282,18 +298,22 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
           aria-hidden
           className="grid size-8 shrink-0 place-items-center rounded-full border border-[var(--color-rule)] text-[var(--color-ink-faint)] transition-colors group-hover:border-[var(--color-ink-faint)] group-hover:text-[var(--color-ink)]"
         >
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="chev">
+          <svg
+            width="13" height="13" viewBox="0 0 14 14" fill="none"
+            className="chev" data-open={open}
+          >
             <path d="M2.5 5L7 9.5L11.5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
-      </summary>
-      <div className="disclosure">
+      </button>
+
+      <div className="disclosure" data-open={open} id={id} role="region" aria-hidden={!open}>
         <div>
           <p className="mt-0 mb-6 max-w-[68ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
             {children}
           </p>
         </div>
       </div>
-    </details>
+    </div>
   )
 }

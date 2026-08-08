@@ -32,6 +32,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const RAW = join(ROOT, 'data', 'cpsc-recalls.json')
 const OUT = join(ROOT, 'src', 'data', 'recalls.json')
 const API = 'https://www.saferproducts.gov/RestWebServices/Recall?format=json'
+const SITE = 'https://recall-record.vercel.app'
 
 const FIRST_YEAR = 2015 // Amazon's retail presence is only meaningful from here
 
@@ -337,6 +338,24 @@ const csv = [
   ].join(',')),
 ].join('\n')
 await writeFile(join(ROOT, 'public', 'recall-data.csv'), csv + '\n')
+
+/* The sitemap is generated, not hand-written. It was static, and the weekly
+   workflow staged it expecting a change, so its lastmod would have frozen at
+   the date it was first written while the data underneath kept moving. A
+   sitemap that lies about freshness is worse than no sitemap. */
+await writeFile(
+  join(ROOT, 'public', 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE}/</loc>
+    <lastmod>${data.newestRecallDate}</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>
+`,
+)
+await writeFile(join(ROOT, 'public', 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`)
 
 const latest = data.series.at(-1)
 console.log(`\n  ${data.corpusTotal} recalls, ${data.series.length} years, newest ${data.newestRecallDate}`)

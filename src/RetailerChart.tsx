@@ -240,6 +240,7 @@ export default function RetailerChart() {
           <path
             d={path(amazon.slice(-2))} fill="none" stroke="var(--color-signal)"
             strokeWidth={3.25} strokeLinecap="round" strokeDasharray="6 5"
+            className="tail-after"
           />
 
           {/* The end-labels are the payoff, so they arrive after the line has
@@ -299,7 +300,10 @@ export default function RetailerChart() {
 
           {/* Resting state: a single dot marks the latest Amazon value. */}
           {!hover && (
-            <circle cx={x(last.year)} cy={y(amzLast)} r={4} fill="var(--color-signal)" />
+            <circle
+              cx={x(last.year)} cy={y(amzLast)} r={4} fill="var(--color-signal)"
+              className="tail-after"
+            />
           )}
 
           {/* One wide hit target per year, so hovering is forgiving. */}

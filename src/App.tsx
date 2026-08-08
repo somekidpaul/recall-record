@@ -283,7 +283,7 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
   const id = useId()
 
   return (
-    <div className="border-b border-[var(--color-rule)]">
+    <div className="border-b border-[var(--color-rule)] last:border-b-0">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}

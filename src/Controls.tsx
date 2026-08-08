@@ -1,4 +1,4 @@
-import { useMotion, useTheme } from './usePrefs'
+import { useTheme } from './usePrefs'
 
 const THEMES = [
   { key: 'light', label: 'Light' },
@@ -8,15 +8,13 @@ const THEMES = [
 
 export default function Controls() {
   const { theme, setTheme } = useTheme()
-  const { motion, setMotion, systemPrefersReduced } = useMotion()
 
   return (
     <div className="no-print flex items-center gap-3">
       {/*
         The pill is one element that slides, not three that light up. It is the
         same object moving, which is what makes the control read as a physical
-        switch rather than three separate buttons. Snappy on purpose: 170ms with
-        a small overshoot. Under reduce-motion it jumps, no transition at all.
+        switch rather than three separate buttons.
       */}
       <div
         role="group"
@@ -50,37 +48,6 @@ export default function Controls() {
           )
         })}
       </div>
-
-      <button
-        type="button"
-        onClick={() => setMotion(motion === 'full' ? 'reduced' : 'full')}
-        aria-pressed={motion === 'full'}
-        title={
-          motion === 'full'
-            ? 'Animation on. Click to reduce motion.'
-            : systemPrefersReduced
-              ? 'Reduced motion, matching your system setting. Click to enable animation anyway.'
-              : 'Reduced motion. Click to enable animation.'
-        }
-        className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[12px] transition-colors ${
-          motion === 'full'
-            ? 'border-[var(--color-ink)] text-[var(--color-ink)]'
-            : 'border-[var(--color-rule)] text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
-        }`}
-      >
-        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden>
-          <path
-            d="M1.5 11.5C4 11.5 4 4.5 8 4.5s4 7 6.5 7"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeDasharray={motion === 'full' ? undefined : '2.5 2.5'}
-          />
-        </svg>
-        <span className="font-[family-name:var(--font-mono)] uppercase tracking-[0.1em]">
-          {motion === 'full' ? 'Motion' : 'Still'}
-        </span>
-      </button>
     </div>
   )
 }

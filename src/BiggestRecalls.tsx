@@ -87,11 +87,12 @@ export default function BiggestRecalls() {
                 </div>
               </div>
 
-              {isOpen && (
-                <div
-                  id={panelId}
-                  className="grid gap-x-10 gap-y-6 pb-8 sm:grid-cols-[minmax(0,18rem)_1fr] sm:pl-[4.5rem]"
-                >
+              {/* Always rendered, height driven by CSS. Rendering it
+                  conditionally made opening animate and closing snap, because
+                  an unmounted element cannot transition. */}
+              <div className="disclosure" data-open={isOpen} id={panelId} aria-hidden={!isOpen}>
+                <div>
+                <div className="grid gap-x-10 gap-y-6 pb-8 sm:grid-cols-[minmax(0,18rem)_1fr] sm:pl-[4.5rem]">
                   {/* Capped at 260px. Measured across all ten: heights run 150
                       to 892px and ratios 0.63 to 2.52, so uncapped the tall
                       skinny bottle at #2 towered over everything else. At 260
@@ -123,7 +124,8 @@ export default function BiggestRecalls() {
                     </p>
                   </div>
                 </div>
-              )}
+                </div>
+              </div>
             </li>
           )
         })}

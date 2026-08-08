@@ -173,6 +173,18 @@ p { text-wrap-style: pretty; }
   to { opacity: 1; }
 }
 
+/* The provisional 2026 tail and its marker.
+   The solid line draws to `cover 60%`, so these fade in just before that, which
+   reads as the line reaching the dashed part and carrying it in rather than the
+   dashes sitting there waiting for it. */
+@supports (animation-timeline: view()) {
+  :root[data-motion="full"] .tail-after {
+    animation: label-in linear both;
+    animation-timeline: view();
+    animation-range: cover 50% cover 62%;
+  }
+}
+
 @keyframes ring-fill {
   from { stroke-dashoffset: var(--len); }
   to { stroke-dashoffset: var(--target); }

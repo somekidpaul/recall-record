@@ -46,6 +46,13 @@
   /* The counterargument line. Neutral by design so it reads as a control. */
   --color-control: light-dark(oklch(52% 0.020 85), oklch(66% 0.022 85));
 
+  /* The signature curve: a slow lead-in, a fast middle, a gentle settle.
+     easeInOutQuint. Used on every state change so the whole page moves with
+     one personality rather than five. */
+  --ease-signature: cubic-bezier(0.83, 0, 0.17, 1);
+  --dur-fast: 240ms;
+  --dur-base: 380ms;
+
   --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
@@ -53,6 +60,10 @@
 
 /* The entire theme switch. An inline script in index.html stamps data-theme
    before first paint so there is no flash of the wrong palette. */
+/* Lets height animate to and from `auto`, which is what makes the disclosures
+   open and close smoothly without measuring anything in JavaScript. */
+:root { interpolate-size: allow-keywords; }
+
 :root { color-scheme: light dark; }
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="dark"] { color-scheme: dark; }
@@ -88,16 +99,21 @@ p { text-wrap-style: pretty; }
 }
 
 /*
-  Motion.
+  TWO TIERS OF MOTION, and the distinction is the whole policy.
 
-  The same inline script resolves an effective motion setting and stamps
-  data-motion, so CSS never has to read the media query directly. Default is
-  the OS preference. A visible control in the header lets anyone override it in
-  either direction, which is the part that matters: an animation the user asked
-  for is a different thing from one that ambushes them, and honouring an
-  explicit request is not a violation of the preference, it IS the preference.
+  Reduce Motion exists to stop motion that ambushes people: large travel,
+  parallax, things that move without being asked. It was never meant to strip
+  the 200ms feedback that tells you a switch flipped or a panel opened. Treating
+  the two the same made the interface feel broken rather than calm, because a
+  pill that teleports reads as a bug.
 
-  Both branches are scroll-linked. Neither uses a timer or an observer.
+  DECORATIVE motion (the line drawing itself, sections rising in, numbers
+  counting up, rings filling) is scroll-linked and respects the preference. It
+  is the stuff nobody asked for.
+
+  FUNCTIONAL motion (a pill sliding, a panel opening, a card lifting under the
+  cursor) always runs. It is the direct answer to something you just did, it
+  travels a few pixels, and it never starts on its own.
 */
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .draw-in {
@@ -170,10 +186,11 @@ p { text-wrap-style: pretty; }
   to { stroke-dashoffset: 0; }
 }
 
-/* The sliding pill on the theme control. Snappy, with a small overshoot so it
-   reads as a switch being thrown rather than a box fading. */
-.pill { transition: transform 170ms cubic-bezier(0.34, 1.35, 0.55, 1); }
-:root[data-motion="reduced"] .pill { transition: none; }
+/* The sliding pill. FUNCTIONAL, so it runs regardless of the motion setting:
+   it answers a click, travels 33px, and never starts on its own. It was
+   previously suppressed under reduce-motion, which made the control look
+   broken to anyone with that setting on. */
+.pill { transition: transform var(--dur-fast) var(--ease-signature); }
 
 /*
   Cards grow on hover and push their siblings aside.
@@ -183,25 +200,6 @@ p { text-wrap-style: pretty; }
   same behaviour, not a lesser one. Modest on purpose: too much travel and it
   reads unstable while someone is trying to read the card.
 */
-/* flex-basis 0 is what makes them EQUAL. With the default `auto` each card is
-   sized by its own text, so the three came out different widths. */
-/* A FIXED height, and this is the fix for the real bug.
-
-   The cards hold different amounts of text. When one widened its copy reflowed
-   to fewer lines while the two shrinking siblings wrapped to more, so the row
-   changed height on hover and shoved every section below it down the page.
-   Pinning the height means hover can only ever change width. */
-.card-row { align-items: stretch; }
-.card-row > * {
-  flex: 1 1 0;
-  min-height: 15.5rem;
-  /* Flex items default to min-width:auto, which floors them at min-content. That
-     floor capped the hover effect at 1.42x instead of the intended 1.5x, because
-     the two shrinking cards could not give up the last few pixels. */
-  min-width: 0;
-  transition: flex-grow 240ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-:root[data-motion="reduced"] .card-row > * { transition: none; }
 
 /*
   Hover lifts the card. It does NOT resize it, and that is the whole point.
@@ -216,11 +214,18 @@ p { text-wrap-style: pretty; }
   viewport width, by construction. The card scales, lifts on a shadow, and sits
   above its neighbours. Type stays legible because 1.14 is a lift, not a zoom.
 */
+.card-row { align-items: stretch; }
 .card-row > * {
   flex: 1 1 0;
   min-width: 0;
   position: relative;
   transform-origin: center;
+  /* FUNCTIONAL, so it is not gated on the motion setting. */
+  transition:
+    transform var(--dur-base) var(--ease-signature),
+    opacity var(--dur-base) var(--ease-signature),
+    box-shadow var(--dur-base) var(--ease-signature),
+    border-color var(--dur-base) var(--ease-signature);
 }
 
 @media (min-width: 640px) and (hover: hover) {
@@ -242,26 +247,53 @@ p { text-wrap-style: pretty; }
   }
 }
 
-:root[data-motion="full"] .card-row > * {
-  transition:
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 260ms ease,
-    box-shadow 260ms ease,
-    border-color 260ms ease;
-}
 
 /* Recall thumbnails lift on hover. The image scales inside a fixed-size box, so
    the row height never changes and the list stays on its grid. */
-.thumb img { transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1); }
-.thumb:hover img,
-.thumb:focus-visible img { transform: scale(1.18); }
-:root[data-motion="reduced"] .thumb img { transition: none; }
-
 /* The methodology accordion. The chevron rotates rather than swapping icons,
    so the control reads as one object changing state. */
-.note .chev { transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+/*
+  DISCLOSURES, one mechanism for both the accordion and the recall panels.
+
+  This is the grid 0fr -> 1fr technique rather than animating height to `auto`.
+  interpolate-size + ::details-content is the tidier modern approach and it is
+  what this used first, but it did not actually animate in Chrome 151 despite
+  CSS.supports reporting both as available, and an element with 267px of
+  content stayed at a computed 0px even with block-size:auto !important. Rather
+  than ship an effect I could not verify, this uses the grid track technique,
+  which needs no new platform features and measures correctly.
+
+  The child gets overflow:hidden and NOTHING ELSE. Adding min-height:0 to it,
+  which looks like the obvious way to let it compress, is what broke this for
+  an hour: `1fr` resolves to `minmax(auto, 1fr)`, so zeroing the auto minimum
+  lets the row collapse to nothing even in the open state. The row measured 0px
+  against a child with 267px of content. overflow:hidden alone is what the
+  closed state needs, and the open state then sizes to max-content.
+*/
+.disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows var(--dur-base) var(--ease-signature),
+    opacity calc(var(--dur-base) * 0.7) var(--ease-signature);
+  opacity: 0;
+}
+.disclosure > * { overflow: hidden; }
+.note[open] > .disclosure,
+.disclosure[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.note .chev { transition: transform var(--dur-base) var(--ease-signature); }
 .note[open] .chev { transform: rotate(180deg); }
-:root[data-motion="reduced"] .note .chev { transition: none; }
+
+/* The row warms under the cursor so the whole line reads as one target rather
+   than just the chevron. */
+.note > summary { transition: background-color var(--dur-fast) var(--ease-signature); }
+.note > summary:hover { background-color: var(--color-paper-sunk); }
+
+
 
 /* Visually hidden but available to screen readers and to find-in-page. */
 .sr-only:not(:focus):not(:active) {

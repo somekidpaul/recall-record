@@ -287,9 +287,13 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
           </svg>
         </span>
       </summary>
-      <p className="mt-0 mb-6 max-w-[68ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
-        {children}
-      </p>
+      <div className="disclosure">
+        <div>
+          <p className="mt-0 mb-6 max-w-[68ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+            {children}
+          </p>
+        </div>
+      </div>
     </details>
   )
 }

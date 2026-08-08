@@ -20,27 +20,24 @@ const US_HOUSEHOLDS = 132_216_000
  * in the expanded view. And several notices also cover Canada, excluded here so
  * the number matches the rest of the page.
  */
+/** Shown at rest. The rest are one click away rather than a scroll away. */
+const INITIAL = 5
+
 export default function BiggestRecalls() {
   const [open, setOpen] = useState<number | null>(null)
+  const [showAll, setShowAll] = useState(false)
   const biggest = data.biggest
   if (!biggest?.length) return null
 
-  return (
-    <section className="border-t border-[var(--color-rule)] py-20">
-      <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
-        The biggest recalls of {year}.
-      </h3>
-      <p className="mt-5 mb-12 max-w-[56ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-        The ten largest by units. Every photograph is the government's own, published with the
-        notice and in the public domain, which is why this page has pictures at all. Open a row
-        for the full hazard description.
-      </p>
+  const head = biggest.slice(0, INITIAL)
+  const tail = biggest.slice(INITIAL)
 
-      <ol className="m-0 list-none border-t border-[var(--color-rule)] p-0">
-        {biggest.map((r, i) => {
-          const isOpen = open === i
-          const panelId = `recall-panel-${i}`
-          return (
+  /* One row, shared by the first five and the revealed rest, so the two halves
+     of the list cannot drift apart. */
+  const renderRow = (r: (typeof biggest)[number], i: number) => {
+    const isOpen = open === i
+    const panelId = `recall-panel-${i}`
+    return (
             <li key={r.url || r.title} className="border-b border-[var(--color-rule)]">
               <div className="grid grid-cols-[2.5rem_1fr] items-center gap-x-4 py-5 sm:grid-cols-[3rem_1fr_auto] sm:gap-x-6">
                 <span className="self-start font-[family-name:var(--font-display)] text-[26px] leading-none text-[var(--color-ink-faint)] tabular-nums sm:text-[30px]">
@@ -127,9 +124,47 @@ export default function BiggestRecalls() {
                 </div>
               </div>
             </li>
-          )
-        })}
+    )
+  }
+
+  return (
+    <section className="border-t border-[var(--color-rule)] py-20">
+      <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
+        The biggest recalls of {year}.
+      </h3>
+      <p className="mt-5 mb-12 max-w-[56ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        The {biggest.length} largest by units. Every photograph is the government's own, published with the
+        notice and in the public domain, which is why this page has pictures at all. Open a row
+        for the full hazard description.
+      </p>
+
+      <ol className="m-0 list-none border-t border-[var(--color-rule)] p-0">
+        {head.map(renderRow)}
       </ol>
+      {/* The remaining rows live in the same disclosure component the panels
+          use, so revealing them reads as one motion language with everything
+          else on the page rather than a separate trick. */}
+      <div className="disclosure" data-open={showAll} aria-hidden={!showAll}>
+        <div>
+          <ol start={INITIAL + 1} className="m-0 list-none p-0">
+            {tail.map((r, i) => renderRow(r, i + INITIAL))}
+          </ol>
+        </div>
+      </div>
+
+      {tail.length > 0 && (
+        <button
+          type="button"
+          onClick={() => setShowAll((v) => !v)}
+          aria-expanded={showAll}
+          className="no-print mt-8 flex items-center gap-2.5 rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+        >
+          {showAll ? 'Show fewer' : `Show all ${biggest.length}`}
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="chev" data-open={showAll} aria-hidden>
+            <path d="M2.5 5L7 9.5L11.5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      )}
 
       <p className="m-0 mt-10 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         Unit counts are US only. Several of these notices also cover Canada, and those figures are

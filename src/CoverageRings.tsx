@@ -36,14 +36,28 @@ const FIELDS: Field[] = [
 ]
 
 /**
- * Every arc is drawn to its own value, full stop.
+ * MINIMUM VISIBLE GAP, and this is a deliberate departure from a literal scale.
  *
- * Six of these land between 99.7% and 100%, so those six rings look nearly
- * identical. That is not a flaw to tune out: they ARE nearly identical, and a
- * ring that exaggerated a third of a percent to make it visible would be doing
- * exactly what this page spends a section warning about. The arcs are honest
- * and the numbers underneath carry the precision.
+ * Six of these land between 99.7% and 100%. At true scale a 0.3% shortfall is
+ * about one degree of arc, which is under a pixel, so all six rendered as
+ * closed circles. That is the version that actually misleads: "99.7% populated"
+ * drawn as a complete ring tells the reader the field is complete.
+ *
+ * So anything short of 100% keeps a gap of at least MIN_GAP_DEG. Above that
+ * threshold the arc is exact. The trade is stated on the page rather than
+ * hidden, because a scale bent without saying so is the thing this piece spends
+ * a whole section warning about. Only 100.0 closes the circle.
  */
+const MIN_GAP_DEG = 9
+
+function gapDegrees(v: number) {
+  const trueGap = ((100 - v) / 100) * 360
+  return v >= 100 ? 0 : Math.max(MIN_GAP_DEG, trueGap)
+}
+
+/** True where the drawn arc is exact, false where the minimum gap took over. */
+export const isExact = (v: number) => v >= 100 || ((100 - v) / 100) * 360 >= MIN_GAP_DEG
+
 function tone(v: number) {
   if (v >= 99) return 'var(--color-ink-faint)'
   if (v >= 50) return 'var(--color-alt-1)'
@@ -51,7 +65,18 @@ function tone(v: number) {
 }
 
 export default function CoverageRings() {
+  const bent = FIELDS.filter((f) => !isExact(f.value))
   return (
+    <>
+    {bent.length > 0 && (
+      <p className="m-0 mb-10 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+        A note on the drawing. {bent.length} of these fall short of 100% by less than{' '}
+        {MIN_GAP_DEG / 3.6}%, which at true scale is a gap of under a pixel, so they would render
+        as closed circles. Any value below 100% is therefore drawn with a minimum visible gap.
+        The arc is exact everywhere else, and only 100.0% closes the ring. The numbers are the
+        precise ones.
+      </p>
+    )}
     <ul className="m-0 grid list-none gap-x-8 gap-y-12 p-0 [grid-template-columns:repeat(auto-fit,minmax(196px,1fr))]">
       {FIELDS.map((f) => (
         <li key={f.label} className="flex flex-col items-center text-center">
@@ -70,6 +95,7 @@ export default function CoverageRings() {
         </li>
       ))}
     </ul>
+    </>
   )
 }
 
@@ -87,7 +113,7 @@ function Ring({ value }: { value: number }) {
           stroke={color} strokeWidth={STROKE} strokeLinecap="round"
           strokeDasharray={C}
           className="ring-arc"
-          style={{ '--len': C, '--target': C * (1 - value / 100) } as React.CSSProperties}
+          style={{ '--len': C, '--target': (gapDegrees(value) / 360) * C } as React.CSSProperties}
         />
       </svg>
       <span

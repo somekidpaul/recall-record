@@ -42,31 +42,10 @@ export default function BiggestRecalls() {
           const panelId = `recall-panel-${i}`
           return (
             <li key={r.url || r.title} className="border-b border-[var(--color-rule)]">
-              <div className="grid grid-cols-[2.5rem_auto_1fr] items-center gap-x-4 py-5 sm:grid-cols-[3rem_auto_1fr_auto] sm:gap-x-6">
+              <div className="grid grid-cols-[2.5rem_1fr] items-center gap-x-4 py-5 sm:grid-cols-[3rem_1fr_auto] sm:gap-x-6">
                 <span className="self-start font-[family-name:var(--font-display)] text-[26px] leading-none text-[var(--color-ink-faint)] tabular-nums sm:text-[30px]">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-
-                {/* The thumbnail is the disclosure control, so it is a real
-                    button rather than an image with a click handler. */}
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  aria-controls={panelId}
-                  className="thumb group relative size-16 shrink-0 overflow-hidden rounded-lg border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] sm:size-20"
-                >
-                  <img
-                    src={r.image}
-                    alt=""
-                    loading={i < 3 ? 'eager' : 'lazy'}
-                    decoding="async"
-                    className="size-full object-contain p-1.5"
-                  />
-                  <span className="sr-only">
-                    {isOpen ? 'Hide' : 'Show'} details for {r.product}
-                  </span>
-                </button>
 
                 <div className="min-w-0">
                   <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)] tabular-nums">
@@ -87,7 +66,7 @@ export default function BiggestRecalls() {
                   </p>
                 </div>
 
-                <div className="col-start-2 col-end-4 mt-3 flex flex-wrap gap-2 sm:col-auto sm:mt-0 sm:justify-self-end">
+                <div className="col-start-2 mt-3 flex flex-wrap gap-2 sm:col-auto sm:mt-0 sm:justify-self-end">
                   <button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
@@ -113,10 +92,15 @@ export default function BiggestRecalls() {
                   id={panelId}
                   className="grid gap-x-10 gap-y-6 pb-8 sm:grid-cols-[minmax(0,18rem)_1fr] sm:pl-[4.5rem]"
                 >
+                  {/* Capped at 260px. Measured across all ten: heights run 150
+                      to 892px and ratios 0.63 to 2.52, so uncapped the tall
+                      skinny bottle at #2 towered over everything else. At 260
+                      every landscape image fills the column and lands under the
+                      cap, and the outlier stops dominating. */}
                   <img
                     src={r.image}
                     alt={r.imageCaption || r.product}
-                    className="w-full rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] object-contain p-4"
+                    className="max-h-[260px] w-full rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] object-contain p-4"
                   />
                   <div>
                     <p className="m-0 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">

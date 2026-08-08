@@ -216,13 +216,13 @@ export default function RetailerChart() {
               />
               <text
                 x={x(last.year) + 10} y={y(last.online.mid!)} dy="0.32em"
-                className="fill-[var(--color-control)] text-[15px] font-semibold"
+                className="label-after fill-[var(--color-control)] text-[15px] font-semibold"
               >
                 Sold online
               </text>
               <text
                 x={x(last.year) + 10} y={y(last.online.mid!) + 17} dy="0.32em"
-                className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+                className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
               >
                 {ctlGrowth.toFixed(1)}× since ’{String(first.year).slice(2)}
               </text>
@@ -242,15 +242,17 @@ export default function RetailerChart() {
             strokeWidth={3.25} strokeLinecap="round" strokeDasharray="6 5"
           />
 
+          {/* The end-labels are the payoff, so they arrive after the line has
+              finished drawing rather than sitting there from the start. */}
           <text
             x={x(last.year) + 10} y={y(amzLast)} dy="0.32em"
-            className="fill-[var(--color-signal)] text-[16px] font-semibold"
+            className="label-after fill-[var(--color-signal)] text-[16px] font-semibold"
           >
             Amazon
           </text>
           <text
             x={x(last.year) + 10} y={y(amzLast) + 17} dy="0.32em"
-            className="fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+            className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
           >
             {(amzLast / amzFirst).toFixed(1)}× since ’{String(first.year).slice(2)}
           </text>
@@ -269,7 +271,7 @@ export default function RetailerChart() {
                 )}
                 <text
                   x={x(last.year) + 10} y={ly} dy="0.32em"
-                  className="text-[13px] font-medium" fill={c.color}
+                  className="label-after text-[13px] font-medium" fill={c.color}
                 >
                   {c.label}
                 </text>

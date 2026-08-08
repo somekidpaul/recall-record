@@ -77,9 +77,16 @@ export default function App() {
               .
             </p>
             <p className="m-0 mt-3 text-[16px] leading-[1.6] text-[var(--color-ink-soft)]">
-              I design the thing and direct AI to build it. Ten years of hand-writing HTML and
-              CSS is what lets me tell when the answer coming back is wrong, which is most of
-              the job.
+              AI-native product designer. I take something confusing and turn it into one clear,
+              honest answer, then show the reasoning so you can decide whether to trust it. More
+              at{' '}
+              <a
+                className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
+                href="https://somekidpaul.com"
+              >
+                somekidpaul.com
+              </a>
+              .
             </p>
           </div>
 
@@ -118,14 +125,14 @@ export default function App() {
 
 function Card({ label, value, children }: { label: string; value: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-6">
-      <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+    <div className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-7">
+      <p className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
         {label}
       </p>
-      <p className="m-0 mt-3 font-[family-name:var(--font-display)] text-[30px] leading-none tracking-tight text-[var(--color-ink)] tabular-nums">
+      <p className="m-0 mt-4 font-[family-name:var(--font-display)] text-[38px] leading-none tracking-tight text-[var(--color-ink)] tabular-nums">
         {value}
       </p>
-      <p className="m-0 mt-3 text-[15px] leading-[1.55] text-[var(--color-ink-soft)]">{children}</p>
+      <p className="m-0 mt-4 text-[17px] leading-[1.55] text-[var(--color-ink-soft)]">{children}</p>
     </div>
   )
 }
@@ -170,7 +177,7 @@ function Methodology() {
         </Card>
       </div>
 
-      <div className="mt-14 grid gap-x-14 gap-y-10 lg:grid-cols-2">
+      <div className="mt-14 border-t border-[var(--color-rule)]">
         <Note title="What the number actually means">
           CPSC does not publish a list of retailers. It publishes one prose sentence per
           recall, like <em>“Online at Amazon.com from August 2024 through April 2026 for
@@ -255,13 +262,34 @@ function FieldCoverage() {
   )
 }
 
+/**
+ * One row of the methodology accordion.
+ *
+ * These were a two-column grid of five paragraphs, which is a wall of text in
+ * the exact place a sceptical reader arrives with a question. As a disclosure
+ * list the questions are scannable and the reader opens only the one they came
+ * for. Uses <details>, so it works before hydration, survives find-in-page, and
+ * gets keyboard and screen-reader behaviour from the browser instead of from me.
+ */
 function Note({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div>
-      <h4 className="m-0 font-[family-name:var(--font-display)] text-[21px] font-normal leading-snug tracking-tight text-[var(--color-ink)]">
-        {title}
-      </h4>
-      <p className="mt-3 mb-0 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">{children}</p>
-    </div>
+    <details className="note group border-b border-[var(--color-rule)]">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 marker:hidden [&::-webkit-details-marker]:hidden">
+        <h4 className="m-0 font-[family-name:var(--font-display)] text-[clamp(1.1rem,2.2vw,1.4rem)] font-normal leading-snug tracking-tight text-[var(--color-ink)]">
+          {title}
+        </h4>
+        <span
+          aria-hidden
+          className="grid size-8 shrink-0 place-items-center rounded-full border border-[var(--color-rule)] text-[var(--color-ink-faint)] transition-colors group-hover:border-[var(--color-ink-faint)] group-hover:text-[var(--color-ink)]"
+        >
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="chev">
+            <path d="M2.5 5L7 9.5L11.5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </summary>
+      <p className="mt-0 mb-6 max-w-[68ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+        {children}
+      </p>
+    </details>
   )
 }

@@ -22,8 +22,8 @@ export default function MotionNotice() {
     <p className="no-print m-0 mb-6 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[15px] text-[var(--color-ink-faint)]">
       <span>
         {systemPrefersReduced
-          ? 'The chart draws itself on scroll. That is off to match your system motion setting.'
-          : 'The chart draws itself on scroll. That is currently off.'}
+          ? 'The chart draws itself as you scroll. It is off right now to match your system settings.'
+          : 'The chart draws itself as you scroll. That is currently off.'}
       </span>
       <button
         type="button"

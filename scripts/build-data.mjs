@@ -357,6 +357,29 @@ await writeFile(
 )
 await writeFile(join(ROOT, 'public', 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`)
 
+/* The share-card alt text carries live figures, so it was hand-written and it
+   drifted: it still said 61.2% a week after the chart had moved to 60.9%. Every
+   other number on this page is computed, and this one had no business being the
+   exception. Generated from the same series the chart draws.
+
+   A silent no-op would recreate the original bug, so a miss is fatal. */
+{
+  const f = data.series[0]
+  const l = data.series.at(-1)
+  const alt =
+    `A line chart showing Amazon's share of US product recalls rising from ` +
+    `${f.retailers.amazon}% in ${f.year} to ${l.retailers.amazon}% in ${l.year} ` +
+    `while Walmart, Target and Home Depot stay flat.`
+  const HTML = join(ROOT, 'index.html')
+  const html = await readFile(HTML, 'utf8')
+  const re = /(<meta property="og:image:alt" content=")[^"]*(")/
+  if (!re.test(html)) {
+    console.error('\n  FAIL: og:image:alt not found in index.html.')
+    process.exit(1)
+  }
+  await writeFile(HTML, html.replace(re, `$1${alt}$2`))
+}
+
 const latest = data.series.at(-1)
 console.log(`\n  ${data.corpusTotal} recalls, ${data.series.length} years, newest ${data.newestRecallDate}`)
 console.log(`  ${latest.year}: Amazon named in ${latest.retailers.amazon}%, sole retailer in ${latest.amazonOnly}%`)

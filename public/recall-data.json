@@ -1,14 +1,14 @@
 {
   "partialYear": {
     "year": 2026,
-    "throughDate": "2026-07-30",
-    "monthsElapsed": 7
+    "throughDate": "2026-08-06",
+    "monthsElapsed": 8
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 9927,
+  "corpusTotal": 9944,
   "firstYear": 2015,
-  "newestRecallDate": "2026-07-30",
+  "newestRecallDate": "2026-08-06",
   "series": [
     {
       "year": 2015,
@@ -254,29 +254,29 @@
     },
     {
       "year": 2026,
-      "recalls": 356,
+      "recalls": 373,
       "retailerFieldPopulated": 100,
       "retailers": {
-        "amazon": 61.2,
-        "walmart": 11.2,
-        "target": 4.8,
-        "homeDepot": 3.1,
+        "amazon": 60.9,
+        "walmart": 10.7,
+        "target": 4.6,
+        "homeDepot": 3.2,
         "ebay": 1.1
       },
-      "amazonOnly": 50,
-      "amazonOnlyCount": 178,
+      "amazonOnly": 49.6,
+      "amazonOnlyCount": 185,
       "online": {
-        "strict": 77.2,
-        "mid": 87.1,
-        "loose": 87.1
+        "strict": 76.9,
+        "mid": 86.9,
+        "loose": 86.9
       },
       "medianDescriptionChars": 85,
-      "amazonAmongShort": 63.8,
-      "shortCount": 301
+      "amazonAmongShort": 63.4,
+      "shortCount": 314
     }
   ],
   "coverage": {
-    "total": 3587,
+    "total": 3604,
     "retailers": 99.9,
     "injuries": 99.9,
     "remedyOptions": 99.8,
@@ -334,7 +334,7 @@
       },
       {
         "year": 2026,
-        "pct": 20.2
+        "pct": 20.1
       }
     ],
     "importer": [
@@ -384,7 +384,7 @@
       },
       {
         "year": 2026,
-        "pct": 50.3
+        "pct": 50.7
       }
     ]
   },
@@ -513,16 +513,28 @@
     {
       "year": 2026,
       "amazonOnly": {
-        "n": 178,
-        "manufacturerKnown": 19.7
+        "n": 185,
+        "manufacturerKnown": 18.9
       },
       "everythingElse": {
-        "n": 178,
-        "manufacturerKnown": 20.8
+        "n": 188,
+        "manufacturerKnown": 21.3
       }
     }
   ],
   "biggest": [
+    {
+      "title": "Louisville Ladder Recalls Over One Million Attic Stairway Ladders Due to Risk of Serious Injury or Death from Fall Hazard",
+      "product": "Louisville, Featherlite, Lite & Century Attic Stairway Ladders with gas struts",
+      "units": 1770000,
+      "unitsRaw": "1,770,000 (In addition, about 13,054 were sold in Canada)",
+      "date": "2026-08-06",
+      "image": "https://www.cpsc.gov/s3fs-public/louieladder-1.png",
+      "imageCaption": "Recalled Attic Stairway Ladder with gas struts (Location of Brand Marking)",
+      "url": "https://www.cpsc.gov/Recalls/2026/Louisville-Ladder-Recalls-Over-One-Million-Attic-Stairway-Ladders-Due-to-Risk-of-Serious-Injury-or-Death-from-Fall-Hazard",
+      "retailerText": "The Home Depot, Lowe's, Do It Best, Orgill, and other retailers nationwide and on-line at Amazon.com from November 2012 through July 2026 for between $170 and $600.",
+      "hazard": "The bolts on the attic stairway ladders can break while in use, posing a risk of serious injury or death from fall hazard."
+    },
     {
       "title": "Conair Recalls Over One Million Cuisinart Grill Brushes Due to Ingestion Hazard",
       "product": "Metal Wire Bristle Grill Brushes",
@@ -630,18 +642,6 @@
       "url": "https://www.cpsc.gov/Recalls/2026/Vitaquest-International-Recalls-Multiple-Iron-Supplement-Bottles-and-Packets-Due-to-Risk-of-Serious-Injury-or-Death-from-Poisoning-to-Young-Children-Violates-Mandatory-Standard-for-Child-Resistant-Packaging",
       "retailerText": "Credo Beauty, Erewhon, Healf, Nutrition World, The Vitamin Shoppe, Fullscript, Ulta Beauty stores nationwide, medical practitioners' offices, brands' websites and Amazon.com from April 2023 through February 2026 for between $13 and $130 depending on brand and size.",
       "hazard": "The dietary supplements contain iron, which must be in child-resistant packaging as required by the Poison Prevention Packaging Act. The packaging of the supplements is not child-resistant, posing a risk of serious injury or death from poisoning if the contents are swallowed by young children."
-    },
-    {
-      "title": "Curtis International Expands Recall of Frigidaire-brand Minifridges Due to Fire and Burn Hazards",
-      "product": "Frigidaire-brand Minifridges, model EFMIS121, with limited serial numbers",
-      "units": 330000,
-      "unitsRaw": "About 330,000, Curtis International previously recalled 634,000 minifridges in July 2024",
-      "date": "2026-01-15",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture4_20.jpg",
-      "imageCaption": "Recalled Curtis International Minifridge Model EFMIS121 – serial numbers between A2001 to A2310",
-      "url": "https://www.cpsc.gov/Recalls/2026/Curtis-International-Expands-Recall-of-Frigidaire-brand-Minifridges-Due-to-Fire-and-Burn-Hazards",
-      "retailerText": "Sold exclusively at Target stores nationwide and online at Target.com from January 2020 through October 2023 for around $30.",
-      "hazard": "The minifridges' internal electrical components can short circuit and ignite the surrounding plastic housing, posing fire and burn hazards."
     }
   ],
   "trackedRetailers": [

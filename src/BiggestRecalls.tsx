@@ -117,7 +117,7 @@ export default function BiggestRecalls() {
                       </p>
                     )}
                     <p className="m-0 mt-4 border-t border-[var(--color-rule)] pt-3 font-[family-name:var(--font-mono)] text-[12px] leading-snug text-[var(--color-ink-faint)]">
-                      Units parsed from: “{r.unitsRaw}”
+                      Count read from: “{r.unitsRaw}”
                     </p>
                   </div>
                 </div>
@@ -133,9 +133,9 @@ export default function BiggestRecalls() {
         The biggest recalls of {year}.
       </h3>
       <p className="mt-5 mb-12 max-w-[56ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-        The {biggest.length} largest by units. Every photograph is the government's own, published with the
-        notice and in the public domain, which is why this page has pictures at all. Open a row
-        for the full hazard description.
+        The {biggest.length} biggest by number of items pulled. Every photo is the government's
+        own, published with the notice and free for anyone to use, which is why this page has
+        pictures at all. Open a row to read what went wrong.
       </p>
 
       <ol className="m-0 list-none border-t border-[var(--color-rule)] p-0">
@@ -167,8 +167,8 @@ export default function BiggestRecalls() {
       )}
 
       <p className="m-0 mt-10 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        Unit counts are US only. Several of these notices also cover Canada, and those figures are
-        excluded so the number matches the rest of this page. Household scale uses{' '}
+        Counts are US only. A few of these recalls also cover Canada, and those numbers are left
+        out so they line up with the rest of this page. The household comparison uses{' '}
         {US_HOUSEHOLDS.toLocaleString()} US households from the 2024 American Community Survey.
       </p>
     </section>

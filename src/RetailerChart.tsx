@@ -151,7 +151,7 @@ export default function RetailerChart() {
           Show the obvious objection
         </Toggle>
         <Toggle on={soleOnly} onClick={() => setSoleOnly((v) => !v)}>
-          Count only where Amazon is the sole retailer
+          Count only recalls where Amazon is the only store
         </Toggle>
 
       </div>
@@ -165,7 +165,7 @@ export default function RetailerChart() {
           tabIndex={0}
           onKeyDown={onKeyDown}
           onBlur={() => setHover(null)}
-          aria-label={`Share of US consumer product recalls naming each retailer, ${years[0]} to ${years.at(-1)}. Amazon rises from ${amzFirst} to ${amzLast} percent. Use arrow keys to read each year. Full figures are in the table below.`}
+          aria-label={`Share of US product recalls naming each store, ${years[0]} to ${years.at(-1)}. Amazon rises from ${amzFirst} to ${amzLast} percent. Use arrow keys to read each year. Full figures are in the table below.`}
         >
           {[0, 25, 50, 75].map((v) => (
             <g key={v}>
@@ -394,7 +394,7 @@ export default function RetailerChart() {
           a replacement for it, so the data itself stays reachable. */}
       <table className="sr-only">
         <caption>
-          Share of US consumer product recalls naming each retailer, by year
+          Share of US product recalls naming each store, by year
         </caption>
         <thead>
           <tr>
@@ -426,16 +426,16 @@ export default function RetailerChart() {
 
       <figcaption className="mt-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
         <p className="m-0">
-          Share of US consumer product recalls whose retailer description names each
-          company. CPSC records where a product was sold as one prose sentence, so this
-          measures <em>mentions</em>, not units sold or market share.
+          The share of US product recalls that mention each company. CPSC writes down where a
+          product was sold as one sentence, so this counts <em>mentions</em>, not sales or
+          market share.
         </p>
         <p className="mt-3 mb-0">
           {showControl ? (
             <strong className="font-semibold text-[var(--color-ink)]">
               Online selling overall grew {ctlGrowth.toFixed(1)}× since {first.year}. Amazon grew{' '}
-              {(amzLast / amzFirst).toFixed(1)}×. The growth of e-commerce does not account for the
-              gap, and Walmart, Target and Home Depot are flat or falling over the same period.
+              {(amzLast / amzFirst).toFixed(1)}×. Online shopping growing does not explain the
+              gap, and Walmart, Target and Home Depot are flat or falling over the same stretch.
             </strong>
           ) : (
             <strong className="font-semibold text-[var(--color-ink)]">The obvious objection is that everyone shops online now. Turn it on and see whether it holds.</strong>

@@ -15,11 +15,11 @@ const cov = data.coverage
 type Field = { label: string; value: number; note: string; trend?: 'manufacturer' | 'importer' }
 
 const FIELDS: Field[] = [
-  { label: 'Product images', value: cov.images, note: 'Every recall ships photography.' },
-  { label: 'Retailer', value: cov.retailers, note: 'The field this whole piece rests on.' },
-  { label: 'Injuries', value: cov.injuries, note: 'Prose, not counts. Parsed, never asserted.' },
-  { label: 'Hazard', value: cov.hazards, note: 'Free text, but always present.' },
-  { label: 'Remedy type', value: cov.remedyOptions, note: 'A clean enum. Rare in this dataset.' },
+  { label: 'Product images', value: cov.images, note: 'Every recall comes with photos.' },
+  { label: 'Retailer', value: cov.retailers, note: 'The one this whole page rests on.' },
+  { label: 'Injuries', value: cov.injuries, note: 'Written as sentences, not numbers. Read carefully, never guessed.' },
+  { label: 'Hazard', value: cov.hazards, note: 'Free-form text, but always there.' },
+  { label: 'Remedy type', value: cov.remedyOptions, note: 'An actual tidy list. Rare here.' },
   { label: 'Country of origin', value: cov.manufacturerCountries, note: 'Reliable.' },
   {
     label: 'Importer',
@@ -70,11 +70,11 @@ export default function CoverageRings() {
     <>
     {bent.length > 0 && (
       <p className="m-0 mb-10 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        A note on the drawing. {bent.length} of these fall short of 100% by less than{' '}
-        {MIN_GAP_DEG / 3.6}%, which at true scale is a gap of under a pixel, so they would render
-        as closed circles. Any value below 100% is therefore drawn with a minimum visible gap.
-        The arc is exact everywhere else, and only 100.0% closes the ring. The numbers are the
-        precise ones.
+        About the drawing. {bent.length} of these miss 100% by less than{' '}
+        {MIN_GAP_DEG / 3.6}%, and at true scale that gap is thinner than a pixel, so they would
+        look like closed circles. So anything under 100% gets a small visible gap on purpose.
+        Everywhere else the ring is exact, and only a true 100% closes it. The numbers themselves
+        are precise.
       </p>
     )}
     <ul className="m-0 grid list-none gap-x-8 gap-y-12 p-0 [grid-template-columns:repeat(auto-fit,minmax(196px,1fr))]">

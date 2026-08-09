@@ -14,6 +14,20 @@ const asOf = new Date(data.newestRecallDate!).toLocaleDateString('en-US', {
   month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
 })
 
+/**
+ * The headline word, derived rather than typed.
+ *
+ * It read "Half of every product recall" against a hardcoded 50.0%. A week of
+ * new data moved the figure to 49.6% and the headline did not move with it, so
+ * the largest type on the page was the only claim here that was not computed.
+ * It will keep crossing 50% in both directions, and nobody would catch it.
+ *
+ * Below the line it says "Nearly half", which understates rather than
+ * overstates, and that is the correct direction for a page whose whole argument
+ * is that it does not overstate.
+ */
+const headlineQuantity = last.amazonOnly! >= 50 ? 'Half' : 'Nearly half'
+
 export default function App() {
   return (
     <main className="mx-auto max-w-[1080px] px-6 pb-32 sm:px-10">
@@ -34,7 +48,8 @@ export default function App() {
           {last.year} so far
         </p>
         <h2 className="mt-6 mb-0 max-w-[19ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.5vw,5.5rem)] font-normal leading-[1.02] tracking-[-0.02em]">
-          Half of every product recall in America is something you could only buy on Amazon.
+          {headlineQuantity} of every product recall in America is something you could only buy
+          on Amazon.
         </h2>
         <p className="arrive mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
           In {first.year} it was <CountUp to={first.amazonOnly!} suffix="%" />, about one in
@@ -42,19 +57,19 @@ export default function App() {
           <strong className="font-semibold text-[var(--color-ink)]">
             <CountUp to={last.amazonOnly!} suffix="%" />
           </strong>
-          , or {last.amazonOnlyCount} of {last.recalls} recalls, where Amazon is the only retailer
-          the government names.
+          . That is {last.amazonOnlyCount} of {last.recalls} recalls where Amazon is the only
+          store named on the notice.
         </p>
       </section>
 
       <section className="border-t border-[var(--color-rule)] py-20">
         <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
-          One retailer is rising. The others are not.
+          Amazon is climbing. Everyone else is flat.
         </h3>
         <p className="arrive mt-5 mb-12 max-w-[50ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-          Every US consumer product recall since {first.year}, sorted by which retailer the
-          recall notice names. Amazon quadruples. Walmart peaks and falls. Target and Home
-          Depot barely move.
+          Every US product recall since {first.year}, grouped by which store the notice
+          mentions. Amazon quadruples. Walmart rises, then drops. Target and Home Depot
+          barely move.
         </p>
         <MotionNotice />
         <RetailerChart />
@@ -116,8 +131,9 @@ export default function App() {
         </div>
 
         <p className="m-0 mt-10 text-[15px] text-[var(--color-ink-faint)]">
-          Public-domain federal data. No tracking, no cookies, no accounts. Every figure on this
-          page is computed at build time from the source above, so it cannot drift from the data.
+          Free government data. No tracking, no cookies, no accounts. Every number here is
+          calculated straight from the source above when the page is built, so it cannot drift
+          out of sync.
         </p>
       </footer>
     </main>
@@ -154,53 +170,54 @@ function Methodology() {
   return (
     <section className="border-t border-[var(--color-rule)] py-20">
       <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
-        How this was counted, and where it is weak.
+        How I counted this, and where it falls short.
       </h3>
 
       <div className="card-row mt-10 flex flex-col gap-4 sm:flex-row">
         <Card label="Source" value="CPSC">
-          The federal recall database, US Government public domain.{' '}
+          The government's own recall database, free for anyone to use.{' '}
           <a
             className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
             href={data.source}
           >
-            Fetch it yourself
+            Go check it yourself
           </a>
           .
         </Card>
-        <Card label="Corpus" value={data.corpusTotal.toLocaleString()}>
-          Recalls back to 1973. This piece analyzes the {cov.total.toLocaleString()} since{' '}
-          {first.year}, when Amazon's retail share first became meaningful.
+        <Card label="Recalls" value={data.corpusTotal.toLocaleString()}>
+          Going back to 1973. This page looks at the {cov.total.toLocaleString()} since{' '}
+          {first.year}, the point where Amazon got big enough to matter.
         </Card>
         <Card label="Rebuilt" value="Weekly">
-          Newest recall {data.newestRecallDate}. The build fails rather than publish if the
-          corpus shrinks or the data goes more than three weeks stale.
+          Newest recall {data.newestRecallDate}. If the data ever shrinks or goes more than
+          three weeks stale, the rebuild stops instead of publishing bad numbers.
         </Card>
       </div>
 
       <div className="mt-14 border-t border-[var(--color-rule)]">
         <Note title="What the number actually means">
-          CPSC does not publish a list of retailers. It publishes one prose sentence per
-          recall, like <em>“Online at Amazon.com from August 2024 through April 2026 for
-          about $140.”</em> So every figure here is the share of recalls whose retailer
-          sentence <strong className="font-semibold text-[var(--color-ink)]">names</strong> a
-          company. It is not units sold, and it is not market share. Those would be different
-          claims and this data cannot support them.
+          CPSC does not publish a tidy list of stores. It writes one sentence per recall,
+          like <em>“Online at Amazon.com from August 2024 through April 2026 for
+          about $140.”</em> So every number here counts how often a company gets{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">named</strong> in that
+          sentence. It is not how much they sold, and it is not market share. Those are
+          different questions, and this data cannot answer them.
         </Note>
 
         <Note title={`Why ${p.year} is not a full year`}>
-          Because it has not happened yet. The data runs through {data.newestRecallDate},
+          Because the year is not over yet. The data runs through {data.newestRecallDate},
           about {p.monthsElapsed} months in. That matters less than it sounds, because every
-          figure is a share rather than a count, so a shorter year is not a smaller one. I
-          checked month by month for a seasonal pattern that could tilt a partial year and
-          found none. The chart draws the final segment dashed so you can see which part is
-          still moving.
+          number here is a percentage and not a total, so a shorter year is not a smaller
+          one. I also checked month by month for a seasonal pattern that could tilt a partial
+          year, and there is not one. The chart draws the last stretch dashed so you can see
+          which part is still moving.
         </Note>
 
-        <Note title="The obvious objection, tested three ways">
-          If e-commerce simply grew, every online retailer should have risen together. To make
-          sure that answer did not depend on how I defined “sold online,” I ran three
-          definitions, from strict to loose. Online selling grew{' '}
+        <Note title="The obvious objection: everyone shops online now">
+          If online shopping simply grew, every online store should have gone up together.
+          And because “sold online” is a fuzzy thing to define, I tried three definitions,
+          strict to loose, so the answer would not hinge on my judgment call. Online selling
+          grew{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {(last.online.strict! / first.online.strict!).toFixed(1)}×,{' '}
             {(last.online.mid! / first.online.mid!).toFixed(1)}× and{' '}
@@ -210,33 +227,34 @@ function Methodology() {
           <strong className="font-semibold text-[var(--color-ink)]">
             {(last.retailers.amazon! / first.retailers.amazon!).toFixed(1)}×
           </strong>
-          . The conclusion does not depend on the definition.
+          . Whichever definition you pick, the answer comes out the same.
         </Note>
 
         <Note title="The way this could have been fake">
-          If CPSC had started writing longer retailer sentences, more names would match by
-          accident and everyone's share would drift up. It went the other way. The median
-          retailer sentence got <em>shorter</em>, from {first.medianDescriptionChars} characters
-          in {first.year} to {last.medianDescriptionChars} in {last.year}. Holding length
-          roughly constant by looking only at short sentences, Amazon still goes from{' '}
+          If CPSC had started writing longer sentences, more store names would match by
+          accident and everyone's numbers would drift up together. It went the other way. The
+          typical sentence got <em>shorter</em>, from {first.medianDescriptionChars} characters
+          in {first.year} to {last.medianDescriptionChars} today. So I looked only at the short
+          sentences, holding length roughly even, and Amazon still climbs from{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {shortFirst}% to {shortLast}%
           </strong>
-          , a steeper climb than the headline, because more recalls now have exactly one
-          retailer to name.
+          . That is steeper than the headline, because more recalls now have just one store to
+          name.
         </Note>
         <Note title="A claim this piece does not make">
-          Manufacturer identification is collapsing: {mfrFirst}% of {first.year} recalls named
-          one, against {mfrLast}% this year. The tempting conclusion is that marketplace sellers
-          are anonymous, so Amazon-only recalls hide the maker. I tested it and it is not true.
-          Aggregated it looks convincing, but the gap is a calendar artifact, because Amazon-only
-          recalls cluster in the recent years when coverage is low for everyone. Year by year the
-          gap flips sign, and in the two most recent years, with the largest samples, it is{' '}
+          Recalls name the manufacturer less and less: {mfrFirst}% did in {first.year}, against{' '}
+          {mfrLast}% this year. The tempting story is that marketplace sellers are anonymous, so
+          Amazon-only recalls hide who made the thing. I tested it. It is not true. Lumped
+          together it looks convincing, but that is a trick of the calendar, because Amazon-only
+          recalls bunch up in the recent years, when the record keeping is bad for everyone. Year
+          by year the gap flips back and forth, and in the two most recent years, which have the
+          biggest samples, it is{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {gap25 > 0 ? '+' : ''}{gap25} and {gap26 > 0 ? '+' : ''}{gap26} points
           </strong>
-          . So the fields are degrading for everyone, and the interesting version of this story
-          is one I cannot support.
+          . So the records are getting worse across the board, and the more interesting version
+          of this story is one I cannot back up.
         </Note>
       </div>
 
@@ -249,14 +267,14 @@ function FieldCoverage() {
   return (
     <section className="border-t border-[var(--color-rule)] py-20">
       <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
-        Field coverage, including the failures.
+        What the records actually contain, gaps and all.
       </h3>
       <p className="mt-5 mb-14 max-w-[58ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-        How much of each field CPSC actually fills in, across the{' '}
-        {cov.total.toLocaleString()} recalls analyzed. The weak ones are published beside the
-        strong ones, because a number you cannot see the gaps in is not worth trusting. Six of
-        these sit above 99% in every year since {first.year}, so only the two that actually move
-        carry a trend line.
+        How often CPSC actually fills in each piece of information, across the{' '}
+        {cov.total.toLocaleString()} recalls here. The weak ones sit right next to the strong
+        ones, because a number you cannot see the holes in is not worth trusting. Six of these
+        have been above 99% every year since {first.year}, so only the two that actually move get
+        a trend line.
       </p>
       <CoverageRings />
     </section>

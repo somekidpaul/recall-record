@@ -2,8 +2,15 @@
 
 A recall lookup built on the same data as The Recall Record.
 
-Status: design, not built. Every figure below was measured against the live
-CPSC corpus (9,944 records, 1973 to 2026-08-06) before it was written down.
+Status: **built and live** at `/check`. Written as a spec first, then built
+against it. Every figure below was measured against the live CPSC corpus
+(9,944 records, 1973 to 2026-08-06) rather than estimated.
+
+Two things changed between the spec and the build, both because measuring
+contradicted the plan. Section 10 has the payload story. The other: the spec
+said searching name, title, description and hazard. Description turned out to
+add only a few percent of recall for nearly double the size, and the title
+turned out to be free inside the URL slug, so the shipped index stores neither.
 
 ---
 

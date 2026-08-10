@@ -197,9 +197,10 @@ function Methodology() {
           1973. This page covers {first.year} onward. Why that year, and not an earlier one, is
           the first question below.
         </Card>
-        <Card label="Rebuilt" value="Weekly">
-          Newest recall {data.newestRecallDate}. If the data ever shrinks or goes more than
-          three weeks stale, the rebuild stops instead of publishing bad numbers.
+        <Card label="Checked" value="Daily">
+          Newest recall {data.newestRecallDate}. CPSC publishes in weekly batches, almost always
+          on a Thursday, so a daily check is never more than a day behind. If the data ever
+          shrinks or goes stale, the rebuild stops instead of publishing bad numbers.
         </Card>
       </div>
 

@@ -55,16 +55,28 @@ jobs:
         run: |
           git config user.name  "recall-record bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # index.html and the OG images are REBUILT by `npm run data`, not just
-          # the JSON. The share-card alt text carries live figures and is
-          # rewritten from the series, so leaving index.html unstaged would drop
-          # that edit on the floor and let the alt text drift again, which is
-          # the exact bug it was generated to prevent.
+          # THE TEXT DECIDES, THE IMAGE RIDES ALONG.
+          #
+          # index.html is staged here because `npm run data` rewrites it: the
+          # share-card alt text carries live figures and is generated from the
+          # series, so leaving it out would discard that edit and let the alt
+          # text drift, which is the exact bug generating it was meant to stop.
+          #
+          # og.png is deliberately NOT in this list. It is rasterised from SVG,
+          # and the runner's librsvg does not produce byte-identical output to
+          # any other machine's: the first run here rewrote it from 80,206 to
+          # 76,001 bytes with the underlying figures completely unchanged. Had
+          # it been staged, every unchanged day would still look like a change,
+          # commit, and trigger a deploy for nothing.
+          #
+          # So the decision is made on the text files only. When they do move,
+          # the freshly rendered image is added to the same commit below.
           git add src/data/recalls.json public/recall-data.json public/recall-data.csv \
-                  public/sitemap.xml public/og.png public/og.svg index.html
+                  public/sitemap.xml index.html
           if git diff --staged --quiet; then
             echo "No change in the figures. Nothing to publish."
           else
+            git add public/og.png public/og.svg
             NEWEST=$(node -p "require('./src/data/recalls.json').newestRecallDate")
             TOTAL=$(node -p "require('./src/data/recalls.json').corpusTotal")
             git commit -m "Data refresh: ${TOTAL} recalls, newest ${NEWEST}"

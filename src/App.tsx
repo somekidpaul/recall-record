@@ -54,11 +54,18 @@ export default function App() {
         <p className="arrive mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
           In {first.year} it was <CountUp to={first.amazonOnly!} suffix="%" />, about one in
           fourteen. This year it is{' '}
-          <strong className="font-semibold text-[var(--color-ink)]">
-            <CountUp to={last.amazonOnly!} suffix="%" />
-          </strong>
-          . That is {last.amazonOnlyCount} of {last.recalls} recalls where Amazon is the only
-          store named on the notice.
+          {/* The number and the punctuation after it are one unbreakable unit.
+              The count-up is an inline-block, so a following bare "." is its
+              own wrap opportunity, and on a phone the period was landing alone
+              at the start of the next line. */}
+          <span className="whitespace-nowrap">
+            <strong className="font-semibold text-[var(--color-ink)]">
+              <CountUp to={last.amazonOnly!} suffix="%" />
+            </strong>
+            ,
+          </span>{' '}
+          or {last.amazonOnlyCount} of {last.recalls} recalls where Amazon is the only store
+          named on the notice.
         </p>
       </section>
 

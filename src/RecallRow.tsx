@@ -37,15 +37,22 @@ export function RecallRow({
   open,
   onToggle,
   panelId,
-  imagesPending,
+  imagesReady = true,
   highlight,
 }: {
   row: RowView
   open: boolean
   onToggle: () => void
   panelId: string
-  /** True while the photograph file is still in flight. */
-  imagesPending?: boolean
+  /**
+   * Whether the photograph list has arrived yet.
+   *
+   * Without this the row could not tell "CPSC never published a photograph"
+   * apart from "the file has not downloaded", and it asserted the first, which
+   * is a claim about the federal record rather than about a pending fetch.
+   * The biggest-recalls list passes true because its images ship with the page.
+   */
+  imagesReady?: boolean
   /** Wraps matched query terms, so a search result shows why it matched. */
   highlight?: (text: string) => React.ReactNode
 }) {
@@ -146,7 +153,9 @@ export function RecallRow({
               />
             ) : (
               <p className="m-0 grid min-h-[120px] place-items-center rounded-xl border border-dashed border-[var(--color-rule)] p-4 text-center text-[14px] leading-snug text-[var(--color-ink-faint)]">
-                {imagesPending ? 'Loading the photograph…' : 'CPSC published no photograph with this notice.'}
+                {imagesReady
+                  ? 'CPSC published no photograph with this notice.'
+                  : 'Loading the photograph…'}
               </p>
             )}
 

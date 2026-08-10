@@ -230,7 +230,7 @@ export default function RecallSearch({
                 open={open === r.key}
                 onToggle={() => toggle(r.key)}
                 panelId={`p${uid}-${r.key}`}
-                imagesPending={imgLoad === 'loading'}
+                imagesReady={images !== null}
               />
             ))}
           </ol>
@@ -272,7 +272,7 @@ export default function RecallSearch({
                         open={open === v.key}
                         onToggle={() => toggle(v.key)}
                         panelId={`p${uid}-${v.key}`}
-                        imagesPending={imgLoad === 'loading'}
+                        imagesReady={images !== null}
                         highlight={highlight}
                       />
                     )
@@ -292,7 +292,7 @@ export default function RecallSearch({
           open={open}
           onToggle={toggle}
           uid={uid}
-          imagesPending={imgLoad === 'loading'}
+          imagesReady={images !== null}
           highlight={highlight}
         />
       )}
@@ -312,14 +312,14 @@ export default function RecallSearch({
  * somewhere to go next. It is deliberately the largest type on the page.
  */
 function NothingFound({
-  query, related, open, onToggle, uid, imagesPending, highlight,
+  query, related, open, onToggle, uid, imagesReady, highlight,
 }: {
   query: string
   related: RowView[]
   open: string | null
   onToggle: (k: string) => void
   uid: string
-  imagesPending: boolean
+  imagesReady: boolean
   highlight: (t: string) => React.ReactNode
 }) {
   return (
@@ -400,7 +400,7 @@ function NothingFound({
                 open={open === r.key}
                 onToggle={() => onToggle(r.key)}
                 panelId={`p${uid}-${r.key}`}
-                imagesPending={imagesPending}
+                imagesReady={imagesReady}
                 highlight={highlight}
               />
             ))}

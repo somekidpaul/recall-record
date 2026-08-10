@@ -178,20 +178,27 @@ API key, nothing to run.
 
 Measured index sizes:
 
-| index | records | brotli |
+**Built and measured on the deployed site**, which matters: Vercel compresses on
+the fly at a quality tuned for speed, so local numbers understate the real cost.
+
+| | local brotli (max) | served by Vercel |
 |---|---|---|
-| names only, 2005+ | 7,044 | **115 KB** |
-| full text, 2015+ | 3,604 | 459 KB |
-| full text, 2005+ | 7,044 | **636 KB** |
-| full text, all | 9,944 | 838 KB |
+| first build, with a stored title | 584 KB | **858 KB** |
+| title dropped, read from the URL slug | 483 KB | **676 KB** |
 
-Full text is required (section 3), and 636 KB is too much to load eagerly on a
-phone. So: **lazy-load on intent.** Nothing ships with the page. The index is
-fetched on first focus of the search field and is ready before anyone finishes
-typing a word. Cached after.
+The title was removable because a CPSC recall URL *is* the notice title
+slugified, and the URL has to ship anyway so results can link out. Storing both
+paid twice for the same words.
 
-Further compression is available if wanted (token sets rather than raw strings,
-dropping stopwords), but is not needed to ship.
+Removing it forced a fix worth having on its own: a slug writes "Fisher-Price"
+as "Fisher Price", so a hyphenated query lost 63% of its hits. Normalising
+punctuation on both the haystack and the query restores that, and makes
+"tip-over" and "tip over" agree on 191 hits where they previously returned 123
+and 82 depending on how the reader typed it.
+
+676 KB is still far too much to load eagerly, so nothing ships with the page.
+The index is fetched on first focus of the search field and is ready before
+anyone finishes typing a word. Cached for an hour after.
 
 ## 11. Scope boundaries
 

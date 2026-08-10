@@ -572,6 +572,11 @@ await writeFile(
     <lastmod>${data.newestRecallDate}</lastmod>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>${SITE}/method</loc>
+    <lastmod>${data.newestRecallDate}</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
 </urlset>
 `,
 )

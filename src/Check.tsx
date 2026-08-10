@@ -25,21 +25,29 @@ export default function Check() {
 
   return (
     <main className="mx-auto max-w-[1080px] px-6 pb-32 sm:px-10">
-      <header className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-b border-[var(--color-rule)] py-5">
-        <div className="flex items-center gap-5">
+      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-[var(--color-rule)] py-4 sm:gap-x-8 sm:py-5">
+        <div className="flex items-center gap-3 sm:gap-5">
           <a
             href="/"
-            className="m-0 font-[family-name:var(--font-display)] text-[22px] font-normal tracking-tight text-[var(--color-ink)]"
+            className="m-0 font-[family-name:var(--font-display)] text-[19px] font-normal tracking-tight text-[var(--color-ink)] sm:text-[22px]"
           >
             The Recall Record
           </a>
           <Controls />
         </div>
+        {/* Arrow alone on a phone. Measured at 375px: the title and theme pill
+            are 262px of a 327px masthead, and "Read the record →" is another
+            151px, so 413 wrapped it onto a second row. The label returns at
+            sm. */}
         <a
           href="/"
-          className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+          aria-label="Back to the record"
+          className="m-0 flex items-center gap-2 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] sm:text-[13px]"
         >
-          Read the record →
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden className="shrink-0">
+            <path d="M13 8H3M7 3.5L2.5 8l4.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="hidden sm:inline">Read the record</span>
         </a>
       </header>
 

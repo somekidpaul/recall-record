@@ -4,6 +4,10 @@
     {
       "source": "/check",
       "destination": "/index.html"
+    },
+    {
+      "source": "/method",
+      "destination": "/index.html"
     }
   ],
   "headers": [

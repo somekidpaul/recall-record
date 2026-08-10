@@ -61,17 +61,22 @@ export const isExact = (v: number) => v >= 100 || ((100 - v) / 100) * 360 >= MIN
 /**
  * Colour here is a severity scale, not decoration.
  *
- * grey   = 99% and up, the field is there and you can lean on it
- * blue   = 50 to 99, partly filled in, usable with care
- * orange = under 50, mostly missing
+ * neutral = 99% and up, the field is there and you can lean on it
+ * amber   = 50 to 99, partly filled in, usable with care
+ * orange  = under 50, mostly missing
  *
- * The scale used to be undeclared, so the only way to learn it was to notice
- * that the two coloured rings were also the two low numbers. That is a puzzle,
- * not an encoding, so the thresholds are now printed under the rings.
+ * Two things were wrong before. The scale was undeclared, so the only way to
+ * learn it was to notice that the two coloured rings were also the two low
+ * numbers, which is a puzzle rather than an encoding. And the middle rung
+ * borrowed --color-alt-1, the comparator blue that means Walmart on the chart.
+ *
+ * Ordinal data wants a sequential ramp, not colours pulled from a categorical
+ * set, so the rungs now climb through one warm hue family and the thresholds
+ * are printed under the rings.
  */
 const BANDS = [
   { from: 99, label: 'Reliable', hint: '99% and up', color: 'var(--color-ink-faint)' },
-  { from: 50, label: 'Partial', hint: '50 to 99%', color: 'var(--color-alt-1)' },
+  { from: 50, label: 'Partial', hint: '50 to 99%', color: 'var(--color-warn)' },
   { from: 0, label: 'Mostly missing', hint: 'under 50%', color: 'var(--color-signal)' },
 ]
 

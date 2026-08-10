@@ -19,12 +19,6 @@ import {
  * opened, the photographs later still, when someone first opens a product.
  */
 
-/**
- * The id the header's "Check a product" link scrolls to. Exported rather than
- * written out twice, so the link and its target cannot drift apart.
- */
-export const FIND_ID = 'find-a-recall'
-
 /** Rows of the default list shown before asking for the rest. */
 const DEFAULT_SHOWN = 5
 
@@ -55,13 +49,10 @@ export default function RecallSearch({
   defaultList,
   defaultHeading,
   autoFocus = false,
-  anchorId,
   showField = true,
 }: {
-  /** False on the essay, where the masthead search is the only way in. */
+  /** False on the essay, which lists the ten and links to /check for the rest. */
   showField?: boolean
-  /** Set on the essay mount so the masthead link has something to scroll to. */
-  anchorId?: string
   /** Shown when the field is empty. Omitted on /check, which starts blank. */
   defaultList?: RowView[]
   defaultHeading?: string
@@ -210,7 +201,6 @@ export default function RecallSearch({
         disclosure panels use.
       */}
       <div
-        id={anchorId}
         className="search-shell"
         data-open={expanded}
         onClick={() => { setExpanded(true); ensureIndex(); inputRef.current?.focus() }}

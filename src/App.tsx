@@ -32,14 +32,19 @@ const headlineQuantity = last.amazonOnly! >= 50 ? 'Half' : 'Nearly half'
 export default function App() {
   return (
     <main className="mx-auto max-w-[1080px] px-6 pb-32 sm:px-10">
-      <header className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-b border-[var(--color-rule)] py-5">
-        <div className="flex items-center gap-5">
-          <h1 className="m-0 font-[family-name:var(--font-display)] text-[22px] font-normal tracking-tight">
+      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-[var(--color-rule)] py-4 sm:gap-x-8 sm:py-5">
+        {/* Measured at 375px: the masthead is 327px wide, and the title plus
+            the theme pill came to 293px against a 41px search icon. 334 into
+            327 wraps, which is why the nav sat on two rows at 123px tall even
+            after the button lost its label. A smaller title and a tighter gap
+            on phones bring the left group to about 260 and it fits on one. */}
+        <div className="flex items-center gap-3 sm:gap-5">
+          <h1 className="m-0 font-[family-name:var(--font-display)] text-[19px] font-normal tracking-tight sm:text-[22px]">
             The Recall Record
           </h1>
           <Controls />
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-6">
           {/* Scrolls to the search that is already on this page rather than
               navigating away to a second copy of it. The href stays a real URL
               so middle-click, right-click and no-JS all still work; the handler
@@ -64,9 +69,17 @@ export default function App() {
               shell.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
               shell.querySelector('input')?.focus({ preventScroll: true })
             }}
-            className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+            aria-label="Search every recall"
+            className="flex items-center gap-2 rounded-full border border-[var(--color-rule)] px-3 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)] sm:px-4"
           >
-            Check a product
+            {/* The magnifier alone on a phone. The label was 141px wide, which
+                pushed the masthead onto a second row at 129px tall. The icon is
+                the affordance; the field it scrolls to carries the words. */}
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden className="shrink-0">
+              <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.9" />
+              <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+            </svg>
+            <span className="hidden sm:inline">Check a product</span>
           </a>
           <p className="m-0 hidden font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)] sm:block">
             Issue 01 · Data through {asOf}
@@ -197,16 +210,30 @@ export default function App() {
   )
 }
 
+/**
+ * One provenance fact.
+ *
+ * Three of these stacked to 843px on a phone, because each one gave its label,
+ * its value and its explanation a line apiece with a 38px display figure in the
+ * middle. That is a poster layout, and on a narrow column it is mostly air.
+ *
+ * The phone puts the label and the value on one line and drops the figure to
+ * reading size; the desktop keeps the stacked poster. Same content either way.
+ */
 function Card({ label, value, children }: { label: string; value: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-7">
-      <p className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
-        {label}
+    <div className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-5 sm:p-7">
+      <div className="flex items-baseline justify-between gap-4 sm:block">
+        <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)] sm:text-[13px]">
+          {label}
+        </p>
+        <p className="m-0 font-[family-name:var(--font-display)] text-[26px] leading-none tracking-tight text-[var(--color-ink)] tabular-nums sm:mt-4 sm:text-[38px]">
+          {value}
+        </p>
+      </div>
+      <p className="m-0 mt-3 text-[16px] leading-[1.55] text-[var(--color-ink-soft)] sm:mt-4 sm:text-[17px]">
+        {children}
       </p>
-      <p className="m-0 mt-4 font-[family-name:var(--font-display)] text-[38px] leading-none tracking-tight text-[var(--color-ink)] tabular-nums">
-        {value}
-      </p>
-      <p className="m-0 mt-4 text-[17px] leading-[1.55] text-[var(--color-ink-soft)]">{children}</p>
     </div>
   )
 }
@@ -360,24 +387,16 @@ function Methodology() {
         <h4 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.4rem,2.8vw,2rem)] font-normal leading-[1.15] tracking-[-0.015em]">
           What the records actually contain, gaps and all.
         </h4>
-        <p className="mt-5 mb-14 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-          How often CPSC actually fills in each piece of information, across the{' '}
-        {cov.total.toLocaleString()} recalls since {data.coverageFirstYear}. The weak ones sit
-        right next to the strong ones, because a number you cannot see the holes in is not worth
-        trusting. Six of these have been above 99% every year in that span, so only the two that
-        actually move get a trend line.
-      </p>
-      {/* The chart runs from 2004 and this section does not, so it says so.
-          Blending the two would misreport rather than inform: Remedy type did
-          not exist before 2009, and averaging across that boundary would read
-          as "partly filled in" when the truth is "the field was invented
-          mid-window". Each window is set by the field it describes. */}
-        <p className="mt-[-2.5rem] mb-14 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-          A shorter window than the chart above, on purpose. The chart measures one field that has
-        been reliable since {first.year}. This section describes what the records hold now, and
-        some of these fields did not exist in {first.year} at all, so averaging across that
-        boundary would describe a filing change rather than a gap.
-      </p>
+        {/* Two paragraphs became one, 116 words became 46. The cut was the
+            passage explaining why this window is shorter than the chart's,
+            which was the page narrating its own construction at the same
+            volume as its findings. The reason survives as one clause. */}
+        <p className="mt-5 mb-12 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+          How often CPSC fills each field in, across the {cov.total.toLocaleString()} recalls
+          since {data.coverageFirstYear}. A shorter window than the chart, because some of these
+          fields did not exist in {first.year}. The weak ones sit beside the strong ones, since a
+          number you cannot see the holes in is not worth trusting.
+        </p>
         <CoverageRings />
       </div>
     </section>

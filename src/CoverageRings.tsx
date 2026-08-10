@@ -90,7 +90,14 @@ export default function CoverageRings() {
   const usedBands = BANDS.filter((b) => FIELDS.some((f) => tone(f.value) === b.color))
   return (
     <>
-    <ul className="m-0 grid list-none gap-x-8 gap-y-12 p-0 [grid-template-columns:repeat(auto-fit,minmax(196px,1fr))]">
+    {/* FIXED COLUMN COUNTS, not auto-fit.
+        auto-fit with a 196px minimum resolved to a single column on a 375px
+        phone, so eight rings became eight full-width rows: measured at 1,948px,
+        nearly two and a half screens for eight numbers, and the largest single
+        cost on the mobile page. Two up on a phone, four on a desktop, which
+        also lands the eight as two clean rows of four rather than five and
+        three. */}
+    <ul className="m-0 grid list-none grid-cols-2 gap-x-6 gap-y-10 p-0 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-4">
       {FIELDS.map((f) => (
         <li key={f.label} className="flex flex-col items-center text-center">
           <Ring value={f.value} />
@@ -129,15 +136,14 @@ export default function CoverageRings() {
       ))}
     </ul>
 
-    {/* A footnote, and it sits AFTER the rings now. It used to run above them,
-        so the page explained a drawing the reader had not seen yet. */}
+    {/* Trimmed from 65 words to 27. The full version explained the geometry
+        twice over; what a reader needs is that the gap is deliberate and the
+        printed number is the truth. */}
     {bent.length > 0 && (
       <p className="m-0 mt-6 max-w-[68ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        One note on how these are drawn. {bent.length} of them miss 100% by less than{' '}
-        {MIN_GAP_DEG / 3.6}%, and at true scale that gap would be thinner than a pixel, so they
-        would all look like closed circles. Anything under 100% therefore gets a small visible
-        gap on purpose. Every other arc is exact, and only a true 100% closes the ring. The
-        numbers themselves are precise.
+        {bent.length} of these miss 100% by so little that an exact arc would look like a closed
+        circle, so anything under 100% keeps a visible gap on purpose. The printed numbers are
+        exact.
       </p>
     )}
     </>

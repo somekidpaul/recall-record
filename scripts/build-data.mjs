@@ -406,10 +406,10 @@ await writeFile(join(ROOT, 'public', 'recall-data.csv'), csv + '\n')
  * as catalogue entries ("Laziza Dressers"), so the hazard almost never appears
  * in them.
  *
- * Adding Title and Hazard closes nearly all of that gap. Measured across a
- * dozen realistic consumer queries, Description on top of those three adds only
- * a few percent more while nearly doubling the payload, so it is left out and
- * the three that earn their bytes are kept.
+ * Adding the notice title and the hazard closes nearly all of that gap.
+ * Measured across a dozen realistic consumer queries, Description on top of
+ * those adds only a few percent more while nearly doubling the payload, so it
+ * is left out. The title arrives for free inside the URL slug, see below.
  *
  * WHICH YEARS: all of them, back to 1973. Trimming to 2005 would have saved
  * about 150KB and silently dropped 2,900 recalls. Old recalls are the ones that
@@ -428,9 +428,24 @@ const searchIndex = raw
   .sort((a, b) => (b.RecallDate ?? '').localeCompare(a.RecallDate ?? ''))
   .map((r) => {
     const url = r.URL ?? ''
+    /*
+     * NO TITLE FIELD, and it is not an omission.
+     *
+     * A CPSC recall URL is the notice title slugified:
+     *   2026/A2batt-Recalls-EEMB-Lithium-Coin-Battery-Chargers-Due-to-Risk-...
+     * The URL has to ship anyway so results can link out, so shipping the
+     * title beside it was paying twice for the same words. Dropping it cut the
+     * payload 20%.
+     *
+     * The catch was punctuation: the slug turns "Fisher-Price" into
+     * "Fisher Price", so a hyphenated query lost 63% of its hits. Normalising
+     * punctuation to spaces on BOTH the haystack and the query fixes that and
+     * is an improvement in its own right, since "tip-over" and "tip over" now
+     * both return 191 where they used to return 123 and 82. Measured after the
+     * change, the worst remaining loss is 3% on very broad hazard words.
+     */
     const row = {
       n: (r.Products ?? []).map((p) => p.Name).filter(Boolean).join(' | ').slice(0, 110),
-      t: clean(r.Title).slice(0, 120),
       h: (r.Hazards ?? []).map((x) => clean(x.Name)).join('; ').slice(0, 150),
       y: (r.RecallDate ?? '').slice(0, 10),
       u: url.startsWith(URL_PREFIX) ? url.slice(URL_PREFIX.length) : url,

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Controls from './Controls'
 import data from './data/recalls.json'
-import { prepare, search, segments, type Index, type Prepared, type Hit, type Strength } from './search'
+import { prepare, search, segments, titleFromUrl, type Index, type Prepared, type Hit, type Strength } from './search'
 
 /**
  * /check, the recall lookup.
@@ -32,10 +32,11 @@ export default function Check() {
   /**
    * Fetched on intent, never with the page.
    *
-   * The index is 584KB brotli, which is nine times the rest of the site. Nobody
-   * reading the essay should pay for a search they did not ask for, so it loads
-   * on first focus or on arriving with a ?q= already set. By the time a word is
-   * typed it is usually ready.
+   * The index is around 560KB compressed, several times the rest of the site.
+   * Nobody reading the essay should pay for a search they did not ask for, so
+   * it loads on first focus of the field, or straight away when someone arrives
+   * on a shared ?q= link. Focus fires before the first keystroke, so it is
+   * usually ready by the time a word is finished.
    */
   const ensureIndex = useCallback(() => {
     if (load !== 'idle') return
@@ -171,7 +172,7 @@ export default function Check() {
       {query.length < 2 && load !== 'loading' && <Resting />}
 
       {results && query.length > 1 && total > 0 && (
-        <Found results={results} prefix={prefix} showing={showing} total={total} />
+        <Found results={results} prefix={prefix} showing={showing} total={total} typed={query} />
       )}
 
       {results && query.length > 1 && total === 0 && (
@@ -232,15 +233,24 @@ const TIER: Record<Strength, { label: string; note: string; color: string }> = {
 }
 
 function Found({
-  results, prefix, showing, total,
-}: { results: ReturnType<typeof search>; prefix: string; showing: number; total: number }) {
+  results, prefix, showing, total, typed,
+}: {
+  results: ReturnType<typeof search>
+  prefix: string
+  showing: number
+  total: number
+  /* What the reader actually typed. `results.query` is the normalised form,
+     so echoing that back showed "fisher price" to someone who typed
+     "fisher-price". Matching uses the normalised text; the page quotes theirs. */
+  typed: string
+}) {
   const groups: Strength[] = ['exact', 'strong', 'possible']
   return (
     <section className="pt-10">
       <p className="m-0 text-[17px] text-[var(--color-ink-soft)]">
         <strong className="font-semibold text-[var(--color-ink)] tabular-nums">{total}</strong>{' '}
         {total === 1 ? 'notice mentions' : 'notices mention'}{' '}
-        <span className="text-[var(--color-ink)]">“{results.query}”</span>
+        <span className="text-[var(--color-ink)]">“{typed}”</span>
         {showing < total && (
           <span className="text-[var(--color-ink-faint)]">, showing the {showing} most recent</span>
         )}
@@ -268,7 +278,7 @@ function Found({
               {TIER[g].note}
             </p>
             <ul className="m-0 mt-4 list-none p-0">
-              {rows.map((h) => <ResultRow key={h.row.u || h.row.t} hit={h} prefix={prefix} query={results.query} />)}
+              {rows.map((h) => <ResultRow key={h.row.u} hit={h} prefix={prefix} query={results.query} />)}
             </ul>
           </div>
         )
@@ -287,7 +297,7 @@ function ResultRow({ hit, prefix, query }: { hit: Hit; prefix: string; query: st
         {row.y}
       </p>
       <p className="m-0 mt-1.5 text-[18px] leading-snug text-[var(--color-ink)]">
-        {segments(row.n || row.t, query).map((s, i) =>
+        {segments(row.n || titleFromUrl(row.u), query).map((s, i) =>
           s.hit ? (
             <mark key={i} className="bg-transparent font-semibold text-[var(--color-signal)]">{s.s}</mark>
           ) : (
@@ -308,7 +318,7 @@ function ResultRow({ hit, prefix, query }: { hit: Hit; prefix: string; query: st
           target="_blank"
           rel="noreferrer"
           className="mt-3 inline-flex items-center gap-2 rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-          aria-label={`Read the CPSC notice for ${row.n || row.t}, opens in a new tab`}
+          aria-label={`Read the CPSC notice for ${row.n || titleFromUrl(row.u)}, opens in a new tab`}
         >
           Read the notice
           <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden className="shrink-0 opacity-70">
@@ -408,7 +418,7 @@ function NothingFound({
           </p>
           <ul className="m-0 mt-4 list-none p-0">
             {results.related.map((h) => (
-              <ResultRow key={h.row.u || h.row.t} hit={h} prefix={prefix} query={query} />
+              <ResultRow key={h.row.u} hit={h} prefix={prefix} query={query} />
             ))}
           </ul>
         </div>

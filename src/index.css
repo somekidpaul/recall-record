@@ -441,38 +441,50 @@ p { text-wrap-style: pretty; }
   view-transition-name: nav-indicator;
 }
 
-/* The signature curve, so this moves like everything else on the site. */
+/*
+  THE BAR MORPHS. IT DOES NOT CROSS-FADE.
+
+  By default the browser gives every named element a fade-out on the old
+  snapshot and a fade-in on the new one, blended with plus-lighter, on top of
+  the group's transform. For a photograph that is right. For a 2px block of
+  solid colour it is wrong twice over: two ghosts of the same bar wash through
+  each other, and the brightening from plus-lighter makes the midpoint read as
+  a different colour than either end.
+
+  Turning both off leaves only the group, which is the part actually carrying
+  the movement, so what you see is one solid bar travelling and changing width.
+*/
+::view-transition-old(nav-indicator),
+::view-transition-new(nav-indicator) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 480ms, not the 380 this started at. The bar crosses up to 300px, and at the
+   shorter duration the middle of the signature curve, which is its fastest
+   part, went by quickly enough to read as a jump rather than a slide. */
 ::view-transition-group(nav-indicator) {
-  animation-duration: var(--dur-base);
+  animation-duration: 480ms;
   animation-timing-function: var(--ease-signature);
 }
 
-/* The page itself cross-fades quickly underneath. Long enough to connect the
-   two pages, short enough not to feel like a slideshow. */
+/*
+  The page underneath cross-fades, and it is NOT suppressed under Reduce
+  Motion. That is a reversal of the first attempt and the reason matters.
+
+  That attempt zeroed the root animation for reduce-motion readers while
+  keeping the bar moving. The result was incoherent: the whole page hard-cut to
+  the new content while a 2px bar slid across it for another 380ms. The
+  dominant visual event was instant, so the slide read as nothing at all, which
+  is exactly the "it goes right to it" this was supposed to fix.
+
+  A cross-fade is opacity, not travel. Reduce Motion exists for movement that
+  provokes the vestibular system: parallax, zoom, large translation. An opacity
+  blend is none of those. Keeping it means the page and the bar arrive as one
+  motion rather than a cut with an ornament sliding over it.
+*/
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 180ms;
+  animation-duration: 300ms;
   animation-timing-function: ease;
-}
-
-/*
-  THE TWO HALVES LAND ON OPPOSITE SIDES OF THE MOTION POLICY, so they are
-  treated separately rather than switched off together.
-
-  A first pass disabled the whole navigation under Reduce Motion, and testing
-  caught that it was the wrong call: the indicator sliding between two links is
-  the same class of thing as the theme pill, which this site has always run
-  regardless. It answers a click, it is a 2px bar, and it never starts on its
-  own. Suppressing it makes the control look broken in exactly the way the
-  policy comment above warns about.
-
-  The whole-viewport cross-fade is the decorative half, and that is the part
-  that yields. Turning off only the root animation leaves the page swap instant
-  while the bar still travels.
-*/
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-  }
 }

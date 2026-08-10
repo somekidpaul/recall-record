@@ -73,17 +73,27 @@ export default function BiggestRecalls() {
     const anchor = btnRef.current?.getBoundingClientRect().top ?? 0
     setShowAll(false)
 
-    /* Comfortably past --dur-base (380ms), so the last frame of the collapse is
-       still pinned. */
-    const until = performance.now() + 460
-    const pin = () => {
+    const correct = () => {
       const el = btnRef.current
       if (!el) return
       const drift = el.getBoundingClientRect().top - anchor
       if (drift !== 0) window.scrollBy({ top: drift, behavior: 'instant' as ScrollBehavior })
+    }
+
+    /* Comfortably past --dur-base (380ms), so the last frame is still pinned. */
+    const until = performance.now() + 460
+    const pin = () => {
+      correct()
       if (performance.now() < until) requestAnimationFrame(pin)
     }
     requestAnimationFrame(pin)
+
+    /* Backstop, and not a redundant one. requestAnimationFrame does not run at
+       all while the tab is hidden, so on an rAF-only version the anchor was
+       never corrected and the page slid the full 1062px. A timer still fires
+       there. The rAF loop does the smooth pinning anyone actually watching will
+       see; this guarantees the final resting position either way. */
+    setTimeout(correct, 480)
   }
 
   const head = biggest.slice(0, INITIAL)

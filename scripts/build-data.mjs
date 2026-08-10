@@ -502,7 +502,11 @@ const searchIndex = raw
      */
     const row = {
       n: (r.Products ?? []).map((p) => p.Name).filter(Boolean).join(' | ').slice(0, 110),
-      h: (r.Hazards ?? []).map((x) => clean(x.Name)).join('; ').slice(0, 150),
+      /* 260, not 150. The hazard is the payload of a search result, and it is
+         what the expanded row shows in full. Median hazard length is 118 and
+         the 90th percentile is 261, so this holds nine in ten complete for
+         29KB. The old 150 cut most of them mid-sentence. */
+      h: (r.Hazards ?? []).map((x) => clean(x.Name)).join('; ').slice(0, 260),
       y: (r.RecallDate ?? '').slice(0, 10),
       u: url.startsWith(URL_PREFIX) ? url.slice(URL_PREFIX.length) : url,
     }
@@ -516,6 +520,38 @@ const searchIndex = raw
 await writeFile(
   join(ROOT, 'public', 'search-index.json'),
   JSON.stringify({ prefix: URL_PREFIX, rows: searchIndex }),
+)
+
+/**
+ * PRODUCT PHOTOGRAPHS, in their own file and loaded later than everything else.
+ *
+ * A search result should be able to open the same way a row in the biggest-
+ * recalls list opens, photograph included. Putting the image path in the search
+ * index costs 100KB compressed, which would undo the work that just took the
+ * index from 858KB to 676KB on the wire.
+ *
+ * So they ship separately, as an array parallel to the index and in the same
+ * order, and nothing fetches it until someone actually opens a product. Most
+ * people who search never open one, and they never pay for this. It compresses
+ * to about 93KB because the paths share a long common prefix.
+ *
+ * An empty string means CPSC published no photograph for that recall, which is
+ * true of 1,720 of the 9,944.
+ */
+const IMAGE_PREFIX = 'https://www.cpsc.gov/'
+await writeFile(
+  join(ROOT, 'public', 'search-images.json'),
+  JSON.stringify({
+    prefix: IMAGE_PREFIX,
+    i: raw
+      .filter((r) => /^\d{4}/.test(r.RecallDate ?? ''))
+      .sort((a, b) => (b.RecallDate ?? '').localeCompare(a.RecallDate ?? ''))
+      .map((r) => {
+        const u = (r.Images ?? [])[0]?.URL
+        if (!u) return ''
+        return u.startsWith(IMAGE_PREFIX) ? u.slice(IMAGE_PREFIX.length) : u
+      }),
+  }),
 )
 
 /* The sitemap is generated, not hand-written. It was static, and the weekly

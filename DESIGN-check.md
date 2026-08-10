@@ -1,4 +1,4 @@
-# /check — design spec
+# /check, design spec
 
 A recall lookup built on the same data as The Recall Record.
 

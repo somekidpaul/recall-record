@@ -178,21 +178,28 @@ export default function RetailerChart() {
   return (
     <figure className="m-0">
       <div className="mb-6 flex flex-wrap gap-2">
+        {/* SHORT LABELS, because these are switches and not sentences.
+            "Count only recalls where Amazon is the only store" measured 327px
+            wide and 67px tall on a phone: a pill wrapped onto three lines. The
+            full meaning moves to the accessible name and to the caption under
+            the chart, which is where an explanation belongs. */}
         <Toggle
           on={showControl}
           onClick={() => setShowControl((v) => !v)}
           tone="var(--color-control)"
           swatch="dashed"
+          label="Show how much of the rise online shopping explains"
         >
-          Show the obvious objection
+          The obvious objection
         </Toggle>
         <Toggle
           on={soleOnly}
           onClick={() => setSoleOnly((v) => !v)}
           tone="var(--color-signal)"
           swatch="solid"
+          label="Count only recalls where Amazon is the only store named"
         >
-          Count only recalls where Amazon is the only store
+          Amazon only
         </Toggle>
 
       </div>
@@ -528,12 +535,15 @@ function Toggle({
   onClick,
   tone = 'var(--color-signal)',
   swatch,
+  label,
   children,
 }: {
   on: boolean
   onClick: () => void
   tone?: string
   swatch?: 'solid' | 'dashed'
+  /** The full sentence, for anyone whose reading of the label is not visual. */
+  label?: string
   children: React.ReactNode
 }) {
   return (
@@ -541,6 +551,7 @@ function Toggle({
       type="button"
       onClick={onClick}
       aria-pressed={on}
+      aria-label={label}
       className={`flex items-center gap-2.5 rounded-full border px-5 py-2.5 text-[15px] transition-colors ${
         on
           ? ''

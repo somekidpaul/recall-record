@@ -25,6 +25,9 @@ import {
  */
 export const FIND_ID = 'find-a-recall'
 
+/** Rows of the default list shown before asking for the rest. */
+const DEFAULT_SHOWN = 5
+
 const INDEX_URL = '/search-index.json'
 const IMAGES_URL = '/search-images.json'
 
@@ -72,7 +75,9 @@ export default function RecallSearch({
   const [imgPrefix, setImgPrefix] = useState('https://www.cpsc.gov/')
   const [open, setOpen] = useState<string | null>(null)
   const [expanded, setExpanded] = useState(false)
+  const [showAllDefault, setShowAllDefault] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const moreRef = useRef<HTMLButtonElement>(null)
   const uid = useId()
 
   const ensureIndex = useCallback(() => {
@@ -155,6 +160,36 @@ export default function RecallSearch({
     ensureImages()
   }
 
+  /**
+   * Collapsing removes rows above the button, so it slides up the page and the
+   * next section rises under the cursor. Pinned across the whole animation
+   * rather than corrected after it: the rows collapse through a 380ms
+   * grid-template-rows transition, so a correction measured two frames later is
+   * always zero. The timer is not redundant with the rAF loop; rAF does not run
+   * at all while a tab is hidden, and the timer still fires.
+   */
+  const toggleAll = () => {
+    if (!showAllDefault) {
+      setShowAllDefault(true)
+      return
+    }
+    const anchor = moreRef.current?.getBoundingClientRect().top ?? 0
+    setShowAllDefault(false)
+    const correct = () => {
+      const el = moreRef.current
+      if (!el) return
+      const drift = el.getBoundingClientRect().top - anchor
+      if (drift !== 0) window.scrollBy({ top: drift, behavior: 'instant' as ScrollBehavior })
+    }
+    const until = performance.now() + 460
+    const pin = () => {
+      correct()
+      if (performance.now() < until) requestAnimationFrame(pin)
+    }
+    requestAnimationFrame(pin)
+    setTimeout(correct, 480)
+  }
+
   return (
     <div>
       {/*
@@ -232,8 +267,12 @@ export default function RecallSearch({
               {defaultHeading}
             </p>
           )}
+          {/* FIVE AT REST, and the rest on request.
+              Ten rows measured 2,941px on a phone, three and a half screens of
+              a twelve-screen page, for a list most readers skim. This existed
+              before the search merge and was lost in it. */}
           <ol className="m-0 mt-5 list-none border-t border-[var(--color-rule)] p-0">
-            {defaultList.map((r) => (
+            {defaultList.slice(0, DEFAULT_SHOWN).map((r) => (
               <RecallRow
                 key={r.key}
                 row={r}
@@ -244,6 +283,36 @@ export default function RecallSearch({
               />
             ))}
           </ol>
+          <div className="disclosure" data-open={showAllDefault} aria-hidden={!showAllDefault}>
+            <div>
+              <ol start={DEFAULT_SHOWN + 1} className="m-0 list-none p-0">
+                {defaultList.slice(DEFAULT_SHOWN).map((r) => (
+                  <RecallRow
+                    key={r.key}
+                    row={r}
+                    open={open === r.key}
+                    onToggle={() => toggle(r.key)}
+                    panelId={`p${uid}-${r.key}`}
+                    imagesReady={images !== null}
+                  />
+                ))}
+              </ol>
+            </div>
+          </div>
+          {defaultList.length > DEFAULT_SHOWN && (
+            <button
+              ref={moreRef}
+              type="button"
+              onClick={toggleAll}
+              aria-expanded={showAllDefault}
+              className="no-print mt-8 flex items-center gap-2.5 rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+            >
+              {showAllDefault ? 'Show fewer' : `Show all ${defaultList.length}`}
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="chev" data-open={showAllDefault} aria-hidden>
+                <path d="M2.5 5L7 9.5L11.5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          )}
         </>
       )}
 

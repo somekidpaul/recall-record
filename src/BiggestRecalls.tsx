@@ -47,29 +47,43 @@ export default function BiggestRecalls() {
 
   /**
    * Collapsing removes five rows from the flow, so the button the reader just
-   * pressed jumps up the page and the next section slides under the cursor.
-   * They end up somewhere they did not ask to be.
+   * pressed slides up the page and the methodology section rises under the
+   * cursor. Measured: the button travelled 1062px.
    *
-   * So: measure the button before the state change, let the DOM settle, then
-   * scroll by exactly how far it moved. The button stays put under the cursor
-   * and the list closes around it.
+   * PINNED ACROSS THE WHOLE ANIMATION, not corrected after it. The first
+   * attempt measured the button on the next frame and scrolled by the
+   * difference, which did nothing, because the rows collapse through a 380ms
+   * grid-template-rows transition. Two frames in, nothing has moved yet, so the
+   * correction was always zero and the page slid anyway. Verified on the live
+   * site before rewriting it.
    *
-   * Only on collapse. Expanding pushes content DOWN from below the button, so
-   * the button does not move and there is nothing to correct.
+   * So the loop runs for the length of the transition and re-pins every frame.
+   * The button holds its exact viewport position and the list closes upward
+   * into it, which is the thing the reader actually asked for by pressing it.
+   *
+   * Only on collapse. Expanding inserts rows above the button and pushes it
+   * down, but the reader is looking at the newly revealed rows, which is where
+   * they should be.
    */
   const toggleAll = () => {
     if (!showAll) {
       setShowAll(true)
       return
     }
-    const before = btnRef.current?.getBoundingClientRect().top ?? 0
+    const anchor = btnRef.current?.getBoundingClientRect().top ?? 0
     setShowAll(false)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const after = btnRef.current?.getBoundingClientRect().top ?? 0
-        window.scrollBy({ top: after - before, behavior: 'instant' as ScrollBehavior })
-      })
-    })
+
+    /* Comfortably past --dur-base (380ms), so the last frame of the collapse is
+       still pinned. */
+    const until = performance.now() + 460
+    const pin = () => {
+      const el = btnRef.current
+      if (!el) return
+      const drift = el.getBoundingClientRect().top - anchor
+      if (drift !== 0) window.scrollBy({ top: drift, behavior: 'instant' as ScrollBehavior })
+      if (performance.now() < until) requestAnimationFrame(pin)
+    }
+    requestAnimationFrame(pin)
   }
 
   const head = biggest.slice(0, INITIAL)

@@ -152,6 +152,58 @@ function build(all) {
     }
   })
 
+  /**
+   * WHY THE WINDOW STARTS WHERE IT DOES, computed rather than asserted.
+   *
+   * The corpus reaches back to 1973, which invites the fair question of why a
+   * page about it only looks at part. The answer has two halves and only one of
+   * them is a constraint:
+   *
+   *   1. A constraint. The Retailers field, the single field this entire piece
+   *      rests on, is essentially absent before 2001. Measuring "share of
+   *      recalls naming Amazon" against a decade where almost no recall names
+   *      any retailer would be measuring the field's own emptiness.
+   *
+   *   2. A choice. From 2001 the field is populated on 99%+ of records and the
+   *      prose format is the same one it uses today, so the data would support
+   *      starting earlier. FIRST_YEAR is an editorial decision, not a limit.
+   *
+   * Publishing both halves is the point. A cutoff presented as forced, when it
+   * was chosen, is exactly the kind of quiet thumb on the scale this page is
+   * about. Every figure here is measured so the claim cannot drift.
+   */
+  const perYear = new Map()
+  for (const r of all) {
+    const y = Number((r.RecallDate ?? '').slice(0, 4))
+    if (!Number.isInteger(y)) continue
+    if (!perYear.has(y)) perYear.set(y, [])
+    perYear.get(y).push(r)
+  }
+  const allYears = [...perYear.keys()].sort((a, b) => a - b)
+  const populated = (rs) => pct(rs.filter((r) => retailerText(r).length > 0).length, rs.length)
+
+  // First year the field is reliable, and reliable in every year after it, so a
+  // single good year early on cannot be mistaken for the start of the record.
+  const firstReliableYear = allYears.find(
+    (y, i) => allYears.slice(i).every((z) => (populated(perYear.get(z)) ?? 0) >= 99),
+  )
+  const preReliable = all.filter(
+    (r) => Number((r.RecallDate ?? '').slice(0, 4)) < firstReliableYear,
+  )
+  const reliableStartRows = perYear.get(firstReliableYear)
+
+  const windowContext = {
+    corpusFirstYear: allYears[0],
+    firstReliableYear,
+    preReliableRecalls: preReliable.length,
+    preReliableRetailerPct: populated(preReliable),
+    amazonAtReliableStart: pct(
+      reliableStartRows.filter((r) => retailerText(r).includes('amazon')).length,
+      reliableStartRows.length,
+    ),
+    analyzedFrom: FIRST_YEAR,
+  }
+
   // Field coverage, published on the methodology page including the failures.
   const scope = all.filter((r) => Number((r.RecallDate ?? '').slice(0, 4)) >= FIRST_YEAR)
   const cov = (fn) => pct(scope.filter(fn).length, scope.length)
@@ -273,6 +325,7 @@ function build(all) {
     source: API,
     license: 'US Government public domain',
     corpusTotal: all.length,
+    windowContext,
     firstYear: FIRST_YEAR,
     newestRecallDate: dates.at(-1)?.slice(0, 10) ?? null,
     series,

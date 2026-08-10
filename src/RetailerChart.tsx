@@ -1,14 +1,44 @@
 import { useMemo, useRef, useState } from 'react'
 import data from './data/recalls.json'
+import { useMediaQuery } from './usePrefs'
 
 type Row = (typeof data.series)[number]
 
-const W = 900
-const H = 420
-const PAD = { top: 28, right: 132, bottom: 44, left: 52 }
-const PLOT_W = W - PAD.left - PAD.right
-const PLOT_H = H - PAD.top - PAD.bottom
 const Y_MAX = 90
+const years = data.series.map((d) => d.year)
+
+/**
+ * Two coordinate systems, because one cannot serve both.
+ *
+ * Everything in an SVG is expressed in viewBox units, and the browser scales
+ * those units to whatever width the container has. On a 375px phone the
+ * desktop viewBox scaled by 0.36, which turned 14px axis labels into 5.1px on
+ * screen. Measured, not estimated. No amount of CSS fixes that, because the
+ * problem is the ratio between the viewBox and the container.
+ *
+ * So the phone gets its own viewBox, sized so that one unit is roughly one
+ * pixel at phone widths. Declared type sizes then land at close to their real
+ * size. The right gutter also collapses, because the end-labels it existed for
+ * are replaced below the chart by a legend that can use ordinary HTML type.
+ */
+const DESKTOP = { W: 900, H: 420, PAD: { top: 28, right: 132, bottom: 44, left: 52 }, gap: 19 }
+const MOBILE = { W: 360, H: 340, PAD: { top: 18, right: 14, bottom: 36, left: 38 }, gap: 13 }
+
+type Layout = typeof DESKTOP
+
+function geom(L: Layout) {
+  const PLOT_W = L.W - L.PAD.left - L.PAD.right
+  const PLOT_H = L.H - L.PAD.top - L.PAD.bottom
+  return {
+    ...L,
+    PLOT_W,
+    PLOT_H,
+    x: (year: number) => L.PAD.left + ((year - years[0]) / (years.at(-1)! - years[0])) * PLOT_W,
+    y: (v: number) => L.PAD.top + PLOT_H - (v / Y_MAX) * PLOT_H,
+  }
+}
+
+type Geom = ReturnType<typeof geom>
 
 const COMPARATORS = [
   { key: 'walmart', label: 'Walmart', color: 'var(--color-alt-1)' },
@@ -17,11 +47,6 @@ const COMPARATORS = [
   { key: 'ebay', label: 'eBay', color: 'var(--color-alt-4)' },
 ] as const
 
-const years = data.series.map((d) => d.year)
-const x = (year: number) =>
-  PAD.left + ((year - years[0]) / (years.at(-1)! - years[0])) * PLOT_W
-const y = (v: number) => PAD.top + PLOT_H - (v / Y_MAX) * PLOT_H
-
 const path = (pts: Array<[number, number]>) =>
   pts.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)},${py.toFixed(1)}`).join(' ')
 
@@ -29,10 +54,10 @@ const path = (pts: Array<[number, number]>) =>
 const length = (pts: Array<[number, number]>) =>
   pts.reduce((n, p, i) => (i === 0 ? 0 : n + Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1])), 0)
 
-function seriesPoints(pick: (d: Row) => number | null): Array<[number, number]> {
+function seriesPoints(G: Geom, pick: (d: Row) => number | null): Array<[number, number]> {
   return data.series
     .filter((d) => pick(d) != null)
-    .map((d) => [x(d.year), y(pick(d) as number)] as [number, number])
+    .map((d) => [G.x(d.year), G.y(pick(d) as number)] as [number, number])
 }
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
@@ -77,8 +102,8 @@ function readout(d: Row, soleOnly: boolean, showControl = false) {
 }
 
 /** Highest point across all series at this year, so the tooltip clears them all. */
-function topOf(d: Row, soleOnly: boolean, showControl: boolean) {
-  return Math.min(...readout(d, soleOnly, showControl).map((s) => y(s.value)))
+function topOf(G: Geom, d: Row, soleOnly: boolean, showControl: boolean) {
+  return Math.min(...readout(d, soleOnly, showControl).map((s) => G.y(s.value)))
 }
 
 /**
@@ -124,21 +149,26 @@ export default function RetailerChart() {
   }
 
 
+  /* The phone gets a different coordinate system, not a scaled-down one. */
+  const isMobile = useMediaQuery('(max-width: 640px)')
+  const G = useMemo(() => geom(isMobile ? MOBILE : DESKTOP), [isMobile])
+  const { W, H, PAD, PLOT_W, PLOT_H, x, y } = G
+
   const amazon = useMemo(
-    () => seriesPoints((d) => (soleOnly ? d.amazonOnly : d.retailers.amazon)),
-    [soleOnly],
+    () => seriesPoints(G, (d) => (soleOnly ? d.amazonOnly : d.retailers.amazon)),
+    [soleOnly, G],
   )
-  const control = useMemo(() => seriesPoints((d) => d.online.mid), [])
+  const control = useMemo(() => seriesPoints(G, (d) => d.online.mid), [G])
   const comparators = useMemo(
-    () => COMPARATORS.map((c) => ({ ...c, pts: seriesPoints((d) => d.retailers[c.key]) })),
-    [],
+    () => COMPARATORS.map((c) => ({ ...c, pts: seriesPoints(G, (d) => d.retailers[c.key]) })),
+    [G],
   )
 
   const first = data.series[0]
   const last = data.series.at(-1)!
   const comparatorLabelY = useMemo(
-    () => declutter(COMPARATORS.map((c) => y(last.retailers[c.key]!))),
-    [last],
+    () => declutter(COMPARATORS.map((c) => G.y(last.retailers[c.key]!)), G.gap),
+    [last, G],
   )
   const amzFirst = soleOnly ? first.amazonOnly! : first.retailers.amazon!
   const amzLast = soleOnly ? last.amazonOnly! : last.retailers.amazon!
@@ -147,10 +177,20 @@ export default function RetailerChart() {
   return (
     <figure className="m-0">
       <div className="mb-6 flex flex-wrap gap-2">
-        <Toggle on={showControl} onClick={() => setShowControl((v) => !v)}>
+        <Toggle
+          on={showControl}
+          onClick={() => setShowControl((v) => !v)}
+          tone="var(--color-control)"
+          swatch="dashed"
+        >
           Show the obvious objection
         </Toggle>
-        <Toggle on={soleOnly} onClick={() => setSoleOnly((v) => !v)}>
+        <Toggle
+          on={soleOnly}
+          onClick={() => setSoleOnly((v) => !v)}
+          tone="var(--color-signal)"
+          swatch="solid"
+        >
           Count only recalls where Amazon is the only store
         </Toggle>
 
@@ -174,29 +214,38 @@ export default function RetailerChart() {
                 stroke="var(--color-rule)" strokeWidth={1}
               />
               <text
-                x={PAD.left - 10} y={y(v)} dy="0.32em" textAnchor="end"
-                className="fill-[var(--color-ink-faint)] text-[15px] tabular-nums"
+                x={PAD.left - (isMobile ? 7 : 10)} y={y(v)} dy="0.32em" textAnchor="end"
+                className={`fill-[var(--color-ink-faint)] tabular-nums ${isMobile ? 'text-[13px]' : 'text-[15px]'}`}
               >
                 {v}%
               </text>
             </g>
           ))}
 
-          {/* Every year is labelled. With only twelve points the gaps read as
-              missing data rather than as breathing room, and the reader should
-              be able to see the granularity they are actually looking at. */}
-          {data.series.map((d) => (
-            <text
-              key={d.year} x={x(d.year)} y={H - 16} textAnchor="middle"
-              className={`text-[14px] tabular-nums ${
-                d.year === last.year
-                  ? 'fill-[var(--color-ink-soft)] font-semibold'
-                  : 'fill-[var(--color-ink-faint)]'
-              }`}
-            >
-              ’{String(d.year).slice(2)}
-            </text>
-          ))}
+          {/* Every year is labelled on desktop. With only twelve points the
+              gaps read as missing data rather than as breathing room, and the
+              reader should be able to see the granularity they are actually
+              looking at.
+
+              On a phone there is not room for twelve, so it drops to every
+              other year. The latest year always survives the thinning, because
+              it is the one the whole piece is about. */}
+          {data.series.map((d, i) => {
+            const isLast = d.year === last.year
+            if (isMobile && !isLast && (data.series.length - 1 - i) % 2 !== 0) return null
+            return (
+              <text
+                key={d.year} x={x(d.year)} y={H - (isMobile ? 12 : 16)} textAnchor="middle"
+                className={`tabular-nums ${isMobile ? 'text-[13px]' : 'text-[14px]'} ${
+                  isLast
+                    ? 'fill-[var(--color-ink-soft)] font-semibold'
+                    : 'fill-[var(--color-ink-faint)]'
+                }`}
+              >
+                ’{String(d.year).slice(2)}
+              </text>
+            )
+          })}
 
           {/* Comparators first, so the subject sits on top of its context. */}
           {comparators.map((c) => (
@@ -214,18 +263,22 @@ export default function RetailerChart() {
                 d={path(control)} fill="none" stroke="var(--color-control)"
                 strokeWidth={2} strokeDasharray="7 5" strokeLinecap="round"
               />
-              <text
-                x={x(last.year) + 10} y={y(last.online.mid!)} dy="0.32em"
-                className="label-after fill-[var(--color-control)] text-[15px] font-semibold"
-              >
-                Sold online
-              </text>
-              <text
-                x={x(last.year) + 10} y={y(last.online.mid!) + 17} dy="0.32em"
-                className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
-              >
-                {ctlGrowth.toFixed(1)}× since ’{String(first.year).slice(2)}
-              </text>
+              {!isMobile && (
+                <>
+                  <text
+                    x={x(last.year) + 10} y={y(last.online.mid!)} dy="0.32em"
+                    className="label-after fill-[var(--color-control)] text-[15px] font-semibold"
+                  >
+                    Sold online
+                  </text>
+                  <text
+                    x={x(last.year) + 10} y={y(last.online.mid!) + 17} dy="0.32em"
+                    className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+                  >
+                    {ctlGrowth.toFixed(1)}× since ’{String(first.year).slice(2)}
+                  </text>
+                </>
+              )}
             </>
           )}
 
@@ -245,20 +298,24 @@ export default function RetailerChart() {
 
           {/* The end-labels are the payoff, so they arrive after the line has
               finished drawing rather than sitting there from the start. */}
-          <text
-            x={x(last.year) + 10} y={y(amzLast)} dy="0.32em"
-            className="label-after fill-[var(--color-signal)] text-[16px] font-semibold"
-          >
-            Amazon
-          </text>
-          <text
-            x={x(last.year) + 10} y={y(amzLast) + 17} dy="0.32em"
-            className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
-          >
-            {(amzLast / amzFirst).toFixed(1)}× since ’{String(first.year).slice(2)}
-          </text>
+          {!isMobile && (
+            <>
+              <text
+                x={x(last.year) + 10} y={y(amzLast)} dy="0.32em"
+                className="label-after fill-[var(--color-signal)] text-[16px] font-semibold"
+              >
+                Amazon
+              </text>
+              <text
+                x={x(last.year) + 10} y={y(amzLast) + 17} dy="0.32em"
+                className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+              >
+                {(amzLast / amzFirst).toFixed(1)}× since ’{String(first.year).slice(2)}
+              </text>
+            </>
+          )}
 
-          {comparators.map((c, i) => {
+          {!isMobile && comparators.map((c, i) => {
             const ly = comparatorLabelY[i]
             const ty = y(last.retailers[c.key]!)
             return (
@@ -323,7 +380,7 @@ export default function RetailerChart() {
               // Positioned from the viewBox in percentages, so it tracks the
               // point at every container width without a resize listener.
               left: `${clamp((x(hover.year) / W) * 100, 12, 88)}%`,
-              top: `${(topOf(hover, soleOnly, showControl) / H) * 100}%`,
+              top: `${(topOf(G, hover, soleOnly, showControl) / H) * 100}%`,
               marginTop: '-14px',
             }}
           >
@@ -381,6 +438,28 @@ export default function RetailerChart() {
         )}
       </div>
 
+      {/* The phone's replacement for the end-labels.
+          Same information, but as HTML type at a real size instead of SVG type
+          scaled down past legibility. Values are the latest year, which is what
+          the end-labels showed. */}
+      {isMobile && (
+        <ul className="m-0 mt-5 grid list-none grid-cols-2 gap-x-4 gap-y-2.5 p-0">
+          {readout(last, soleOnly, showControl).map((s) => (
+            <li key={s.key} className="flex items-baseline gap-2 text-[14px] leading-snug">
+              <span
+                aria-hidden
+                className="mt-[1px] inline-block size-2.5 shrink-0 rounded-full"
+                style={{ background: s.color }}
+              />
+              <span className="text-[var(--color-ink-soft)]">{s.label}</span>
+              <span className="ml-auto font-semibold tabular-nums text-[var(--color-ink)]">
+                {s.value}%
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+
       {/* Announced to screen readers as the keyboard selection moves. */}
       <p className="sr-only" role="status" aria-live="polite">
         {hover
@@ -391,8 +470,18 @@ export default function RetailerChart() {
       </p>
 
       {/* The same figures as a real table. A chart is a rendering of data, not
-          a replacement for it, so the data itself stays reachable. */}
-      <table className="sr-only">
+          a replacement for it, so the data itself stays reachable.
+
+          The .sr-only sits on a WRAPPER, not on the table. On the table it did
+          not work: a table under the default auto layout takes the larger of
+          its specified width and its minimum content width, so width:1px left
+          it 632px wide. clip-path hid it, but it still stretched the document
+          to 655px against a 375px phone, and the page zoomed out to fit. That
+          was the whole mobile bug. A block wrapper does honour width:1px, and
+          overflow:hidden clips the table inside it, so the table keeps its
+          native display and its semantics for a screen reader. */}
+      <div className="sr-only">
+      <table>
         <caption>
           Share of US product recalls naming each store, by year
         </caption>
@@ -423,6 +512,7 @@ export default function RetailerChart() {
           ))}
         </tbody>
       </table>
+      </div>
 
       <figcaption className="mt-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
         <p className="m-0">
@@ -446,18 +536,56 @@ export default function RetailerChart() {
   )
 }
 
-function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
+/**
+ * A toggle wears the colour of the thing it controls.
+ *
+ * Both of these used to light up in the signal orange. That was wrong for the
+ * objection toggle, which adds the muted "sold online" line: you pressed an
+ * orange button and a tan dashed line appeared, so nothing on screen told you
+ * which mark you had just summoned. The sole-retailer toggle keeps the orange,
+ * because the line it changes genuinely is the orange one.
+ *
+ * The swatch carries the same dash pattern as the line it draws, so the link
+ * survives for anyone who cannot separate the two hues.
+ */
+function Toggle({
+  on,
+  onClick,
+  tone = 'var(--color-signal)',
+  swatch,
+  children,
+}: {
+  on: boolean
+  onClick: () => void
+  tone?: string
+  swatch?: 'solid' | 'dashed'
+  children: React.ReactNode
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={on}
-      className={`rounded-full border px-5 py-2.5 text-[15px] transition-colors ${
+      className={`flex items-center gap-2.5 rounded-full border px-5 py-2.5 text-[15px] transition-colors ${
         on
-          ? 'border-[var(--color-signal)] bg-[var(--color-signal)] text-[var(--color-paper)]'
+          ? ''
           : 'border-[var(--color-rule)] text-[var(--color-ink-soft)] hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
       }`}
+      style={
+        on ? { borderColor: tone, background: tone, color: 'var(--color-paper)' } : undefined
+      }
     >
+      {swatch && (
+        <svg width="18" height="8" viewBox="0 0 18 8" aria-hidden className="shrink-0 overflow-visible">
+          <line
+            x1="0" y1="4" x2="18" y2="4"
+            stroke={on ? 'var(--color-paper)' : tone}
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeDasharray={swatch === 'dashed' ? '5 4' : undefined}
+          />
+        </svg>
+      )}
       {children}
     </button>
   )

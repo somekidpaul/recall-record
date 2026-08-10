@@ -158,31 +158,37 @@ p { text-wrap-style: pretty; }
   }
 }
 
-/* The end-labels are the payoff. The draw runs to `cover 60%`, so these start
-   there and land shortly after, making the number the last thing to appear
-   rather than a caption that was always sitting on the chart. */
+/*
+  STRICT ORDER: line draws, THEN the dashed tail, THEN the labels.
+
+  These three used to overlap. The solid line drew until `cover 60%`, but the
+  tail started at `cover 50%` and the labels at `cover 55%`, so the dashed 2026
+  segment and the "7.2× since ’15" readout were both already on screen while
+  the line was still travelling toward them. It read as the chart giving away
+  its own ending.
+
+  The ranges are now disjoint and in causal order. Each one starts at or after
+  the previous one finishes, so the line arrives, the provisional tail carries
+  on from it, and the numbers land last.
+*/
+@supports (animation-timeline: view()) {
+  :root[data-motion="full"] .tail-after {
+    animation: label-in linear both;
+    animation-timeline: view();
+    animation-range: cover 60% cover 69%;
+  }
+}
+
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .label-after {
     animation: label-in linear both;
     animation-timeline: view();
-    animation-range: cover 55% cover 72%;
+    animation-range: cover 69% cover 80%;
   }
 }
 @keyframes label-in {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-/* The provisional 2026 tail and its marker.
-   The solid line draws to `cover 60%`, so these fade in just before that, which
-   reads as the line reaching the dashed part and carrying it in rather than the
-   dashes sitting there waiting for it. */
-@supports (animation-timeline: view()) {
-  :root[data-motion="full"] .tail-after {
-    animation: label-in linear both;
-    animation-timeline: view();
-    animation-range: cover 50% cover 62%;
-  }
 }
 
 @keyframes ring-fill {

@@ -58,25 +58,33 @@ function gapDegrees(v: number) {
 /** True where the drawn arc is exact, false where the minimum gap took over. */
 export const isExact = (v: number) => v >= 100 || ((100 - v) / 100) * 360 >= MIN_GAP_DEG
 
+/**
+ * Colour here is a severity scale, not decoration.
+ *
+ * grey   = 99% and up, the field is there and you can lean on it
+ * blue   = 50 to 99, partly filled in, usable with care
+ * orange = under 50, mostly missing
+ *
+ * The scale used to be undeclared, so the only way to learn it was to notice
+ * that the two coloured rings were also the two low numbers. That is a puzzle,
+ * not an encoding, so the thresholds are now printed under the rings.
+ */
+const BANDS = [
+  { from: 99, label: 'Reliable', hint: '99% and up', color: 'var(--color-ink-faint)' },
+  { from: 50, label: 'Partial', hint: '50 to 99%', color: 'var(--color-alt-1)' },
+  { from: 0, label: 'Mostly missing', hint: 'under 50%', color: 'var(--color-signal)' },
+]
+
 function tone(v: number) {
-  if (v >= 99) return 'var(--color-ink-faint)'
-  if (v >= 50) return 'var(--color-alt-1)'
-  return 'var(--color-signal)'
+  return BANDS.find((b) => v >= b.from)!.color
 }
 
 export default function CoverageRings() {
   const bent = FIELDS.filter((f) => !isExact(f.value))
+  /* Only show a band in the key if something on screen actually uses it. */
+  const usedBands = BANDS.filter((b) => FIELDS.some((f) => tone(f.value) === b.color))
   return (
     <>
-    {bent.length > 0 && (
-      <p className="m-0 mb-10 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        About the drawing. {bent.length} of these miss 100% by less than{' '}
-        {MIN_GAP_DEG / 3.6}%, and at true scale that gap is thinner than a pixel, so they would
-        look like closed circles. So anything under 100% gets a small visible gap on purpose.
-        Everywhere else the ring is exact, and only a true 100% closes it. The numbers themselves
-        are precise.
-      </p>
-    )}
     <ul className="m-0 grid list-none gap-x-8 gap-y-12 p-0 [grid-template-columns:repeat(auto-fit,minmax(196px,1fr))]">
       {FIELDS.map((f) => (
         <li key={f.label} className="flex flex-col items-center text-center">
@@ -91,10 +99,42 @@ export default function CoverageRings() {
           <p className="m-0 mt-1.5 max-w-[25ch] text-[14px] leading-snug text-[var(--color-ink-faint)]">
             {f.note}
           </p>
-          {f.trend && <Sparkline points={data.trend[f.trend]} />}
+          {/* The trend takes the ring's colour. It was hardcoded to the signal
+              orange, so the blue Importer ring sat above an orange sparkline
+              and implied the two marks were about different things. */}
+          {f.trend && <Sparkline points={data.trend[f.trend]} color={tone(f.value)} />}
         </li>
       ))}
     </ul>
+
+    {/* The key. Without it the colours are a puzzle rather than an encoding,
+        and the reader has to infer the thresholds from which rings happen to
+        be coloured. */}
+    <ul className="m-0 mt-14 flex list-none flex-wrap items-center gap-x-8 gap-y-3 border-t border-[var(--color-rule)] p-0 pt-6">
+      {usedBands.map((b) => (
+        <li key={b.label} className="flex items-center gap-2.5 text-[15px]">
+          <span
+            aria-hidden
+            className="inline-block size-3 shrink-0 rounded-full"
+            style={{ background: b.color }}
+          />
+          <span className="text-[var(--color-ink)]">{b.label}</span>
+          <span className="text-[var(--color-ink-faint)] tabular-nums">{b.hint}</span>
+        </li>
+      ))}
+    </ul>
+
+    {/* A footnote, and it sits AFTER the rings now. It used to run above them,
+        so the page explained a drawing the reader had not seen yet. */}
+    {bent.length > 0 && (
+      <p className="m-0 mt-6 max-w-[68ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+        One note on how these are drawn. {bent.length} of them miss 100% by less than{' '}
+        {MIN_GAP_DEG / 3.6}%, and at true scale that gap would be thinner than a pixel, so they
+        would all look like closed circles. Anything under 100% therefore gets a small visible
+        gap on purpose. Every other arc is exact, and only a true 100% closes the ring. The
+        numbers themselves are precise.
+      </p>
+    )}
     </>
   )
 }
@@ -134,7 +174,13 @@ function Ring({ value }: { value: number }) {
  * 99.4% and 100% in every year since 2015, so a line for them would be a flat
  * rule pretending to be information.
  */
-function Sparkline({ points }: { points: Array<{ year: number; pct: number | null }> }) {
+function Sparkline({
+  points,
+  color,
+}: {
+  points: Array<{ year: number; pct: number | null }>
+  color: string
+}) {
   const vals = points.filter((p) => p.pct != null) as Array<{ year: number; pct: number }>
   if (vals.length < 2) return null
 
@@ -152,8 +198,8 @@ function Sparkline({ points }: { points: Array<{ year: number; pct: number | nul
   return (
     <div className="mt-4">
       <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="overflow-visible" aria-hidden>
-        <path d={d} fill="none" stroke="var(--color-signal)" strokeWidth={1.75} strokeLinejoin="round" />
-        <circle cx={w} cy={at(vals.at(-1)!, vals.length - 1)[1]} r={2.75} fill="var(--color-signal)" />
+        <path d={d} fill="none" stroke={color} strokeWidth={1.75} strokeLinejoin="round" />
+        <circle cx={w} cy={at(vals.at(-1)!, vals.length - 1)[1]} r={2.75} fill={color} />
       </svg>
       <p className="m-0 mt-2 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.08em] text-[var(--color-ink-faint)] tabular-nums">
         {vals[0].pct}% ’{String(vals[0].year).slice(2)} → {vals.at(-1)!.pct}% ’

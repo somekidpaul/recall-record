@@ -1,7 +1,22 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import data from './data/recalls.json'
 
 const year = data.series.at(-1)!.year
+
+/** Arrow leaving a box. The conventional mark for "this leaves the site". */
+function ExternalIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden className="shrink-0 opacity-70">
+      <path
+        d="M5.5 2.5H2.5v9h9v-3M8.5 2.5h3v3M11.5 2.5L6 8"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 /** US households, 2024 American Community Survey. Used only for scale, and cited. */
 const US_HOUSEHOLDS = 132_216_000
@@ -26,8 +41,36 @@ const INITIAL = 5
 export default function BiggestRecalls() {
   const [open, setOpen] = useState<number | null>(null)
   const [showAll, setShowAll] = useState(false)
+  const btnRef = useRef<HTMLButtonElement>(null)
   const biggest = data.biggest
   if (!biggest?.length) return null
+
+  /**
+   * Collapsing removes five rows from the flow, so the button the reader just
+   * pressed jumps up the page and the next section slides under the cursor.
+   * They end up somewhere they did not ask to be.
+   *
+   * So: measure the button before the state change, let the DOM settle, then
+   * scroll by exactly how far it moved. The button stays put under the cursor
+   * and the list closes around it.
+   *
+   * Only on collapse. Expanding pushes content DOWN from below the button, so
+   * the button does not move and there is nothing to correct.
+   */
+  const toggleAll = () => {
+    if (!showAll) {
+      setShowAll(true)
+      return
+    }
+    const before = btnRef.current?.getBoundingClientRect().top ?? 0
+    setShowAll(false)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const after = btnRef.current?.getBoundingClientRect().top ?? 0
+        window.scrollBy({ top: after - before, behavior: 'instant' as ScrollBehavior })
+      })
+    })
+  }
 
   const head = biggest.slice(0, INITIAL)
   const tail = biggest.slice(INITIAL)
@@ -74,11 +117,26 @@ export default function BiggestRecalls() {
                     {isOpen ? 'Hide product' : 'View product'}
                   </button>
                   {r.url && (
+                    /* Opens in a new tab, and says so.
+                       Best practice is normally to leave the choice to the
+                       reader, because forcing a tab takes away the back button.
+                       The exception is exactly this case: leaving mid-task, from
+                       a page the reader is partway through, to a third-party
+                       site. Losing an expanded row and their scroll position to
+                       read one notice is the worse trade. The rule when you do
+                       force it is that you must signal it, hence the icon, and
+                       the accessible name spells it out. rel="noreferrer" is
+                       required alongside target="_blank" so the opened page
+                       cannot reach back through window.opener. */
                     <a
                       href={r.url}
-                      className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Read the CPSC notice for ${r.product}, opens in a new tab`}
+                      className="flex items-center gap-2 rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
                     >
                       Read the notice
+                      <ExternalIcon />
                     </a>
                   )}
                 </div>
@@ -155,7 +213,8 @@ export default function BiggestRecalls() {
       {tail.length > 0 && (
         <button
           type="button"
-          onClick={() => setShowAll((v) => !v)}
+          ref={btnRef}
+          onClick={toggleAll}
           aria-expanded={showAll}
           className="no-print mt-8 flex items-center gap-2.5 rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
         >

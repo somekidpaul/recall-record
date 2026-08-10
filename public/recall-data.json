@@ -7,6 +7,14 @@
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
   "corpusTotal": 9944,
+  "windowContext": {
+    "corpusFirstYear": 1973,
+    "firstReliableYear": 2004,
+    "preReliableRecalls": 2622,
+    "preReliableRetailerPct": 34.6,
+    "amazonAtReliableStart": 0,
+    "analyzedFrom": 2015
+  },
   "firstYear": 2015,
   "newestRecallDate": "2026-08-06",
   "series": [

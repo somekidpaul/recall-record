@@ -55,7 +55,20 @@ export default function CountUp({
         // Ease out, so it decelerates into the real figure rather than stopping dead.
         const ease = (t: number) => 1 - (1 - t) ** 3
         const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / duration)
+          /*
+           * CLAMPED AT BOTH ENDS. It used to be Math.min(1, ...), which caps
+           * the top but lets the bottom run negative, and the first frame's
+           * timestamp can land before the `start` captured just above it. At
+           * t = -0.004 this eased to -0.012 and painted "-0.1%".
+           *
+           * Two things broke at once, from that one minus sign. It showed a
+           * negative percentage, which is not a number this data can produce.
+           * And it made the string one character longer than the box the
+           * invisible copy reserves for the FINAL value, so it overflowed to
+           * the right and covered the comma after it: "6.9%, about" rendered
+           * as "-0.1%about".
+           */
+          const t = Math.min(1, Math.max(0, (now - start) / duration))
           setValue(to * ease(t))
           if (t < 1) raf = requestAnimationFrame(tick)
           else setValue(to)

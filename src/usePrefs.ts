@@ -49,6 +49,31 @@ export function useTheme() {
   return { theme, resolved, setTheme }
 }
 
+/**
+ * Live media query, for the cases CSS genuinely cannot reach.
+ *
+ * The chart needs this because `viewBox` is an SVG attribute, not a style, so
+ * no media query can change it. Everything inside the chart is expressed in
+ * viewBox units, which means the whole coordinate system has to change to give
+ * a phone a readable layout. That is a render decision, so it belongs here.
+ *
+ * Anything that CAN be done in CSS still is.
+ */
+export function useMediaQuery(query: string) {
+  return useSyncExternalStore(
+    useCallback(
+      (notify: () => void) => {
+        const m = window.matchMedia(query)
+        m.addEventListener('change', notify)
+        return () => m.removeEventListener('change', notify)
+      },
+      [query],
+    ),
+    () => window.matchMedia(query).matches,
+    () => false,
+  )
+}
+
 export function useMotion() {
   const motion = useSyncExternalStore(subscribe, readMotion, () => 'reduced' as Motion)
 

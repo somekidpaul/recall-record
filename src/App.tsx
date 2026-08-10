@@ -93,9 +93,9 @@ export default function App() {
               .
             </p>
             <p className="m-0 mt-3 text-[16px] leading-[1.6] text-[var(--color-ink-soft)]">
-              AI-native product designer. I take something confusing and turn it into one clear,
-              honest answer, then show the reasoning so you can decide whether to trust it. More
-              at{' '}
+              AI-native Product Designer with years in web, brand and marketing, now shipping
+              products end to end. I take something confusing and turn it into one clear, honest
+              answer, then show the reasoning so you can decide whether to trust it. More at{' '}
               <a
                 className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
                 href="https://somekidpaul.com"
@@ -156,6 +156,7 @@ function Card({ label, value, children }: { label: string; value: string; childr
 
 function Methodology() {
   const cov = data.coverage
+  const w = data.windowContext
   const p = data.partialYear!
   const shortFirst = first.amazonAmongShort!
   const shortLast = last.amazonAmongShort!
@@ -184,9 +185,10 @@ function Methodology() {
           </a>
           .
         </Card>
-        <Card label="Recalls" value={data.corpusTotal.toLocaleString()}>
-          Going back to 1973. This page looks at the {cov.total.toLocaleString()} since{' '}
-          {first.year}, the point where Amazon got big enough to matter.
+        <Card label="Recalls analyzed" value={cov.total.toLocaleString()}>
+          Out of {data.corpusTotal.toLocaleString()} in the full database, which reaches back to
+          1973. This page covers {first.year} onward. Why that year, and not an earlier one, is
+          the first question below.
         </Card>
         <Card label="Rebuilt" value="Weekly">
           Newest recall {data.newestRecallDate}. If the data ever shrinks or goes more than
@@ -194,7 +196,31 @@ function Methodology() {
         </Card>
       </div>
 
-      <div className="mt-14 border-t border-[var(--color-rule)]">
+      {/* No top rule. The solid line above the first row read as a divider
+          between list items, which made it look like a row was missing above
+          "What the number actually means". The dotted separators between rows
+          already carry the grouping. */}
+      <div className="mt-14">
+        <Note title={`Why this starts in ${first.year}, when the data goes back to ${w.corpusFirstYear}`}>
+          Two different reasons, and only one of them is a real limit. The first is: the retailer
+          sentence, the one thing this whole page depends on, is mostly blank in the early years.
+          Of the {w.preReliableRecalls.toLocaleString()} recalls before {w.firstReliableYear}, only{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {w.preReliableRetailerPct}%
+          </strong>{' '}
+          say where the product was sold at all. Counting how often Amazon gets named across years
+          where most recalls name nobody would measure the empty field, not Amazon. The second
+          reason is not a limit at all. From {w.firstReliableYear} the field is filled in on 99% or
+          more of recalls every single year, written the same way it is written today, so I could
+          have started there. I did not, and you should know that {first.year} is a choice. It is
+          the conservative one: Amazon was{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {w.amazonAtReliableStart}%
+          </strong>{' '}
+          of recalls in {w.firstReliableYear}, so a longer run would make this climb look steeper,
+          not gentler.
+        </Note>
+
         <Note title="What the number actually means">
           CPSC does not publish a tidy list of stores. It writes one sentence per recall,
           like <em>“Online at Amazon.com from August 2024 through April 2026 for

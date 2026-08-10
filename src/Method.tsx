@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import Controls from './Controls'
+import Nav from './Nav'
 import CoverageRings from './CoverageRings'
 import data from './data/recalls.json'
 import { useId, useState } from 'react'
@@ -47,34 +47,10 @@ export default function Method() {
 
   return (
     <main className="mx-auto max-w-[1080px] px-6 pb-32 sm:px-10">
-      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-[var(--color-rule)] py-4 sm:gap-x-8 sm:py-5">
-        <div className="flex items-center gap-3 sm:gap-5">
-          <a
-            href="/"
-            className="m-0 font-[family-name:var(--font-display)] text-[19px] font-normal tracking-tight text-[var(--color-ink)] sm:text-[22px]"
-          >
-            The Recall Record
-          </a>
-          <Controls />
-        </div>
-        {/* Arrow alone on a phone. Measured at 375px: the title and theme pill
-            are 262px of a 327px masthead, and "Read the record →" is another
-            151px, so 413 wrapped it onto a second row. The label returns at
-            sm. */}
-        <a
-          href="/"
-          aria-label="Back to the record"
-          className="m-0 flex items-center gap-2 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] sm:text-[13px]"
-        >
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden className="shrink-0">
-            <path d="M13 8H3M7 3.5L2.5 8l4.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <span className="hidden sm:inline">Read the record</span>
-        </a>
-      </header>
+      <Nav current="/method" />
 
       <section className="pt-14 pb-4 sm:pt-20">
-        <h1 className="m-0 max-w-[22ch] font-[family-name:var(--font-display)] text-[clamp(2rem,5.5vw,3.4rem)] font-normal leading-[1.08] tracking-[-0.02em]">
+        <h1 className="m-0 max-w-[22ch] font-[family-name:var(--font-display)] text-[clamp(2rem,5.5vw,3.4rem)] font-normal leading-[1.18] tracking-[-0.02em] sm:leading-[1.09]">
           How this was counted, and where it falls short.
         </h1>
         <p className="mt-6 mb-0 max-w-[56ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
@@ -176,7 +152,7 @@ export default function Method() {
       </section>
 
       <section className="border-t border-[var(--color-rule)] py-16">
-        <h4 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.4rem,2.8vw,2rem)] font-normal leading-[1.15] tracking-[-0.015em]">
+        <h4 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.4rem,2.8vw,2rem)] font-normal leading-[1.28] tracking-[-0.015em] sm:leading-[1.18]">
           What the records actually contain, gaps and all.
         </h4>
         {/* Two paragraphs became one, 116 words became 46. The cut was the

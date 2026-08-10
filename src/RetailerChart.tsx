@@ -178,11 +178,18 @@ export default function RetailerChart() {
   return (
     <figure className="m-0">
       <div className="mb-6 flex flex-wrap gap-2">
-        {/* SHORT LABELS, because these are switches and not sentences.
-            "Count only recalls where Amazon is the only store" measured 327px
-            wide and 67px tall on a phone: a pill wrapped onto three lines. The
-            full meaning moves to the accessible name and to the caption under
-            the chart, which is where an explanation belongs. */}
+        {/* TWO DIFFERENT KINDS OF CONTROL, drawn differently on purpose.
+            They used to look identical, and that was the confusion: one ADDS a
+            line to the chart, the other CHANGES what the orange line counts.
+            Wearing the same pill, "Amazon only" read as "show only the Amazon
+            series", a filter over what is drawn, when it actually reopens the
+            question of what is being measured.
+
+            So the objection stays a switch, because it adds a mark. The Amazon
+            measure becomes a two-state choice with both options visible at
+            once, which is the same sliding pill the theme control uses, and it
+            cannot be mistaken for a filter because there is nothing to turn
+            off. */}
         <Toggle
           on={showControl}
           onClick={() => setShowControl((v) => !v)}
@@ -192,15 +199,40 @@ export default function RetailerChart() {
         >
           The obvious objection
         </Toggle>
-        <Toggle
-          on={soleOnly}
-          onClick={() => setSoleOnly((v) => !v)}
-          tone="var(--color-signal)"
-          swatch="solid"
-          label="Count only recalls where Amazon is the only store named"
-        >
-          Amazon only
-        </Toggle>
+
+        <div className="flex items-center gap-3">
+          <span className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
+            Amazon line
+          </span>
+          <div
+            role="group"
+            aria-label="What the Amazon line counts"
+            className="relative grid grid-cols-2 rounded-full border border-[var(--color-rule)] p-0.5"
+          >
+            <span
+              aria-hidden
+              className="pill absolute inset-y-0.5 left-0.5 rounded-full bg-[var(--color-signal)]"
+              style={{ width: 'calc((100% - 0.25rem) / 2)', transform: `translateX(${soleOnly ? 100 : 0}%)` }}
+            />
+            {[
+              { on: !soleOnly, label: 'Named at all', full: 'Count every recall that names Amazon' },
+              { on: soleOnly, label: 'Only store', full: 'Count only recalls where Amazon is the one store named' },
+            ].map((o) => (
+              <button
+                key={o.label}
+                type="button"
+                onClick={() => setSoleOnly(o.label === 'Only store')}
+                aria-pressed={o.on}
+                aria-label={o.full}
+                className={`relative z-10 rounded-full px-3.5 py-1.5 text-[14px] whitespace-nowrap transition-colors duration-150 ${
+                  o.on ? 'text-[var(--color-paper)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]'
+                }`}
+              >
+                {o.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
       </div>
 

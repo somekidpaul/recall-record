@@ -56,7 +56,10 @@ export default function RecallSearch({
   defaultHeading,
   autoFocus = false,
   anchorId,
+  showField = true,
 }: {
+  /** False on the essay, where the masthead search is the only way in. */
+  showField?: boolean
   /** Set on the essay mount so the masthead link has something to scroll to. */
   anchorId?: string
   /** Shown when the field is empty. Omitted on /check, which starts blank. */
@@ -192,6 +195,12 @@ export default function RecallSearch({
 
   return (
     <div>
+      {/* The field is only drawn where it is the point of the page. On the
+          essay this component renders the ranked list alone, and the masthead
+          search is the way to look anything up, so there is one search
+          mechanism on the site rather than two that behave differently. */}
+      {showField && (
+      <>
       {/*
         THE FIELD OPENS, rather than being a button that goes somewhere.
         Closed it is a quiet line of type with a magnifier, which is all a
@@ -235,6 +244,8 @@ export default function RecallSearch({
           </button>
         )}
       </div>
+      </>
+      )}
 
       <p className="sr-only" role="status" aria-live="polite">
         {searching && results
@@ -403,7 +414,7 @@ function NothingFound({
 }) {
   return (
     <section className="pt-10">
-      <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.6rem,3.4vw,2.4rem)] font-normal leading-[1.15] tracking-[-0.015em]">
+      <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.6rem,3.4vw,2.4rem)] font-normal leading-[1.24] tracking-[-0.015em] sm:leading-[1.16]">
         No federal recall matches “{query}”.
       </h3>
       <p className="mt-6 mb-0 max-w-[52ch] text-[21px] leading-[1.5] text-[var(--color-ink)]">

@@ -1,18 +1,14 @@
 import { useId, useState } from 'react'
 import RetailerChart from './RetailerChart'
-import Controls from './Controls'
+import Nav from './Nav'
 import CountUp from './CountUp'
 import MotionNotice from './MotionNotice'
 import BiggestRecalls from './BiggestRecalls'
-import { FIND_ID } from './RecallSearch'
 import data from './data/recalls.json'
 
 const last = data.series.at(-1)!
 const first = data.series[0]
 
-const asOf = new Date(data.newestRecallDate!).toLocaleDateString('en-US', {
-  month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
-})
 
 /**
  * The headline word, derived rather than typed.
@@ -31,66 +27,13 @@ const headlineQuantity = last.amazonOnly! >= 50 ? 'Half' : 'Nearly half'
 export default function App() {
   return (
     <main className="mx-auto max-w-[1080px] px-6 pb-32 sm:px-10">
-      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-[var(--color-rule)] py-4 sm:gap-x-8 sm:py-5">
-        {/* Measured at 375px: the masthead is 327px wide, and the title plus
-            the theme pill came to 293px against a 41px search icon. 334 into
-            327 wraps, which is why the nav sat on two rows at 123px tall even
-            after the button lost its label. A smaller title and a tighter gap
-            on phones bring the left group to about 260 and it fits on one. */}
-        <div className="flex items-center gap-3 sm:gap-5">
-          <h1 className="m-0 font-[family-name:var(--font-display)] text-[19px] font-normal tracking-tight sm:text-[22px]">
-            The Recall Record
-          </h1>
-          <Controls />
-        </div>
-        <div className="flex items-center gap-3 sm:gap-6">
-          {/* Scrolls to the search that is already on this page rather than
-              navigating away to a second copy of it. The href stays a real URL
-              so middle-click, right-click and no-JS all still work; the handler
-              only intercepts the ordinary click.
-
-              preventScroll on the focus call matters: focusing an element
-              scrolls it into view instantly, which would cancel the smooth
-              scroll a frame after it started. */}
-          <a
-            href="/check"
-            onClick={(e) => {
-              const shell = document.getElementById(FIND_ID)
-              if (!shell || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
-              e.preventDefault()
-              /* Smooth for most people, instant for anyone who asked for less
-                 motion. This is a page-length jump, which is exactly the kind
-                 of travel Reduce Motion exists to stop, and it is also the
-                 safety net: focus() is told not to scroll, so if the animated
-                 scroll never runs the reader would be left typing into an input
-                 five screens away. */
-              const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
-              shell.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
-              shell.querySelector('input')?.focus({ preventScroll: true })
-            }}
-            aria-label="Search every recall"
-            className="flex items-center gap-2 rounded-full border border-[var(--color-rule)] px-3 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)] sm:px-4"
-          >
-            {/* The magnifier alone on a phone. The label was 141px wide, which
-                pushed the masthead onto a second row at 129px tall. The icon is
-                the affordance; the field it scrolls to carries the words. */}
-            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden className="shrink-0">
-              <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.9" />
-              <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
-            </svg>
-            <span className="hidden sm:inline">Check a product</span>
-          </a>
-          <p className="m-0 hidden font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)] sm:block">
-            Issue 01 · Data through {asOf}
-          </p>
-        </div>
-      </header>
+      <Nav current="/" />
 
       <section className="pt-16 pb-20 sm:pt-24 sm:pb-28">
         <p className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-signal)]">
           {last.year} so far
         </p>
-        <h2 className="mt-6 mb-0 max-w-[19ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.5vw,5.5rem)] font-normal leading-[1.02] tracking-[-0.02em]">
+        <h2 className="mt-6 mb-0 max-w-[19ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.5vw,5.5rem)] font-normal leading-[1.13] tracking-[-0.02em] sm:leading-[1.04]">
           {headlineQuantity} of every product recall in America is something you could only buy
           on Amazon.
         </h2>
@@ -115,7 +58,7 @@ export default function App() {
       </section>
 
       <section className="border-t border-[var(--color-rule)] py-20">
-        <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
+        <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
           Amazon is climbing. Everyone else is flat.
         </h3>
         <p className="arrive mt-5 mb-12 max-w-[50ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
@@ -240,7 +183,7 @@ function Card({ label, value, children }: { label: string; value: string; childr
 function Methodology() {
   return (
     <section className="border-t border-[var(--color-rule)] py-20">
-      <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
+      <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
         Where these numbers come from.
       </h3>
 

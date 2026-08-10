@@ -21,7 +21,7 @@ const years = data.series.map((d) => d.year)
  * size. The right gutter also collapses, because the end-labels it existed for
  * are replaced below the chart by a legend that can use ordinary HTML type.
  */
-const DESKTOP = { W: 900, H: 420, PAD: { top: 28, right: 132, bottom: 44, left: 52 }, gap: 19 }
+const DESKTOP = { W: 900, H: 420, PAD: { top: 28, right: 78, bottom: 46, left: 52 }, gap: 19 }
 const MOBILE = { W: 360, H: 340, PAD: { top: 18, right: 14, bottom: 36, left: 38 }, gap: 13 }
 
 type Layout = typeof DESKTOP
@@ -106,23 +106,25 @@ function topOf(G: Geom, d: Row, soleOnly: boolean, showControl: boolean) {
   return Math.min(...readout(d, soleOnly, showControl).map((s) => G.y(s.value)))
 }
 
-/**
- * Push overlapping end-labels apart while keeping their order.
- * Target, Home Depot and eBay all sit in the low single digits, so their
- * natural label positions collide. Nudging the label without moving the line
- * is the honest fix: the data stays where it is, only the type moves.
+/*
+ * THE COMPARATORS DO NOT GET END-LABELS ANY MORE, and this replaced a function
+ * that spent thirty lines fighting the symptom.
+ *
+ * In 2026 Walmart is 10.7%, Target 4.6%, Home Depot 3.2% and eBay 1.1%. All
+ * four live inside the bottom twelfth of a chart scaled for Amazon, so their
+ * natural label positions were on top of each other. A declutter pass pushed
+ * them apart by a minimum gap, which worked in the sense that the labels no
+ * longer overlapped and failed in every other sense: measured, Home Depot
+ * landed at y=377 against a plot floor of 376, and eBay at y=396 against the
+ * year labels at y=404. The type had been shoved out of the chart to make room
+ * for itself, and it pointed at the wrong heights on the way out.
+ *
+ * No amount of nudging fixes four values inside eleven percentage points. So
+ * the legend below the chart, which the phone layout already used, is now the
+ * only place comparators are named. Amazon keeps an inline label because it is
+ * the subject and it sits alone at 60.9%. The gutter that held four labels
+ * shrinks from 132 units to 78, and the plot gets the difference.
  */
-function declutter(vals: number[], minGap = 19): number[] {
-  const order = vals.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v)
-  let prev = -Infinity
-  for (const o of order) {
-    o.v = Math.max(o.v, prev + minGap)
-    prev = o.v
-  }
-  const out = new Array<number>(vals.length)
-  for (const o of order) out[o.i] = o.v
-  return out
-}
 
 export default function RetailerChart() {
   const [showControl, setShowControl] = useState(false)
@@ -166,13 +168,12 @@ export default function RetailerChart() {
 
   const first = data.series[0]
   const last = data.series.at(-1)!
-  const comparatorLabelY = useMemo(
-    () => declutter(COMPARATORS.map((c) => G.y(last.retailers[c.key]!)), G.gap),
-    [last, G],
-  )
-  const amzFirst = soleOnly ? first.amazonOnly! : first.retailers.amazon!
   const amzLast = soleOnly ? last.amazonOnly! : last.retailers.amazon!
-  const ctlGrowth = last.online.mid! / first.online.mid!
+  /* Growth rates are anchored to the ratio year, never to the first year of the
+     chart. Amazon is 0.0% in 2004, so dividing by it rendered the end-label as
+     a literal "Infinity× since ’04". */
+  const ratio = data.series.find((r) => r.year === data.ratioFirstYear)!
+  const amzFirst = soleOnly ? ratio.amazonOnly! : ratio.retailers.amazon!
 
   return (
     <figure className="m-0">
@@ -205,7 +206,7 @@ export default function RetailerChart() {
           tabIndex={0}
           onKeyDown={onKeyDown}
           onBlur={() => setHover(null)}
-          aria-label={`Share of US product recalls naming each store, ${years[0]} to ${years.at(-1)}. Amazon rises from ${amzFirst} to ${amzLast} percent. Use arrow keys to read each year. Full figures are in the table below.`}
+          aria-label={`Share of US product recalls naming each store, ${years[0]} to ${years.at(-1)}. Amazon rises from ${soleOnly ? first.amazonOnly : first.retailers.amazon} percent in ${first.year} to ${amzLast} percent in ${last.year}. Use arrow keys to read each year. Full figures are in the table below.`}
         >
           {[0, 25, 50, 75].map((v) => (
             <g key={v}>
@@ -232,7 +233,13 @@ export default function RetailerChart() {
               it is the one the whole piece is about. */}
           {data.series.map((d, i) => {
             const isLast = d.year === last.year
-            if (isMobile && !isLast && (data.series.length - 1 - i) % 2 !== 0) return null
+            /* Counted back from the newest year, so the latest label always
+               survives and the thinning stays stable as years are added.
+               Every 2nd year on desktop, every 4th on a phone: 23 years across
+               770 units leaves 35 units per label against type that is 24 wide,
+               which is a collision, not a tight fit. */
+            const step = isMobile ? 4 : 2
+            if (!isLast && (data.series.length - 1 - i) % step !== 0) return null
             return (
               <text
                 key={d.year} x={x(d.year)} y={H - (isMobile ? 12 : 16)} textAnchor="middle"
@@ -263,22 +270,7 @@ export default function RetailerChart() {
                 d={path(control)} fill="none" stroke="var(--color-control)"
                 strokeWidth={2} strokeDasharray="7 5" strokeLinecap="round"
               />
-              {!isMobile && (
-                <>
-                  <text
-                    x={x(last.year) + 10} y={y(last.online.mid!)} dy="0.32em"
-                    className="label-after fill-[var(--color-control)] text-[15px] font-semibold"
-                  >
-                    Sold online
-                  </text>
-                  <text
-                    x={x(last.year) + 10} y={y(last.online.mid!) + 17} dy="0.32em"
-                    className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
-                  >
-                    {ctlGrowth.toFixed(1)}× since ’{String(first.year).slice(2)}
-                  </text>
-                </>
-              )}
+
             </>
           )}
 
@@ -298,44 +290,27 @@ export default function RetailerChart() {
 
           {/* The end-labels are the payoff, so they arrive after the line has
               finished drawing rather than sitting there from the start. */}
+          {/* The subject keeps its inline label, because it sits alone at the
+              top of the chart with nothing to collide with. The growth
+              multiplier that used to sit under it is gone: it is anchored to
+              2015 while the chart starts in 2004, and a gutter 78 units wide is
+              not the place to explain that. The methodology section is. */}
           {!isMobile && (
             <>
               <text
-                x={x(last.year) + 10} y={y(amzLast)} dy="0.32em"
+                x={x(last.year) + 10} y={y(amzLast) - 9} dy="0.32em"
                 className="label-after fill-[var(--color-signal)] text-[16px] font-semibold"
               >
                 Amazon
               </text>
               <text
-                x={x(last.year) + 10} y={y(amzLast) + 17} dy="0.32em"
-                className="label-after fill-[var(--color-ink-faint)] text-[13px] tabular-nums"
+                x={x(last.year) + 10} y={y(amzLast) + 10} dy="0.32em"
+                className="label-after fill-[var(--color-signal)] text-[15px] font-semibold tabular-nums"
               >
-                {(amzLast / amzFirst).toFixed(1)}× since ’{String(first.year).slice(2)}
+                {amzLast}%
               </text>
             </>
           )}
-
-          {!isMobile && comparators.map((c, i) => {
-            const ly = comparatorLabelY[i]
-            const ty = y(last.retailers[c.key]!)
-            return (
-              <g key={c.key}>
-                {/* Leader line, drawn only when the label had to move. */}
-                {Math.abs(ly - ty) > 2 && (
-                  <path
-                    d={`M${x(last.year) + 3},${ty} L${x(last.year) + 7},${ly}`}
-                    stroke={c.color} strokeWidth={1} fill="none" opacity={0.55}
-                  />
-                )}
-                <text
-                  x={x(last.year) + 10} y={ly} dy="0.32em"
-                  className="label-after text-[13px] font-medium" fill={c.color}
-                >
-                  {c.label}
-                </text>
-              </g>
-            )
-          })}
 
           {/* Crosshair. Appears at the hovered year, behind the dots. */}
           {hover && (
@@ -438,12 +413,11 @@ export default function RetailerChart() {
         )}
       </div>
 
-      {/* The phone's replacement for the end-labels.
-          Same information, but as HTML type at a real size instead of SVG type
-          scaled down past legibility. Values are the latest year, which is what
-          the end-labels showed. */}
-      {isMobile && (
-        <ul className="m-0 mt-5 grid list-none grid-cols-2 gap-x-4 gap-y-2.5 p-0">
+      {/* The only place the comparators are named, on every viewport.
+          HTML type at a real size, rather than SVG type competing for eleven
+          percentage points of vertical room. Values are the latest year. */}
+      {(
+        <ul className="m-0 mt-6 grid list-none gap-x-8 gap-y-2.5 p-0 [grid-template-columns:repeat(auto-fit,minmax(160px,1fr))] sm:mt-7">
           {readout(last, soleOnly, showControl).map((s) => (
             <li key={s.key} className="flex items-baseline gap-2 text-[14px] leading-snug">
               <span
@@ -523,9 +497,10 @@ export default function RetailerChart() {
         <p className="mt-3 mb-0">
           {showControl ? (
             <strong className="font-semibold text-[var(--color-ink)]">
-              Online selling overall grew {ctlGrowth.toFixed(1)}× since {first.year}. Amazon grew{' '}
-              {(amzLast / amzFirst).toFixed(1)}×. Online shopping growing does not explain the
-              gap, and Walmart, Target and Home Depot are flat or falling over the same stretch.
+              Among recalls sold online at all, the share naming Amazon went from{' '}
+              {first.amazonOfOnline}% to {last.amazonOfOnline}%. Online shopping growing cannot
+              explain a share measured inside online shopping, and Walmart, Target and Home Depot
+              are flat or falling over the same stretch.
             </strong>
           ) : (
             <strong className="font-semibold text-[var(--color-ink)]">The obvious objection is that everyone shops online now. Turn it on and see whether it holds.</strong>

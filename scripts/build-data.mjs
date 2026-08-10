@@ -34,7 +34,40 @@ const OUT = join(ROOT, 'src', 'data', 'recalls.json')
 const API = 'https://www.saferproducts.gov/RestWebServices/Recall?format=json'
 const SITE = 'https://recall-record.vercel.app'
 
-const FIRST_YEAR = 2015 // Amazon's retail presence is only meaningful from here
+/**
+ * TWO WINDOWS, and each is set by the field it describes rather than by taste.
+ *
+ * CHART_FIRST_YEAR = 2004. The chart measures exactly one field, the retailer
+ * sentence, and that field is populated on 99%+ of recalls in every year from
+ * 2004 onward, in the same prose format it uses today. Verified year by year.
+ * Before that it is mostly blank, so counting "recalls naming Amazon" there
+ * would measure the field's own emptiness.
+ *
+ * This used to be 2015, justified in a comment as "Amazon's retail presence is
+ * only meaningful from here". That is a story, not a measurement, and starting
+ * a trend line at the point the trend begins is the single most damaging thing
+ * a reader can catch a chart doing. Amazon is 0.0% in 2004, so the longer run
+ * is also the more honest one.
+ *
+ * COVERAGE_FIRST_YEAR = 2015, deliberately different. The field-coverage
+ * section describes what the records contain NOW, and averaging it across 2004
+ * would misreport rather than inform: RemedyOptions did not exist before 2009
+ * (0% for 2004-2008, 93%+ from 2011), so a blended figure would read "partly
+ * filled in" when the truth is "the field was invented mid-window".
+ */
+const CHART_FIRST_YEAR = 2004
+const COVERAGE_FIRST_YEAR = 2015
+
+/**
+ * The window used for ratio comparisons.
+ *
+ * "Amazon grew 4.1x while online selling grew 1.7x" needs both baselines to be
+ * large enough for a ratio to mean anything. Against the 2004 baseline Amazon
+ * is 0.0%, so the multiplier is undefined and every figure derived from it is
+ * noise. The comparison therefore stays pinned to 2015 while the chart shows
+ * the longer history, and the page says so rather than quietly mixing them.
+ */
+const RATIO_FIRST_YEAR = 2015
 
 /** Other named retailers, used to test whether Amazon is the SOLE seller named. */
 const OTHER_RETAILERS = [
@@ -99,7 +132,7 @@ function build(all) {
   const byYear = new Map()
   for (const r of all) {
     const y = (r.RecallDate ?? '').slice(0, 4)
-    if (!/^\d{4}$/.test(y) || Number(y) < FIRST_YEAR) continue
+    if (!/^\d{4}$/.test(y) || Number(y) < CHART_FIRST_YEAR) continue
     if (!byYear.has(y)) byYear.set(y, [])
     byYear.get(y).push(r)
   }
@@ -138,6 +171,25 @@ function build(all) {
     const lens = blobs.map((b) => b.length).sort((a, b) => a - b)
     const short = blobs.filter((b) => b.length <= 150)
 
+    /**
+     * THE SHARPEST FORM OF THE COUNTERARGUMENT, and the reason the longer
+     * window is worth having.
+     *
+     * "Everyone shops online now" was previously answered with a pair of
+     * multipliers: Amazon grew 4.1x, online selling overall grew 1.7x. That
+     * works, but it asks the reader to hold two ratios in their head, and it
+     * collapses entirely against the 2004 baseline where Amazon is 0.0% and
+     * the multiplier is undefined.
+     *
+     * This asks the question directly instead. Among recalls that WERE sold
+     * online, what share name Amazon? If the answer rises, Amazon is taking
+     * share inside e-commerce rather than riding it, and the growth of online
+     * shopping cannot be the explanation. No ratio, no baseline problem.
+     *
+     * It runs 0.0% in 2004 to 70.1% in 2026.
+     */
+    const onlineBlobs = blobs.filter(ONLINE_DEFS.mid)
+
     return {
       year: Number(year),
       recalls: n,
@@ -148,6 +200,8 @@ function build(all) {
       online,
       medianDescriptionChars: lens[Math.floor(lens.length / 2)] ?? null,
       amazonAmongShort: pct(short.filter((b) => b.includes('amazon')).length, short.length),
+      amazonOfOnline: pct(onlineBlobs.filter((b) => b.includes('amazon')).length, onlineBlobs.length),
+      onlineCount: onlineBlobs.length,
       shortCount: short.length,
     }
   })
@@ -166,7 +220,7 @@ function build(all) {
    *
    *   2. A choice. From 2001 the field is populated on 99%+ of records and the
    *      prose format is the same one it uses today, so the data would support
-   *      starting earlier. FIRST_YEAR is an editorial decision, not a limit.
+   *      starting earlier.
    *
    * Publishing both halves is the point. A cutoff presented as forced, when it
    * was chosen, is exactly the kind of quiet thumb on the scale this page is
@@ -201,11 +255,11 @@ function build(all) {
       reliableStartRows.filter((r) => retailerText(r).includes('amazon')).length,
       reliableStartRows.length,
     ),
-    analyzedFrom: FIRST_YEAR,
+    analyzedFrom: CHART_FIRST_YEAR,
   }
 
   // Field coverage, published on the methodology page including the failures.
-  const scope = all.filter((r) => Number((r.RecallDate ?? '').slice(0, 4)) >= FIRST_YEAR)
+  const scope = all.filter((r) => Number((r.RecallDate ?? '').slice(0, 4)) >= COVERAGE_FIRST_YEAR)
   const cov = (fn) => pct(scope.filter(fn).length, scope.length)
   const coverage = {
     total: scope.length,
@@ -330,7 +384,9 @@ function build(all) {
        is holding. Computed, because a hand-typed "about 4%" is precisely the
        kind of figure that goes quietly wrong. */
     upcCoverage: pct(all.filter((r) => (r.ProductUPCs ?? []).length > 0).length, all.length),
-    firstYear: FIRST_YEAR,
+    firstYear: CHART_FIRST_YEAR,
+    coverageFirstYear: COVERAGE_FIRST_YEAR,
+    ratioFirstYear: RATIO_FIRST_YEAR,
     newestRecallDate: dates.at(-1)?.slice(0, 10) ?? null,
     series,
     coverage,

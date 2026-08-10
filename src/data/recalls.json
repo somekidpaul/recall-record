@@ -13,12 +13,278 @@
     "preReliableRecalls": 2622,
     "preReliableRetailerPct": 34.6,
     "amazonAtReliableStart": 0,
-    "analyzedFrom": 2015
+    "analyzedFrom": 2004
   },
   "upcCoverage": 4.6,
-  "firstYear": 2015,
+  "firstYear": 2004,
+  "coverageFirstYear": 2015,
+  "ratioFirstYear": 2015,
   "newestRecallDate": "2026-08-06",
   "series": [
+    {
+      "year": 2004,
+      "recalls": 278,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 0,
+        "walmart": 0,
+        "target": 4.3,
+        "homeDepot": 4.3,
+        "ebay": 0
+      },
+      "amazonOnly": 0,
+      "amazonOnlyCount": 0,
+      "online": {
+        "strict": 0,
+        "mid": 5,
+        "loose": 5
+      },
+      "medianDescriptionChars": 126,
+      "amazonAmongShort": 0,
+      "amazonOfOnline": 0,
+      "onlineCount": 14,
+      "shortCount": 191
+    },
+    {
+      "year": 2005,
+      "recalls": 323,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 0.3,
+        "walmart": 0,
+        "target": 3.7,
+        "homeDepot": 2.2,
+        "ebay": 0.3
+      },
+      "amazonOnly": 0.3,
+      "amazonOnlyCount": 1,
+      "online": {
+        "strict": 0.3,
+        "mid": 4,
+        "loose": 4
+      },
+      "medianDescriptionChars": 115,
+      "amazonAmongShort": 0,
+      "amazonOfOnline": 7.7,
+      "onlineCount": 13,
+      "shortCount": 250
+    },
+    {
+      "year": 2006,
+      "recalls": 319,
+      "retailerFieldPopulated": 99.4,
+      "retailers": {
+        "amazon": 0.3,
+        "walmart": 0,
+        "target": 3.1,
+        "homeDepot": 1.9,
+        "ebay": 0
+      },
+      "amazonOnly": 0.3,
+      "amazonOnlyCount": 1,
+      "online": {
+        "strict": 0.6,
+        "mid": 9.7,
+        "loose": 9.7
+      },
+      "medianDescriptionChars": 119,
+      "amazonAmongShort": 0,
+      "amazonOfOnline": 3.2,
+      "onlineCount": 31,
+      "shortCount": 230
+    },
+    {
+      "year": 2007,
+      "recalls": 452,
+      "retailerFieldPopulated": 99.8,
+      "retailers": {
+        "amazon": 0.2,
+        "walmart": 0,
+        "target": 5.1,
+        "homeDepot": 1.5,
+        "ebay": 0
+      },
+      "amazonOnly": 0,
+      "amazonOnlyCount": 0,
+      "online": {
+        "strict": 0.9,
+        "mid": 10.6,
+        "loose": 10.6
+      },
+      "medianDescriptionChars": 109,
+      "amazonAmongShort": 0.3,
+      "amazonOfOnline": 2.1,
+      "onlineCount": 48,
+      "shortCount": 367
+    },
+    {
+      "year": 2008,
+      "recalls": 392,
+      "retailerFieldPopulated": 99.7,
+      "retailers": {
+        "amazon": 0.8,
+        "walmart": 0.5,
+        "target": 3.1,
+        "homeDepot": 2,
+        "ebay": 0.3
+      },
+      "amazonOnly": 0.8,
+      "amazonOnlyCount": 3,
+      "online": {
+        "strict": 2.3,
+        "mid": 17.1,
+        "loose": 17.1
+      },
+      "medianDescriptionChars": 110,
+      "amazonAmongShort": 0.3,
+      "amazonOfOnline": 4.5,
+      "onlineCount": 67,
+      "shortCount": 319
+    },
+    {
+      "year": 2009,
+      "recalls": 383,
+      "retailerFieldPopulated": 99.5,
+      "retailers": {
+        "amazon": 2.3,
+        "walmart": 3.9,
+        "target": 5.2,
+        "homeDepot": 2.6,
+        "ebay": 0
+      },
+      "amazonOnly": 0.8,
+      "amazonOnlyCount": 3,
+      "online": {
+        "strict": 5,
+        "mid": 18.8,
+        "loose": 19.1
+      },
+      "medianDescriptionChars": 114,
+      "amazonAmongShort": 1,
+      "amazonOfOnline": 12.5,
+      "onlineCount": 72,
+      "shortCount": 288
+    },
+    {
+      "year": 2010,
+      "recalls": 362,
+      "retailerFieldPopulated": 99.4,
+      "retailers": {
+        "amazon": 5,
+        "walmart": 4.7,
+        "target": 4.4,
+        "homeDepot": 2.5,
+        "ebay": 0.3
+      },
+      "amazonOnly": 2.8,
+      "amazonOnlyCount": 10,
+      "online": {
+        "strict": 6.9,
+        "mid": 27.1,
+        "loose": 27.6
+      },
+      "medianDescriptionChars": 120,
+      "amazonAmongShort": 2.9,
+      "amazonOfOnline": 17.3,
+      "onlineCount": 98,
+      "shortCount": 272
+    },
+    {
+      "year": 2011,
+      "recalls": 313,
+      "retailerFieldPopulated": 99.7,
+      "retailers": {
+        "amazon": 8.3,
+        "walmart": 5.4,
+        "target": 7.7,
+        "homeDepot": 3.2,
+        "ebay": 0.3
+      },
+      "amazonOnly": 3.5,
+      "amazonOnlyCount": 11,
+      "online": {
+        "strict": 13.1,
+        "mid": 38,
+        "loose": 38
+      },
+      "medianDescriptionChars": 116,
+      "amazonAmongShort": 3,
+      "amazonOfOnline": 21.8,
+      "onlineCount": 119,
+      "shortCount": 234
+    },
+    {
+      "year": 2012,
+      "recalls": 310,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 8.4,
+        "walmart": 5.2,
+        "target": 5.5,
+        "homeDepot": 5.5,
+        "ebay": 0.3
+      },
+      "amazonOnly": 3.5,
+      "amazonOnlyCount": 11,
+      "online": {
+        "strict": 15.5,
+        "mid": 39,
+        "loose": 39
+      },
+      "medianDescriptionChars": 119,
+      "amazonAmongShort": 4,
+      "amazonOfOnline": 21.5,
+      "onlineCount": 121,
+      "shortCount": 223
+    },
+    {
+      "year": 2013,
+      "recalls": 290,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 16.6,
+        "walmart": 4.1,
+        "target": 5.5,
+        "homeDepot": 3.4,
+        "ebay": 1
+      },
+      "amazonOnly": 10.7,
+      "amazonOnlyCount": 31,
+      "online": {
+        "strict": 37.6,
+        "mid": 57.9,
+        "loose": 58.3
+      },
+      "medianDescriptionChars": 123,
+      "amazonAmongShort": 8.9,
+      "amazonOfOnline": 28,
+      "onlineCount": 168,
+      "shortCount": 191
+    },
+    {
+      "year": 2014,
+      "recalls": 296,
+      "retailerFieldPopulated": 100,
+      "retailers": {
+        "amazon": 11.1,
+        "walmart": 8.1,
+        "target": 3.7,
+        "homeDepot": 5.4,
+        "ebay": 0.7
+      },
+      "amazonOnly": 4.1,
+      "amazonOnlyCount": 12,
+      "online": {
+        "strict": 35.1,
+        "mid": 46.3,
+        "loose": 46.3
+      },
+      "medianDescriptionChars": 124,
+      "amazonAmongShort": 3,
+      "amazonOfOnline": 24.1,
+      "onlineCount": 137,
+      "shortCount": 197
+    },
     {
       "year": 2015,
       "recalls": 305,
@@ -39,6 +305,8 @@
       },
       "medianDescriptionChars": 127,
       "amazonAmongShort": 6.7,
+      "amazonOfOnline": 29.4,
+      "onlineCount": 153,
       "shortCount": 195
     },
     {
@@ -61,6 +329,8 @@
       },
       "medianDescriptionChars": 141,
       "amazonAmongShort": 13.4,
+      "amazonOfOnline": 39.5,
+      "onlineCount": 205,
       "shortCount": 186
     },
     {
@@ -83,6 +353,8 @@
       },
       "medianDescriptionChars": 129,
       "amazonAmongShort": 16.9,
+      "amazonOfOnline": 40.4,
+      "onlineCount": 166,
       "shortCount": 172
     },
     {
@@ -105,6 +377,8 @@
       },
       "medianDescriptionChars": 131,
       "amazonAmongShort": 13.5,
+      "amazonOfOnline": 37.8,
+      "onlineCount": 148,
       "shortCount": 155
     },
     {
@@ -127,6 +401,8 @@
       },
       "medianDescriptionChars": 127,
       "amazonAmongShort": 14.1,
+      "amazonOfOnline": 34.3,
+      "onlineCount": 140,
       "shortCount": 170
     },
     {
@@ -149,6 +425,8 @@
       },
       "medianDescriptionChars": 125,
       "amazonAmongShort": 27.1,
+      "amazonOfOnline": 39.9,
+      "onlineCount": 183,
       "shortCount": 177
     },
     {
@@ -171,6 +449,8 @@
       },
       "medianDescriptionChars": 128,
       "amazonAmongShort": 28.8,
+      "amazonOfOnline": 47.8,
+      "onlineCount": 157,
       "shortCount": 139
     },
     {
@@ -193,6 +473,8 @@
       },
       "medianDescriptionChars": 141,
       "amazonAmongShort": 28,
+      "amazonOfOnline": 45.3,
+      "onlineCount": 214,
       "shortCount": 161
     },
     {
@@ -215,6 +497,8 @@
       },
       "medianDescriptionChars": 136,
       "amazonAmongShort": 36.6,
+      "amazonOfOnline": 50.8,
+      "onlineCount": 244,
       "shortCount": 194
     },
     {
@@ -237,6 +521,8 @@
       },
       "medianDescriptionChars": 126,
       "amazonAmongShort": 37.1,
+      "amazonOfOnline": 53.4,
+      "onlineCount": 238,
       "shortCount": 194
     },
     {
@@ -259,6 +545,8 @@
       },
       "medianDescriptionChars": 103,
       "amazonAmongShort": 53.3,
+      "amazonOfOnline": 53.1,
+      "onlineCount": 311,
       "shortCount": 306
     },
     {
@@ -281,6 +569,8 @@
       },
       "medianDescriptionChars": 85,
       "amazonAmongShort": 63.4,
+      "amazonOfOnline": 70.1,
+      "onlineCount": 324,
       "shortCount": 314
     }
   ],
@@ -297,6 +587,50 @@
   },
   "trend": {
     "manufacturer": [
+      {
+        "year": 2004,
+        "pct": 81.7
+      },
+      {
+        "year": 2005,
+        "pct": 65
+      },
+      {
+        "year": 2006,
+        "pct": 55.5
+      },
+      {
+        "year": 2007,
+        "pct": 41.8
+      },
+      {
+        "year": 2008,
+        "pct": 46.2
+      },
+      {
+        "year": 2009,
+        "pct": 47.5
+      },
+      {
+        "year": 2010,
+        "pct": 39.5
+      },
+      {
+        "year": 2011,
+        "pct": 44.7
+      },
+      {
+        "year": 2012,
+        "pct": 51.3
+      },
+      {
+        "year": 2013,
+        "pct": 51.4
+      },
+      {
+        "year": 2014,
+        "pct": 50
+      },
       {
         "year": 2015,
         "pct": 31.1
@@ -348,6 +682,50 @@
     ],
     "importer": [
       {
+        "year": 2004,
+        "pct": 15.5
+      },
+      {
+        "year": 2005,
+        "pct": 19.8
+      },
+      {
+        "year": 2006,
+        "pct": 29.8
+      },
+      {
+        "year": 2007,
+        "pct": 45.8
+      },
+      {
+        "year": 2008,
+        "pct": 43.1
+      },
+      {
+        "year": 2009,
+        "pct": 37.3
+      },
+      {
+        "year": 2010,
+        "pct": 45.6
+      },
+      {
+        "year": 2011,
+        "pct": 52.4
+      },
+      {
+        "year": 2012,
+        "pct": 57.4
+      },
+      {
+        "year": 2013,
+        "pct": 65.9
+      },
+      {
+        "year": 2014,
+        "pct": 54.1
+      },
+      {
         "year": 2015,
         "pct": 63.3
       },
@@ -398,6 +776,127 @@
     ]
   },
   "manufacturerTest": [
+    {
+      "year": 2004,
+      "amazonOnly": {
+        "n": 0,
+        "manufacturerKnown": null
+      },
+      "everythingElse": {
+        "n": 278,
+        "manufacturerKnown": 81.7
+      }
+    },
+    {
+      "year": 2005,
+      "amazonOnly": {
+        "n": 1,
+        "manufacturerKnown": 100
+      },
+      "everythingElse": {
+        "n": 322,
+        "manufacturerKnown": 64.9
+      }
+    },
+    {
+      "year": 2006,
+      "amazonOnly": {
+        "n": 1,
+        "manufacturerKnown": 100
+      },
+      "everythingElse": {
+        "n": 318,
+        "manufacturerKnown": 55.3
+      }
+    },
+    {
+      "year": 2007,
+      "amazonOnly": {
+        "n": 0,
+        "manufacturerKnown": null
+      },
+      "everythingElse": {
+        "n": 452,
+        "manufacturerKnown": 41.8
+      }
+    },
+    {
+      "year": 2008,
+      "amazonOnly": {
+        "n": 3,
+        "manufacturerKnown": 0
+      },
+      "everythingElse": {
+        "n": 389,
+        "manufacturerKnown": 46.5
+      }
+    },
+    {
+      "year": 2009,
+      "amazonOnly": {
+        "n": 3,
+        "manufacturerKnown": 33.3
+      },
+      "everythingElse": {
+        "n": 380,
+        "manufacturerKnown": 47.6
+      }
+    },
+    {
+      "year": 2010,
+      "amazonOnly": {
+        "n": 10,
+        "manufacturerKnown": 50
+      },
+      "everythingElse": {
+        "n": 352,
+        "manufacturerKnown": 39.2
+      }
+    },
+    {
+      "year": 2011,
+      "amazonOnly": {
+        "n": 11,
+        "manufacturerKnown": 18.2
+      },
+      "everythingElse": {
+        "n": 302,
+        "manufacturerKnown": 45.7
+      }
+    },
+    {
+      "year": 2012,
+      "amazonOnly": {
+        "n": 11,
+        "manufacturerKnown": 45.5
+      },
+      "everythingElse": {
+        "n": 299,
+        "manufacturerKnown": 51.5
+      }
+    },
+    {
+      "year": 2013,
+      "amazonOnly": {
+        "n": 31,
+        "manufacturerKnown": 32.3
+      },
+      "everythingElse": {
+        "n": 259,
+        "manufacturerKnown": 53.7
+      }
+    },
+    {
+      "year": 2014,
+      "amazonOnly": {
+        "n": 12,
+        "manufacturerKnown": 33.3
+      },
+      "everythingElse": {
+        "n": 284,
+        "manufacturerKnown": 50.7
+      }
+    },
     {
       "year": 2015,
       "amazonOnly": {

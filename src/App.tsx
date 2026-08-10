@@ -60,8 +60,11 @@ export default function App() {
           on Amazon.
         </h2>
         <p className="arrive mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
-          In {first.year} it was <CountUp to={first.amazonOnly!} suffix="%" />, about one in
-          fourteen. This year it is{' '}
+          {/* No count-up on the opening figure any more. It is zero, and
+              animating a number up to nothing is a flourish with no payload.
+              The sentence carries it instead. */}
+          In {first.year}, not one of the {first.recalls} recalls that year named Amazon as the
+          only place you could buy the product. Not one. This year it is{' '}
           {/* The number and the punctuation after it are one unbreakable unit.
               The count-up is an inline-block, so a following bare "." is its
               own wrap opportunity, and on a phone the period was landing alone
@@ -72,8 +75,7 @@ export default function App() {
             </strong>
             ,
           </span>{' '}
-          or {last.amazonOnlyCount} of {last.recalls} recalls where Amazon is the only store
-          named on the notice.
+          or {last.amazonOnlyCount} of {last.recalls}.
         </p>
       </section>
 
@@ -83,8 +85,8 @@ export default function App() {
         </h3>
         <p className="arrive mt-5 mb-12 max-w-[50ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           Every US product recall since {first.year}, grouped by which store the notice
-          mentions. Amazon quadruples. Walmart rises, then drops. Target and Home Depot
-          barely move.
+          mentions. Amazon goes from nothing to sixty percent. Walmart rises, then drops back.
+          Target and Home Depot barely move in twenty-two years.
         </p>
         <MotionNotice />
         <RetailerChart />
@@ -173,6 +175,10 @@ function Methodology() {
   const cov = data.coverage
   const w = data.windowContext
   const p = data.partialYear!
+  /* The year the growth-rate comparison is anchored to. Not the first year of
+     the chart: Amazon is 0.0% there, so a multiplier off that baseline is
+     undefined. */
+  const ratio = data.series.find((s) => s.year === data.ratioFirstYear)!
   const shortFirst = first.amazonAmongShort!
   const shortLast = last.amazonAmongShort!
   const mfrFirst = data.trend.manufacturer[0].pct
@@ -200,10 +206,10 @@ function Methodology() {
           </a>
           .
         </Card>
-        <Card label="Recalls analyzed" value={cov.total.toLocaleString()}>
-          Out of {data.corpusTotal.toLocaleString()} in the full database, which reaches back to
-          1973. This page covers {first.year} onward. Why that year, and not an earlier one, is
-          the first question below.
+        <Card label="Charted" value={data.series.reduce((n, s) => n + s.recalls, 0).toLocaleString()}>
+          Recalls from {first.year} to {last.year}, out of{' '}
+          {data.corpusTotal.toLocaleString()} in the full database going back to 1973. Why it
+          starts where it does is the first question below.
         </Card>
         <Card label="Checked" value="Daily">
           Newest recall {data.newestRecallDate}. CPSC publishes in weekly batches, almost always
@@ -218,23 +224,20 @@ function Methodology() {
           already carry the grouping. */}
       <div className="mt-14">
         <Note title={`Why this starts in ${first.year}, when the data goes back to ${w.corpusFirstYear}`}>
-          Two different reasons, and only one of them is a real limit. The first is: the retailer
-          sentence, the one thing this whole page depends on, is mostly blank in the early years.
-          Of the {w.preReliableRecalls.toLocaleString()} recalls before {w.firstReliableYear}, only{' '}
+          Because {first.year} is where the record becomes usable, not where the story gets good.
+          The retailer sentence is the one thing this whole page depends on, and it is mostly
+          blank in the early years: of the {w.preReliableRecalls.toLocaleString()} recalls before{' '}
+          {w.firstReliableYear}, only{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {w.preReliableRetailerPct}%
           </strong>{' '}
           say where the product was sold at all. Counting how often Amazon gets named across years
-          where most recalls name nobody would measure the empty field, not Amazon. The second
-          reason is not a limit at all. From {w.firstReliableYear} the field is filled in on 99% or
-          more of recalls every single year, written the same way it is written today, so I could
-          have started there. I did not, and you should know that {first.year} is a choice. It is
-          the conservative one: Amazon was{' '}
-          <strong className="font-semibold text-[var(--color-ink)]">
-            {w.amazonAtReliableStart}%
-          </strong>{' '}
-          of recalls in {w.firstReliableYear}, so a longer run would make this climb look steeper,
-          not gentler.
+          where most recalls name nobody would measure the empty field, not Amazon. From{' '}
+          {first.year} onward it is filled in on 99% or more of recalls in every single year, in
+          the same prose format it uses today, so the line can run the whole way without the
+          ground shifting under it. This page used to start in {data.ratioFirstYear}, which was a
+          choice rather than a limit, and starting a trend line at the point the trend begins is
+          exactly the kind of quiet thumb on the scale the rest of this page is about.
         </Note>
 
         <Note title="What the number actually means">
@@ -256,20 +259,28 @@ function Methodology() {
         </Note>
 
         <Note title="The obvious objection: everyone shops online now">
-          If online shopping simply grew, every online store should have gone up together.
-          And because “sold online” is a fuzzy thing to define, I tried three definitions,
-          strict to loose, so the answer would not hinge on my judgment call. Online selling
-          grew{' '}
+          The clean way to answer this is to stop comparing Amazon to the whole world and
+          compare it only to the rest of the internet. Among recalls that were sold online at
+          all, the share naming Amazon goes from{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
-            {(last.online.strict! / first.online.strict!).toFixed(1)}×,{' '}
-            {(last.online.mid! / first.online.mid!).toFixed(1)}× and{' '}
-            {(last.online.loose! / first.online.loose!).toFixed(1)}×
-          </strong>{' '}
-          respectively. Amazon grew{' '}
-          <strong className="font-semibold text-[var(--color-ink)]">
-            {(last.retailers.amazon! / first.retailers.amazon!).toFixed(1)}×
+            {first.amazonOfOnline}% in {first.year} to {last.amazonOfOnline}% in {last.year}
           </strong>
-          . Whichever definition you pick, the answer comes out the same.
+          . So this is not online shopping lifting every boat. Amazon is taking the water out
+          from under the other boats, and the growth of e-commerce cannot explain a share
+          measured inside e-commerce. You can also do it the older way, by comparing growth
+          rates, though that needs a baseline big enough to divide by, so it runs from{' '}
+          {ratio.year} rather than {first.year}. Because “sold online” is a fuzzy thing to
+          define I used three definitions, strict to loose: online selling grew{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {(last.online.strict! / ratio.online.strict!).toFixed(1)}×,{' '}
+            {(last.online.mid! / ratio.online.mid!).toFixed(1)}× and{' '}
+            {(last.online.loose! / ratio.online.loose!).toFixed(1)}×
+          </strong>{' '}
+          while Amazon grew{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {(last.retailers.amazon! / ratio.retailers.amazon!).toFixed(1)}×
+          </strong>
+          . Both ways round, the same answer.
         </Note>
 
         <Note title="The way this could have been fake">
@@ -281,7 +292,7 @@ function Methodology() {
           <strong className="font-semibold text-[var(--color-ink)]">
             {shortFirst}% to {shortLast}%
           </strong>
-          . That is steeper than the headline, because more recalls now have just one store to
+          , which is steeper than the headline, because more recalls now have just one store to
           name.
         </Note>
         <Note title="A claim this piece does not make">
@@ -311,12 +322,23 @@ function FieldCoverage() {
       <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
         What the records actually contain, gaps and all.
       </h3>
-      <p className="mt-5 mb-14 max-w-[58ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+      <p className="mt-5 mb-14 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
         How often CPSC actually fills in each piece of information, across the{' '}
-        {cov.total.toLocaleString()} recalls here. The weak ones sit right next to the strong
-        ones, because a number you cannot see the holes in is not worth trusting. Six of these
-        have been above 99% every year since {first.year}, so only the two that actually move get
-        a trend line.
+        {cov.total.toLocaleString()} recalls since {data.coverageFirstYear}. The weak ones sit
+        right next to the strong ones, because a number you cannot see the holes in is not worth
+        trusting. Six of these have been above 99% every year in that span, so only the two that
+        actually move get a trend line.
+      </p>
+      {/* The chart runs from 2004 and this section does not, so it says so.
+          Blending the two would misreport rather than inform: Remedy type did
+          not exist before 2009, and averaging across that boundary would read
+          as "partly filled in" when the truth is "the field was invented
+          mid-window". Each window is set by the field it describes. */}
+      <p className="mt-[-2.5rem] mb-14 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+        A shorter window than the chart above, on purpose. The chart measures one field that has
+        been reliable since {first.year}. This section describes what the records hold now, and
+        some of these fields did not exist in {first.year} at all, so averaging across that
+        boundary would describe a filing change rather than a gap.
       </p>
       <CoverageRings />
     </section>

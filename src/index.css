@@ -406,3 +406,73 @@ p { text-wrap-style: pretty; }
 
 /* Search inputs get a UA clear button in WebKit that duplicates ours. */
 .search-shell input::-webkit-search-cancel-button { display: none; }
+
+/*
+  THE NAV INDICATOR SLIDES BETWEEN PAGES.
+
+  This could not be done the way the theme pill does it. That pill is one
+  element translating inside one component in one document, so a plain CSS
+  transition covers it. The nav links are real anchors to separate documents,
+  so the old position and the new one never exist at the same time and there is
+  nothing for a transition to interpolate between.
+
+  Cross-document view transitions are the mechanism that does exist for this.
+  The browser snapshots the outgoing page, loads the new one, and morphs any
+  element carrying the same `view-transition-name` from where it was to where
+  it now is. That is the whole effect: the bar under the current page slides.
+
+  It also required the indicator to stop being a text-decoration underline.
+  A text decoration is a paint on a text box, not an element, so it cannot be
+  given a name or captured. It is now a real 2px bar, positioned to sit exactly
+  where `underline-offset-[6px]` used to put it.
+*/
+@view-transition {
+  navigation: auto;
+}
+
+.nav-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-signal);
+  view-transition-name: nav-indicator;
+}
+
+/* The signature curve, so this moves like everything else on the site. */
+::view-transition-group(nav-indicator) {
+  animation-duration: var(--dur-base);
+  animation-timing-function: var(--ease-signature);
+}
+
+/* The page itself cross-fades quickly underneath. Long enough to connect the
+   two pages, short enough not to feel like a slideshow. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: ease;
+}
+
+/*
+  THE TWO HALVES LAND ON OPPOSITE SIDES OF THE MOTION POLICY, so they are
+  treated separately rather than switched off together.
+
+  A first pass disabled the whole navigation under Reduce Motion, and testing
+  caught that it was the wrong call: the indicator sliding between two links is
+  the same class of thing as the theme pill, which this site has always run
+  regardless. It answers a click, it is a 2px bar, and it never starts on its
+  own. Suppressing it makes the control look broken in exactly the way the
+  policy comment above warns about.
+
+  The whole-viewport cross-fade is the decorative half, and that is the part
+  that yields. Turning off only the root animation leaves the page swap instant
+  while the bar still travels.
+*/
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

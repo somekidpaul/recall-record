@@ -142,13 +142,17 @@ function NavLink({ href, label, current }: { href: string; label: string; curren
     <a
       href={href}
       aria-current={here ? 'page' : undefined}
-      className={`whitespace-nowrap font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.12em] transition-colors ${
-        here
-          ? 'text-[var(--color-ink)] underline decoration-[var(--color-signal)] decoration-2 underline-offset-[6px]'
-          : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
+      className={`relative whitespace-nowrap font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.12em] transition-colors ${
+        here ? 'text-[var(--color-ink)]' : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
       }`}
     >
       {label}
+      {/* A real element rather than a text-decoration, because only an element
+          can carry a view-transition-name and be morphed from its old position
+          to its new one across a page load. Exactly one link renders it, so the
+          name stays unique in the document, which is what the browser requires
+          before it will run the transition at all. */}
+      {here && <span className="nav-indicator" aria-hidden />}
     </a>
   )
 }

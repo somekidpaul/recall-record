@@ -5,6 +5,7 @@ import CoverageRings from './CoverageRings'
 import CountUp from './CountUp'
 import MotionNotice from './MotionNotice'
 import BiggestRecalls from './BiggestRecalls'
+import { FIND_ID } from './RecallSearch'
 import data from './data/recalls.json'
 
 const last = data.series.at(-1)!
@@ -39,8 +40,23 @@ export default function App() {
           <Controls />
         </div>
         <div className="flex items-center gap-6">
+          {/* Scrolls to the search that is already on this page rather than
+              navigating away to a second copy of it. The href stays a real URL
+              so middle-click, right-click and no-JS all still work; the handler
+              only intercepts the ordinary click.
+
+              preventScroll on the focus call matters: focusing an element
+              scrolls it into view instantly, which would cancel the smooth
+              scroll a frame after it started. */}
           <a
             href="/check"
+            onClick={(e) => {
+              const shell = document.getElementById(FIND_ID)
+              if (!shell || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+              e.preventDefault()
+              shell.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              shell.querySelector('input')?.focus({ preventScroll: true })
+            }}
             className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
           >
             Check a product
@@ -92,9 +108,20 @@ export default function App() {
         <RetailerChart />
       </section>
 
-      <BiggestRecalls />
+      {/* ORDER IS THE ARGUMENT. Claim, evidence, how it was counted and where it
+          falls short, and only then the tool.
+
+          The lookup used to sit here, between the chart and the methodology, so
+          the page made its case, broke off to hand the reader a product
+          browser, then restarted the case afterwards. That is what made a
+          5.4-screen page feel long: not word count, an interrupted spine. It
+          also buried the methodology behind a browsing interlude, and the
+          methodology is the only reason a stranger should believe the number.
+
+          The tool now closes the piece, which is where it belongs: it is the
+          "so what do I do about it" after the argument has landed. */}
       <Methodology />
-      <FieldCoverage />
+      <BiggestRecalls />
 
       <footer className="border-t border-[var(--color-rule)] py-12">
         <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-8">
@@ -109,10 +136,16 @@ export default function App() {
               </a>
               .
             </p>
+            {/* The line that used to sit here read "I take something confusing
+                and turn it into one clear, honest answer". The page uses "I" six
+                other times and they all work, because they are an analyst
+                accounting for their own method: "I tested it", "I cannot back
+                this up". That one was different in kind. It switched from
+                reporting what was done to advertising what someone is, and it
+                restated a claim the preceding 3,000 words had already made. */}
             <p className="m-0 mt-3 text-[16px] leading-[1.6] text-[var(--color-ink-soft)]">
-              AI-native Product Designer with years in web, brand and marketing, now shipping
-              products end to end. I take something confusing and turn it into one clear, honest
-              answer, then show the reasoning so you can decide whether to trust it. More at{' '}
+              AI-native Product Designer, years in web, brand and marketing, now shipping
+              products end to end. More at{' '}
               <a
                 className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
                 href="https://somekidpaul.com"
@@ -311,19 +344,17 @@ function Methodology() {
         </Note>
       </div>
 
-    </section>
-  )
-}
-
-function FieldCoverage() {
-  const cov = data.coverage
-  return (
-    <section className="border-t border-[var(--color-rule)] py-20">
-      <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.12] tracking-[-0.015em]">
-        What the records actually contain, gaps and all.
-      </h3>
-      <p className="mt-5 mb-14 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-        How often CPSC actually fills in each piece of information, across the{' '}
+      {/* COVERAGE LIVES INSIDE METHODOLOGY NOW, rather than as its own section.
+          Both answer one question, how much this data can be trusted, and
+          splitting them gave one idea two full-width headings and made the page
+          restart a subject it had already begun. It is a subsection here, so
+          the heading drops a level. */}
+      <div className="mt-20 border-t border-[var(--color-rule)] pt-16">
+        <h4 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.4rem,2.8vw,2rem)] font-normal leading-[1.15] tracking-[-0.015em]">
+          What the records actually contain, gaps and all.
+        </h4>
+        <p className="mt-5 mb-14 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+          How often CPSC actually fills in each piece of information, across the{' '}
         {cov.total.toLocaleString()} recalls since {data.coverageFirstYear}. The weak ones sit
         right next to the strong ones, because a number you cannot see the holes in is not worth
         trusting. Six of these have been above 99% every year in that span, so only the two that
@@ -334,13 +365,14 @@ function FieldCoverage() {
           not exist before 2009, and averaging across that boundary would read
           as "partly filled in" when the truth is "the field was invented
           mid-window". Each window is set by the field it describes. */}
-      <p className="mt-[-2.5rem] mb-14 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        A shorter window than the chart above, on purpose. The chart measures one field that has
+        <p className="mt-[-2.5rem] mb-14 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+          A shorter window than the chart above, on purpose. The chart measures one field that has
         been reliable since {first.year}. This section describes what the records hold now, and
         some of these fields did not exist in {first.year} at all, so averaging across that
         boundary would describe a filing change rather than a gap.
       </p>
-      <CoverageRings />
+        <CoverageRings />
+      </div>
     </section>
   )
 }

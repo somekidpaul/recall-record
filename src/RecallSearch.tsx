@@ -19,6 +19,12 @@ import {
  * opened, the photographs later still, when someone first opens a product.
  */
 
+/**
+ * The id the header's "Check a product" link scrolls to. Exported rather than
+ * written out twice, so the link and its target cannot drift apart.
+ */
+export const FIND_ID = 'find-a-recall'
+
 const INDEX_URL = '/search-index.json'
 const IMAGES_URL = '/search-images.json'
 
@@ -46,7 +52,10 @@ export default function RecallSearch({
   defaultList,
   defaultHeading,
   autoFocus = false,
+  anchorId,
 }: {
+  /** Set on the essay mount so the masthead link has something to scroll to. */
+  anchorId?: string
   /** Shown when the field is empty. Omitted on /check, which starts blank. */
   defaultList?: RowView[]
   defaultHeading?: string
@@ -157,6 +166,7 @@ export default function RecallSearch({
         disclosure panels use.
       */}
       <div
+        id={anchorId}
         className="search-shell"
         data-open={expanded}
         onClick={() => { setExpanded(true); ensureIndex(); inputRef.current?.focus() }}

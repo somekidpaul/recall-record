@@ -46,6 +46,42 @@
   /* The counterargument line. Neutral by design so it reads as a control. */
   --color-control: light-dark(oklch(52% 0.020 85), oklch(66% 0.022 85));
 
+  /*
+     The middle rung of the coverage-ring severity scale.
+
+     That rung used to be --color-alt-1, which is Walmart's line on the chart.
+     One token, two unrelated jobs: blue meant "Walmart" in one section and
+     "partly populated" in another, and adding a printed key made the clash
+     louder rather than quieter.
+
+     It also mixed up two kinds of scale. Reliable / partial / mostly missing is
+     ORDINAL, so it wants a sequential ramp in one hue family. Reaching into the
+     categorical comparator palette for the middle value was the actual error.
+     The rings now run neutral to amber to the signal orange, which reads as
+     increasing severity on its own, and blue goes back to meaning Walmart only.
+
+     SEPARATED BY CHROMA, NOT HUE OR LIGHTNESS, and that is forced rather than
+     stylistic. The percentage inside each ring is painted in its band colour,
+     so every rung is text and owes 4.5:1 against the paper. On a 98.5% paper
+     that caps all three at roughly 55% lightness, which leaves no room to
+     separate them by lightness: a first attempt at amber measured 1.01 against
+     the signal, meaning identical luminance, distinguishable by hue alone. Hue
+     is the one channel a red-green deficiency takes away.
+
+     So the ramp climbs in saturation on a single hue family instead:
+     0.010 neutral, 0.075 muted, 0.185 full. Monotonic chroma is the intent,
+     since saturation is the channel least disturbed by dichromacy. Stated as
+     the reasoning, not as a measurement: I tried to simulate deuteranopia to
+     confirm it and the simulation was wrong (it rendered a neutral grey as
+     saturated green), so that claim is untested.
+
+     What IS verified is the part that carries the accessibility guarantee, and
+     it does not depend on the colours at all. Every ring prints its own
+     percentage, every ring is labelled, and the key spells out all three
+     thresholds in words, so nothing here is conveyed by colour alone.
+     Measured against the paper: 5.01:1 light, 7.11:1 dark. */
+  --color-warn: light-dark(oklch(54% 0.075 45), oklch(70% 0.075 50));
+
   /* The signature curve: a slow lead-in, a fast middle, a gentle settle.
      easeInOutQuint. Used on every state change so the whole page moves with
      one personality rather than five. */

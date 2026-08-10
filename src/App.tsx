@@ -38,9 +38,17 @@ export default function App() {
           </h1>
           <Controls />
         </div>
-        <p className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
-          Issue 01 · Data through {asOf}
-        </p>
+        <div className="flex items-center gap-6">
+          <a
+            href="/check"
+            className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
+          >
+            Check a product
+          </a>
+          <p className="m-0 hidden font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)] sm:block">
+            Issue 01 · Data through {asOf}
+          </p>
+        </div>
       </header>
 
       <section className="pt-16 pb-20 sm:pt-24 sm:pb-28">

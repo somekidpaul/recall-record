@@ -1,4 +1,4 @@
-import RecallSearch from './RecallSearch'
+import RecallSearch, { FIND_ID } from './RecallSearch'
 import type { RowView } from './RecallRow'
 import data from './data/recalls.json'
 
@@ -45,7 +45,7 @@ export default function BiggestRecalls() {
         wrong, or search {data.corpusTotal.toLocaleString()} notices going back to 1973.
       </p>
 
-      <RecallSearch defaultList={rows} defaultHeading={`Biggest of ${year}, by units`} />
+      <RecallSearch defaultList={rows} defaultHeading={`Biggest of ${year}, by units`} anchorId={FIND_ID} />
 
       <p className="m-0 mt-12 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         Counts are US only. A few of these recalls also cover Canada, and those numbers are left

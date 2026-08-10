@@ -362,3 +362,47 @@ p { text-wrap-style: pretty; }
   .no-print { display: none !important; }
   :root { color-scheme: light; }
 }
+
+/*
+  THE SEARCH FIELD OPENS RATHER THAN NAVIGATES.
+
+  At rest it is a quiet line with a magnifier, which is all a reader who came
+  for the essay needs to see. Focus or click and it grows into a real input.
+
+  FUNCTIONAL motion, so it runs regardless of the motion setting: it answers a
+  click, it travels a few pixels, and it never starts on its own. Same rule the
+  disclosure panels and the theme pill follow.
+
+  Padding and the border radius carry the growth. Height is left alone, because
+  the input inside sets it and animating both fights itself.
+*/
+.search-shell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: text;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  background: var(--color-paper-sunk);
+  padding: 0.7rem 1.25rem;
+  transition:
+    padding var(--dur-base) var(--ease-signature),
+    border-color var(--dur-fast) var(--ease-signature),
+    box-shadow var(--dur-base) var(--ease-signature);
+}
+
+.search-shell[data-open='true'] {
+  padding: 1.15rem 1.5rem;
+  border-color: var(--color-ink-faint);
+  box-shadow: 0 1px 0 0 var(--color-rule);
+}
+
+.search-shell:hover { border-color: var(--color-ink-faint); }
+
+/* The input's own focus ring would draw a second box inside the shell, which
+   already shows focus. The shell keeps the visible indicator. */
+.search-shell input:focus { outline: none; }
+.search-shell:focus-within { border-color: var(--color-ink-faint); }
+
+/* Search inputs get a UA clear button in WebKit that duplicates ours. */
+.search-shell input::-webkit-search-cancel-button { display: none; }

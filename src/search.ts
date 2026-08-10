@@ -35,7 +35,7 @@ export type Index = { prefix: string; rows: Row[] }
 /** How a record was matched. Ordered strongest first, and rendered separately. */
 export type Strength = 'exact' | 'strong' | 'possible'
 
-export type Hit = { row: Row; strength: Strength }
+export type Hit = { row: Row; strength: Strength; i: number }
 
 export type Results = {
   query: string
@@ -69,11 +69,20 @@ export const titleFromUrl = (u: string) => u.replace(/^\d{4}\//, '').replace(/-+
  * a frame, so there is no inverted index to keep in sync and nothing to get
  * subtly wrong about stemming.
  */
-export type Prepared = { row: Row; name: string; rest: string; upc: string }
+export type Prepared = {
+  row: Row
+  name: string
+  rest: string
+  upc: string
+  /** Position in the index, so results can reach the parallel image array
+      without a linear scan per rendered row. */
+  i: number
+}
 
 export function prepare(index: Index): Prepared[] {
-  return index.rows.map((row) => ({
+  return index.rows.map((row, i) => ({
     row,
+    i,
     name: norm(row.n),
     rest: norm(`${titleFromUrl(row.u)} ${row.h}`),
     upc: row.c ?? '',
@@ -97,7 +106,7 @@ export function search(prepared: Prepared[], rawQuery: string, limit = 40): Resu
   if (looksLikeUPC(query)) {
     const digits = query.replace(/[\s-]/g, '')
     for (const p of prepared) {
-      if (p.upc && p.upc.includes(digits)) hits.push({ row: p.row, strength: 'exact' })
+      if (p.upc && p.upc.includes(digits)) hits.push({ row: p.row, strength: 'exact', i: p.i })
     }
     if (hits.length) {
       return { query, hits, related: [], counts: tally(hits) }
@@ -107,12 +116,12 @@ export function search(prepared: Prepared[], rawQuery: string, limit = 40): Resu
   for (const p of prepared) {
     const inName = terms.every((t) => p.name.includes(t))
     if (inName) {
-      hits.push({ row: p.row, strength: 'strong' })
+      hits.push({ row: p.row, strength: 'strong', i: p.i })
       continue
     }
     // Every term present, but spread across the notice rather than the name.
     if (terms.every((t) => p.name.includes(t) || p.rest.includes(t))) {
-      hits.push({ row: p.row, strength: 'possible' })
+      hits.push({ row: p.row, strength: 'possible', i: p.i })
     }
   }
 
@@ -132,7 +141,7 @@ export function search(prepared: Prepared[], rawQuery: string, limit = 40): Resu
   if (!hits.length && terms.length > 1) {
     for (const p of prepared) {
       if (terms.some((t) => t.length > 2 && (p.name.includes(t) || p.rest.includes(t)))) {
-        related.push({ row: p.row, strength: 'possible' })
+        related.push({ row: p.row, strength: 'possible', i: p.i })
       }
     }
     related = related.slice(0, 12)

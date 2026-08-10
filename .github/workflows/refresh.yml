@@ -2,10 +2,23 @@ name: Refresh CPSC data
 
 on:
   schedule:
-    # 07:00 UTC Mondays. CPSC publishes on weekdays and the API runs about a
-    # week behind, so a Monday pull picks up the previous week in full.
-    - cron: '0 7 * * 1'
-  workflow_dispatch: # so it can be run by hand without waiting a week
+    # DAILY, 22:00 UTC (6pm ET).
+    #
+    # This was 07:00 UTC on Mondays, which was the wrong day. Measured against
+    # the corpus: of the 793 recalls published since the start of 2025, 769 of
+    # them (97%) are dated a THURSDAY. CPSC ships in weekly batches, median 8
+    # recalls at a time, and a Monday job meant every batch sat up to four days
+    # before the page caught up.
+    #
+    # Daily, and not more often, for the same reason. New data appears about
+    # one day in seven, so anything tighter than daily is polling a source that
+    # has not moved. 22:00 UTC picks up a Thursday morning US batch the same
+    # day, and the other 3% that land midweek are never more than a day stale.
+    #
+    # A run that finds nothing new commits nothing, so quiet days cost one API
+    # call and leave no trace in the history.
+    - cron: '0 22 * * *'
+  workflow_dispatch: # so it can be run by hand without waiting for the schedule
 
 permissions:
   contents: write
@@ -42,7 +55,13 @@ jobs:
         run: |
           git config user.name  "recall-record bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/recalls.json public/recall-data.json public/recall-data.csv public/sitemap.xml
+          # index.html and the OG images are REBUILT by `npm run data`, not just
+          # the JSON. The share-card alt text carries live figures and is
+          # rewritten from the series, so leaving index.html unstaged would drop
+          # that edit on the floor and let the alt text drift again, which is
+          # the exact bug it was generated to prevent.
+          git add src/data/recalls.json public/recall-data.json public/recall-data.csv \
+                  public/sitemap.xml public/og.png public/og.svg index.html
           if git diff --staged --quiet; then
             echo "No change in the figures. Nothing to publish."
           else

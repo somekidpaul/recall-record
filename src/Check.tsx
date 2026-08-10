@@ -32,11 +32,16 @@ export default function Check() {
   /**
    * Fetched on intent, never with the page.
    *
-   * The index is around 560KB compressed, several times the rest of the site.
-   * Nobody reading the essay should pay for a search they did not ask for, so
-   * it loads on first focus of the field, or straight away when someone arrives
-   * on a shared ?q= link. Focus fires before the first keystroke, so it is
-   * usually ready by the time a word is finished.
+   * The index is 676KB on the wire, measured against the deployed site rather
+   * than taken from the local build, which understates it: Vercel compresses
+   * on the fly at a quality tuned for speed, so a file that reaches 483KB under
+   * a local max-quality pass is served at 676KB.
+   *
+   * That is several times the rest of the site, and nobody reading the essay
+   * should pay for a search they did not ask for. It loads on first focus of
+   * the field, or straight away when someone arrives on a shared ?q= link.
+   * Focus fires before the first keystroke, so it is usually ready by the time
+   * a word is finished.
    */
   const ensureIndex = useCallback(() => {
     if (load !== 'idle') return

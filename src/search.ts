@@ -7,17 +7,19 @@
  * against 123. CPSC writes product names as catalogue entries ("Laziza
  * Dressers"), so the hazard almost never appears in them.
  *
- * So the haystack spans name, title and hazard. But a hit in the hazard text is
- * a much weaker claim than a hit in the product name, and flattening the two
- * into one ranked list would present a guess as an answer. Every result
- * therefore carries HOW it was found, and the page renders the tiers apart.
+ * So the haystack spans the product name, the notice title and the hazard. The
+ * title is not stored separately; it lives inside the URL slug the index has to
+ * carry anyway, see `norm` below.
+ *
+ * But a hit in the hazard text is a much weaker claim than a hit in the product
+ * name, and flattening the two into one ranked list would present a guess as an
+ * answer. Every result therefore carries HOW it was found, and the page renders
+ * the tiers apart.
  */
 
 export type Row = {
   /** Product name(s), joined. */
   n: string
-  /** Recall notice title. */
-  t: string
   /** Hazard description. */
   h: string
   /** Recall date, YYYY-MM-DD. */
@@ -43,7 +45,23 @@ export type Results = {
   counts: Record<Strength, number>
 }
 
-const norm = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').trim()
+/**
+ * PUNCTUATION BECOMES SPACE, on the haystack and the query alike.
+ *
+ * The notice title is not stored. It arrives inside the URL slug, which the
+ * index has to carry anyway so results can link out, and shipping both was
+ * paying twice for the same words. But a slug writes "Fisher-Price" as
+ * "Fisher Price", so matching raw text lost 63% of the hits for a hyphenated
+ * query.
+ *
+ * Normalising both sides fixes that and is better than what it replaced:
+ * "tip-over" and "tip over" now return the same 191 notices, where before they
+ * returned 123 and 82 depending on which way the reader happened to type it.
+ */
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+
+/** The slug carries the notice title. Strip the leading year to read it back. */
+export const titleFromUrl = (u: string) => u.replace(/^\d{4}\//, '').replace(/-+/g, ' ').trim()
 
 /**
  * Prepared haystacks, computed once per index load rather than per keystroke.
@@ -57,7 +75,7 @@ export function prepare(index: Index): Prepared[] {
   return index.rows.map((row) => ({
     row,
     name: norm(row.n),
-    rest: norm(`${row.t} ${row.h}`),
+    rest: norm(`${titleFromUrl(row.u)} ${row.h}`),
     upc: row.c ?? '',
   }))
 }

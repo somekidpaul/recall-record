@@ -54,7 +54,14 @@ export default function App() {
               const shell = document.getElementById(FIND_ID)
               if (!shell || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
               e.preventDefault()
-              shell.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              /* Smooth for most people, instant for anyone who asked for less
+                 motion. This is a page-length jump, which is exactly the kind
+                 of travel Reduce Motion exists to stop, and it is also the
+                 safety net: focus() is told not to scroll, so if the animated
+                 scroll never runs the reader would be left typing into an input
+                 five screens away. */
+              const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+              shell.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
               shell.querySelector('input')?.focus({ preventScroll: true })
             }}
             className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"

@@ -47,6 +47,19 @@ const FIELDS: Field[] = [
  * threshold the arc is exact. The trade is stated on the page rather than
  * hidden, because a scale bent without saying so is the thing this piece spends
  * a whole section warning about. Only 100.0 closes the circle.
+ *
+ * BUTT CAPS, AND THAT IS LOAD-BEARING, NOT COSMETIC.
+ *
+ * This drew with strokeLinecap="round" until now, and a round cap extends the
+ * stroke half its width past each endpoint of the path. Stroke is 7, so the two
+ * caps added 7px of ink. The gap they were eating into is 9 degrees of a
+ * 2*PI*46 = 289.03px circumference, which is 7.23px. Net visible gap: about
+ * 0.2px.
+ *
+ * So the minimum-gap rule above, the whole point of which is that a 99.7% field
+ * must not render as a closed circle, was being cancelled out by the line cap.
+ * The rings said 99.7% and drew a closed circle anyway. Square ends make the
+ * 7.23px real, which is what the rule was written to produce.
  */
 const MIN_GAP_DEG = 9
 
@@ -136,14 +149,16 @@ export default function CoverageRings() {
       ))}
     </ul>
 
-    {/* Trimmed from 65 words to 27. The full version explained the geometry
-        twice over; what a reader needs is that the gap is deliberate and the
-        printed number is the truth. */}
+    {/* 65 words, then 27, now 22. The disclosure stays because a bent scale
+        that does not say so is the exact failure the rest of this piece is
+        about; what kept going was the explanation of the explanation.
+        "Under a pixel" is measured, not rhetorical: the five bent rings sit at
+        99.7 to 99.9%, whose true arc gaps are 0.29 to 0.87px on a 289.03px
+        circumference. */}
     {bent.length > 0 && (
       <p className="m-0 mt-6 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        {bent.length} of these miss 100% by so little that an exact arc would look like a closed
-        circle, so anything under 100% keeps a visible gap on purpose. The printed numbers are
-        exact.
+        {bent.length} of these miss 100% by under a pixel of arc, so anything short of 100% keeps
+        a visible gap. The printed numbers are exact.
       </p>
     )}
     </>
@@ -161,7 +176,7 @@ function Ring({ value }: { value: number }) {
         />
         <circle
           cx={BOX / 2} cy={BOX / 2} r={R} fill="none"
-          stroke={color} strokeWidth={STROKE} strokeLinecap="round"
+          stroke={color} strokeWidth={STROKE} strokeLinecap="butt"
           strokeDasharray={C}
           className="ring-arc"
           style={{ '--len': C, '--target': (gapDegrees(value) / 360) * C } as React.CSSProperties}

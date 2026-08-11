@@ -211,9 +211,24 @@ export default function RetailerChart() {
               className="pill absolute inset-y-0.5 left-0.5 rounded-full bg-[var(--color-signal)]"
               style={{ width: 'calc((100% - 0.25rem) / 2)', transform: `translateX(${soleOnly ? 100 : 0}%)` }}
             />
+            {/* THE DIFFERENTIATING WORD GOES FIRST.
+
+                These read "Sold at Amazon" and "Sold only at Amazon", which is
+                two 3-word phrases sharing 2 words, with the entire difference
+                buried in the middle. Scanning them left to right, the eye hits
+                "Sold" twice and has to reach position three to find out these
+                are different questions at all.
+
+                "Only" now leads, so the contrast is the first thing read.
+
+                "Sold" also had to go on accuracy grounds. The method note is
+                explicit that CPSC's retailer sentence records who gets NAMED in
+                a notice, not who sold what, and says in as many words that this
+                is "not how much they sold". The control was quietly making the
+                claim the rest of the page refuses to make. */}
             {[
-              { sole: false, label: 'Sold at Amazon', full: 'Count every recall whose notice names Amazon' },
-              { sole: true, label: 'Sold only at Amazon', full: 'Count only recalls where Amazon is the one store named' },
+              { sole: false, label: 'Amazon named', full: 'Count every recall whose notice names Amazon at all' },
+              { sole: true, label: 'Only Amazon named', full: 'Count only the recalls where Amazon is the sole store named' },
             ].map((o) => (
               <button
                 key={o.label}
@@ -233,6 +248,16 @@ export default function RetailerChart() {
           </div>
         </div>
 
+        {/* One line, and it earns its place by being the thing the labels
+            cannot say on their own. The whole control rests on a fact about
+            the source that a reader has no way to know: a single notice can
+            list several stores. Without that, "only" has nothing to be the
+            opposite of, and the two states look like the same number twice.
+            Stated once, here, next to the switch it explains. */}
+        <p className="m-0 basis-full text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
+          One notice can name several stores. <em>Only Amazon named</em> counts the recalls where
+          it names no one else.
+        </p>
       </div>
 
       <div className="relative">

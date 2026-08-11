@@ -62,10 +62,21 @@ export default function Nav({ current }: { current: '/' | '/method' | '/check' }
     <header className="sticky top-0 z-30 border-b border-[var(--color-rule)] bg-[var(--color-paper)]">
       <div className="flex items-center justify-between gap-x-6 py-3.5 sm:py-4">
         <div className="flex items-center gap-3 sm:gap-4">
+          {/* A SPAN ON THE HOME PAGE, NOT AN H1.
+
+              This used to be an <h1> on `/` only, which put the site's name at
+              the top of the outline and pushed the actual headline down to an
+              <h2>. /check and /method meanwhile each had a real <h1> of their
+              own, so the three routes disagreed about what a first-level
+              heading is for: two used it for the page, one for the masthead.
+
+              A masthead is a wordmark that happens to be set in type. The h1
+              belongs to whatever the page is about, which on `/` is the
+              sentence about Amazon. */}
           {current === '/' ? (
-            <h1 className="m-0 font-[family-name:var(--font-display)] text-[19px] font-normal tracking-tight sm:text-[22px]">
+            <span className="m-0 font-[family-name:var(--font-display)] text-[19px] font-normal tracking-tight sm:text-[22px]">
               The Recall Record
-            </h1>
+            </span>
           ) : (
             <a
               href="/"
@@ -147,11 +158,11 @@ function NavLink({ href, label, current }: { href: string; label: string; curren
       }`}
     >
       {label}
-      {/* A real element rather than a text-decoration, because only an element
-          can carry a view-transition-name and be morphed from its old position
-          to its new one across a page load. Exactly one link renders it, so the
-          name stays unique in the document, which is what the browser requires
-          before it will run the transition at all. */}
+      {/* A real element rather than a text-decoration. That started out because
+          only an element can carry a view-transition-name, and the bar used to
+          slide between pages; the slide is gone but the element stays, since it
+          also gives exact control over thickness and offset that
+          `underline-offset` does not. */}
       {here && <span className="nav-indicator" aria-hidden />}
     </a>
   )

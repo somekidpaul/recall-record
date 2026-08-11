@@ -3,11 +3,11 @@
   "rewrites": [
     {
       "source": "/check",
-      "destination": "/index.html"
+      "destination": "/check.html"
     },
     {
       "source": "/method",
-      "destination": "/index.html"
+      "destination": "/method.html"
     }
   ],
   "headers": [

@@ -50,7 +50,7 @@ export default function Method() {
       <Nav current="/method" />
 
       <section className="pt-14 pb-4 sm:pt-20">
-        <h1 className="m-0 max-w-[22ch] font-[family-name:var(--font-display)] text-[clamp(2rem,5.5vw,3.4rem)] font-normal leading-[1.18] tracking-[-0.02em] sm:leading-[1.09]">
+        <h1 className="m-0 max-w-[22ch] font-[family-name:var(--font-display)] text-[clamp(2rem,5.5vw,3.4rem)] font-normal leading-[1.18] tracking-[-0.02em] sm:leading-[1.12]">
           How this was counted, and where it falls short.
         </h1>
         <p className="mt-6 mb-0 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
@@ -74,9 +74,15 @@ export default function Method() {
           where most recalls name nobody would measure the empty field, not Amazon. From{' '}
           {first.year} onward it is filled in on 99% or more of recalls in every single year, in
           the same prose format it uses today, so the line can run the whole way without the
-          ground shifting under it. This page used to start in {data.ratioFirstYear}, which was a
-          choice rather than a limit, and starting a trend line at the point the trend begins is
-          exactly the kind of quiet thumb on the scale the rest of this page is about.
+          ground shifting under it.
+          {/* A closing sentence here used to add that the page "used to start in
+              2015, which was a choice rather than a limit". True, and it is the
+              best thing about how this was made, but it is about the page's
+              editing history rather than about the data, and the reader did not
+              ask what this used to be. The note already justifies 2004 on field
+              reliability, which is the actual reason; the confession was a
+              second justification aimed at the author. It belongs in a write-up
+              about building this, not in the answer to the question. */}
         </Note>
 
         <Note title="What the number actually means">
@@ -88,8 +94,13 @@ export default function Method() {
           different questions, and this data cannot answer them.
         </Note>
 
-        <Note title={`Why ${p.year} is not a full year`}>
-          Because the year is not over yet. The data runs through {data.newestRecallDate},
+        {/* Titled "Why {year} is not a full year" until now, which asked a
+            question nobody has. Everyone knows the year is not over. The thing a
+            reader actually wants to know is whether a part-year number can sit
+            on the same chart as twenty-one finished ones, and that is what the
+            answer was always about. */}
+        <Note title={`Why a partial ${p.year} still compares fairly`}>
+          The data runs through {data.newestRecallDate},
           about {p.monthsElapsed} months in. That matters less than it sounds, because every
           number here is a percentage and not a total, so a shorter year is not a smaller
           one. I also checked month by month for a seasonal pattern that could tilt a partial
@@ -255,7 +266,21 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
 
       <div className="disclosure" data-open={open} id={id} role="region" aria-hidden={!open}>
         <div>
-          <p className="mt-0 mb-6 max-w-[72ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+          {/* FULL WIDTH, on purpose, and it is a trade worth naming.
+
+              The 72ch cap resolved to 771px inside a 1000px column, so every
+              answer stopped 229px short of the question sitting directly above
+              it. Two blocks in the same row, one reaching the edge and one not,
+              reads as a layout fault rather than as a measure.
+
+              The cost is line length. At 17px in this face a line goes from
+              roughly 91 characters to roughly 118, which is past the range
+              prose is usually set in. It is survivable here because these are
+              five-to-seven-line answers a reader opens one at a time, not
+              running text, and because the alternative was a ragged column that
+              made the page look broken. Putting `max-w-[72ch]` back is a
+              one-line reversal if it reads worse on a wide monitor. */}
+          <p className="mt-0 mb-6 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
             {children}
           </p>
         </div>

@@ -100,7 +100,25 @@ export default function CountUp({
       <span aria-hidden className="invisible">
         {format(to)}
       </span>
-      <span aria-hidden className="absolute inset-0 text-left">
+      {/*
+        RIGHT-ALIGNED, and this is about where the slack goes.
+
+        The box is sized for the FINAL string ("49.6%") but holds the CURRENT
+        one, and early in the count that is shorter ("5.1%"). Something has to
+        absorb the difference. Left-aligned, it all fell on the right, which is
+        precisely where the comma is: for the first second of the page the
+        headline read "5.1% , or 185 of 373" with the punctuation floating a
+        character-width away from its number. Caught on a screenshot mid-count.
+
+        Right-aligned, the number's right edge is pinned, so the comma never
+        detaches, and the slack lands on the left where it merges with the word
+        space after "is" and reads as nothing at all.
+
+        (The DOM was always clean here. `textContent` has no stray space, so
+        copy-paste was fine either way. This was purely what the eye saw while
+        the number was still moving.)
+      */}
+      <span aria-hidden className="absolute inset-0 text-right">
         {format(value)}
       </span>
     </span>

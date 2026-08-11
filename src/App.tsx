@@ -61,7 +61,7 @@ export default function App() {
         <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
           Amazon is climbing. Everyone else is flat.
         </h3>
-        <p className="arrive mt-5 mb-12 max-w-[50ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        <p className="arrive mt-5 mb-12 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           Every US product recall since {first.year}, grouped by which store the notice
           mentions. Amazon goes from nothing to sixty percent. Walmart rises, then drops back.
           Target and Home Depot barely move in twenty-two years.
@@ -226,7 +226,7 @@ function Methodology() {
         </svg>
       </a>
 
-      <p className="m-0 mt-5 max-w-[60ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+      <p className="m-0 mt-5 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         Six questions in full, including how this could have been fake and the one claim the
         evidence would not support, plus what every field in the records actually contains.
       </p>

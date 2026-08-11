@@ -460,6 +460,31 @@ p { text-wrap-style: pretty; }
   mix-blend-mode: normal;
 }
 
+/*
+  THE MASTHEAD SITS OUT OF THE PAGE CROSS-FADE.
+
+  Without this it is part of the root snapshot, so on every navigation the
+  entire header, identical between pages apart from one 2px bar, faded out and
+  faded back in underneath the bar that was trying to slide across it. The
+  effect was a header that flickered while its indicator moved, which reads as
+  the whole thing being slightly broken rather than as one element travelling.
+
+  Naming it lifts it out of the root capture, and killing its own old/new
+  animations means it simply persists. An element that is genuinely unchanged
+  between two pages should look unchanged. Only the indicator moves, and it is
+  captured separately because a named descendant is lifted out of its ancestor's
+  snapshot in turn.
+*/
+header {
+  view-transition-name: masthead;
+}
+
+::view-transition-old(masthead),
+::view-transition-new(masthead) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 /* 480ms, not the 380 this started at. The bar crosses up to 300px, and at the
    shorter duration the middle of the signature curve, which is its fastest
    part, went by quickly enough to read as a jump rather than a slide. */

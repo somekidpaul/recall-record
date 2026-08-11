@@ -2,22 +2,26 @@ name: Refresh CPSC data
 
 on:
   schedule:
-    # DAILY, 22:00 UTC (6pm ET).
+    # WEEKLY, Fridays at 09:00 UTC (5am ET).
     #
-    # This was 07:00 UTC on Mondays, which was the wrong day. Measured against
-    # the corpus: of the 793 recalls published since the start of 2025, 769 of
-    # them (97%) are dated a THURSDAY. CPSC ships in weekly batches, median 8
-    # recalls at a time, and a Monday job meant every batch sat up to four days
-    # before the page caught up.
+    # The cadence is set by the source, and the source is weekly. Measured over
+    # the 2,190 recalls published since the start of 2020: 83.7% are dated a
+    # THURSDAY and 14.0% a Wednesday, so 97.7% of everything CPSC publishes
+    # lands on one of two days. There is no such thing as Sunday data.
     #
-    # Daily, and not more often, for the same reason. New data appears about
-    # one day in seven, so anything tighter than daily is polling a source that
-    # has not moved. 22:00 UTC picks up a Thursday morning US batch the same
-    # day, and the other 3% that land midweek are never more than a day stale.
+    # This ran daily, which meant six runs a week against a source that had not
+    # moved. Those runs cost an API call and produced no commit, so they were
+    # not harmful, just untrue to how the data actually behaves: a page that
+    # claims to rebuild daily off a feed that updates weekly is describing its
+    # own machinery rather than its subject.
     #
-    # A run that finds nothing new commits nothing, so quiet days cost one API
-    # call and leave no trace in the history.
-    - cron: '0 22 * * *'
+    # Friday 09:00 UTC is the first moment that is unambiguously after the whole
+    # of Thursday in US time (05:00 ET), so a Thursday batch is always complete
+    # before the job reads it. The Wednesday 14% is picked up by the same run.
+    #
+    # A run that finds nothing new commits nothing, so a quiet week costs one
+    # API call and leaves no trace in the history.
+    - cron: '0 9 * * 5'
   workflow_dispatch: # so it can be run by hand without waiting for the schedule
 
 permissions:

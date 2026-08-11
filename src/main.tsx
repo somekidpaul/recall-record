@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { flushSync } from 'react-dom'
 import './index.css'
 import App from './App'
 import Check from './Check'
@@ -21,30 +20,24 @@ const path = location.pathname.replace(/\/+$/, '')
 const Page = path === '/check' ? Check : path === '/method' ? Method : App
 
 /**
- * RENDERED SYNCHRONOUSLY, and the nav's page indicator depends on it.
+ * An ordinary concurrent render.
  *
- * index.html ships `<div id="root"></div>` and nothing else, so every pixel
- * here is built by React. `root.render()` on its own schedules that work
- * concurrently, which means it can land after the browser's first rendering
- * opportunity. Measured: at the first animation frame of a fresh navigation the
- * root still had 0 children and `.nav-indicator` did not exist.
+ * This was wrapped in `flushSync` for a while, and the reason is worth keeping
+ * because it is not an obvious thing to have done. The nav indicator used to
+ * slide between pages via a cross-document view transition, and the browser
+ * captures the new page's named elements at its first rendering opportunity.
+ * React's concurrent render can land after that moment: measured at the first
+ * animation frame of a fresh navigation, the root still had 0 children and
+ * `.nav-indicator` did not exist, so the transition ran with nothing to morph
+ * into and the bar just vanished and reappeared.
  *
- * That is fatal for a cross-document view transition. The browser captures the
- * NEW page's named elements at that first opportunity, so it found no
- * `nav-indicator` to morph the old one into. The transition still "ran", which
- * is why every check of the CSS came back correct, but with no destination the
- * bar simply vanished and reappeared. It looked like nothing was animating,
- * because as far as the indicator was concerned, nothing was.
- *
- * flushSync forces the first render to complete during this script, before that
- * frame. Measured after: 1 child and the indicator present. Now there are two
- * ends to interpolate between.
+ * flushSync fixed that by forcing the first render to finish inside this
+ * script. It also meant the whole app rendered synchronously, blocking the main
+ * thread, to serve one 2px decoration. The transition is gone now (see
+ * index.css), so the constraint goes with it and React can schedule normally.
  */
-const root = createRoot(document.getElementById('root')!)
-flushSync(() => {
-  root.render(
-    <StrictMode>
-      <Page />
-    </StrictMode>,
-  )
-})
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <Page />
+  </StrictMode>,
+)

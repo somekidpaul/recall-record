@@ -359,6 +359,53 @@ function build(all) {
     .sort((a, b) => b.units - a.units)
     .slice(0, 10)
 
+  /**
+   * The ten most recent recalls, full stop.
+   *
+   * /check used to build this list by taking `biggest` and re-sorting it by
+   * date, which is not the same thing and was quietly wrong. `biggest` is the
+   * ten LARGEST recalls of the year by units; sorting those by date gives the
+   * most recent members of a set chosen for size. On the data at time of
+   * writing that produced Aug 6, Jul 30, Jul 9, Jul 2 and Apr 30 under a
+   * heading that said "Most recent recalls", with hundreds of genuinely more
+   * recent recalls missing because they were not big enough to make a list the
+   * reader was never shown.
+   *
+   * This one is sorted by date across the whole working set and nothing else.
+   *
+   * Units are optional here, unlike in `biggest`. NumberOfUnits is prose and
+   * does not always parse, and dropping a recall from a recency list because
+   * its unit count is unreadable would reintroduce exactly the kind of silent
+   * selection this is fixing. RecallRow already guards on `units != null`.
+   * Images are required, which costs nothing: coverage.images is 100%.
+   */
+  const recent = scope
+    .map((r) => {
+      const products = r.Products ?? []
+      const image = (r.Images ?? [])[0]
+      if (!image?.URL) return null
+      const units = products.map((p) => parseUnits(p.NumberOfUnits)).filter((n) => n != null)
+      const max = units.length ? Math.max(...units) : null
+      return {
+        title: r.Title ?? '',
+        product: products[0]?.Name ?? '',
+        units: max,
+        unitsRaw:
+          max == null
+            ? ''
+            : products.find((p) => parseUnits(p.NumberOfUnits) === max)?.NumberOfUnits ?? '',
+        date: (r.RecallDate ?? '').slice(0, 10),
+        image: image.URL.replace(/ /g, '%20'),
+        imageCaption: image.Caption ?? '',
+        url: r.URL ?? '',
+        retailerText: (r.Retailers ?? [])[0]?.Name ?? '',
+        hazard: (r.Hazards ?? [])[0]?.Name ?? '',
+      }
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 10)
+
   const dates = scope.map((r) => r.RecallDate).filter(Boolean).sort()
 
   /* How much of the latest year is actually in hand, so the page can state the
@@ -393,6 +440,7 @@ function build(all) {
     trend,
     manufacturerTest,
     biggest,
+    recent,
     trackedRetailers: TRACKED.map(({ key, label }) => ({ key, label })),
   }
 }

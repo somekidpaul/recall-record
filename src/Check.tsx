@@ -14,19 +14,23 @@ import data from './data/recalls.json'
  *
  * It refuses the question people actually arrive with. They want "is this
  * recalled, yes or no", and the federal record cannot support that: barcodes
- * are on a twentieth of notices, so there is no way to match the item in
- * someone's hands. What it can support is "here is what the record does and
+ * are on 4.6% of notices, one in twenty-two, so there is no way to match the
+ * item in someone's hands. (This comment said "a twentieth", which is 5%. The
+ * rendered figure has always been the computed `data.upcCoverage`, so the page
+ * was right and only the note above it was rounded in the flattering
+ * direction.) What it can support is "here is what the record does and
  * does not say", and the zero-results state is built first because it is both
  * the most common answer and the only one that can get somebody hurt.
  */
 export default function Check() {
-  /* data.biggest is the year's largest by units and already carries photographs
-     and unit counts, so the resting list costs nothing extra to render. Sorted
-     by date here rather than by size, because "most recent" is what a person
-     opening a lookup wants to see. */
-  const recent: RowView[] = [...(data.biggest ?? [])]
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 5)
+  /* data.recent, not data.biggest re-sorted.
+     This used to take the year's ten largest recalls by units and order them by
+     date, which reads as recency but is not: it is the newest members of a set
+     picked for size, under a heading promising the newest recalls outright. The
+     build now emits a list sorted by date across the whole corpus.
+     All ten are passed; RecallSearch shows five and reveals the rest behind
+     "Show all 10", the same disclosure the essay's list uses. */
+  const recent: RowView[] = (data.recent ?? [])
     .map((r, i) => ({
       key: r.url || r.title || String(i),
       date: r.date,
@@ -34,7 +38,9 @@ export default function Check() {
       hazard: r.hazard,
       url: r.url || undefined,
       image: r.image || undefined,
-      units: r.units,
+      /* Nullable in `recent` where NumberOfUnits did not parse, unlike in
+         `biggest` where a unit count is the whole ranking. */
+      units: r.units ?? undefined,
       unitsRaw: r.unitsRaw || undefined,
       retailerText: r.retailerText || undefined,
     }))
@@ -48,7 +54,10 @@ export default function Check() {
       <Nav current="/check" />
 
       <section className="pt-14 pb-8 sm:pt-20">
-        <h1 className="m-0 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(2.2rem,6vw,4rem)] font-normal leading-[1.16] tracking-[-0.02em] sm:leading-[1.06]">
+        {/* 1.10 for the same reason as the home headline: at the 4rem end of the
+            clamp, 1.06 left 2.9px between lines of a face whose ink is 1.0144x
+            its font-size. */}
+        <h1 className="m-0 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(2.2rem,6vw,4rem)] font-normal leading-[1.16] tracking-[-0.02em] sm:leading-[1.10]">
           Check a product.
         </h1>
         <p className="mt-6 mb-0 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">

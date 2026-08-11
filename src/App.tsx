@@ -2,7 +2,6 @@ import { useId, useState } from 'react'
 import RetailerChart from './RetailerChart'
 import Nav from './Nav'
 import CountUp from './CountUp'
-import MotionNotice from './MotionNotice'
 import BiggestRecalls from './BiggestRecalls'
 import data from './data/recalls.json'
 
@@ -33,10 +32,16 @@ export default function App() {
         <p className="m-0 font-[family-name:var(--font-mono)] text-[13px] uppercase tracking-[0.14em] text-[var(--color-signal)]">
           {last.year} so far
         </p>
-        <h2 className="mt-6 mb-0 max-w-[19ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.5vw,5.5rem)] font-normal leading-[1.13] tracking-[-0.02em] sm:leading-[1.04]">
+        {/* 1.08, not the 1.04 this shipped with. Iowan Old Style's ink height
+            measures 1.0144x its font-size, so at the 5.5rem end of the clamp the
+            glyphs occupy 89.3 of the 91.5px line box: 2.2px between one line's
+            descenders and the next line's ascenders. "Nearly" and "every" sit
+            directly above "product", and at that size the y and p were within a
+            couple of pixels of touching. 1.08 puts ~6px back. */}
+        <h1 className="mt-6 mb-0 max-w-[19ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.5vw,5.5rem)] font-normal leading-[1.13] tracking-[-0.02em] sm:leading-[1.08]">
           {headlineQuantity} of every product recall in America is something you could only buy
           on Amazon.
-        </h2>
+        </h1>
         <p className="arrive mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
           {/* No count-up on the opening figure any more. It is zero, and
               animating a number up to nothing is a flourish with no payload.
@@ -66,7 +71,6 @@ export default function App() {
           mentions. Amazon goes from nothing to sixty percent. Walmart rises, then drops back.
           Target and Home Depot barely move in twenty-two years.
         </p>
-        <MotionNotice />
         <RetailerChart />
       </section>
 
@@ -203,10 +207,10 @@ function Methodology() {
           {data.corpusTotal.toLocaleString()} in the full database going back to 1973. Why it
           starts where it does is the first question below.
         </Card>
-        <Card label="Checked" value="Daily">
+        <Card label="Checked" value="Weekly">
           Newest recall {data.newestRecallDate}. CPSC publishes in weekly batches, almost always
-          on a Thursday, so a daily check is never more than a day behind. If the data ever
-          shrinks or goes stale, the rebuild stops instead of publishing bad numbers.
+          on a Thursday, and the rebuild runs the morning after. If the data ever shrinks or goes
+          stale, the rebuild stops instead of publishing bad numbers.
         </Card>
       </div>
 
@@ -225,11 +229,10 @@ function Methodology() {
           <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </a>
-
-      <p className="m-0 mt-5 max-w-[62ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        Six questions in full, including how this could have been fake and the one claim the
-        evidence would not support, plus what every field in the records actually contains.
-      </p>
+      {/* A 27-word paragraph used to sit here listing what was behind the link.
+          The button already says "How this was counted, and where it falls
+          short", which is the same promise in nine words, and a caption under a
+          button is the page selling its own footnotes. */}
     </section>
   )
 }

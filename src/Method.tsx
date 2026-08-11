@@ -273,13 +273,18 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
               it. Two blocks in the same row, one reaching the edge and one not,
               reads as a layout fault rather than as a measure.
 
-              The cost is line length. At 17px in this face a line goes from
-              roughly 91 characters to roughly 118, which is past the range
-              prose is usually set in. It is survivable here because these are
-              five-to-seven-line answers a reader opens one at a time, not
-              running text, and because the alternative was a ragged column that
-              made the page look broken. Putting `max-w-[72ch]` back is a
-              one-line reversal if it reads worse on a wide monitor. */}
+              The cost is line length, and it is larger than first estimated.
+              Measured on the live page at a 1060px viewport: 980px of text at
+              an average glyph width of 7.64px is about 128 characters a line,
+              against a usual range of 45 to 75. Worth noting the old cap was
+              not comfortable either. `ch` measures the "0" glyph, 10.28px here,
+              while real prose averages 7.64px, so 72ch was already ~101
+              characters rather than the 72 it looks like.
+
+              Kept anyway, decided deliberately rather than by default. These
+              are five-to-seven-line answers opened one at a time, not running
+              text, and the alternative was a column that stopped 229px short of
+              its own question and read as a layout fault. */}
           <p className="mt-0 mb-6 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
             {children}
           </p>

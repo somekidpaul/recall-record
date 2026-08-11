@@ -52,8 +52,29 @@ jobs:
       - name: Rebuild figures
         run: npm run data
 
+      # THE GATE, and it has to sit here: after the fetch, before the commit.
+      #
+      # build-data.mjs asserts that the build did not go obviously wrong. These
+      # assert that the figures the PAGE prints are true of the feed that was
+      # just downloaded: every year's recall count, the Amazon share recomputed
+      # from scratch, the pre-2004 coverage behind the "why it starts in 2004"
+      # answer, the UPC figure /check quotes as its own limit, and the claim
+      # that retailer coverage is 99%+ in every year since 2004.
+      #
+      # That last one is the reason this step exists at all. It is a sentence on
+      # /method asserting something about CPSC's data quality, and CPSC can
+      # change underneath it at any time. If it ever stops being true, the run
+      # fails and nothing is published, rather than the site quietly continuing
+      # to make a claim that has expired.
+      #
+      # The raw feed is on disk at this point because `npm run data` just wrote
+      # it, so the cross-check layer runs here. It skips loudly when the file is
+      # absent, which is why it must not be moved above the fetch.
+      - name: Verify the published figures against the feed
+        run: npm test
+
       - name: Typecheck and build
-        run: npx tsc -b && npx vite build
+        run: npx tsc -b && npx vite build && node scripts/build-routes.mjs
 
       - name: Commit if the data moved
         run: |

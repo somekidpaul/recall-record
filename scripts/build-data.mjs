@@ -32,7 +32,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const RAW = join(ROOT, 'data', 'cpsc-recalls.json')
 const OUT = join(ROOT, 'src', 'data', 'recalls.json')
 const API = 'https://www.saferproducts.gov/RestWebServices/Recall?format=json'
-const SITE = 'https://recall-record.vercel.app'
+const SITE = 'https://recallrecord.com'
 
 /**
  * TWO WINDOWS, and each is set by the field it describes rather than by taste.

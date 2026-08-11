@@ -39,9 +39,27 @@ export type Hit = { row: Row; strength: Strength; i: number }
 
 export type Results = {
   query: string
+  /** CAPPED at `limit`. Never report this as "how many recalls matched". */
   hits: Hit[]
+  /**
+   * How many records actually matched, before the cap.
+   *
+   * This did not exist, and its absence was a real defect rather than a missing
+   * nicety. The page read the number of RENDERED rows and printed it as the
+   * finding, so a search for "stroller" announced "40 notices mention
+   * 'stroller'" when 111 did. 40 was the render limit.
+   *
+   * It also contradicted itself on screen, because the per-tier `counts` below
+   * were tallied on the full set: the summary said 40 and a group heading a
+   * dozen lines lower said 111.
+   *
+   * A page whose entire argument is that a truncated view must not be presented
+   * as a complete one cannot round its own search results down in silence.
+   */
+  total: number
   /** Only populated when `hits` is empty: records sharing SOME of the terms. */
   related: Hit[]
+  /** Tallied on the FULL match set, not on the capped `hits`. */
   counts: Record<Strength, number>
 }
 
@@ -94,7 +112,7 @@ const looksLikeUPC = (q: string) => /^\d{8,14}$/.test(q.replace(/[\s-]/g, ''))
 
 export function search(prepared: Prepared[], rawQuery: string, limit = 40): Results {
   const query = norm(rawQuery)
-  const empty: Results = { query, hits: [], related: [], counts: { exact: 0, strong: 0, possible: 0 } }
+  const empty: Results = { query, hits: [], total: 0, related: [], counts: { exact: 0, strong: 0, possible: 0 } }
   if (query.length < 2) return empty
 
   const terms = query.split(' ').filter(Boolean)
@@ -109,7 +127,11 @@ export function search(prepared: Prepared[], rawQuery: string, limit = 40): Resu
       if (p.upc && p.upc.includes(digits)) hits.push({ row: p.row, strength: 'exact', i: p.i })
     }
     if (hits.length) {
-      return { query, hits, related: [], counts: tally(hits) }
+      /* Not sliced: a barcode match is by definition a handful of records, so
+         total and hits.length are the same number here. Stated explicitly
+         rather than left implicit, because this is the second return path and
+         the first one is where the count bug lived. */
+      return { query, hits, total: hits.length, related: [], counts: tally(hits) }
     }
   }
 
@@ -147,7 +169,9 @@ export function search(prepared: Prepared[], rawQuery: string, limit = 40): Resu
     related = related.slice(0, 12)
   }
 
-  return { query, hits: hits.slice(0, limit), related, counts: tally(hits) }
+  /* `total` and `counts` are both taken from `hits` BEFORE the slice. The
+     rendered list is capped for the browser's sake; the reported number is not. */
+  return { query, hits: hits.slice(0, limit), total: hits.length, related, counts: tally(hits) }
 }
 
 function tally(hits: Hit[]): Record<Strength, number> {

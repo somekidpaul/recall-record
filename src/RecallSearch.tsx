@@ -115,7 +115,11 @@ export default function RecallSearch({
   )
 
   const searching = query.trim().length > 1
-  const total = results ? results.hits.length : 0
+  /* results.total, NOT results.hits.length. `hits` is capped at 40 for
+     rendering, so reading its length reported the cap as the finding. */
+  const total = results ? results.total : 0
+  const shown = results ? results.hits.length : 0
+  const truncated = total > shown
   const counts = results?.counts
 
   /* The image array ships parallel to the index and in the same order, so a hit
@@ -323,6 +327,17 @@ export default function RecallSearch({
             <strong className="font-semibold text-[var(--color-ink)] tabular-nums">{total}</strong>{' '}
             {total === 1 ? 'notice mentions' : 'notices mention'}{' '}
             <span className="text-[var(--color-ink)]">“{query}”</span>.
+            {/* SAY THE CAP OUT LOUD. Long result sets are cut to 40 rows so the
+                browser is not asked to lay out hundreds at once, which is a
+                reasonable thing to do and an unreasonable thing to hide. Before
+                this, the cap was invisible and the count was silently the cap
+                itself. If a reader is seeing a partial list, the page says so
+                in the same sentence as the number. */}
+            {truncated && (
+              <span className="text-[var(--color-ink-faint)]">
+                {' '}Showing the first {shown}.
+              </span>
+            )}
           </p>
 
           {(['exact', 'strong', 'possible'] as Strength[]).map((g) => {

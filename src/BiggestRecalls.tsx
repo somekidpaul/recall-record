@@ -39,7 +39,7 @@ export default function BiggestRecalls() {
       <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
         The biggest recalls of {year}.
       </h3>
-      <p className="mt-5 mb-10 max-w-[58ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+      <p className="mt-5 mb-10 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
         The {biggest.length} biggest by number of items pulled. Every photo is the government's
         own, published with the notice and free for anyone to use. Open a row to read what went
         wrong.
@@ -57,7 +57,7 @@ export default function BiggestRecalls() {
 
       <RecallSearch defaultList={rows} showField={false} />
 
-      <p className="m-0 mt-12 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+      <p className="m-0 mt-12 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         Counts are US only. A few of these recalls also cover Canada, and those numbers are left
         out so they line up with the rest of this page. The household comparison uses{' '}
         {(132216000).toLocaleString()} US households from the 2024 American Community Survey.

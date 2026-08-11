@@ -177,7 +177,7 @@ export default function RetailerChart() {
 
   return (
     <figure className="m-0">
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="mb-6 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         {/* TWO DIFFERENT KINDS OF CONTROL, drawn differently on purpose.
             They used to look identical, and that was the confusion: one ADDS a
             line to the chart, the other CHANGES what the orange line counts.
@@ -201,13 +201,10 @@ export default function RetailerChart() {
         </Toggle>
 
         <div className="flex items-center gap-3">
-          <span className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
-            Amazon line
-          </span>
           <div
             role="group"
-            aria-label="What the Amazon line counts"
-            className="relative grid grid-cols-2 rounded-full border border-[var(--color-rule)] p-0.5"
+            aria-label="What the orange line counts"
+            className="relative grid grid-cols-2 rounded-full border border-[var(--color-rule)] p-[3px]"
           >
             <span
               aria-hidden
@@ -215,17 +212,19 @@ export default function RetailerChart() {
               style={{ width: 'calc((100% - 0.25rem) / 2)', transform: `translateX(${soleOnly ? 100 : 0}%)` }}
             />
             {[
-              { on: !soleOnly, label: 'Named at all', full: 'Count every recall that names Amazon' },
-              { on: soleOnly, label: 'Only store', full: 'Count only recalls where Amazon is the one store named' },
+              { sole: false, label: 'Sold at Amazon', full: 'Count every recall whose notice names Amazon' },
+              { sole: true, label: 'Sold only at Amazon', full: 'Count only recalls where Amazon is the one store named' },
             ].map((o) => (
               <button
                 key={o.label}
                 type="button"
-                onClick={() => setSoleOnly(o.label === 'Only store')}
-                aria-pressed={o.on}
+                onClick={() => setSoleOnly(o.sole)}
+                aria-pressed={o.sole === soleOnly}
                 aria-label={o.full}
-                className={`relative z-10 rounded-full px-3.5 py-1.5 text-[14px] whitespace-nowrap transition-colors duration-150 ${
-                  o.on ? 'text-[var(--color-paper)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]'
+                className={`relative z-10 rounded-full px-4 py-2 text-[14px] whitespace-nowrap transition-colors duration-150 ${
+                  o.sole === soleOnly
+                    ? 'text-[var(--color-paper)]'
+                    : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]'
                 }`}
               >
                 {o.label}
@@ -455,8 +454,13 @@ export default function RetailerChart() {
       {/* The only place the comparators are named, on every viewport.
           HTML type at a real size, rather than SVG type competing for eleven
           percentage points of vertical room. Values are the latest year. */}
+      {/* The number sits next to its name, not at the far edge of a cell.
+          `ml-auto` pushed every value to the right of a fixed-width column, so
+          the gap between a label and its own figure was set by the length of
+          the label: measured at 39px after "Home Depot" and 88px after "eBay".
+          A legend read that way looks like five unrelated pairs. */}
       {(
-        <ul className="m-0 mt-6 grid list-none gap-x-8 gap-y-2.5 p-0 [grid-template-columns:repeat(auto-fit,minmax(160px,1fr))] sm:mt-7">
+        <ul className="m-0 mt-6 flex list-none flex-wrap gap-x-7 gap-y-3 p-0 sm:mt-7">
           {readout(last, soleOnly, showControl).map((s) => (
             <li key={s.key} className="flex items-baseline gap-2 text-[14px] leading-snug">
               <span
@@ -465,7 +469,7 @@ export default function RetailerChart() {
                 style={{ background: s.color }}
               />
               <span className="text-[var(--color-ink-soft)]">{s.label}</span>
-              <span className="ml-auto font-semibold tabular-nums text-[var(--color-ink)]">
+              <span className="font-semibold tabular-nums text-[var(--color-ink)]">
                 {s.value}%
               </span>
             </li>

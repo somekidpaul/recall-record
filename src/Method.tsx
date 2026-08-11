@@ -53,7 +53,7 @@ export default function Method() {
         <h1 className="m-0 max-w-[22ch] font-[family-name:var(--font-display)] text-[clamp(2rem,5.5vw,3.4rem)] font-normal leading-[1.18] tracking-[-0.02em] sm:leading-[1.09]">
           How this was counted, and where it falls short.
         </h1>
-        <p className="mt-6 mb-0 max-w-[56ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        <p className="mt-6 mb-0 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           Every figure on this site is computed from the federal record at build time. This page
           is the account of how, including the ways it could have been wrong and the one claim the
           evidence would not support.
@@ -255,7 +255,7 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
 
       <div className="disclosure" data-open={open} id={id} role="region" aria-hidden={!open}>
         <div>
-          <p className="mt-0 mb-6 max-w-[68ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+          <p className="mt-0 mb-6 max-w-[72ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
             {children}
           </p>
         </div>

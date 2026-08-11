@@ -140,7 +140,7 @@ export default function CoverageRings() {
         twice over; what a reader needs is that the gap is deliberate and the
         printed number is the truth. */}
     {bent.length > 0 && (
-      <p className="m-0 mt-6 max-w-[68ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+      <p className="m-0 mt-6 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         {bent.length} of these miss 100% by so little that an exact arc would look like a closed
         circle, so anything under 100% keeps a visible gap on purpose. The printed numbers are
         exact.

@@ -339,7 +339,7 @@ export default function RecallSearch({
                     {counts?.[g]}
                   </span>
                 </div>
-                <p className="m-0 mt-3 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+                <p className="m-0 mt-3 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
                   {TIER[g].note}
                 </p>
                 <ul className="m-0 mt-4 list-none p-0">
@@ -407,7 +407,7 @@ function NothingFound({
       <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.6rem,3.4vw,2.4rem)] font-normal leading-[1.24] tracking-[-0.015em] sm:leading-[1.16]">
         No federal recall matches “{query}”.
       </h3>
-      <p className="mt-6 mb-0 max-w-[52ch] text-[21px] leading-[1.5] text-[var(--color-ink)]">
+      <p className="mt-6 mb-0 max-w-[62ch] text-[21px] leading-[1.5] text-[var(--color-ink)]">
         That is not the same as <strong className="font-semibold">“this product is safe.”</strong>
       </p>
       <p className="mt-5 mb-0 max-w-[62ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
@@ -468,7 +468,7 @@ function NothingFound({
               Related notices
             </h4>
           </div>
-          <p className="m-0 mt-3 max-w-[64ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+          <p className="m-0 mt-3 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
             Nothing matched everything you typed. These match part of it, and are almost certainly
             a different product.
           </p>
@@ -495,7 +495,7 @@ function NothingFound({
 /** Shown under every result state, because the limit applies to all of them. */
 function Caveat() {
   return (
-    <p className="m-0 mt-14 max-w-[68ch] border-t border-[var(--color-rule)] pt-6 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+    <p className="m-0 mt-14 max-w-[72ch] border-t border-[var(--color-rule)] pt-6 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
       This searches what CPSC published, which is a notice written in prose rather than a product
       catalogue. A result here means a notice used these words. The absence of a result means no
       notice used these words, which is a smaller claim than safety.

@@ -9,6 +9,8 @@ const THEMES = [
 export default function Controls() {
   const { theme, setTheme } = useTheme()
 
+  /* Sized to sit level with the rest of the masthead. It was 27px tall next to
+     a 40px menu button, which read as an afterthought rather than a control. */
   return (
     <div className="no-print flex items-center gap-3">
       {/*
@@ -19,7 +21,7 @@ export default function Controls() {
       <div
         role="group"
         aria-label="Colour theme"
-        className="relative grid grid-cols-3 rounded-full border border-[var(--color-rule)] p-0.5"
+        className="relative grid grid-cols-3 rounded-full border border-[var(--color-rule)] p-[3px]"
       >
         <span
           aria-hidden
@@ -38,7 +40,7 @@ export default function Controls() {
               onClick={() => setTheme(t.key)}
               aria-pressed={on}
               title={`${t.label} theme`}
-              className={`relative z-10 flex items-center justify-center rounded-full px-2.5 py-1 text-[12px] transition-colors duration-150 ${
+              className={`relative z-10 flex items-center justify-center rounded-full px-3 py-1.5 text-[12px] transition-colors duration-150 ${
                 on ? 'text-[var(--color-paper)]' : 'text-[var(--color-ink-faint)] hover:text-[var(--color-ink)]'
               }`}
             >

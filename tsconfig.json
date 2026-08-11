@@ -2,6 +2,12 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    // The test files read the raw CPSC feed and the component source off disk,
+    // which needs node's types. Declared explicitly rather than relying on
+    // automatic @types discovery, which was not picking it up and failed the
+    // build with "Cannot find name 'node:fs'". App code is unaffected: this
+    // adds declarations, it does not change what the bundle can reach.
+    "types": ["node"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",

@@ -94,6 +94,94 @@
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 }
 
+/*
+  FALLBACK FOR BROWSERS WITHOUT light-dark(), AND IT IS NOT A NICETY.
+
+  Every colour on this site is declared once with light-dark(). That is the
+  right way to do it and it is why the theme switch sets a single property. It
+  also means that in a browser which cannot parse the function, every one of
+  those declarations is invalid at computed-value time and the tokens resolve to
+  nothing at all. Measured: the page background computes to rgba(0, 0, 0, 0) and
+  the headline to rgb(0, 0, 0). A transparent background over a white canvas
+  with black type is a white page. Not a degraded dark theme, a broken one.
+
+  light-dark() landed in Chrome 123, Safari 17.5 and Firefox 120, all in 2024.
+  Safari's version is tied to macOS, so anyone a release or two behind gets the
+  white page, and they get it on a site whose entire look is dark. That is
+  exactly the report that prompted this.
+
+  So the values are declared a second time the old way, inside @supports not,
+  where a modern browser never even parses them. Generated from the same
+  light-dark() pairs above rather than retyped, so the two cannot drift.
+*/
+@supports not (color: light-dark(white, black)) {
+  :root {
+    --color-paper: oklch(98.5% 0.004 85);
+    --color-paper-sunk: oklch(96.2% 0.006 85);
+    --color-rule: oklch(88% 0.008 85);
+    --color-ink: oklch(21% 0.012 60);
+    --color-ink-soft: oklch(46% 0.012 60);
+    --color-ink-faint: oklch(53% 0.010 60);
+    --color-signal: oklch(55% 0.185 38);
+    --color-alt-1: oklch(55% 0.055 250);
+    --color-alt-2: oklch(55% 0.055 200);
+    --color-alt-3: oklch(52.5% 0.040 145);
+    --color-alt-4: oklch(56% 0.045 300);
+    --color-control: oklch(52% 0.020 85);
+    --color-warn: oklch(54% 0.075 45);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-paper: oklch(16% 0.008 60);
+      --color-paper-sunk: oklch(20% 0.010 60);
+      --color-rule: oklch(31% 0.010 60);
+      --color-ink: oklch(95% 0.006 85);
+      --color-ink-soft: oklch(70% 0.010 85);
+      --color-ink-faint: oklch(61% 0.010 85);
+      --color-signal: oklch(72% 0.165 38);
+      --color-alt-1: oklch(72% 0.055 250);
+      --color-alt-2: oklch(74% 0.055 200);
+      --color-alt-3: oklch(74% 0.040 145);
+      --color-alt-4: oklch(75% 0.045 300);
+      --color-control: oklch(66% 0.022 85);
+      --color-warn: oklch(70% 0.075 50);
+    }
+  }
+
+  :root[data-theme="light"] {
+    --color-paper: oklch(98.5% 0.004 85);
+    --color-paper-sunk: oklch(96.2% 0.006 85);
+    --color-rule: oklch(88% 0.008 85);
+    --color-ink: oklch(21% 0.012 60);
+    --color-ink-soft: oklch(46% 0.012 60);
+    --color-ink-faint: oklch(53% 0.010 60);
+    --color-signal: oklch(55% 0.185 38);
+    --color-alt-1: oklch(55% 0.055 250);
+    --color-alt-2: oklch(55% 0.055 200);
+    --color-alt-3: oklch(52.5% 0.040 145);
+    --color-alt-4: oklch(56% 0.045 300);
+    --color-control: oklch(52% 0.020 85);
+    --color-warn: oklch(54% 0.075 45);
+  }
+
+  :root[data-theme="dark"] {
+    --color-paper: oklch(16% 0.008 60);
+    --color-paper-sunk: oklch(20% 0.010 60);
+    --color-rule: oklch(31% 0.010 60);
+    --color-ink: oklch(95% 0.006 85);
+    --color-ink-soft: oklch(70% 0.010 85);
+    --color-ink-faint: oklch(61% 0.010 85);
+    --color-signal: oklch(72% 0.165 38);
+    --color-alt-1: oklch(72% 0.055 250);
+    --color-alt-2: oklch(74% 0.055 200);
+    --color-alt-3: oklch(74% 0.040 145);
+    --color-alt-4: oklch(75% 0.045 300);
+    --color-control: oklch(66% 0.022 85);
+    --color-warn: oklch(70% 0.075 50);
+  }
+}
+
 /* The entire theme switch. An inline script in index.html stamps data-theme
    before first paint so there is no flash of the wrong palette. */
 /* Lets height animate to and from `auto`, which is what makes the disclosures

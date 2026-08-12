@@ -352,6 +352,24 @@ p { text-wrap-style: pretty; }
 .pill { transition: transform var(--dur-fast) var(--ease-signature); }
 
 /*
+  The objection line sweeps in from the left when the button is pressed.
+
+  NOT stroke-dashoffset, which is how the main lines draw. That line is dashed
+  on purpose, "7 5", and dashoffset is the same property the dash pattern rides
+  on, so animating it would make the dashes crawl instead of the line arriving.
+  A clip reveals the mark without touching how the mark is painted.
+
+  FUNCTIONAL, so it runs under Reduce Motion like the pill and the disclosures:
+  it answers a press, it never begins on its own, and suppressing it would leave
+  a reader who just pressed the button unable to tell which line was the new one.
+*/
+.control-draw { animation: control-sweep 520ms var(--ease-signature) both; }
+@keyframes control-sweep {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/*
   Cards grow on hover and push their siblings aside.
 
   :has() lets the CONTAINER react to which child is hovered, which is the only

@@ -74,12 +74,20 @@ export default function OriginSplit() {
   return (
     <section className="border-t border-[var(--color-rule)] py-20">
       <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
-        The ones only Amazon sold are made somewhere else.
+        {/* "Made somewhere else" never said else than WHAT, so the heading
+            asked the reader to hold a comparison it had not made yet. It names
+            the finding now. 95.1% is "almost all" without rounding up. */}
+        The ones only Amazon sold are almost all made in China.
       </h3>
       <p className="mt-5 mb-10 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-        CPSC also records where a recalled product was manufactured, on{' '}
-        {latestOrigin.coverage}% of {latest.year} recalls. Split the same way the chart splits, the
-        two groups do not look alike.
+        {/* A BRIDGE, because this is a second finding and it used to land with
+            no handoff from the first. A reader arriving here has just finished
+            absorbing who SOLD these products; without a sentence connecting the
+            two, a new claim about manufacturing reads as a subject change
+            rather than the same record answering a second question. */}
+        The chart above is about who sold them. The record also says who made them, on{' '}
+        {latestOrigin.coverage}% of {latest.year} recalls. Split the same way, the two groups look
+        nothing alike.
       </p>
 
       {/* The comparison, as two figures rather than a chart. There are exactly
@@ -128,31 +136,54 @@ export default function OriginSplit() {
         )}
       </p>
 
-      {/* Every year, so the reader can check the claim above instead of taking
-          it. A bar per year, split at the gap. */}
-      <ul className="m-0 mt-10 grid list-none grid-cols-2 gap-x-6 gap-y-4 p-0 sm:grid-cols-3 lg:grid-cols-4">
-        {rows.map((r) => (
-          <li key={r.year} className="flex items-baseline gap-3">
-            <span className="font-[family-name:var(--font-mono)] text-[12px] tabular-nums text-[var(--color-ink-faint)]">
-              ’{String(r.year).slice(2)}
-            </span>
-            <span className="relative h-1.5 flex-1 rounded-full bg-[var(--color-rule)]">
-              <span
-                className="absolute inset-y-0 left-0 rounded-full bg-[var(--color-ink-faint)]"
-                style={{ width: `${r.restChina}%` }}
-              />
-              <span
-                className="absolute inset-y-0 left-0 rounded-full bg-[var(--color-signal)] opacity-90"
-                style={{ width: `${r.soleChina}%`, mixBlendMode: 'normal' }}
-              />
-            </span>
-            <span className="font-[family-name:var(--font-mono)] text-[12px] tabular-nums text-[var(--color-ink-faint)]">
-              {r.gap > 0 ? '+' : ''}
-              {r.gap.toFixed(0)}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {/*
+        THE BARS ARE GONE, and removing them is the fix rather than a retreat.
+
+        This was a bar per year: the Amazon-alone China share drawn in signal
+        over the everything-else share in grey, with the gap printed beside it.
+        Nothing on screen said that. No key, no axis, no unit. A reader saw a
+        year, a mostly-orange bar, and "+17".
+
+        It was also drawing the comparison wrong. Both values started at zero, so
+        the larger simply covered the smaller and the pair read as one bar with a
+        tail rather than as two numbers being set against each other. Paul asked
+        what the graphs meant, which is the answer: they did not mean anything
+        legible, and an unreadable way to check a claim is worse than not
+        offering one, because it looks like evidence.
+
+        What the reader actually needs from this block is one thing: the gap
+        never flips. That is a list of thirteen numbers, all positive, and a list
+        of thirteen numbers is a perfectly good way to show thirteen numbers.
+        Labelled, with its unit stated, and the smallest one marked so the
+        sentence above can be checked at a glance.
+      */}
+      <div className="mt-10">
+        <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
+          The gap each year, in percentage points
+        </p>
+        <ul className="m-0 mt-4 flex list-none flex-wrap gap-x-7 gap-y-3 p-0">
+          {rows.map((r) => {
+            const isSmallest = r.year === smallest.year
+            return (
+              <li key={r.year} className="flex items-baseline gap-2 tabular-nums">
+                <span className="font-[family-name:var(--font-mono)] text-[12px] text-[var(--color-ink-faint)]">
+                  ’{String(r.year).slice(2)}
+                </span>
+                <span
+                  className={`text-[17px] ${isSmallest ? 'font-semibold' : ''}`}
+                  style={{ color: isSmallest ? 'var(--color-signal)' : 'var(--color-ink)' }}
+                >
+                  +{r.gap.toFixed(0)}
+                </span>
+              </li>
+            )
+          })}
+        </ul>
+        <p className="m-0 mt-4 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+          Every year positive means the Amazon-alone group was more Chinese-made than the rest,
+          every year. The lowest, {smallest.year}, is marked.
+        </p>
+      </div>
 
       <p className="m-0 mt-10 max-w-[72ch] border-t border-[var(--color-rule)] pt-6 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         This is a correlation and it is worth saying what it probably is not. Nothing here shows

@@ -30,6 +30,10 @@ export type RowView = {
   units?: number
   unitsRaw?: string
   retailerText?: string
+  /** Full CPSC instruction. Shipped for the essay and /check lists only. */
+  remedy?: string
+  /** One word: Refund, Repair, Replace. Ships in the search index too. */
+  remedyOption?: string
 }
 
 export function RecallRow({
@@ -178,6 +182,48 @@ export function RecallRow({
                 <p className="m-0 mt-4 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
                   {row.retailerText}
                 </p>
+              )}
+
+              {/*
+                WHAT TO DO, and its absence was the biggest hole in this page.
+
+                Someone opening a row has usually just found a product they own.
+                Until now they were told the hazard, the unit count and the
+                retailer, and nothing about what to do next: not to stop using
+                it, not that a refund exists. CPSC publishes exactly that
+                instruction on 100% of recalls since 2020 and the field was
+                never read.
+
+                Two shapes, because the two lists carry different amounts. The
+                essay and /check lists ship the full instruction, which is the
+                real answer. A search result carries only the one-word tag,
+                since the prose across 9,944 records is 3MB, so there it names
+                the remedy and sends the reader to the notice for the detail.
+              */}
+              {(row.remedy || row.remedyOption) && (
+                <div className="mt-5 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-4">
+                  <p className="m-0 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                    <span className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
+                      What to do
+                    </span>
+                    {row.remedyOption && (
+                      <span className="rounded-full bg-[var(--color-signal)] px-2.5 py-0.5 text-[12px] font-semibold text-[var(--color-paper)]">
+                        {row.remedyOption}
+                      </span>
+                    )}
+                  </p>
+                  <p className="m-0 mt-2.5 text-[16px] leading-[1.6] text-[var(--color-ink)]">
+                    {row.remedy || (
+                      <>
+                        The notice lists a remedy of{' '}
+                        <strong className="font-semibold">
+                          {(row.remedyOption ?? '').toLowerCase()}
+                        </strong>
+                        . Open it for the full instructions and who to contact.
+                      </>
+                    )}
+                  </p>
+                </div>
               )}
 
               {row.unitsRaw && (

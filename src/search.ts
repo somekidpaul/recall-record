@@ -18,6 +18,8 @@
  */
 
 export type Row = {
+  /** Remedy tag: Refund, Repair, Replace. Present on 49% of records. */
+  o?: string
   /** Product name(s), joined. */
   n: string
   /** Hazard description. */

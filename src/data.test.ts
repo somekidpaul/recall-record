@@ -169,6 +169,69 @@ describe('published figures: internal consistency', () => {
   })
 })
 
+describe('the origin split (second finding)', () => {
+  const years = data.series.filter((s) => s.origin && s.origin.soleChina != null)
+
+  it('every year carries a coverage figure alongside its shares', () => {
+    /* A share with no denominator is the thing this page exists to argue
+       against. If coverage ever goes missing the section must not render a
+       percentage it cannot qualify. */
+    for (const s of years) {
+      expect(s.origin.coverage, `${s.year}`).toBeGreaterThan(0)
+      expect(s.origin.coverage).toBeLessThanOrEqual(100)
+      expect(s.origin.soleN + s.origin.restN).toBeGreaterThan(0)
+    }
+  })
+
+  it('shares stay inside 0 to 100', () => {
+    for (const s of years) {
+      for (const k of ['soleChina', 'restChina'] as const) {
+        const v = s.origin[k]
+        if (v == null) continue
+        expect(v >= 0 && v <= 100, `${s.year} ${k} = ${v}`).toBe(true)
+      }
+    }
+  })
+
+  it('the group sizes add up to the records that had a country', () => {
+    for (const s of years) {
+      const known = Math.round((s.origin.coverage / 100) * s.recalls)
+      expect(Math.abs(s.origin.soleN + s.origin.restN - known), `${s.year}`).toBeLessThanOrEqual(1)
+    }
+  })
+
+  it('country coverage is high enough that the split is not a sample', () => {
+    /* The section claims the record covers essentially everything. If CPSC ever
+       stops recording origin, that claim expires and the run should fail. */
+    for (const s of years.filter((y) => y.year >= 2015)) {
+      expect(s.origin.coverage, `${s.year} country coverage`).toBeGreaterThanOrEqual(95)
+    }
+  })
+})
+
+describe('the remedy, which is what a person actually needs', () => {
+  it('every listed recall says what to do about it', () => {
+    /* The lookup told people their product was dangerous and not that a refund
+       existed. Remedies is 100% populated since 2020, so any gap here is a
+       pipeline fault, not a data one. */
+    for (const r of [...data.biggest, ...data.recent]) {
+      expect(r.remedy.length, `${r.date} ${r.product.slice(0, 30)}`).toBeGreaterThan(0)
+    }
+  })
+
+  it('remedy tags come from the known set, never raw feed junk', () => {
+    /* RemedyOptions contains at least one full paragraph and one entry reading
+       just "R". A badge must never render either. */
+    const allowed = new Set(['Refund', 'Repair', 'Replace', 'Dispose',
+      'New Instructions', 'Inspect', 'Label', 'No Remedy Available'])
+    for (const r of [...data.biggest, ...data.recent]) {
+      if (!r.remedyOption) continue
+      expect(allowed.has(r.remedyOption), `got ${JSON.stringify(r.remedyOption)}`).toBe(true)
+      expect(r.remedyOption.length).toBeLessThan(24)
+    }
+  })
+})
+
 describe.skipIf(!hasRaw)('published figures: cross-checked against the raw CPSC feed', () => {
   it('corpusTotal is the real number of records', () => {
     expect(data.corpusTotal).toBe(raw.length)

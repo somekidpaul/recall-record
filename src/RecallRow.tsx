@@ -150,7 +150,11 @@ export function RecallRow({
       <div className="disclosure" data-open={open} id={panelId} aria-hidden={!open}>
         <div>
           <div
-            className={`grid gap-x-10 gap-y-6 pb-8 sm:grid-cols-[minmax(0,18rem)_1fr] ${
+            /* grid-cols-[minmax(0,1fr)] on the single-column phone case, so the
+               implicit `auto` track can never be widened past the container by
+               its own contents. The desktop case already clamps with minmax(0,
+               18rem); this was the one breakpoint left unguarded. */
+            className={`grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-6 pb-8 sm:grid-cols-[minmax(0,18rem)_1fr] ${
               row.rank ? 'sm:pl-[4.5rem]' : ''
             }`}
           >
@@ -232,8 +236,28 @@ export function RecallRow({
                 since the prose across 9,944 records is 3MB, so there it names
                 the remedy and sends the reader to the notice for the detail.
               */}
+              {/*
+                min-w-0 AND break-words, and both are load-bearing on a phone.
+
+                CPSC writes the remedy as instructions to a consumer, so it
+                routinely contains a contact address or a site to visit:
+                "provide a photo of the disposal to info@a2batt.com". Those are
+                single unbreakable tokens. A grid track sized `auto` takes its
+                minimum from the widest unbreakable thing inside it, so one email
+                address set the whole expanded row to 384px inside a 327px
+                column on a 375px phone. The page could not scroll sideways, so
+                the right 33px of the photograph and every paragraph beside it
+                were simply cut off.
+
+                Measured before the fix: this block's min-content was 384px and
+                the paragraph inside it 350px, against a 327px container.
+
+                min-w-0 stops the grid child from forcing the track, and
+                break-words lets a long address wrap mid-token instead of
+                demanding room no phone has.
+              */}
               {(row.remedy || row.remedyOption) && (
-                <div className="mt-5 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-4">
+                <div className="mt-5 min-w-0 rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] p-4 break-words">
                   <p className="m-0 flex flex-wrap items-center gap-x-2.5 gap-y-1">
                     <span className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
                       What to do

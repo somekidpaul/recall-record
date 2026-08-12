@@ -169,6 +169,26 @@ describe('published figures: internal consistency', () => {
   })
 })
 
+describe('the household comparison only appears where it means something', () => {
+  const US_HOUSEHOLDS = 132_216_000
+  const FLOOR = Math.round(US_HOUSEHOLDS / 1000)
+
+  it('every recall on the biggest list clears the floor', () => {
+    /* The line was written for this list and lands here: 1 in 75 through 1 in
+       371. If a year ever produces ten small "biggest" recalls, the line would
+       silently vanish from the essay, which is worth knowing about. */
+    for (const r of data.biggest) {
+      expect(r.units, `${r.date} ${r.product.slice(0, 30)}`).toBeGreaterThanOrEqual(FLOOR)
+    }
+  })
+
+  it('the ratio stays inside a range a reader can picture', () => {
+    for (const r of data.biggest) {
+      expect(Math.round(US_HOUSEHOLDS / r.units)).toBeLessThanOrEqual(1000)
+    }
+  })
+})
+
 describe('the share card agrees with the page', () => {
   const html = readFileSync(join(process.cwd(), 'index.html'), 'utf8')
   const alt = (html.match(/og:image:alt" content="([^"]*)"/) || [])[1] ?? ''

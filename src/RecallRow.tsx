@@ -16,6 +16,15 @@
 /** US households, 2024 American Community Survey. Used only for scale, and cited. */
 const US_HOUSEHOLDS = 132_216_000
 
+/**
+ * The point below which "one in every N households" stops being a picture.
+ *
+ * Set at one household in a thousand. Above it the reader gets 1 in 75, 1 in
+ * 300, numbers with a shape. Below it they get 1 in 413,175, which carries no
+ * intuition and reads as padding.
+ */
+const HOUSEHOLD_FLOOR = Math.round(US_HOUSEHOLDS / 1000)
+
 export type RowView = {
   key: string
   date: string
@@ -168,7 +177,30 @@ export function RecallRow({
                 {row.hazard}
               </p>
 
-              {row.units != null && (
+              {/*
+                ONLY WHERE THE COMPARISON MEANS ANYTHING.
+
+                This line was written for the biggest recalls of the year, where
+                it lands: 1,770,000 units is one household in 75, and that is a
+                number a person can actually picture.
+
+                Then /check started reusing this row for the ten most RECENT
+                recalls, which are not selected for size at all, and the line
+                followed them down. Measured on the current data: nine of those
+                ten produced things like "one in every 413,175 American
+                households" for a 320-unit recall, and "one in every 881,440"
+                for a 150-unit one. True, and useless. A ratio nobody can
+                picture is not a comparison, it is a statistic wearing the
+                costume of one, and it makes a careful page look unserious.
+
+                So the line appears only when the recall reaches roughly one
+                household in a thousand. All ten of the biggest clear it; on the
+                recent list only the genuinely large one does, which is exactly
+                the behaviour wanted. The unit count itself is still in the row
+                header, so nothing is hidden, only the framing that stopped
+                framing anything.
+              */}
+              {row.units != null && row.units >= HOUSEHOLD_FLOOR && (
                 <p className="m-0 mt-4 text-[16px] leading-[1.6] text-[var(--color-ink-soft)]">
                   Enough for one in every{' '}
                   <strong className="font-semibold text-[var(--color-ink)] tabular-nums">

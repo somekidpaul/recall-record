@@ -748,13 +748,59 @@ await writeFile(join(ROOT, 'public', 'robots.txt'), `User-agent: *\nAllow: /\n\n
     `the only store, rising from ${f.amazonOnly}% in ${f.year} to ${l.amazonOnly}% ` +
     `in ${l.year} while Walmart, Target and Home Depot stay flat.`
   const HTML = join(ROOT, 'index.html')
-  const html = await readFile(HTML, 'utf8')
+  let html = await readFile(HTML, 'utf8')
   const re = /(<meta property="og:image:alt" content=")[^"]*(")/
   if (!re.test(html)) {
     console.error('\n  FAIL: og:image:alt not found in index.html.')
     process.exit(1)
   }
-  await writeFile(HTML, html.replace(re, `$1${alt}$2`))
+  html = html.replace(re, `$1${alt}$2`)
+
+  /*
+   * THE STRUCTURED DATA HAD THE WRONG WINDOW, and it is the one description on
+   * the page written for machines rather than people.
+   *
+   * It said "by year, 2015 onward". The chart was extended to 2004 a while back
+   * and this line did not move with it, so every search engine and every model
+   * reading the Dataset block was told the coverage began eleven years later
+   * than it does. Nobody would ever see it on screen, which is exactly why it
+   * sat wrong.
+   *
+   * Now derived from the same series everything else uses, and the description
+   * also names the origin dimension, which is real data the CSV now ships and
+   * the block did not mention. temporalCoverage is added because it is the
+   * schema.org field that actually answers "what years is this", rather than
+   * leaving it buried in prose.
+   *
+   * Fatal on a miss, same as the alt text. A silent no-op here would leave the
+   * old claim in place and report success.
+   */
+  const ldRe = /("@type":\s*"Dataset",[\s\S]*?"description":\s*")([^"]*)(")/
+  if (!ldRe.test(html)) {
+    console.error('\n  FAIL: JSON-LD Dataset description not found in index.html.')
+    process.exit(1)
+  }
+  const ldDesc =
+    `Share of US consumer product recalls whose CPSC retailer description names each ` +
+    `major retailer, by year, ${f.year} to ${l.year}, alongside the share naming Amazon ` +
+    `as the sole store and the country of manufacture for each group. Includes three ` +
+    `independent definitions of online sale, a description-length control, and per-field ` +
+    `source coverage. Built from ${data.corpusTotal.toLocaleString()} CPSC notices going ` +
+    `back to ${data.windowContext.corpusFirstYear}.`
+  html = html.replace(ldRe, `$1${ldDesc}$3`)
+
+  /* temporalCoverage, inserted once if absent and kept current thereafter. */
+  const tcRe = /("temporalCoverage":\s*")[^"]*(")/
+  if (tcRe.test(html)) {
+    html = html.replace(tcRe, `$1${f.year}/${l.year}$2`)
+  } else {
+    html = html.replace(
+      /("@type":\s*"Dataset",)/,
+      `$1\n        "temporalCoverage": "${f.year}/${l.year}",`,
+    )
+  }
+
+  await writeFile(HTML, html)
 }
 
 const latest = data.series.at(-1)

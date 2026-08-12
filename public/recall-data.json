@@ -34,7 +34,7 @@
       "retailerFieldPopulated": 100,
       "retailers": {
         "amazon": 0,
-        "walmart": 0,
+        "walmart": 5.8,
         "target": 4.3,
         "homeDepot": 4.3,
         "ebay": 0
@@ -42,7 +42,10 @@
       "amazonOnly": 0,
       "amazonOnlyCount": 0,
       "soleAlsoDirect": 0,
-      "soleOnlyAmazonPct": null,
+      "soleAlsoStore": 0,
+      "soleClean": 0,
+      "soleCleanPct": null,
+      "soleCleanShare": 0,
       "online": {
         "strict": 0,
         "mid": 5,
@@ -67,7 +70,7 @@
       "retailerFieldPopulated": 100,
       "retailers": {
         "amazon": 0.3,
-        "walmart": 0,
+        "walmart": 4.6,
         "target": 3.7,
         "homeDepot": 2.2,
         "ebay": 0.3
@@ -75,7 +78,10 @@
       "amazonOnly": 0.3,
       "amazonOnlyCount": 1,
       "soleAlsoDirect": 1,
-      "soleOnlyAmazonPct": 0,
+      "soleAlsoStore": 1,
+      "soleClean": 0,
+      "soleCleanPct": 0,
+      "soleCleanShare": 0,
       "online": {
         "strict": 0.3,
         "mid": 4,
@@ -100,7 +106,7 @@
       "retailerFieldPopulated": 99.4,
       "retailers": {
         "amazon": 0.3,
-        "walmart": 0,
+        "walmart": 5.6,
         "target": 3.1,
         "homeDepot": 1.9,
         "ebay": 0
@@ -108,7 +114,10 @@
       "amazonOnly": 0.3,
       "amazonOnlyCount": 1,
       "soleAlsoDirect": 1,
-      "soleOnlyAmazonPct": 0,
+      "soleAlsoStore": 1,
+      "soleClean": 0,
+      "soleCleanPct": 0,
+      "soleCleanShare": 0,
       "online": {
         "strict": 0.6,
         "mid": 9.7,
@@ -133,7 +142,7 @@
       "retailerFieldPopulated": 99.8,
       "retailers": {
         "amazon": 0.2,
-        "walmart": 0,
+        "walmart": 4,
         "target": 5.1,
         "homeDepot": 1.5,
         "ebay": 0
@@ -141,7 +150,10 @@
       "amazonOnly": 0,
       "amazonOnlyCount": 0,
       "soleAlsoDirect": 0,
-      "soleOnlyAmazonPct": null,
+      "soleAlsoStore": 0,
+      "soleClean": 0,
+      "soleCleanPct": null,
+      "soleCleanShare": 0,
       "online": {
         "strict": 0.9,
         "mid": 10.6,
@@ -157,24 +169,27 @@
       "year": 2008,
       "origin": {
         "coverage": 99.7,
-        "soleN": 1,
-        "restN": 390,
-        "soleChina": 0,
-        "restChina": 54.1
+        "soleN": 0,
+        "restN": 391,
+        "soleChina": null,
+        "restChina": 54
       },
       "recalls": 392,
       "retailerFieldPopulated": 99.7,
       "retailers": {
         "amazon": 0.8,
-        "walmart": 0.5,
+        "walmart": 5.6,
         "target": 3.1,
         "homeDepot": 2,
         "ebay": 0.3
       },
-      "amazonOnly": 0.3,
-      "amazonOnlyCount": 1,
-      "soleAlsoDirect": 1,
-      "soleOnlyAmazonPct": 0,
+      "amazonOnly": 0,
+      "amazonOnlyCount": 0,
+      "soleAlsoDirect": 0,
+      "soleAlsoStore": 0,
+      "soleClean": 0,
+      "soleCleanPct": null,
+      "soleCleanShare": 0,
       "online": {
         "strict": 2.3,
         "mid": 17.1,
@@ -199,7 +214,7 @@
       "retailerFieldPopulated": 99.5,
       "retailers": {
         "amazon": 2.3,
-        "walmart": 3.9,
+        "walmart": 8.1,
         "target": 5.2,
         "homeDepot": 2.6,
         "ebay": 0
@@ -207,7 +222,10 @@
       "amazonOnly": 0.8,
       "amazonOnlyCount": 3,
       "soleAlsoDirect": 0,
-      "soleOnlyAmazonPct": 100,
+      "soleAlsoStore": 2,
+      "soleClean": 1,
+      "soleCleanPct": 33.3,
+      "soleCleanShare": 0.3,
       "online": {
         "strict": 5,
         "mid": 18.8,
@@ -223,24 +241,27 @@
       "year": 2010,
       "origin": {
         "coverage": 98.9,
-        "soleN": 8,
-        "restN": 350,
+        "soleN": 6,
+        "restN": 352,
         "soleChina": 100,
-        "restChina": 59.7
+        "restChina": 59.9
       },
       "recalls": 362,
       "retailerFieldPopulated": 99.4,
       "retailers": {
         "amazon": 5,
-        "walmart": 4.7,
+        "walmart": 5.5,
         "target": 4.4,
         "homeDepot": 2.5,
         "ebay": 0.3
       },
-      "amazonOnly": 2.2,
-      "amazonOnlyCount": 8,
+      "amazonOnly": 1.7,
+      "amazonOnlyCount": 6,
       "soleAlsoDirect": 0,
-      "soleOnlyAmazonPct": 100,
+      "soleAlsoStore": 6,
+      "soleClean": 0,
+      "soleCleanPct": 0,
+      "soleCleanShare": 0,
       "online": {
         "strict": 6.9,
         "mid": 27.1,
@@ -273,7 +294,10 @@
       "amazonOnly": 2.6,
       "amazonOnlyCount": 8,
       "soleAlsoDirect": 4,
-      "soleOnlyAmazonPct": 50,
+      "soleAlsoStore": 8,
+      "soleClean": 0,
+      "soleCleanPct": 0,
+      "soleCleanShare": 0,
       "online": {
         "strict": 13.1,
         "mid": 38,
@@ -306,7 +330,10 @@
       "amazonOnly": 3.2,
       "amazonOnlyCount": 10,
       "soleAlsoDirect": 4,
-      "soleOnlyAmazonPct": 60,
+      "soleAlsoStore": 7,
+      "soleClean": 1,
+      "soleCleanPct": 10,
+      "soleCleanShare": 0.3,
       "online": {
         "strict": 15.5,
         "mid": 39,
@@ -339,7 +366,10 @@
       "amazonOnly": 7.6,
       "amazonOnlyCount": 22,
       "soleAlsoDirect": 9,
-      "soleOnlyAmazonPct": 59.1,
+      "soleAlsoStore": 17,
+      "soleClean": 4,
+      "soleCleanPct": 18.2,
+      "soleCleanShare": 1.4,
       "online": {
         "strict": 37.6,
         "mid": 57.9,
@@ -372,7 +402,10 @@
       "amazonOnly": 2.7,
       "amazonOnlyCount": 8,
       "soleAlsoDirect": 3,
-      "soleOnlyAmazonPct": 62.5,
+      "soleAlsoStore": 5,
+      "soleClean": 3,
+      "soleCleanPct": 37.5,
+      "soleCleanShare": 1,
       "online": {
         "strict": 35.1,
         "mid": 46.3,
@@ -405,7 +438,10 @@
       "amazonOnly": 5.2,
       "amazonOnlyCount": 16,
       "soleAlsoDirect": 10,
-      "soleOnlyAmazonPct": 37.5,
+      "soleAlsoStore": 11,
+      "soleClean": 1,
+      "soleCleanPct": 6.3,
+      "soleCleanShare": 0.3,
       "online": {
         "strict": 39,
         "mid": 50.2,
@@ -421,24 +457,27 @@
       "year": 2016,
       "origin": {
         "coverage": 99.7,
-        "soleN": 34,
-        "restN": 295,
-        "soleChina": 70.6,
-        "restChina": 52.2
+        "soleN": 33,
+        "restN": 296,
+        "soleChina": 69.7,
+        "restChina": 52.4
       },
       "recalls": 330,
       "retailerFieldPopulated": 99.4,
       "retailers": {
         "amazon": 24.5,
-        "walmart": 5.5,
+        "walmart": 7,
         "target": 7.6,
         "homeDepot": 5.5,
-        "ebay": 1.8
+        "ebay": 2.1
       },
-      "amazonOnly": 10.3,
-      "amazonOnlyCount": 34,
-      "soleAlsoDirect": 24,
-      "soleOnlyAmazonPct": 29.4,
+      "amazonOnly": 10,
+      "amazonOnlyCount": 33,
+      "soleAlsoDirect": 23,
+      "soleAlsoStore": 22,
+      "soleClean": 4,
+      "soleCleanPct": 12.1,
+      "soleCleanShare": 1.2,
       "online": {
         "strict": 53.3,
         "mid": 62.1,
@@ -463,7 +502,7 @@
       "retailerFieldPopulated": 100,
       "retailers": {
         "amazon": 23.9,
-        "walmart": 8.2,
+        "walmart": 8.6,
         "target": 8.6,
         "homeDepot": 3.9,
         "ebay": 0.4
@@ -471,7 +510,10 @@
       "amazonOnly": 9.6,
       "amazonOnlyCount": 27,
       "soleAlsoDirect": 12,
-      "soleOnlyAmazonPct": 55.6,
+      "soleAlsoStore": 13,
+      "soleClean": 10,
+      "soleCleanPct": 37,
+      "soleCleanShare": 3.6,
       "online": {
         "strict": 46.4,
         "mid": 59.3,
@@ -496,7 +538,7 @@
       "retailerFieldPopulated": 100,
       "retailers": {
         "amazon": 21.7,
-        "walmart": 6.2,
+        "walmart": 7,
         "target": 5.8,
         "homeDepot": 6.6,
         "ebay": 1.9
@@ -504,7 +546,10 @@
       "amazonOnly": 7.4,
       "amazonOnlyCount": 19,
       "soleAlsoDirect": 9,
-      "soleOnlyAmazonPct": 52.6,
+      "soleAlsoStore": 9,
+      "soleClean": 5,
+      "soleCleanPct": 26.3,
+      "soleCleanShare": 1.9,
       "online": {
         "strict": 49.2,
         "mid": 57.4,
@@ -529,7 +574,7 @@
       "retailerFieldPopulated": 99.6,
       "retailers": {
         "amazon": 19.9,
-        "walmart": 6.2,
+        "walmart": 6.6,
         "target": 5.8,
         "homeDepot": 2.5,
         "ebay": 4.6
@@ -537,7 +582,10 @@
       "amazonOnly": 8.7,
       "amazonOnlyCount": 21,
       "soleAlsoDirect": 13,
-      "soleOnlyAmazonPct": 38.1,
+      "soleAlsoStore": 13,
+      "soleClean": 4,
+      "soleCleanPct": 19,
+      "soleCleanShare": 1.7,
       "online": {
         "strict": 49.8,
         "mid": 58.1,
@@ -570,7 +618,10 @@
       "amazonOnly": 12.8,
       "amazonOnlyCount": 33,
       "soleAlsoDirect": 14,
-      "soleOnlyAmazonPct": 57.6,
+      "soleAlsoStore": 6,
+      "soleClean": 17,
+      "soleCleanPct": 51.5,
+      "soleCleanShare": 6.6,
       "online": {
         "strict": 58,
         "mid": 71.2,
@@ -603,7 +654,10 @@
       "amazonOnly": 13.7,
       "amazonOnlyCount": 30,
       "soleAlsoDirect": 17,
-      "soleOnlyAmazonPct": 43.3,
+      "soleAlsoStore": 6,
+      "soleClean": 13,
+      "soleCleanPct": 43.3,
+      "soleCleanShare": 5.9,
       "online": {
         "strict": 63.5,
         "mid": 71.7,
@@ -628,7 +682,7 @@
       "retailerFieldPopulated": 100,
       "retailers": {
         "amazon": 33.2,
-        "walmart": 12,
+        "walmart": 12.3,
         "target": 8.6,
         "homeDepot": 4.8,
         "ebay": 2.7
@@ -636,7 +690,10 @@
       "amazonOnly": 14.4,
       "amazonOnlyCount": 42,
       "soleAlsoDirect": 16,
-      "soleOnlyAmazonPct": 61.9,
+      "soleAlsoStore": 11,
+      "soleClean": 24,
+      "soleCleanPct": 57.1,
+      "soleCleanShare": 8.2,
       "online": {
         "strict": 65.4,
         "mid": 73.3,
@@ -661,7 +718,7 @@
       "retailerFieldPopulated": 99.7,
       "retailers": {
         "amazon": 38.3,
-        "walmart": 12,
+        "walmart": 12.3,
         "target": 8,
         "homeDepot": 7.4,
         "ebay": 3.1
@@ -669,7 +726,10 @@
       "amazonOnly": 20.7,
       "amazonOnlyCount": 67,
       "soleAlsoDirect": 18,
-      "soleOnlyAmazonPct": 73.1,
+      "soleAlsoStore": 10,
+      "soleClean": 44,
+      "soleCleanPct": 65.7,
+      "soleCleanShare": 13.6,
       "online": {
         "strict": 63.3,
         "mid": 75.3,
@@ -702,7 +762,10 @@
       "amazonOnly": 20.7,
       "amazonOnlyCount": 63,
       "soleAlsoDirect": 19,
-      "soleOnlyAmazonPct": 69.8,
+      "soleAlsoStore": 7,
+      "soleClean": 44,
+      "soleCleanPct": 69.8,
+      "soleCleanShare": 14.4,
       "online": {
         "strict": 61.3,
         "mid": 78,
@@ -735,7 +798,10 @@
       "amazonOnly": 31.9,
       "amazonOnlyCount": 134,
       "soleAlsoDirect": 15,
-      "soleOnlyAmazonPct": 88.8,
+      "soleAlsoStore": 6,
+      "soleClean": 116,
+      "soleCleanPct": 86.6,
+      "soleCleanShare": 27.6,
       "online": {
         "strict": 49.5,
         "mid": 74,
@@ -768,7 +834,10 @@
       "amazonOnly": 48.3,
       "amazonOnlyCount": 180,
       "soleAlsoDirect": 16,
-      "soleOnlyAmazonPct": 91.1,
+      "soleAlsoStore": 6,
+      "soleClean": 161,
+      "soleCleanPct": 89.4,
+      "soleCleanShare": 43.2,
       "online": {
         "strict": 76.9,
         "mid": 86.9,

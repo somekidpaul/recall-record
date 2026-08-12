@@ -40,8 +40,8 @@ export default function App() {
             directly above "product", and at that size the y and p were within a
             couple of pixels of touching. 1.08 puts ~6px back. */}
         <h1 className="mt-6 mb-0 max-w-[19ch] font-[family-name:var(--font-display)] text-[clamp(2.6rem,7.5vw,5.5rem)] font-normal leading-[1.13] tracking-[-0.02em] sm:leading-[1.08]">
-          {headlineQuantity} of every product recall in America is something you could only buy
-          on Amazon.
+          {headlineQuantity} of every consumer product recall in America is something you could
+          only buy on Amazon.
         </h1>
         <p className="arrive mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
           {/* No count-up on the opening figure any more. It is zero, and
@@ -74,7 +74,7 @@ export default function App() {
               describing a line the reader was no longer looking at. Computed
               from the same figure the chart draws, so the two cannot drift
               apart again. */}
-          Every US product recall since {first.year}, grouped by which store the notice
+          Every US consumer product recall since {first.year}, grouped by which store the notice
           mentions. Amazon goes from nothing to {last.amazonOnly}%. Walmart rises, then drops
           back. Target and Home Depot barely move in twenty-two years.
         </p>

@@ -270,9 +270,18 @@ export default function RetailerChart() {
             list several stores. Without that, "only" has nothing to be the
             opposite of, and the two states look like the same number twice.
             Stated once, here, next to the switch it explains. */}
+        {/* WHAT IT MEANS, THEN WHY YOU WOULD TOUCH IT.
+
+            This said only the first half. A reader who understood the
+            definition perfectly still had no reason to press anything, so the
+            control read as a puzzle to be solved rather than a thing to use.
+            The second sentence gives it a purpose, and the purpose is the point
+            of the control existing: the finding does not depend on which of the
+            two definitions you prefer. */}
         <p className="m-0 basis-full text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
           One notice can name several stores. <em>Only Amazon named</em> counts the recalls where
-          it names no one else.
+          it names no one else. Switch to the looser count and the climb is still there, just
+          higher.
         </p>
       </div>
 
@@ -342,15 +351,30 @@ export default function RetailerChart() {
             />
           ))}
 
-          {/* The counterargument. Dashed, neutral, deliberately unglamorous. */}
-          {showControl && (
-            <>
-              <path
-                d={path(control)} fill="none" stroke="var(--color-control)"
-                strokeWidth={2} strokeDasharray="7 5" strokeLinecap="round"
-              />
+          {/*
+            The counterargument. Dashed, neutral, deliberately unglamorous.
 
-            </>
+            IT DRAWS ITSELF IN, and that is comprehension rather than decoration.
+            It used to appear instantly and fully formed, so a reader who pressed
+            the button got a new line already lying across the chart with no
+            sense of where it came from or which of the marks was the new one.
+            Drawing it left to right over half a second answers both: the eye
+            follows the thing that moves, and the shape of the comparison is
+            legible as it happens.
+
+            This is FUNCTIONAL motion by the rule the rest of the file follows.
+            It answers a press, it never starts on its own, and it is the direct
+            result of something the reader just did, so it runs regardless of the
+            motion preference. The `key` restarts the animation on every toggle
+            rather than only the first.
+          */}
+          {showControl && (
+            <path
+              key={`control-${soleOnly}`}
+              className="control-draw"
+              d={path(control)} fill="none" stroke="var(--color-control)"
+              strokeWidth={2} strokeDasharray="7 5" strokeLinecap="round"
+            />
           )}
 
           {/* The final year is still running, so its segment is drawn dashed.

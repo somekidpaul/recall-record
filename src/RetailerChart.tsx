@@ -128,7 +128,23 @@ function topOf(G: Geom, d: Row, soleOnly: boolean, showControl: boolean) {
 
 export default function RetailerChart() {
   const [showControl, setShowControl] = useState(false)
-  const [soleOnly, setSoleOnly] = useState(false)
+  /**
+   * OPENS ON THE MEASURE THE HEADLINE USES. It defaulted to false, and that was
+   * a real defect rather than a preference.
+   *
+   * The headline is amazonOnly: "Nearly half of every product recall in America
+   * is something you could only buy on Amazon", printed at 49.6%. The chart then
+   * opened on the OTHER measure and drew a line ending at 60.9%. A reader took
+   * in one number in the largest type on the page, scrolled, and met a different
+   * number 11.3 points away with nothing connecting them, under a control whose
+   * labels only make sense once you already understand the distinction.
+   *
+   * No wording fixes that. The chart was answering a question the page had not
+   * asked. Opening on soleOnly means the line lands on the headline figure, and
+   * the toggle stops being a puzzle and becomes what it was always for: count it
+   * the looser way and the trend is still there, in fact it is higher.
+   */
+  const [soleOnly, setSoleOnly] = useState(true)
   const [hover, setHover] = useState<Row | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
 

@@ -68,9 +68,15 @@ export default function App() {
           Amazon is climbing. Everyone else is flat.
         </h3>
         <p className="arrive mt-5 mb-12 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+          {/* DERIVED, because this sentence has already been wrong once. It read
+              "to sixty percent", which described the measure the chart used to
+              open on. Flipping the default to match the headline left the prose
+              describing a line the reader was no longer looking at. Computed
+              from the same figure the chart draws, so the two cannot drift
+              apart again. */}
           Every US product recall since {first.year}, grouped by which store the notice
-          mentions. Amazon goes from nothing to sixty percent. Walmart rises, then drops back.
-          Target and Home Depot barely move in twenty-two years.
+          mentions. Amazon goes from nothing to {last.amazonOnly}%. Walmart rises, then drops
+          back. Target and Home Depot barely move in twenty-two years.
         </p>
         <RetailerChart />
       </section>

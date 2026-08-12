@@ -169,6 +169,29 @@ describe('published figures: internal consistency', () => {
   })
 })
 
+describe('the share card agrees with the page', () => {
+  const html = readFileSync(join(process.cwd(), 'index.html'), 'utf8')
+  const alt = (html.match(/og:image:alt" content="([^"]*)"/) || [])[1] ?? ''
+  const last = data.series.at(-1)!
+
+  it('og:image:alt quotes the headline measure, not the other one', () => {
+    /* The card drew and printed `retailers.amazon` under a headline reading
+       "name only Amazon", which is a different measure. It showed 60.9% for a
+       claim about 49.6%. Whatever else changes, the number on the social card
+       has to be the number the page argues. */
+    expect(alt.length).toBeGreaterThan(0)
+    expect(alt, 'alt text should carry the sole-retailer figure').toContain(`${last.amazonOnly}%`)
+  })
+
+  it('og:image:alt does not quote the named-at-all figure', () => {
+    if (last.retailers.amazon === last.amazonOnly) return // nothing to distinguish
+    expect(
+      alt.includes(`${last.retailers.amazon}%`),
+      `alt text still contains ${last.retailers.amazon}%, the measure the headline does NOT use`,
+    ).toBe(false)
+  })
+})
+
 describe('the origin split (second finding)', () => {
   const years = data.series.filter((s) => s.origin && s.origin.soleChina != null)
 

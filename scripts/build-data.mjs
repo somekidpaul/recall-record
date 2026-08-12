@@ -78,6 +78,17 @@ const RATIO_FIRST_YEAR = 2015
  * a paragraph into a badge, and keeps an unrecognised value out rather than
  * guessing at it.
  */
+const REMEDY_TAGS = new Set([
+  'Refund',
+  'Repair',
+  'Replace',
+  'Dispose',
+  'New Instructions',
+  'Inspect',
+  'Label',
+  'No Remedy Available',
+])
+
 /**
  * The full remedy, for the twenty records shipped as lists.
  *
@@ -94,17 +105,6 @@ const remedyOf = (r) => ({
       .map((o) => (typeof o === 'string' ? o : o?.Option))
       .find((o) => REMEDY_TAGS.has(o)) ?? '',
 })
-
-const REMEDY_TAGS = new Set([
-  'Refund',
-  'Repair',
-  'Replace',
-  'Dispose',
-  'New Instructions',
-  'Inspect',
-  'Label',
-  'No Remedy Available',
-])
 
 /** Other named retailers, used to test whether Amazon is the SOLE seller named. */
 const OTHER_RETAILERS = [
@@ -744,9 +744,9 @@ await writeFile(join(ROOT, 'public', 'robots.txt'), `User-agent: *\nAllow: /\n\n
   const f = data.series[0]
   const l = data.series.at(-1)
   const alt =
-    `A line chart showing Amazon's share of US product recalls rising from ` +
-    `${f.retailers.amazon}% in ${f.year} to ${l.retailers.amazon}% in ${l.year} ` +
-    `while Walmart, Target and Home Depot stay flat.`
+    `A line chart showing the share of US product recalls that name Amazon as ` +
+    `the only store, rising from ${f.amazonOnly}% in ${f.year} to ${l.amazonOnly}% ` +
+    `in ${l.year} while Walmart, Target and Home Depot stay flat.`
   const HTML = join(ROOT, 'index.html')
   const html = await readFile(HTML, 'utf8')
   const re = /(<meta property="og:image:alt" content=")[^"]*(")/

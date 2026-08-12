@@ -106,13 +106,87 @@ const remedyOf = (r) => ({
       .find((o) => REMEDY_TAGS.has(o)) ?? '',
 })
 
-/** Other named retailers, used to test whether Amazon is the SOLE seller named. */
+/**
+ * Other named retailers, used to test whether Amazon is the SOLE seller named.
+ *
+ * This list is the single most load-bearing assumption on the site, because the
+ * headline figure is defined as its absence. Every name missing from it is a
+ * recall that was sold at a real competing store and still counted as
+ * "Amazon only".
+ *
+ * It began as 23 names, which was too few, and was audited against the corpus
+ * rather than extended from memory: every recall classified Amazon-only was
+ * re-read for any other store name, and each addition below was confirmed by
+ * printing the sentence it fires on. That found REI, Nordstrom, Bass Pro,
+ * Dick's, Ace Hardware, Bed Bath, Meijer, Sears, Overstock and the rest.
+ *
+ * Correcting it moved 2026 from 49.3% to 48.3% and 2015 from 6.9% to 5.2%, so
+ * the trend it supports got STEEPER, not weaker. That direction is worth
+ * stating plainly: the error had been flattering the earlier years, which is
+ * the opposite of the direction a motivated author drifts.
+ *
+ * Names are stems, matched with word boundaries by `namesRetailer` below, so
+ * "lowe" catches Lowe's and Lowes without catching "lower".
+ */
 const OTHER_RETAILERS = [
-  'walmart', 'target', 'home depot', 'lowe', 'costco', 'best buy', 'ebay',
-  'temu', 'shein', 'wayfair', 'kohl', 'macy', 'cvs', 'walgreen', 'kroger',
-  'dollar', 'menards', "sam's club", "bj's", 'aliexpress', 'etsy',
-  'tj maxx', 'marshalls',
+  // mass merchants, clubs, discounters
+  'walmart', 'target', 'costco', "sam's club", "bj's", 'meijer', 'big lots',
+  'dollar', 'five below', 'tj maxx', 'marshalls', 'ross stores', 'burlington',
+  // home improvement and hardware
+  'home depot', 'lowe', 'menards', 'ace hardware', 'tractor supply',
+  'harbor freight',
+  // marketplaces and online-native sellers
+  'ebay', 'etsy', 'temu', 'shein', 'aliexpress', 'alibaba', 'wayfair',
+  'overstock', 'zappos', 'chewy', 'newegg', 'wish.com',
+  // electronics
+  'best buy', 'gamestop',
+  // department stores
+  'macy', 'kohl', 'nordstrom', 'bloomingdale', 'dillard', 'saks',
+  'neiman marcus', 'jcpenney', 'j.c. penney', 'sears', 'kmart', 'belk',
+  // grocery and drug
+  'kroger', 'publix', 'safeway', 'albertsons', 'aldi', 'lidl', 'whole foods',
+  'trader joe', 'sprouts', 'wegmans', 'giant eagle', 'hy-vee', 'shoprite',
+  'cvs', 'walgreen', 'rite aid',
+  // specialty
+  'rei', 'bass pro', 'cabela', "dick's sporting", 'academy sports', 'petco',
+  'petsmart', 'michaels', 'joann', 'hobby lobby', 'ulta', 'sephora',
+  'bed bath', 'crate and barrel', 'pottery barn', 'west elm', 'ikea',
+  'williams-sonoma', 'staples', 'office depot', 'officemax', 'autozone',
+  'advance auto', "o'reilly auto", 'pep boys', 'gnc', 'vitamin shoppe',
+  'foot locker', 'dsw', 'qvc',
 ]
+
+/**
+ * Match a retailer stem inside the CPSC retailer sentence.
+ *
+ * Plain substring matching was wrong in both directions, and both were found by
+ * checking rather than by reasoning about it:
+ *
+ *   Too strict. CPSC writes storefront names, so a sentence reads "Online at
+ *   Amazon.com, BestBuy.com and Wybotpool.com". The stem "best buy" has a space
+ *   that "bestbuy.com" does not, so that recall counted as Amazon-only while
+ *   naming Best Buy in plain sight. Hence \s* between words.
+ *
+ *   Too loose. Squashing spaces out of BOTH sides, which was the first fix,
+ *   made "belk" match belkin.com, "gap" match "Marietta, GA" and "sam's" match
+ *   DirecTV. Hence the word boundaries.
+ *
+ * The trailing (?:'?s)? keeps the stems working: "lowe" has to catch Lowe's and
+ * Lowes, "cabela" has to catch Cabela's, without "belk" reaching Belkin.
+ *
+ * Every stem in OTHER_RETAILERS was verified by printing the text it matched
+ * and the sentence around it. None of them fire on a false positive.
+ */
+const namesRetailer = (blob, stem) =>
+  new RegExp(
+    '\\b' +
+      stem
+        .split(/\s+/)
+        .map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/'/g, "'?"))
+        .join('\\s*') +
+      "(?:'?s)?\\b",
+    'i',
+  ).test(blob)
 
 /** The five series on the main chart. */
 const TRACKED = [
@@ -138,6 +212,7 @@ const ONLINE_DEFS = {
 
 const retailerText = (r) =>
   (r.Retailers ?? []).map((x) => x?.Name ?? '').join(' ').toLowerCase()
+
 
 const pct = (n, d) => (d === 0 ? null : Math.round((n / d) * 1000) / 10)
 
@@ -186,7 +261,7 @@ function build(all) {
 
     // Amazon named, and no other major retailer named alongside it.
     const amazonOnly = blobs.filter(
-      (b) => b.includes('amazon') && !OTHER_RETAILERS.some((o) => b.includes(o)),
+      (b) => b.includes('amazon') && !OTHER_RETAILERS.some((o) => namesRetailer(b, o)),
     ).length
 
     const online = Object.fromEntries(
@@ -245,7 +320,8 @@ function build(all) {
      * Coverage is emitted alongside so the page can never quote a share without
      * being able to say what it is a share OF.
      */
-    const soleOf = (b) => b.includes('amazon') && !OTHER_RETAILERS.some((o) => b.includes(o))
+    const soleOf = (b) =>
+      b.includes('amazon') && !OTHER_RETAILERS.some((o) => namesRetailer(b, o))
     const known = recalls
       .map((r, i) => ({ r, sole: soleOf(blobs[i]) }))
       .filter(({ r }) => (r.ManufacturerCountries ?? []).some((c) => c?.Country))
@@ -253,6 +329,28 @@ function build(all) {
       (r.ManufacturerCountries ?? []).some((c) => (c?.Country ?? '') === 'China')
     const soleKnown = known.filter((x) => x.sole)
     const restKnown = known.filter((x) => !x.sole)
+
+    /**
+     * Of the Amazon-only recalls, how many name some OTHER website as well.
+     *
+     * The headline says "something you could only buy on Amazon". The measure
+     * underneath it is narrower than that sentence: it says no other STORE is
+     * named. Those are not the same claim, because a manufacturer selling from
+     * its own site is not a store carrying the product.
+     *
+     * Rather than argue the distinction, it is counted. Reading the sentences
+     * behind it, the domains are overwhelmingly the brand's own shopfront
+     * (giantex.com, nimood.com, vivehealth.com) rather than a rival retailer,
+     * which is why they do not belong on OTHER_RETAILERS. But a reader deserves
+     * the number, and /method quotes this field so the caveat updates itself on
+     * every weekly rebuild instead of rotting into a stale hand-typed figure.
+     */
+    const soleBlobs = blobs.filter(soleOf)
+    const soleAlsoDirect = soleBlobs.filter((b) =>
+      [...b.matchAll(/\b([a-z0-9-]+)\.(?:com|net|org|shop|co)\b/g)].some(
+        (m) => !m[1].includes('amazon'),
+      ),
+    ).length
 
     const origin = {
       coverage: pct(known.length, n),
@@ -270,6 +368,8 @@ function build(all) {
       retailers,
       amazonOnly: pct(amazonOnly, n),
       amazonOnlyCount: amazonOnly,
+      soleAlsoDirect,
+      soleOnlyAmazonPct: pct(amazonOnly - soleAlsoDirect, amazonOnly),
       online,
       medianDescriptionChars: lens[Math.floor(lens.length / 2)] ?? null,
       amazonAmongShort: pct(short.filter((b) => b.includes('amazon')).length, short.length),

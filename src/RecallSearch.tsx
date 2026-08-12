@@ -429,7 +429,7 @@ function NothingFound({
         That is not the same as <strong className="font-semibold">“this product is safe.”</strong>
       </p>
       <p className="mt-5 mb-0 max-w-[62ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
-        I searched {data.corpusTotal.toLocaleString()} notices back to 1973, matching product
+        Searched {data.corpusTotal.toLocaleString()} notices back to 1973, matching product
         names, notice titles and hazard descriptions.
       </p>
 

@@ -76,7 +76,7 @@ export default function OriginSplit() {
       <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
         {/* "Made somewhere else" never said else than WHAT, so the heading
             asked the reader to hold a comparison it had not made yet. It names
-            the finding now. 95.1% is "almost all" without rounding up. */}
+            the finding now. 95.6% is "almost all" without rounding up. */}
         The ones only Amazon sold are almost all made in China.
       </h3>
       <p className="mt-5 mb-10 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
@@ -86,8 +86,25 @@ export default function OriginSplit() {
             two, a new claim about manufacturing reads as a subject change
             rather than the same record answering a second question. */}
         The chart above is about who sold them. The record also says who made them, on{' '}
-        {latestOrigin.coverage}% of {latest.year} recalls. Split the same way, the two groups look
-        nothing alike.
+        {latestOrigin.coverage}% of {latest.year} recalls.
+      </p>
+
+      {/* THE ARITHMETIC, SPELLED OUT.
+
+          This section showed two percentages and nothing else, and the first
+          question a reader asks is why they do not add to 100. They do not
+          because they are shares of two DIFFERENT groups, and the page never
+          said so. The headline paragraph gets this right further up: it says
+          "49.6%, or 185 of 373", and the fraction is what makes the percentage
+          legible. This block was asking for the same trust without showing the
+          same working. */}
+      <p className="mt-4 mb-10 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        Split {latest.year}&rsquo;s{' '}
+        <strong className="font-semibold text-[var(--color-ink)]">
+          {latestOrigin.soleN + latestOrigin.restN}
+        </strong>{' '}
+        recalls into two piles, the same split the chart uses, then ask each pile the same
+        question: how many were made in China?
       </p>
 
       {/* The comparison, as two figures rather than a chart. There are exactly
@@ -96,16 +113,14 @@ export default function OriginSplit() {
       <div className="grid gap-4 sm:grid-cols-2">
         <Figure
           value={latest.soleChina}
-          label="of recalls naming Amazon alone"
+          pile="Recalls naming Amazon and no other store"
           n={latestOrigin.soleN}
-          year={latest.year}
           emphasis
         />
         <Figure
           value={latest.restChina}
-          label="of every other recall"
+          pile="Every other recall that year"
           n={latestOrigin.restN}
-          year={latest.year}
         />
       </div>
 
@@ -197,19 +212,33 @@ export default function OriginSplit() {
   )
 }
 
+/**
+ * One pile, stated as a fraction before it is stated as a percentage.
+ *
+ * It used to print "95.1%" over "made in China, of recalls naming Amazon alone"
+ * with the group size in a footnote below. Two percentages that do not sum to
+ * 100 sitting side by side is the exact shape that makes a reader assume they
+ * should, and nothing on the card contradicted that assumption.
+ *
+ * Leading with "176 of 185" removes the question before it is asked. The
+ * denominators are visibly different, so the percentages obviously cannot be
+ * parts of one whole. Same move the headline paragraph already makes with
+ * "49.6%, or 185 of 373".
+ */
 function Figure({
   value,
-  label,
+  pile,
   n,
-  year,
   emphasis = false,
 }: {
   value: number
-  label: string
+  pile: string
   n: number
-  year: number
   emphasis?: boolean
 }) {
+  /* Recovered from the share rather than carried separately, so it can never
+     disagree with the percentage printed beside it. */
+  const made = Math.round((value / 100) * n)
   return (
     <div
       className={`rounded-2xl border p-6 ${
@@ -218,17 +247,18 @@ function Figure({
           : 'border-[var(--color-rule)]'
       }`}
     >
+      <p className="m-0 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.08em] leading-[1.5] text-[var(--color-ink-faint)]">
+        {pile}
+      </p>
+      <p className="m-0 mt-4 text-[19px] leading-[1.5] text-[var(--color-ink)] tabular-nums">
+        <strong className="font-semibold">{made.toLocaleString()}</strong> of{' '}
+        <strong className="font-semibold">{n.toLocaleString()}</strong> were made in China
+      </p>
       <p
-        className="m-0 font-[family-name:var(--font-display)] text-[clamp(2.4rem,6vw,3.6rem)] leading-[1.05] tabular-nums"
+        className="m-0 mt-2 font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.2rem)] leading-[1.05] tabular-nums"
         style={{ color: emphasis ? 'var(--color-signal)' : 'var(--color-ink)' }}
       >
         {value}%
-      </p>
-      <p className="m-0 mt-3 text-[17px] leading-[1.5] text-[var(--color-ink)]">
-        made in China, {label}
-      </p>
-      <p className="m-0 mt-2 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.08em] text-[var(--color-ink-faint)] tabular-nums">
-        {year} · {n.toLocaleString()} recalls
       </p>
     </div>
   )

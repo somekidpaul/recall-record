@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import data from './data/recalls.json'
 import { useMediaQuery } from './usePrefs'
 
@@ -129,11 +129,34 @@ function topOf(G: Geom, d: Row, soleOnly: boolean, showControl: boolean) {
 export default function RetailerChart() {
   const [showControl, setShowControl] = useState(false)
   /**
+   * KEPT MOUNTED WHILE IT LEAVES.
+   *
+   * The path was rendered as `showControl && <path/>`, so turning the objection
+   * off unmounted it in the same frame and the line vanished. An element cannot
+   * animate out if React has already removed it. This latch stays true through
+   * the exit so there is something on screen to animate, then clears.
+   *
+   * 520ms in, 420ms out, and the timeout matches the shorter exit. Leaving is
+   * allowed to be quicker than arriving: the reader already knows what the mark
+   * was, so the exit only has to show which line went away.
+   */
+  const [controlMounted, setControlMounted] = useState(false)
+
+  useEffect(() => {
+    if (showControl) {
+      setControlMounted(true)
+      return
+    }
+    if (!controlMounted) return
+    const t = setTimeout(() => setControlMounted(false), 420)
+    return () => clearTimeout(t)
+  }, [showControl, controlMounted])
+  /**
    * OPENS ON THE MEASURE THE HEADLINE USES. It defaulted to false, and that was
    * a real defect rather than a preference.
    *
    * The headline is amazonOnly: "Nearly half of every product recall in America
-   * is something you could only buy on Amazon", printed at 49.6%. The chart then
+   * is something you could only buy on Amazon", printed at 48.3%. The chart then
    * opened on the OTHER measure and drew a line ending at 60.9%. A reader took
    * in one number in the largest type on the page, scrolled, and met a different
    * number 11.3 points away with nothing connecting them, under a control whose
@@ -368,10 +391,10 @@ export default function RetailerChart() {
             motion preference. The `key` restarts the animation on every toggle
             rather than only the first.
           */}
-          {showControl && (
+          {controlMounted && (
             <path
               key={`control-${soleOnly}`}
-              className="control-draw"
+              className={showControl ? 'control-draw' : 'control-erase'}
               d={path(control)} fill="none" stroke="var(--color-control)"
               strokeWidth={2} strokeDasharray="7 5" strokeLinecap="round"
             />

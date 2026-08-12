@@ -245,14 +245,14 @@ p { text-wrap-style: pretty; }
     stroke-dashoffset: var(--len);
     animation: draw linear both;
     animation-timeline: view();
-    animation-range: entry 25% cover 60%;
+    animation-range: entry 8% cover 34%;
   }
 
   /* No travel, just an entrance. */
   :root[data-motion="reduced"] .draw-in {
     animation: fade-in linear both;
     animation-timeline: view();
-    animation-range: entry 25% cover 55%;
+    animation-range: entry 8% cover 30%;
   }
 }
 
@@ -278,7 +278,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .ring-arc {
     animation: ring-fill linear both;
     animation-timeline: view();
-    animation-range: entry 20% cover 55%;
+    animation-range: entry 8% cover 32%;
   }
 
   /*
@@ -295,7 +295,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="reduced"] .ring-arc {
     animation: fade-in linear both;
     animation-timeline: view();
-    animation-range: entry 20% cover 50%;
+    animation-range: entry 8% cover 28%;
   }
 }
 
@@ -316,7 +316,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .tail-after {
     animation: label-in linear both;
     animation-timeline: view();
-    animation-range: cover 60% cover 69%;
+    animation-range: cover 34% cover 42%;
   }
 }
 
@@ -324,7 +324,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .label-after {
     animation: label-in linear both;
     animation-timeline: view();
-    animation-range: cover 69% cover 80%;
+    animation-range: cover 42% cover 50%;
   }
 }
 @keyframes label-in {
@@ -364,6 +364,24 @@ p { text-wrap-style: pretty; }
   a reader who just pressed the button unable to tell which line was the new one.
 */
 .control-draw { animation: control-sweep 520ms var(--ease-signature) both; }
+
+/*
+  And it retracts the way it arrived, rather than blinking out.
+
+  Turning the objection off used to unmount the path, so the line was simply
+  gone between one frame and the next. Pressing a button and having something
+  disappear tells the reader nothing about WHICH thing disappeared, which is the
+  same complaint the entry animation fixed from the other direction.
+
+  This runs the entry backwards: the clip closes from the right back to the left,
+  so the line un-draws along its own path. Faster than it arrived, 420ms against
+  520, because leaving does not have to be read, only noticed.
+*/
+.control-erase { animation: control-unsweep 420ms var(--ease-signature) both; }
+@keyframes control-unsweep {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(0 100% 0 0); }
+}
 @keyframes control-sweep {
   from { clip-path: inset(0 100% 0 0); }
   to   { clip-path: inset(0 0 0 0); }

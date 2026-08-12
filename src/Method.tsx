@@ -142,8 +142,21 @@ export default function Method() {
           <strong className="font-semibold text-[var(--color-ink)]">
             {shortFirst}% to {shortLast}%
           </strong>
-          , which is steeper than the headline, because more recalls now have just one store to
-          name.
+          {/* COMPARED AGAINST THE RIGHT NUMBER.
+
+              This read "steeper than the headline". The headline is the SOLE
+              measure, 49.6%, and this test counts Amazon being NAMED, the same
+              as the 60.9% line. Setting 63.4% against 49.6% compares two
+              different populations and flatters the result: the honest
+              comparison is against the named share across all sentences, which
+              is the number this figure is the length-controlled version of.
+
+              It survives either way, which is the point of running the test.
+              But a page whose argument is that it does not put a thumb on the
+              scale cannot pick the more impressive of two baselines. */}
+          , against {last.retailers.amazon}% across sentences of every length. Holding length
+          even makes the climb steeper rather than flatter, because more recalls now have just
+          one store to name.
         </Note>
         <Note title="A claim this piece does not make">
           Recalls name the manufacturer less and less: {mfrFirst}% did in {first.year}, against{' '}

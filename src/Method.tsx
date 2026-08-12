@@ -94,6 +94,38 @@ export default function Method() {
           different questions, and this data cannot answer them.
         </Note>
 
+        {/* THE WEAKEST JOINT IN THE HEADLINE, STATED BEFORE ANYONE ELSE FINDS IT.
+
+            "Only buy on Amazon" is a sentence. "No other store is named" is the
+            measure. They are close but not identical, and the gap is countable,
+            so it gets counted rather than argued. Every figure here is read from
+            the build output, so the weekly rebuild cannot leave it stale. */}
+        <Note title="Where “only Amazon” is looser than it sounds">
+          The measure counts recalls whose sentence names no other{' '}
+          <em>store</em>. That is slightly narrower than the headline, because a brand
+          selling from its own website is not another store carrying the product. So it
+          is counted directly: of the {last.amazonOnlyCount} Amazon-only recalls this
+          year, {last.soleAlsoDirect} also name a second website, and reading them back
+          those are nearly all the maker's own shopfront rather than a rival. The other{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {last.soleOnlyAmazonPct}%
+          </strong>{' '}
+          name Amazon and nowhere else at all. The stricter reading is the smaller
+          number, and both of them are on this page.
+        </Note>
+
+        <Note title="The list this whole figure depends on">
+          Because the headline is defined by the <em>absence</em> of a competitor, it is
+          only as good as the list of competitors being checked. That list started at 23
+          names, which was too few, so every Amazon-only recall was re-read looking for a
+          store the list had missed. It had missed REI, Nordstrom, Bass Pro, Dick's, Ace
+          Hardware, Bed Bath, Meijer, Sears and others. Fixing it lowered the figures,
+          and it lowered the earlier ones proportionally far more, so the climb got{' '}
+          <em>steeper</em> rather than flatter. Worth saying plainly, because the mistake
+          had been flattering the early years, which is the opposite of the direction a
+          motivated author drifts.
+        </Note>
+
         {/* Titled "Why {year} is not a full year" until now, which asked a
             question nobody has. Everyone knows the year is not over. The thing a
             reader actually wants to know is whether a part-year number can sit
@@ -103,7 +135,7 @@ export default function Method() {
           The data runs through {data.newestRecallDate},
           about {p.monthsElapsed} months in. That matters less than it sounds, because every
           number here is a percentage and not a total, so a shorter year is not a smaller
-          one. I also checked month by month for a seasonal pattern that could tilt a partial
+          one. The months were also checked one by one for a seasonal pattern that could tilt a partial
           year, and there is not one. The chart draws the last stretch dashed so you can see
           which part is still moving.
         </Note>
@@ -120,7 +152,7 @@ export default function Method() {
           measured inside e-commerce. You can also do it the older way, by comparing growth
           rates, though that needs a baseline big enough to divide by, so it runs from{' '}
           {ratio.year} rather than {first.year}. Because “sold online” is a fuzzy thing to
-          define I used three definitions, strict to loose: online selling grew{' '}
+          define, it is measured three ways, strict to loose: online selling grew{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {(last.online.strict! / ratio.online.strict!).toFixed(1)}×,{' '}
             {(last.online.mid! / ratio.online.mid!).toFixed(1)}× and{' '}
@@ -137,7 +169,7 @@ export default function Method() {
           If CPSC had started writing longer sentences, more store names would match by
           accident and everyone's numbers would drift up together. It went the other way. The
           typical sentence got <em>shorter</em>, from {first.medianDescriptionChars} characters
-          in {first.year} to {last.medianDescriptionChars} today. So I looked only at the short
+          in {first.year} to {last.medianDescriptionChars} today. Counting only the short
           sentences, holding length roughly even, and Amazon still climbs from{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {shortFirst}% to {shortLast}%
@@ -145,8 +177,9 @@ export default function Method() {
           {/* COMPARED AGAINST THE RIGHT NUMBER.
 
               This read "steeper than the headline". The headline is the SOLE
-              measure, 49.6%, and this test counts Amazon being NAMED, the same
-              as the 60.9% line. Setting 63.4% against 49.6% compares two
+              measure, and this test counts Amazon being NAMED, the same as
+              the higher line. Setting the length-controlled figure against the
+              SOLE measure would compare two
               different populations and flatters the result: the honest
               comparison is against the named share across all sentences, which
               is the number this figure is the length-controlled version of.
@@ -161,7 +194,7 @@ export default function Method() {
         <Note title="A claim this piece does not make">
           Recalls name the manufacturer less and less: {mfrFirst}% did in {first.year}, against{' '}
           {mfrLast}% this year. The tempting story is that marketplace sellers are anonymous, so
-          Amazon-only recalls hide who made the thing. I tested it. It is not true. Lumped
+          Amazon-only recalls hide who made the thing. Tested directly, it is not true. Lumped
           together it looks convincing, but that is a trick of the calendar, because Amazon-only
           recalls bunch up in the recent years, when the record keeping is bad for everyone. Year
           by year the gap flips back and forth, and in the two most recent years, which have the
@@ -170,7 +203,7 @@ export default function Method() {
             {gap25 > 0 ? '+' : ''}{gap25} and {gap26 > 0 ? '+' : ''}{gap26} points
           </strong>
           . So the records are getting worse across the board, and the more interesting version
-          of this story is one I cannot back up.
+          of this story is one this record cannot support.
         </Note>
       </div>
       </section>

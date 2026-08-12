@@ -134,6 +134,9 @@ export default function RecallSearch({
       hazard: hit.row.h,
       url: hit.row.u ? prefix + hit.row.u : undefined,
       image: images?.[hit.i] ? imgPrefix + images[hit.i] : undefined,
+      /* The tag only. The full instruction is 3MB across the corpus, so a
+         search result names the remedy and links out for the detail. */
+      remedyOption: hit.row.o || undefined,
     }),
     [prefix, images, imgPrefix],
   )

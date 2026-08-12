@@ -69,6 +69,43 @@ const COVERAGE_FIRST_YEAR = 2015
  */
 const RATIO_FIRST_YEAR = 2015
 
+/**
+ * The remedy words CPSC actually uses, as a whitelist.
+ *
+ * RemedyOptions is meant to be a tidy enum and mostly is, but the raw feed
+ * contains at least one entry holding a full remedy paragraph and one reading
+ * just "R". Matching against a known set keeps a malformed record from putting
+ * a paragraph into a badge, and keeps an unrecognised value out rather than
+ * guessing at it.
+ */
+/**
+ * The full remedy, for the twenty records shipped as lists.
+ *
+ * CPSC writes this as an instruction to the reader ("Consumers should stop
+ * using the charger immediately... Contact A2batt to receive a full refund"),
+ * which is the single most useful sentence in a recall notice and the one thing
+ * the lookup never showed. Both the prose and the one-word tag are returned:
+ * the tag drives a badge, the prose is the answer.
+ */
+const remedyOf = (r) => ({
+  remedy: ((r.Remedies ?? [])[0]?.Name ?? '').trim(),
+  remedyOption:
+    (r.RemedyOptions ?? [])
+      .map((o) => (typeof o === 'string' ? o : o?.Option))
+      .find((o) => REMEDY_TAGS.has(o)) ?? '',
+})
+
+const REMEDY_TAGS = new Set([
+  'Refund',
+  'Repair',
+  'Replace',
+  'Dispose',
+  'New Instructions',
+  'Inspect',
+  'Label',
+  'No Remedy Available',
+])
+
 /** Other named retailers, used to test whether Amazon is the SOLE seller named. */
 const OTHER_RETAILERS = [
   'walmart', 'target', 'home depot', 'lowe', 'costco', 'best buy', 'ebay',
@@ -190,8 +227,44 @@ function build(all) {
      */
     const onlineBlobs = blobs.filter(ONLINE_DEFS.mid)
 
+    /**
+     * COUNTRY OF ORIGIN, CROSS-TABBED AGAINST THE AMAZON MEASURE.
+     *
+     * ManufacturerCountries is populated on 98.6% to 100% of recalls in every
+     * year since 2015 and was previously read only to draw a coverage ring.
+     * Split the same way the chart splits, it carries a second finding: in 2026
+     * 95.2% of the recalls naming Amazon alone are Chinese-made, against 66.8%
+     * of everything else. The gap is positive in all twelve years measured.
+     *
+     * WHAT THIS IS NOT. It is a correlation, and the page has to say so as
+     * loudly as it says the number. The likely mechanism is that a marketplace
+     * of third-party sellers carries more direct-from-manufacturer importers
+     * than a shelf at Target does, which is a fact about how the two channels
+     * are structured, not evidence that one causes unsafe manufacturing.
+     *
+     * Coverage is emitted alongside so the page can never quote a share without
+     * being able to say what it is a share OF.
+     */
+    const soleOf = (b) => b.includes('amazon') && !OTHER_RETAILERS.some((o) => b.includes(o))
+    const known = recalls
+      .map((r, i) => ({ r, sole: soleOf(blobs[i]) }))
+      .filter(({ r }) => (r.ManufacturerCountries ?? []).some((c) => c?.Country))
+    const isChina = ({ r }) =>
+      (r.ManufacturerCountries ?? []).some((c) => (c?.Country ?? '') === 'China')
+    const soleKnown = known.filter((x) => x.sole)
+    const restKnown = known.filter((x) => !x.sole)
+
+    const origin = {
+      coverage: pct(known.length, n),
+      soleN: soleKnown.length,
+      restN: restKnown.length,
+      soleChina: soleKnown.length ? pct(soleKnown.filter(isChina).length, soleKnown.length) : null,
+      restChina: restKnown.length ? pct(restKnown.filter(isChina).length, restKnown.length) : null,
+    }
+
     return {
       year: Number(year),
+      origin,
       recalls: n,
       retailerFieldPopulated: pct(blobs.filter((b) => b.length > 0).length, n),
       retailers,
@@ -353,6 +426,7 @@ function build(all) {
         url: r.URL ?? '',
         retailerText: (r.Retailers ?? [])[0]?.Name ?? '',
         hazard: (r.Hazards ?? [])[0]?.Name ?? '',
+        ...remedyOf(r),
       }
     })
     .filter(Boolean)
@@ -400,6 +474,7 @@ function build(all) {
         url: r.URL ?? '',
         retailerText: (r.Retailers ?? [])[0]?.Name ?? '',
         hazard: (r.Hazards ?? [])[0]?.Name ?? '',
+        ...remedyOf(r),
       }
     })
     .filter(Boolean)
@@ -488,14 +563,19 @@ await writeFile(PUB, JSON.stringify(data, null, 2))
 
 /* CSV as well as JSON. "Download the figures" usually means a spreadsheet, and
    a journalist or researcher should not need a parser to check the numbers. */
+/* The origin split ships in the download too. A reader who wants to check the
+   second finding should not have to re-derive it from the raw feed when the
+   page is asking them to believe it. */
 const cols = ['year', 'recalls', 'amazon', 'amazonOnly', 'amazonOnlyCount',
-  'walmart', 'target', 'homeDepot', 'ebay', 'soldOnline']
+  'walmart', 'target', 'homeDepot', 'ebay', 'soldOnline',
+  'chinaAmazonOnly', 'chinaOthers', 'originCoverage']
 const csv = [
   cols.join(','),
   ...data.series.map((d) => [
     d.year, d.recalls, d.retailers.amazon, d.amazonOnly, d.amazonOnlyCount,
     d.retailers.walmart, d.retailers.target, d.retailers.homeDepot,
     d.retailers.ebay, d.online.mid,
+    d.origin?.soleChina ?? '', d.origin?.restChina ?? '', d.origin?.coverage ?? '',
   ].join(',')),
 ].join('\n')
 await writeFile(join(ROOT, 'public', 'recall-data.csv'), csv + '\n')
@@ -562,6 +642,30 @@ const searchIndex = raw
     // one identifier that can confirm the exact item, so it is worth the bytes.
     const upcs = (r.ProductUPCs ?? []).map((x) => x?.UPC).filter(Boolean)
     if (upcs.length) row.c = upcs.join(' ')
+
+    /**
+     * THE REMEDY TAG, not the remedy prose, and the difference is the payload.
+     *
+     * Someone who finds their own product in this list needs to know what to do
+     * about it, and until now the page told them the hazard and nothing else.
+     * The full instruction lives in `Remedies` and is genuinely useful, but it
+     * runs a 300-character median across 9,944 records, which is roughly 3MB
+     * before compression. That is four times the entire current index to serve
+     * a field most searches never read.
+     *
+     * `RemedyOptions` is the same fact in one word (Refund, Repair, Replace),
+     * so the index carries the word and the expanded row links to the notice
+     * for the detail. The full prose IS shipped for the twenty records on the
+     * essay and /check lists, where it costs nothing.
+     *
+     * Filtered against a known set, because the field is not clean: one 2020+
+     * record has the entire remedy paragraph stuffed into it and another just
+     * says "R".
+     */
+    const opt = (r.RemedyOptions ?? [])
+      .map((o) => (typeof o === 'string' ? o : o?.Option))
+      .find((o) => REMEDY_TAGS.has(o))
+    if (opt) row.o = opt
     return row
   })
 

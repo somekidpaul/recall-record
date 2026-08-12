@@ -3,6 +3,7 @@ import RetailerChart from './RetailerChart'
 import Nav from './Nav'
 import CountUp from './CountUp'
 import BiggestRecalls from './BiggestRecalls'
+import OriginSplit from './OriginSplit'
 import data from './data/recalls.json'
 
 const last = data.series.at(-1)!
@@ -86,6 +87,10 @@ export default function App() {
 
           The tool now closes the piece, which is where it belongs: it is the
           "so what do I do about it" after the argument has landed. */}
+      {/* AFTER the chart and its objection, BEFORE the methodology. A second
+          finding introduced before the first one is settled reads as piling on;
+          introduced after, it reads as the record having more in it. */}
+      <OriginSplit />
       <Methodology />
       <BiggestRecalls />
 

@@ -32,6 +32,10 @@ export default function BiggestRecalls() {
     units: r.units,
     unitsRaw: r.unitsRaw || undefined,
     retailerText: r.retailerText || undefined,
+    /* The instruction CPSC publishes for this recall. Shipped in full
+       for these ten records; search results carry only the tag. */
+    remedy: r.remedy || undefined,
+    remedyOption: r.remedyOption || undefined,
   }))
 
   return (

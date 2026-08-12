@@ -59,6 +59,24 @@ export default function Nav({ current }: { current: '/' | '/method' | '/check' }
       without one the type would run through it. z-30 clears the chart tooltip,
       which sits at z-10.
     */
+    <>
+    {/*
+      SKIP LINK. Visually hidden until focused, which is the whole point: it is
+      the first thing a keyboard reaches and invisible to everyone else.
+
+      Without it, every page begins with the wordmark, a three-way theme
+      control and three nav links, so a keyboard or screen-reader user tabbed
+      through six controls to reach the article, on every page, every time. The
+      target carries tabIndex -1 so focus actually lands there rather than
+      scrolling the page and leaving focus behind in the header, which is the
+      usual way this gets implemented wrong.
+    */}
+    <a
+      href="#content"
+      className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[var(--color-signal)] focus:px-5 focus:py-3 focus:text-[15px] focus:font-semibold focus:text-[var(--color-paper)]"
+    >
+      Skip to content
+    </a>
     <header className="sticky top-0 z-30 border-b border-[var(--color-rule)] bg-[var(--color-paper)]">
       <div className="flex items-center justify-between gap-x-6 py-3.5 sm:py-4">
         <div className="flex items-center gap-3 sm:gap-4">
@@ -144,6 +162,10 @@ export default function Nav({ current }: { current: '/' | '/method' | '/check' }
         </div>
       </div>
     </header>
+    {/* The skip target, immediately after the masthead so it lands at the top
+        of the page's own content on all three routes. */}
+    <div id="content" tabIndex={-1} />
+    </>
   )
 }
 

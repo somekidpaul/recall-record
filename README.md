@@ -4,8 +4,8 @@ A weekly visual record of US consumer product recalls, built from CPSC public-do
 
 ## The finding
 
-Half of every US consumer product recall in 2026 so far names Amazon as the only
-retailer. In 2015 it was 6.9%, about one in fourteen.
+Nearly half of every US consumer product recall in 2026 so far (48.3%) names
+Amazon and no other major retailer. In 2015 it was 5.2%, about one in nineteen.
 
 The obvious objection is that e-commerce simply grew. It does not hold. Online
 selling overall roughly doubled over the same period while Amazon quadrupled,

@@ -245,14 +245,14 @@ p { text-wrap-style: pretty; }
     stroke-dashoffset: var(--len);
     animation: draw linear both;
     animation-timeline: view();
-    animation-range: entry 8% cover 34%;
+    animation-range: entry 25% cover 60%;
   }
 
   /* No travel, just an entrance. */
   :root[data-motion="reduced"] .draw-in {
     animation: fade-in linear both;
     animation-timeline: view();
-    animation-range: entry 8% cover 30%;
+    animation-range: entry 25% cover 55%;
   }
 }
 
@@ -278,7 +278,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .ring-arc {
     animation: ring-fill linear both;
     animation-timeline: view();
-    animation-range: entry 8% cover 32%;
+    animation-range: entry 20% cover 55%;
   }
 
   /*
@@ -295,7 +295,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="reduced"] .ring-arc {
     animation: fade-in linear both;
     animation-timeline: view();
-    animation-range: entry 8% cover 28%;
+    animation-range: entry 20% cover 50%;
   }
 }
 
@@ -316,7 +316,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .tail-after {
     animation: label-in linear both;
     animation-timeline: view();
-    animation-range: cover 34% cover 42%;
+    animation-range: cover 60% cover 69%;
   }
 }
 
@@ -324,7 +324,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .label-after {
     animation: label-in linear both;
     animation-timeline: view();
-    animation-range: cover 42% cover 50%;
+    animation-range: cover 69% cover 80%;
   }
 }
 @keyframes label-in {

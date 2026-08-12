@@ -176,7 +176,14 @@ const OTHER_RETAILERS = [
  *
  * Every stem in OTHER_RETAILERS was verified by printing the text it matched
  * and the sentence around it. None of them fire on a false positive.
+ *
+ * Hyphens are stripped from the haystack first, because CPSC wrote "Wal-Mart"
+ * with a hyphen on 159 older notices and the stem "walmart" has none, so the
+ * word boundary fell between "wal" and "mart" and the match failed. Removing
+ * hyphens makes "wal-mart" read as "walmart" without touching anything the
+ * length control measures, since that reads the untouched blob.
  */
+const HYPHENS = /[-\u2010-\u2015]/g
 const namesRetailer = (blob, stem) =>
   new RegExp(
     '\\b' +
@@ -186,7 +193,7 @@ const namesRetailer = (blob, stem) =>
         .join('\\s*') +
       "(?:'?s)?\\b",
     'i',
-  ).test(blob)
+  ).test(blob.replace(HYPHENS, ''))
 
 /** The five series on the main chart. */
 const TRACKED = [
@@ -256,7 +263,9 @@ function build(all) {
     const n = blobs.length
 
     const retailers = Object.fromEntries(
-      TRACKED.map((t) => [t.key, pct(blobs.filter((b) => b.includes(t.match)).length, n)]),
+      // Hyphen-normalised so the chart's Walmart line catches the older
+      // "Wal-Mart" spelling, the same reason namesRetailer strips them.
+      TRACKED.map((t) => [t.key, pct(blobs.filter((b) => b.replace(HYPHENS, '').includes(t.match)).length, n)]),
     )
 
     // Amazon named, and no other major retailer named alongside it.
@@ -331,25 +340,44 @@ function build(all) {
     const restKnown = known.filter((x) => !x.sole)
 
     /**
-     * Of the Amazon-only recalls, how many name some OTHER website as well.
+     * How leaky is "only Amazon", counted two ways.
      *
      * The headline says "something you could only buy on Amazon". The measure
-     * underneath it is narrower than that sentence: it says no other STORE is
-     * named. Those are not the same claim, because a manufacturer selling from
-     * its own site is not a store carrying the product.
+     * underneath it is narrower than that sentence: it says no other MAJOR
+     * retailer is named. Two kinds of thing slip through that gap, and rather
+     * than argue either one away, both are counted so /method can show them and
+     * the counts refresh themselves every week.
      *
-     * Rather than argue the distinction, it is counted. Reading the sentences
-     * behind it, the domains are overwhelmingly the brand's own shopfront
-     * (giantex.com, nimood.com, vivehealth.com) rather than a rival retailer,
-     * which is why they do not belong on OTHER_RETAILERS. But a reader deserves
-     * the number, and /method quotes this field so the caveat updates itself on
-     * every weekly rebuild instead of rotting into a stale hand-typed figure.
+     *   soleAlsoDirect: names another website too. Reading the sentences, these
+     *   are overwhelmingly the brand's own shopfront (giantex.com, nimood.com,
+     *   vivehealth.com), which is a maker selling direct, not a rival store.
+     *
+     *   soleAlsoStore: the sentence still uses the words store, shop or retailer
+     *   for somewhere that is not Amazon. These are small, regional or niche
+     *   sellers (a New York discount store, independent hobby shops, one Florida
+     *   electronics chain), not national chains. They are deliberately NOT added
+     *   to OTHER_RETAILERS: that list is national chains, and chasing an
+     *   unbounded tail of one-off shop names to nudge the figure is exactly the
+     *   thumb-on-the-scale this project refuses. The honest move is to disclose
+     *   the count, not to tune it away.
      */
     const soleBlobs = blobs.filter(soleOf)
     const soleAlsoDirect = soleBlobs.filter((b) =>
       [...b.matchAll(/\b([a-z0-9-]+)\.(?:com|net|org|shop|co)\b/g)].some(
         (m) => !m[1].includes('amazon'),
       ),
+    ).length
+    const soleAlsoStore = soleBlobs.filter((b) =>
+      /\bstores?\b|\bshops?\b|\bretailers?\b|\bboutique/.test(b),
+    ).length
+    // Names Amazon and nothing else identifiable: no other website, no other
+    // store word at all. This is the strict floor the copy can stand on without
+    // an asterisk, and it subtracts BOTH leaks rather than only the websites.
+    const soleClean = soleBlobs.filter(
+      (b) =>
+        ![...b.matchAll(/\b([a-z0-9-]+)\.(?:com|net|org|shop|co)\b/g)].some(
+          (m) => !m[1].includes('amazon'),
+        ) && !/\bstores?\b|\bshops?\b|\bretailers?\b|\bboutique/.test(b),
     ).length
 
     const origin = {
@@ -369,7 +397,10 @@ function build(all) {
       amazonOnly: pct(amazonOnly, n),
       amazonOnlyCount: amazonOnly,
       soleAlsoDirect,
-      soleOnlyAmazonPct: pct(amazonOnly - soleAlsoDirect, amazonOnly),
+      soleAlsoStore,
+      soleClean,
+      soleCleanPct: pct(soleClean, amazonOnly),
+      soleCleanShare: pct(soleClean, n),
       online,
       medianDescriptionChars: lens[Math.floor(lens.length / 2)] ?? null,
       amazonAmongShort: pct(short.filter((b) => b.includes('amazon')).length, short.length),

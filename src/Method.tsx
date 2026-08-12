@@ -101,29 +101,36 @@ export default function Method() {
             so it gets counted rather than argued. Every figure here is read from
             the build output, so the weekly rebuild cannot leave it stale. */}
         <Note title="Where “only Amazon” is looser than it sounds">
-          The measure counts recalls whose sentence names no other{' '}
-          <em>store</em>. That is slightly narrower than the headline, because a brand
-          selling from its own website is not another store carrying the product. So it
-          is counted directly: of the {last.amazonOnlyCount} Amazon-only recalls this
-          year, {last.soleAlsoDirect} also name a second website, and reading them back
-          those are nearly all the maker's own shopfront rather than a rival. The other{' '}
+          The headline counts recalls whose notice names no other <em>major retailer</em>.
+          That is a little looser than “only on Amazon”, because two things slip through,
+          and both are counted here rather than argued away. Some name the maker's own
+          website too (giantex.com, vivehealth.com), which is a brand selling direct, not
+          a rival store. A few others name a small or regional shop in passing (a New York
+          discount store, independent hobby shops). Of this year's {last.amazonOnlyCount}{' '}
+          Amazon-only recalls, {last.amazonOnlyCount - last.soleClean} name another seller
+          like that. The other{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
-            {last.soleOnlyAmazonPct}%
+            {last.soleClean}
           </strong>{' '}
-          name Amazon and nowhere else at all. The stricter reading is the smaller
-          number, and both of them are on this page.
+          name Amazon and nowhere else at all, which is still{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {last.soleCleanShare}%
+          </strong>{' '}
+          of every recall this year. Read at its strictest, the finding barely moves.
         </Note>
 
         <Note title="The list this whole figure depends on">
           Because the headline is defined by the <em>absence</em> of a competitor, it is
           only as good as the list of competitors being checked. That list started at 23
-          names, which was too few, so every Amazon-only recall was re-read looking for a
-          store the list had missed. It had missed REI, Nordstrom, Bass Pro, Dick's, Ace
-          Hardware, Bed Bath, Meijer, Sears and others. Fixing it lowered the figures,
-          and it lowered the earlier ones proportionally far more, so the climb got{' '}
-          <em>steeper</em> rather than flatter. Worth saying plainly, because the mistake
-          had been flattering the early years, which is the opposite of the direction a
-          motivated author drifts.
+          names, which was too few, so the Amazon-only recalls were searched for retailer
+          names the list had missed. It had missed REI, Nordstrom, Bass Pro, Dick's, Ace
+          Hardware, Bed Bath, Meijer, Sears and others, now added. Fixing it lowered the
+          figures, and it lowered the earlier ones proportionally far more, so the climb
+          got <em>steeper</em> rather than flatter. Worth saying plainly, because the
+          mistake had been flattering the early years, which is the opposite of the
+          direction a motivated author drifts. The list is national chains, so a small or
+          regional shop can still slip through, which is why the note above counts how
+          often that happens instead of pretending it never does.
         </Note>
 
         {/* Titled "Why {year} is not a full year" until now, which asked a

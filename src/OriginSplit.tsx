@@ -196,8 +196,8 @@ export default function OriginSplit() {
           })}
         </ul>
         <p className="m-0 mt-4 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-          Every year positive means the Amazon-alone group was more Chinese-made than the rest,
-          every year. The lowest, {smallest.year}, is marked.
+          Every number is positive, so in each year shown the Amazon-alone group was more
+          Chinese-made than the rest. The lowest, {smallest.year}, is marked.
         </p>
       </div>
 

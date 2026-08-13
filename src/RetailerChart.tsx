@@ -317,7 +317,7 @@ export default function RetailerChart() {
           tabIndex={0}
           onKeyDown={onKeyDown}
           onBlur={() => setHover(null)}
-          aria-label={`Share of US product recalls naming each store, ${years[0]} to ${years.at(-1)}. Amazon rises from ${soleOnly ? first.amazonOnly : first.retailers.amazon} percent in ${first.year} to ${amzLast} percent in ${last.year}. Use arrow keys to read each year. Full figures are in the table below.`}
+          aria-label={`Share of US consumer product recalls naming each store, ${years[0]} to ${years.at(-1)}. Amazon rises from ${soleOnly ? first.amazonOnly : first.retailers.amazon} percent in ${first.year} to ${amzLast} percent in ${last.year}. Use arrow keys to read each year. Full figures are in the table below.`}
         >
           {[0, 25, 50, 75].map((v) => (
             <g key={v}>
@@ -588,7 +588,7 @@ export default function RetailerChart() {
       <div className="sr-only">
       <table>
         <caption>
-          Share of US product recalls naming each store, by year
+          Share of US consumer product recalls naming each store, by year
         </caption>
         <thead>
           <tr>
@@ -621,7 +621,7 @@ export default function RetailerChart() {
 
       <figcaption className="mt-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
         <p className="m-0">
-          The share of US product recalls that mention each company. CPSC writes down where a
+          The share of US consumer product recalls that mention each company. CPSC writes down where a
           product was sold as one sentence, so this counts <em>mentions</em>, not sales or
           market share.
         </p>

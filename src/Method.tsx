@@ -127,8 +127,8 @@ export default function Method() {
           Hardware, Bed Bath, Meijer, Sears and others, now added. Fixing it lowered the
           figures, and it lowered the earlier ones proportionally far more, so the climb
           got <em>steeper</em> rather than flatter. Worth saying plainly, because the
-          mistake had been flattering the early years, which is the opposite of the
-          direction a motivated author drifts. The list is national chains, so a small or
+          mistake had been flattering the early years, which is the opposite of what someone
+          nudging the numbers in their own favor would do. The list is national chains, so a small or
           regional shop can still slip through, which is why the note above counts how
           often that happens instead of pretending it never does.
         </Note>
@@ -148,18 +148,18 @@ export default function Method() {
         </Note>
 
         <Note title="The obvious objection: everyone shops online now">
-          The clean way to answer this is to stop comparing Amazon to the whole world and
-          compare it only to the rest of the internet. Among recalls that were sold online at
-          all, the share naming Amazon goes from{' '}
+          The clean way to answer this is to stop comparing Amazon to every store in the
+          country and compare it only to the rest of the internet. Among recalls that were
+          sold online at all, the share that name Amazon climbs from{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
-            {first.amazonOfOnline}% in {first.year} to {last.amazonOfOnline}% in {last.year}
+            {ratio.amazonOfOnline}% in {ratio.year} to {last.amazonOfOnline}% in {last.year}
           </strong>
-          . So this is not online shopping lifting every boat. Amazon is taking the water out
-          from under the other boats, and the growth of e-commerce cannot explain a share
-          measured inside e-commerce. You can also do it the older way, by comparing growth
-          rates, though that needs a baseline big enough to divide by, so it runs from{' '}
-          {ratio.year} rather than {first.year}. Because “sold online” is a fuzzy thing to
-          define, it is measured three ways, strict to loose: online selling grew{' '}
+          . So this is not the tide lifting every boat. Amazon is gaining on the other online
+          sellers, and the growth of online shopping cannot explain a share measured inside
+          online shopping. The same holds if you compare growth rates instead, both anchored
+          to {ratio.year} so the baselines are big enough to divide by. Since “sold online” is
+          a fuzzy thing to define, it is measured three ways, strict to loose: online selling
+          grew{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {(last.online.strict! / ratio.online.strict!).toFixed(1)}×,{' '}
             {(last.online.mid! / ratio.online.mid!).toFixed(1)}× and{' '}
@@ -172,12 +172,34 @@ export default function Method() {
           . Both ways round, the same answer.
         </Note>
 
+        {/* PRE-EMPTS THE SHARPEST CONFOUNDER. In 2024 the CPSC ruled Amazon a
+            "distributor" legally responsible for recalls of third-party
+            marketplace goods, final order January 2025. A sharp reader asks
+            whether that, not Amazon's growth, is putting Amazon's name on more
+            notices. Verified against the feed: the rise begins in 2015, the
+            ordered categories are a small and shrinking slice of the Amazon-only
+            set, and the field counted is where the product was SOLD, which is
+            unaffected by who is ordered to run the recall. All three checked by
+            hand before this note was written. */}
+        <Note title="The other objection: didn’t the rules change in 2024?">
+          In 2024 the CPSC ruled that Amazon is legally responsible for recalls of products
+          sold on its site by outside sellers, and finalized that order in early 2025. A fair
+          question is whether that, rather than Amazon's growth, is what puts Amazon's name on
+          more notices. Three things say no. The rise starts in{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">{ratio.year}</strong>,
+          years before the ruling. The order covered a specific, narrow set of products
+          (carbon monoxide detectors, hairdryers, children's sleepwear), and those are a small
+          and shrinking share of the Amazon-only recalls, not the source of the recent jump.
+          And the thing counted here is where a product was <em>sold</em>, which a shopper
+          bought from Amazon no matter who the government later orders to run the recall.
+        </Note>
+
         <Note title="The way this could have been fake">
           If CPSC had started writing longer sentences, more store names would match by
           accident and everyone's numbers would drift up together. It went the other way. The
           typical sentence got <em>shorter</em>, from {first.medianDescriptionChars} characters
-          in {first.year} to {last.medianDescriptionChars} today. Counting only the short
-          sentences, holding length roughly even, and Amazon still climbs from{' '}
+          in {first.year} to {last.medianDescriptionChars} today. Even counting only the short
+          sentences, which holds length roughly even, Amazon still climbs from{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {shortFirst}% to {shortLast}%
           </strong>

@@ -242,7 +242,7 @@ export default function RetailerChart() {
         <div className="flex items-center gap-3">
           <div
             role="group"
-            aria-label="What the orange line counts"
+            aria-label="How the orange Amazon line is counted"
             className="relative grid grid-cols-2 rounded-full border border-[var(--color-rule)] p-[3px]"
           >
             <span
@@ -250,24 +250,25 @@ export default function RetailerChart() {
               className="pill absolute inset-y-0.5 left-0.5 rounded-full bg-[var(--color-signal)]"
               style={{ width: 'calc((100% - 0.25rem) / 2)', transform: `translateX(${soleOnly ? 100 : 0}%)` }}
             />
-            {/* THE DIFFERENTIATING WORD GOES FIRST.
+            {/* TWO WORDS THAT ARE ACTUALLY DIFFERENT.
 
-                These read "Sold at Amazon" and "Sold only at Amazon", which is
-                two 3-word phrases sharing 2 words, with the entire difference
-                buried in the middle. Scanning them left to right, the eye hits
-                "Sold" twice and has to reach position three to find out these
-                are different questions at all.
+                These read "Amazon named" and "Only Amazon named". Both contain
+                "Amazon named", so the eye reads the same phrase twice and the
+                whole distinction rides on one small word "Only" that is easy to
+                miss. Tested on a real reader (the person this is built for) it
+                failed three or four times.
 
-                "Only" now leads, so the contrast is the first thing read.
+                Now "Amazon included" and "Amazon only": parallel, both lead with
+                Amazon, and the trailing word carries the entire meaning.
+                "included" says it can sit next to other stores, "only" says it
+                cannot. That is the actual axis.
 
-                "Sold" also had to go on accuracy grounds. The method note is
-                explicit that CPSC's retailer sentence records who gets NAMED in
-                a notice, not who sold what, and says in as many words that this
-                is "not how much they sold". The control was quietly making the
-                claim the rest of the page refuses to make. */}
+                Not "Sold": the method note is explicit that CPSC's retailer
+                sentence records who gets NAMED, not who sold what, so the label
+                must not quietly make the stronger claim the page refuses to. */}
             {[
-              { sole: false, label: 'Amazon named', full: 'Count every recall whose notice names Amazon at all' },
-              { sole: true, label: 'Only Amazon named', full: 'Count only the recalls where Amazon is the sole store named' },
+              { sole: false, label: 'Amazon included', full: 'Count every recall that names Amazon at all, even if it names other stores too' },
+              { sole: true, label: 'Amazon only', full: 'Count only the recalls where Amazon is the one and only store named' },
             ].map((o) => (
               <button
                 key={o.label}
@@ -302,9 +303,10 @@ export default function RetailerChart() {
             of the control existing: the finding does not depend on which of the
             two definitions you prefer. */}
         <p className="m-0 basis-full text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
-          One notice can name several stores. <em>Only Amazon named</em> counts the recalls where
-          it names no one else. Switch to the looser count and the climb is still there, just
-          higher.
+          A single recall can name more than one store. <em>Amazon included</em> counts every
+          recall that names Amazon at all, even alongside Walmart or Target. <em>Amazon only</em>{' '}
+          counts just the ones where no other store is named. The climb holds either way, a
+          little higher on the looser count.
         </p>
       </div>
 

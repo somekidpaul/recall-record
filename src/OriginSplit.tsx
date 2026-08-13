@@ -201,12 +201,13 @@ export default function OriginSplit() {
       </div>
 
       <p className="m-0 mt-10 max-w-[72ch] border-t border-[var(--color-rule)] pt-6 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        This is a correlation and it is worth saying what it probably is not. Nothing here shows
-        that Amazon causes unsafe manufacturing. The likeliest reason is duller: a marketplace of
-        third-party sellers carries far more direct-from-manufacturer importers than a retail shelf
-        does, so the two groups are not drawing from the same set of suppliers to begin with. This
-        counts where recalled products were made. It does not count where products in general are
-        made, which would need a source this record does not contain.
+        This is a correlation, and it is worth being clear about what it is not. Nothing here
+        shows that Amazon causes unsafe manufacturing. The likeliest reason is duller: a
+        marketplace like Amazon is full of small sellers shipping straight from overseas
+        factories, far more than a store shelf is, so the two groups were never stocking from
+        the same suppliers to begin with. This counts where recalled products were made. It
+        does not count where products in general are made, which would need a source this
+        record does not contain.
       </p>
     </section>
   )

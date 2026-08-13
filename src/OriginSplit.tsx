@@ -1,4 +1,5 @@
 import data from './data/recalls.json'
+import CountUp from './CountUp'
 
 /**
  * The second finding, and the one the retailer chart cannot make on its own.
@@ -200,7 +201,7 @@ export default function OriginSplit() {
         </p>
       </div>
 
-      <p className="m-0 mt-10 max-w-[72ch] border-t border-[var(--color-rule)] pt-6 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+      <p className="m-0 mt-10 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         This is a correlation, and it is worth being clear about what it is not. Nothing here
         shows that Amazon causes unsafe manufacturing. The likeliest reason is duller: a
         marketplace like Amazon is full of small sellers shipping straight from overseas
@@ -259,7 +260,7 @@ function Figure({
         className="m-0 mt-2 font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,3.2rem)] leading-[1.05] tabular-nums"
         style={{ color: emphasis ? 'var(--color-signal)' : 'var(--color-ink)' }}
       >
-        {value}%
+        <CountUp to={value} suffix="%" />
       </p>
     </div>
   )

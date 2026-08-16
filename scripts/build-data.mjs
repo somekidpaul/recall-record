@@ -510,7 +510,10 @@ function build(all) {
     const v = byYear.get(year)
     const amz = v.filter((r) => {
       const b = retailerText(r)
-      return b.includes('amazon') && !OTHER_RETAILERS.some((o) => b.includes(o))
+      // namesRetailer, not b.includes, so this "Amazon-only" matches the one the
+      // headline and the origin split use. A public repo that says "go check it
+      // yourself" cannot define its central term three different ways.
+      return b.includes('amazon') && !OTHER_RETAILERS.some((o) => namesRetailer(b, o))
     })
     const rest = v.filter((r) => !amz.includes(r))
     return {

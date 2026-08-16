@@ -1099,12 +1099,12 @@
     {
       "year": 2008,
       "amazonOnly": {
-        "n": 1,
-        "manufacturerKnown": 0
+        "n": 0,
+        "manufacturerKnown": null
       },
       "everythingElse": {
-        "n": 391,
-        "manufacturerKnown": 46.3
+        "n": 392,
+        "manufacturerKnown": 46.2
       }
     },
     {
@@ -1121,12 +1121,12 @@
     {
       "year": 2010,
       "amazonOnly": {
-        "n": 8,
-        "manufacturerKnown": 50
+        "n": 6,
+        "manufacturerKnown": 66.7
       },
       "everythingElse": {
-        "n": 354,
-        "manufacturerKnown": 39.3
+        "n": 356,
+        "manufacturerKnown": 39
       }
     },
     {
@@ -1154,12 +1154,12 @@
     {
       "year": 2013,
       "amazonOnly": {
-        "n": 23,
-        "manufacturerKnown": 39.1
+        "n": 22,
+        "manufacturerKnown": 40.9
       },
       "everythingElse": {
-        "n": 267,
-        "manufacturerKnown": 52.4
+        "n": 268,
+        "manufacturerKnown": 52.2
       }
     },
     {
@@ -1176,45 +1176,45 @@
     {
       "year": 2015,
       "amazonOnly": {
-        "n": 15,
-        "manufacturerKnown": 20
+        "n": 16,
+        "manufacturerKnown": 18.8
       },
       "everythingElse": {
-        "n": 290,
-        "manufacturerKnown": 31.7
+        "n": 289,
+        "manufacturerKnown": 31.8
       }
     },
     {
       "year": 2016,
       "amazonOnly": {
-        "n": 35,
-        "manufacturerKnown": 20
+        "n": 33,
+        "manufacturerKnown": 21.2
       },
       "everythingElse": {
-        "n": 295,
-        "manufacturerKnown": 33.2
+        "n": 297,
+        "manufacturerKnown": 33
       }
     },
     {
       "year": 2017,
       "amazonOnly": {
-        "n": 26,
-        "manufacturerKnown": 30.8
+        "n": 27,
+        "manufacturerKnown": 33.3
       },
       "everythingElse": {
-        "n": 254,
-        "manufacturerKnown": 39.8
+        "n": 253,
+        "manufacturerKnown": 39.5
       }
     },
     {
       "year": 2018,
       "amazonOnly": {
-        "n": 18,
-        "manufacturerKnown": 66.7
+        "n": 19,
+        "manufacturerKnown": 68.4
       },
       "everythingElse": {
-        "n": 240,
-        "manufacturerKnown": 62.5
+        "n": 239,
+        "manufacturerKnown": 62.3
       }
     },
     {
@@ -1253,56 +1253,56 @@
     {
       "year": 2022,
       "amazonOnly": {
-        "n": 40,
-        "manufacturerKnown": 22.5
+        "n": 42,
+        "manufacturerKnown": 21.4
       },
       "everythingElse": {
-        "n": 252,
-        "manufacturerKnown": 33.3
+        "n": 250,
+        "manufacturerKnown": 33.6
       }
     },
     {
       "year": 2023,
       "amazonOnly": {
-        "n": 68,
-        "manufacturerKnown": 27.9
+        "n": 67,
+        "manufacturerKnown": 28.4
       },
       "everythingElse": {
-        "n": 256,
-        "manufacturerKnown": 38.3
+        "n": 257,
+        "manufacturerKnown": 38.1
       }
     },
     {
       "year": 2024,
       "amazonOnly": {
-        "n": 62,
-        "manufacturerKnown": 21
+        "n": 63,
+        "manufacturerKnown": 20.6
       },
       "everythingElse": {
-        "n": 243,
-        "manufacturerKnown": 32.5
+        "n": 242,
+        "manufacturerKnown": 32.6
       }
     },
     {
       "year": 2025,
       "amazonOnly": {
-        "n": 137,
-        "manufacturerKnown": 27.7
+        "n": 134,
+        "manufacturerKnown": 28.4
       },
       "everythingElse": {
-        "n": 283,
-        "manufacturerKnown": 27.2
+        "n": 286,
+        "manufacturerKnown": 26.9
       }
     },
     {
       "year": 2026,
       "amazonOnly": {
-        "n": 190,
-        "manufacturerKnown": 19.5
+        "n": 189,
+        "manufacturerKnown": 19
       },
       "everythingElse": {
-        "n": 201,
-        "manufacturerKnown": 21.4
+        "n": 202,
+        "manufacturerKnown": 21.8
       }
     }
   ],

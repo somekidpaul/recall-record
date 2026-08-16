@@ -120,7 +120,7 @@ export function RecallRow({
             aria-controls={panelId}
             className="rounded-full border border-[var(--color-rule)] px-4 py-2 text-[14px] whitespace-nowrap text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
           >
-            {open ? 'Hide product' : 'View product'}
+            {open ? 'Hide recall' : 'View recall'}
           </button>
           {row.url && (
             /* Opens in a new tab, and says so. Forcing a tab normally takes the

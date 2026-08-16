@@ -226,12 +226,12 @@ export default function Method() {
           Amazon-only recalls hide who made the thing. Tested directly, it is not true. Lumped
           together it looks convincing, but that is a trick of the calendar, because Amazon-only
           recalls bunch up in the recent years, when the record keeping is bad for everyone. Year
-          by year the gap flips back and forth, and in the two most recent years, which have the
-          biggest samples, it is{' '}
+          by year it is basically a coin flip. In the two most recent years, the ones with the most
+          recalls to judge from, Amazon-only recalls name the maker about as often as everyone else,{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
             {gap25 > 0 ? '+' : ''}{gap25} and {gap26 > 0 ? '+' : ''}{gap26} points
-          </strong>
-          . So the records are getting worse across the board, and the more interesting version
+          </strong>{' '}
+          apart. So the records are getting worse across the board, and the more interesting version
           of this story is one this record cannot support.
         </Note>
       </div>

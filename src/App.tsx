@@ -48,7 +48,7 @@ export default function App() {
               animating a number up to nothing is a flourish with no payload.
               The sentence carries it instead. */}
           In {first.year}, not one of the {first.recalls} recalls that year named Amazon as the
-          only place you could buy the product. Not one. This year it is{' '}
+          only store. Not one. This year it is{' '}
           {/* The number and the punctuation after it are one unbreakable unit.
               The count-up is an inline-block, so a following bare "." is its
               own wrap opportunity, and on a phone the period was landing alone
@@ -204,7 +204,8 @@ function Methodology() {
 
       <div className="card-row mt-10 flex flex-col gap-4 sm:flex-row">
         <Card label="Source" value="CPSC">
-          The government's own recall database, free for anyone to use.{' '}
+          The government's own database of consumer product recalls: toys, appliances and tools,
+          not cars, food or medicine, which other agencies handle. Free for anyone to use.{' '}
           <a
             className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
             href={data.source}
@@ -216,7 +217,7 @@ function Methodology() {
         <Card label="Charted" value={data.series.reduce((n, s) => n + s.recalls, 0).toLocaleString()}>
           Recalls from {first.year} to {last.year}, out of{' '}
           {data.corpusTotal.toLocaleString()} in the full database going back to 1973. Why it
-          starts where it does is the first question below.
+          starts there is the first thing the method page explains.
         </Card>
         <Card label="Checked" value="Weekly">
           Newest recall {data.newestRecallDate}. CPSC publishes in weekly batches, almost always

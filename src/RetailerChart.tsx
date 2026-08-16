@@ -305,8 +305,8 @@ export default function RetailerChart() {
         <p className="m-0 basis-full text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
           A single recall can name more than one store. <em>Amazon included</em> counts every
           recall that names Amazon at all, even alongside Walmart or Target. <em>Amazon only</em>{' '}
-          counts just the ones where no other store is named. The climb holds either way, a
-          little higher on the looser count.
+          counts just the ones where no other big-name store is named (the other lines on the chart
+          always count any mention). The climb holds either way, a little higher on the looser count.
         </p>
       </div>
 
@@ -466,12 +466,17 @@ export default function RetailerChart() {
             />
           )}
 
-          {/* One wide hit target per year, so hovering is forgiving. */}
+          {/* One wide hit target per year, so hovering is forgiving. onClick is
+              here for touch: a phone fires no mouseenter, so without it the whole
+              chart was un-inspectable on mobile, which is most of the traffic. A
+              tap pins that year's tooltip; tapping another year moves it. */}
           {data.series.map((d) => (
             <rect
               key={d.year} x={x(d.year) - PLOT_W / (years.length * 2)} y={PAD.top}
               width={PLOT_W / years.length} height={PLOT_H} fill="transparent"
+              style={{ touchAction: 'manipulation' }}
               onMouseEnter={() => setHover(d)} onMouseLeave={() => setHover(null)}
+              onClick={() => setHover(d)}
             />
           ))}
         </svg>
@@ -625,18 +630,21 @@ export default function RetailerChart() {
         <p className="m-0">
           The share of US consumer product recalls that mention each company. CPSC writes down where a
           product was sold as one sentence, so this counts <em>mentions</em>, not sales or
-          market share.
+          market share. A few of the Amazon-only recalls also name a small shop or the brand&rsquo;s
+          own website. Take those out and it is still {last.soleCleanShare}% of every recall this
+          year, {last.soleClean} of {last.recalls}.
         </p>
         <p className="mt-3 mb-0">
           {showControl ? (
             <strong className="font-semibold text-[var(--color-ink)]">
               Among recalls sold online at all, the share naming Amazon went from{' '}
-              {first.amazonOfOnline}% to {last.amazonOfOnline}%. Online shopping growing cannot
+              {ratio.amazonOfOnline}% in {ratio.year} to {last.amazonOfOnline}% in {last.year}.
+              Online shopping growing cannot
               explain a share measured inside online shopping, and Walmart, Target and Home Depot
               are flat or falling over the same stretch.
             </strong>
           ) : (
-            <strong className="font-semibold text-[var(--color-ink)]">The obvious objection is that everyone shops online now. Turn it on and see whether it holds.</strong>
+            <strong className="font-semibold text-[var(--color-ink)]">The obvious objection is that everyone shops online now. Flip the &ldquo;obvious objection&rdquo; toggle above the chart to see whether it holds.</strong>
           )}
         </p>
       </figcaption>

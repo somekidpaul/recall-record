@@ -70,10 +70,18 @@ export default function OriginSplit() {
   const first = rows[0]
   const everyYearHigher = rows.every((r) => r.gap > 0)
   const smallest = rows.reduce((a, b) => (a.gap < b.gap ? a : b))
-  const latestOrigin = data.series.find((s) => s.year === latest.year)!.origin
+  const latestSeries = data.series.find((s) => s.year === latest.year)!
+  const latestOrigin = latestSeries.origin
 
   return (
     <section className="border-t border-[var(--color-rule)] py-20">
+      {/* A mono eyebrow, so a fast scroller reads this as a SEPARATE, second
+          finding (who made the thing) rather than blurring it into the first
+          one (who sold it) as a single "Amazon is bad" impression. That blur is
+          the exact causal leap the caveat at the foot of this section fights. */}
+      <p className="m-0 mb-4 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
+        A second, separate pattern
+      </p>
       <h3 className="m-0 max-w-[26ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
         {/* "Made somewhere else" never said else than WHAT, so the heading
             asked the reader to hold a comparison it had not made yet. It names
@@ -86,8 +94,8 @@ export default function OriginSplit() {
             absorbing who SOLD these products; without a sentence connecting the
             two, a new claim about manufacturing reads as a subject change
             rather than the same record answering a second question. */}
-        The chart above is about who sold them. The record also says who made them, on{' '}
-        {latestOrigin.coverage}% of {latest.year} recalls.
+        The chart above is about who sold them. The record also says who made them, and it does
+        for {latestOrigin.soleN + latestOrigin.restN} of this year&rsquo;s {latestSeries.recalls} recalls.
       </p>
 
       {/* THE ARITHMETIC, SPELLED OUT.
@@ -100,11 +108,11 @@ export default function OriginSplit() {
           legible. This block was asking for the same trust without showing the
           same working. */}
       <p className="mt-4 mb-10 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
-        Split {latest.year}&rsquo;s{' '}
+        Split those{' '}
         <strong className="font-semibold text-[var(--color-ink)]">
           {latestOrigin.soleN + latestOrigin.restN}
         </strong>{' '}
-        recalls into two piles, the same split the chart uses, then ask each pile the same
+        into two piles, Amazon-alone against the rest, then ask each pile the same
         question: how many were made in China?
       </p>
 
@@ -128,7 +136,8 @@ export default function OriginSplit() {
       <p className="mt-8 mb-0 max-w-[68ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
         {everyYearHigher ? (
           <>
-            That gap is not a {latest.year} quirk. It runs the same direction in{' '}
+            That is a {latest.gap.toFixed(0)}-point difference, and it is not a {latest.year}{' '}
+            quirk. It runs the same direction in{' '}
             <strong className="font-semibold text-[var(--color-ink)]">
               every one of the {rows.length} years
             </strong>{' '}

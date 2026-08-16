@@ -878,9 +878,9 @@ await writeFile(join(ROOT, 'public', 'robots.txt'), `User-agent: *\nAllow: /\n\n
   const f = data.series[0]
   const l = data.series.at(-1)
   const alt =
-    `A line chart showing the share of US product recalls that name Amazon as ` +
+    `A line chart showing the share of US consumer product recalls that name Amazon as ` +
     `the only store, rising from ${f.amazonOnly}% in ${f.year} to ${l.amazonOnly}% ` +
-    `in ${l.year} while Walmart, Target and Home Depot stay flat.`
+    `in ${l.year} while Walmart, Target and Home Depot stay far lower.`
   const HTML = join(ROOT, 'index.html')
   let html = await readFile(HTML, 'utf8')
   const re = /(<meta property="og:image:alt" content=")[^"]*(")/

@@ -21,7 +21,16 @@ on:
     #
     # A run that finds nothing new commits nothing, so a quiet week costs one
     # API call and leaves no trace in the history.
-    - cron: '0 9 * * 5'
+    #
+    # Friday, Saturday, Sunday, not Friday alone. The Thursday batch is usually
+    # in the API by Friday morning, but not always: on 2026-08-14 the Friday run
+    # fetched and still saw the previous week, and the new batch only appeared
+    # over the weekend, which would have left the site a full week stale on a
+    # page that says it rebuilds the morning after. The extra two runs are a
+    # catch-up window, not a return to daily: the commit-only-if-changed guard
+    # below means the week still produces exactly one commit, on whichever day
+    # the new batch first shows up.
+    - cron: '0 9 * * 5,6,0'
   workflow_dispatch: # so it can be run by hand without waiting for the schedule
 
 permissions:

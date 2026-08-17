@@ -74,8 +74,8 @@ export default function App() {
               describing a line the reader was no longer looking at. Computed
               from the same figure the chart draws, so the two cannot drift
               apart again. */}
-          Every US consumer product recall since {first.year}, grouped by which store the notice
-          mentions. Amazon goes from nothing to {last.amazonOnly}%. Walmart rises, then drops
+          Every US consumer product recall since {first.year}, grouped by which store each recall
+          says it was sold at. Amazon goes from nothing to {last.amazonOnly}%. Walmart rises, then drops
           back. Target and Home Depot barely move in twenty-two years.
         </p>
         <RetailerChart />

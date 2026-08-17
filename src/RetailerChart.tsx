@@ -74,7 +74,13 @@ function readout(d: Row, soleOnly: boolean, showControl = false) {
   const rows = [
     {
       key: 'amazon',
-      label: soleOnly ? 'Amazon only' : 'Amazon',
+      // Just "Amazon" in both modes. It used to read "Amazon only" when the
+      // toggle was on, which put "Amazon" (inline label) and "Amazon only"
+      // (legend) on the same line at the same value, and a first-time reader
+      // took that for a chart bug, two lines that happened to share a number.
+      // The toggle right above the chart already says which mode is on, so the
+      // line is simply the Amazon line and its value follows the toggle.
+      label: 'Amazon',
       value: (soleOnly ? d.amazonOnly : d.retailers.amazon) as number,
       color: 'var(--color-signal)',
     },
@@ -304,9 +310,8 @@ export default function RetailerChart() {
             two definitions you prefer. */}
         <p className="m-0 basis-full measure text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
           A single recall can name more than one store. <em>Amazon included</em> counts every
-          recall that names Amazon at all, even alongside Walmart or Target. <em>Amazon only</em>{' '}
-          counts just the ones where no other big-name store is named (the other lines on the chart
-          always count any mention). The climb holds either way, a little higher on the looser count.
+          recall that mentions Amazon at all. <em>Amazon only</em> counts just the ones where it is
+          the only big-name store. Either way, the climb is there.
         </p>
       </div>
 

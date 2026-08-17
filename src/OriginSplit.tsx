@@ -112,8 +112,8 @@ export default function OriginSplit() {
         <strong className="font-semibold text-[var(--color-ink)]">
           {latestOrigin.soleN + latestOrigin.restN}
         </strong>{' '}
-        into two piles, Amazon-alone against the rest, then ask each pile the same
-        question: how many were made in China?
+        into two piles, the Amazon-only recalls against everything else, then ask each pile the
+        same question: how many were made in China?
       </p>
 
       {/* The comparison, as two figures rather than a chart. There are exactly
@@ -133,25 +133,30 @@ export default function OriginSplit() {
         />
       </div>
 
-      <p className="mt-8 mb-0 measure text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+      {/* THE CAVEAT MOVED UP, AND OUT OF THE FAINT GRAY. A first-time reader hit
+          the 95.7% and walked away with "Amazon makes junk", the exact causal
+          read this does not support, because the correction sat small, gray, and
+          below the scary number where nobody reached it. It now sits directly
+          under the two cards at full body weight, so the "why" arrives with the
+          number instead of long after it. */}
+      <p className="mt-8 mb-0 measure text-[19px] leading-[1.6] text-[var(--color-ink)]">
+        This is not Amazon making bad products. The likelier reason is duller: a marketplace is
+        full of small sellers importing straight from overseas factories, far more than a store
+        shelf is, so the two piles were never buying from the same suppliers. It is a pattern in
+        who sells there, not proof of anything Amazon does.
+      </p>
+
+      <p className="mt-6 mb-0 measure text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
         {everyYearHigher ? (
           <>
             That is a {latest.gap.toFixed(0)}-point difference, and it is not a {latest.year}{' '}
-            quirk. It runs the same direction in{' '}
+            quirk. The Amazon-only pile has come out more Chinese-made{' '}
+            <strong className="font-semibold text-[var(--color-ink)]">every year</strong> there
+            are enough recalls to compare, back to {first.year}. The closest it ever got was{' '}
             <strong className="font-semibold text-[var(--color-ink)]">
-              every one of the {rows.length} years
-            </strong>{' '}
-            {/* NOT "from 2013 onward". The set starts at 2013 but skips 2014,
-                where the Amazon-alone side holds 12 records and falls under the
-                threshold, so "onward" would promise a continuity the strip below
-                visibly does not have. The years shown are the years that
-                qualify, and the sentence now says exactly that. */}
-            back to {first.year} that have at least {MIN_PER_SIDE} recalls on both sides. Its
-            narrowest was {smallest.year}, still{' '}
-            <strong className="font-semibold text-[var(--color-ink)]">
-              {smallest.gap.toFixed(1)} points
-            </strong>{' '}
-            apart.
+              {smallest.gap.toFixed(0)} points
+            </strong>
+            , in {smallest.year}.
           </>
         ) : (
           <>
@@ -205,19 +210,18 @@ export default function OriginSplit() {
           })}
         </ul>
         <p className="m-0 mt-4 measure text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-          Every number is positive, so in each year shown the Amazon-alone group was more
-          Chinese-made than the rest. The lowest, {smallest.year}, is marked.
+          Every number is positive, so in each year shown the Amazon-only group was more
+          Chinese-made than the rest. Only years with at least {MIN_PER_SIDE} recalls in each pile
+          are shown, so no figure rides on a handful of records. The lowest, {smallest.year}, is
+          marked.
         </p>
       </div>
 
       <p className="m-0 mt-10 measure text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        This is a correlation, and it is worth being clear about what it is not. Nothing here
-        shows that Amazon causes unsafe manufacturing. The likeliest reason is duller: a
-        marketplace like Amazon is full of small sellers shipping straight from overseas
-        factories, far more than a store shelf is, so the two groups were never stocking from
-        the same suppliers to begin with. This counts where recalled products were made. It
-        does not count where products in general are made, which would need a source this
-        record does not contain.
+        One more limit, so the number is not read for more than it is. This counts where recalled
+        products were made. It does not count where products in general are made, which would need
+        a source this record does not contain. So it is a fact about the recalled pile, not a
+        claim about everything Amazon sells.
       </p>
     </section>
   )

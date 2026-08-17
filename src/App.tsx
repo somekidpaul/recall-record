@@ -1,4 +1,3 @@
-import { useId, useState } from 'react'
 import RetailerChart from './RetailerChart'
 import Nav from './Nav'
 import CountUp from './CountUp'
@@ -76,7 +75,7 @@ export default function App() {
               apart again. */}
           Every US consumer product recall since {first.year}, grouped by which store each recall
           says it was sold at. Amazon goes from nothing to {last.amazonOnly}%. Walmart rises, then drops
-          back. Target and Home Depot barely move in twenty-two years.
+          back. Target and Home Depot barely move in the {last.year - first.year} years since.
         </p>
         <RetailerChart />
       </section>

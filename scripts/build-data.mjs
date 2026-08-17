@@ -154,6 +154,17 @@ const OTHER_RETAILERS = [
   'williams-sonoma', 'staples', 'office depot', 'officemax', 'autozone',
   'advance auto', "o'reilly auto", 'pep boys', 'gnc', 'vitamin shoppe',
   'foot locker', 'dsw', 'qvc',
+  /*
+   * The squashed storefront spellings, listed separately because a word
+   * boundary cannot find them. "bedbathandbeyond.com" contains "bed bath" only
+   * as "bedbath", and the character after it is "a", so \bbed\s*bath\b has no
+   * boundary to close on and the recall counted as Amazon-only. Dropping the
+   * trailing boundary would fix these and break far more, so the compound forms
+   * are named outright. Found by audit, five recalls corpus-wide, none in 2025
+   * or 2026, so no headline figure moves.
+   */
+  'bedbathandbeyond', 'dickssportinggoods', 'nordstromrack', 'williamssonoma',
+  'homedepot', 'bestbuy', 'samsclub', 'traderjoes', 'wholefoods', 'acehardware',
 ]
 
 /**
@@ -184,11 +195,19 @@ const OTHER_RETAILERS = [
  * length control measures, since that reads the untouched blob.
  */
 const HYPHENS = /[-\u2010-\u2015]/g
+/*
+ * The stem is split on hyphens as well as spaces, and that is a fix rather than
+ * a tidy-up. The haystack has its hyphens stripped, so "williams-sonoma.com"
+ * becomes "williamssonoma.com", while the stem kept its hyphen and compiled to
+ * \bwilliams-sonoma\b, which can never match a string with no hyphen in it.
+ * Verified before changing: the stems "williams-sonoma" and "hy-vee" could not
+ * fire on any record in the corpus. Splitting on both makes the two sides agree.
+ */
 const namesRetailer = (blob, stem) =>
   new RegExp(
     '\\b' +
       stem
-        .split(/\s+/)
+        .split(/[\s-]+/)
         .map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/'/g, "'?"))
         .join('\\s*') +
       "(?:'?s)?\\b",
@@ -783,7 +802,7 @@ const searchIndex = raw
      * Someone who finds their own product in this list needs to know what to do
      * about it, and until now the page told them the hazard and nothing else.
      * The full instruction lives in `Remedies` and is genuinely useful, but it
-     * runs a 300-character median across 9,944 records, which is roughly 3MB
+     * runs a 300-character median across the whole corpus, which is megabytes
      * before compression. That is four times the entire current index to serve
      * a field most searches never read.
      *
@@ -822,7 +841,7 @@ await writeFile(
  * to about 93KB because the paths share a long common prefix.
  *
  * An empty string means CPSC published no photograph for that recall, which is
- * true of 1,720 of the 9,944.
+ * true of roughly a sixth of the corpus.
  */
 const IMAGE_PREFIX = 'https://www.cpsc.gov/'
 await writeFile(
@@ -934,7 +953,90 @@ await writeFile(join(ROOT, 'public', 'robots.txt'), `User-agent: *\nAllow: /\n\n
     )
   }
 
+  /*
+   * THE SIX STRINGS A READER ACTUALLY SEES FIRST, and they were the last
+   * hand-typed numbers on the site.
+   *
+   * The page headline is derived (`amazonOnly >= 50 ? 'Half' : 'Nearly half'`)
+   * and so is the share card. The browser tab, the Google result and every
+   * shared-link preview were not: all six said "nearly half" permanently.
+   *
+   * That is not hypothetical drift. Measured on this very feed, the 2026
+   * cumulative share ran 50.0%, 54.5%, 52.5% and 52.3% from January through
+   * April before settling to 48.3%. Any week it sits above fifty, the page and
+   * the social image read "Half" while the tab and every link preview still
+   * read "Nearly half", and the footer promises the numbers "cannot drift out
+   * of sync". Generated here, that promise is true.
+   *
+   * "a decade ago" also went, because it was loose: a decade before 2026 is
+   * 2016, when the figure was one in ten. The number quoted is the ratio-year
+   * baseline, so the sentence now names that year outright.
+   */
+  const word = (n) =>
+    [
+      'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+      'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
+      'nineteen', 'twenty', 'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four',
+      'twenty-five',
+    ][n] ?? String(n)
+
+  const ratioRow = data.series.find((s) => s.year === data.ratioFirstYear)
+  const Half = l.amazonOnly >= 50 ? 'Half' : 'Nearly half'
+  const half = Half.toLowerCase()
+  const oneInTwo = l.amazonOnly >= 50 ? 'one in two' : 'nearly one in two'
+  const baseline = `one in ${word(Math.round(100 / ratioRow.amazonOnly))}`
+
+  const META = [
+    [
+      /(<title>)[^<]*(<\/title>)/,
+      `The Recall Record: ${half} of US consumer product recalls now name only Amazon`,
+    ],
+    [
+      /(<meta\s+name="description"\s+content=")[^"]*(")/,
+      `${Half} of every US consumer product recall in ${l.year} names Amazon as the only ` +
+        `store, up from ${baseline} in ${ratioRow.year}. Rebuilt weekly from free government ` +
+        `data, with the method and the gaps shown in full.`,
+    ],
+    [
+      /(<meta property="og:title" content=")[^"]*(")/,
+      `${Half} of US consumer product recalls now name only Amazon`,
+    ],
+    [
+      /(<meta\s+property="og:description"\s+content=")[^"]*(")/,
+      `In ${ratioRow.year} it was ${baseline}. This year it is ${oneInTwo}. The obvious ` +
+        `objection is that everyone shops online now, and the data does not support it.`,
+    ],
+    [
+      /(<meta name="twitter:title" content=")[^"]*(")/,
+      `${Half} of US consumer product recalls now name only Amazon`,
+    ],
+    [
+      /(<meta\s+name="twitter:description"\s+content=")[^"]*(")/,
+      `In ${ratioRow.year} it was ${baseline}. This year it is ${oneInTwo}. Built from free ` +
+        `government data.`,
+    ],
+  ]
+
+  for (const [re, value] of META) {
+    if (!re.test(html)) {
+      console.error(`\n  FAIL: meta pattern not found in index.html: ${re}`)
+      process.exit(1)
+    }
+    html = html.replace(re, `$1${value}$2`)
+  }
+
   await writeFile(HTML, html)
+
+  /* Read every generated string back out and confirm it landed. A silent
+     no-op here would leave a stale claim in the one place nobody looks. */
+  const written = await readFile(HTML, 'utf8')
+  for (const [re, value] of META) {
+    const got = (written.match(re) ?? [])[0] ?? ''
+    if (!got.includes(value)) {
+      console.error(`\n  FAIL: meta did not round-trip: expected "${value.slice(0, 60)}..."`)
+      process.exit(1)
+    }
+  }
 }
 
 const latest = data.series.at(-1)

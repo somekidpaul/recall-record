@@ -140,7 +140,7 @@ export default function Method() {
             answer was always about. */}
         <Note title={`Why a partial ${p.year} still compares fairly`}>
           The data runs through {data.newestRecallDate},
-          about {p.monthsElapsed} months in. That matters less than it sounds, because every
+          {p.monthsElapsed === 1 ? 'about a month in' : `about ${p.monthsElapsed} months in`}. That matters less than it sounds, because every
           number here is a percentage and not a total, so a shorter year is not a smaller
           one. The months were also checked one by one for a seasonal pattern that could tilt a partial
           year, and there is not one. The chart draws the last stretch dashed so you can see
@@ -227,12 +227,18 @@ export default function Method() {
           together it looks convincing, but that is a trick of the calendar, because Amazon-only
           recalls bunch up in the recent years, when the record keeping is bad for everyone. Year
           by year it is basically a coin flip. In the two most recent years, the ones with the most
-          recalls to judge from, Amazon-only recalls name the maker about as often as everyone else,{' '}
+          recalls to judge from, Amazon-only recalls name the maker about as often as everyone
+          else: they were{' '}
           <strong className="font-semibold text-[var(--color-ink)]">
-            {gap25 > 0 ? '+' : ''}{gap25} and {gap26 > 0 ? '+' : ''}{gap26} points
+            {Math.abs(gap25)} points {gap25 > 0 ? 'worse' : 'better'}
           </strong>{' '}
-          apart. So the records are getting worse across the board, and the more interesting version
-          of this story is one this record cannot support.
+          in {t25.year} and{' '}
+          <strong className="font-semibold text-[var(--color-ink)]">
+            {Math.abs(gap26)} points {gap26 > 0 ? 'worse' : 'better'}
+          </strong>{' '}
+          in {t26.year}, which is noise rather than a pattern. So the records are getting worse
+          across the board, and the more interesting version of this story is one this record
+          cannot support.
         </Note>
       </div>
       </section>

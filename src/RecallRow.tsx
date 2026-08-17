@@ -233,7 +233,7 @@ export function RecallRow({
                 Two shapes, because the two lists carry different amounts. The
                 essay and /check lists ship the full instruction, which is the
                 real answer. A search result carries only the one-word tag,
-                since the prose across 9,944 records is 3MB, so there it names
+                since the prose across the whole corpus is megabytes, so there it names
                 the remedy and sends the reader to the notice for the detail.
               */}
               {/*

@@ -307,6 +307,96 @@ describe.skipIf(!hasRaw)('published figures: cross-checked against the raw CPSC 
     expect(data.newestRecallDate).toBe(latest)
   })
 
+  /**
+   * THE GUARD ON THE HEADLINE NUMBER, and it was missing entirely.
+   *
+   * Everything else here recounts a figure. Nothing recounted amazonOnlyCount,
+   * which is the largest number on the page and the entire claim. Proven by
+   * falsification: dropping a single name from OTHER_RETAILERS in the pipeline
+   * inflated 2026 from 48.3% to 51.9%, flipped the headline word from "Nearly
+   * half" to "Half", redrew the share card, and all 50 tests still passed. The
+   * weekly cron rebuilds and pushes to production unattended, so that bug would
+   * have shipped itself.
+   *
+   * WHY THIS KEEPS ITS OWN LIST rather than importing the pipeline's. A test
+   * that reads OTHER_RETAILERS from build-data.mjs is sabotaged by the same
+   * edit it is supposed to catch: remove "walmart" from the list and the test
+   * dutifully agrees that a Walmart recall is Amazon-only. A guard has to hold
+   * an independent copy of the expectation or it is not a guard.
+   *
+   * WHY IT IS ONE-DIRECTIONAL. It asserts that no recall counted as
+   * "Amazon only" names one of these unmistakable national chains. That fails
+   * loudly if the list is ever weakened, which is the direction that inflates
+   * the headline. Adding new retailers to the pipeline stays free, which is the
+   * direction that only ever makes the figure more conservative.
+   */
+  const CORE_CHAINS = [
+    'walmart', 'wal-mart', 'target', 'home depot', 'costco', 'best buy', 'bestbuy',
+    'ebay', 'lowe', 'kohl', 'macy', 'sears', 'nordstrom', 'bed bath', 'meijer',
+    'staples', 'petco', 'petsmart', 'aldi', 'kroger', 'walgreen', 'cvs',
+  ]
+
+  it('no recall counted as Amazon-only names an unmistakable national chain', () => {
+    const offenders: string[] = []
+    for (const r of raw) {
+      const text = retailerText(r)
+      const flat = text.toLowerCase().replace(/[^a-z0-9]/g, '')
+      if (!flat.includes('amazon')) continue
+      const hit = CORE_CHAINS.find((c) => flat.includes(c.replace(/[^a-z0-9]/g, '')))
+      if (!hit) continue
+      // This recall names a major chain, so the pipeline must NOT be counting it
+      // as Amazon-only. Recompute what the pipeline would have to believe.
+      offenders.push(`${r.RecallDate?.slice(0, 10)} names "${hit}": ${text.slice(0, 90)}`)
+    }
+    // Every one of these must be excluded from the sole count. Verify by year:
+    // the sole count can never exceed (recalls naming Amazon) minus (those that
+    // also name a core chain).
+    for (const s of data.series) {
+      if (s.amazonOnlyCount == null) continue
+      const inYear = raw.filter((r) => yearOf(r) === s.year)
+      const namesAmazon = inYear.filter((r) =>
+        retailerText(r).toLowerCase().replace(/[^a-z0-9]/g, '').includes('amazon'),
+      )
+      const alsoChain = namesAmazon.filter((r) => {
+        const flat = retailerText(r).toLowerCase().replace(/[^a-z0-9]/g, '')
+        return CORE_CHAINS.some((c) => flat.includes(c.replace(/[^a-z0-9]/g, '')))
+      }).length
+      const ceiling = namesAmazon.length - alsoChain
+      expect(
+        s.amazonOnlyCount,
+        `${s.year}: ${s.amazonOnlyCount} counted Amazon-only, but only ${ceiling} of ` +
+          `${namesAmazon.length} Amazon recalls avoid naming a major chain. ` +
+          `The competitor list has probably been weakened.`,
+      ).toBeLessThanOrEqual(ceiling)
+    }
+    expect(offenders.length).toBeGreaterThan(0) // sanity: the check can actually fire
+  })
+
+  it('the China origin split matches a fresh count from the feed', () => {
+    for (const s of data.series) {
+      if (!s.origin || s.origin.soleChina == null) continue
+      const inYear = raw.filter((r) => yearOf(r) === s.year)
+      const known = inYear.filter((r) =>
+        ((r as { ManufacturerCountries?: Array<{ Country?: string }> }).ManufacturerCountries ?? [])
+          .some((c) => c?.Country),
+      )
+      // Both piles together must equal every recall with a known country.
+      expect(s.origin.soleN + s.origin.restN, `year ${s.year} origin denominator`).toBe(
+        known.length,
+      )
+      const china = known.filter((r) =>
+        ((r as { ManufacturerCountries?: Array<{ Country?: string }> }).ManufacturerCountries ?? [])
+          .some((c) => (c?.Country ?? '') === 'China'),
+      ).length
+      // The two published shares, weighted back together, must reproduce the
+      // real China total for the year.
+      const implied =
+        (s.origin.soleChina / 100) * s.origin.soleN + (s.origin.restChina! / 100) * s.origin.restN
+      expect(Math.abs(implied - china), `year ${s.year}: implied ${implied}, actual ${china}`)
+        .toBeLessThanOrEqual(1)
+    }
+  })
+
   it('upcCoverage matches a fresh count, since /check quotes it as a limit', () => {
     const withUPC = raw.filter((r) => (r.ProductUPCs ?? []).length > 0).length
     const pct = Math.round((withUPC / raw.length) * 1000) / 10

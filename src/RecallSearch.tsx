@@ -125,7 +125,7 @@ export default function RecallSearch({
   /* The image array ships parallel to the index and in the same order, so a hit
      reaches its photograph by position. The hit carries that position, rather
      than the row being searched for by identity, which was a linear scan over
-     9,944 records for every one of up to 40 rendered rows. */
+     the whole corpus for every one of up to 40 rendered rows. */
   const toView = useCallback(
     (hit: Hit): RowView => ({
       key: hit.row.u || String(hit.i),

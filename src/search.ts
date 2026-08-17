@@ -85,7 +85,7 @@ export const titleFromUrl = (u: string) => u.replace(/^\d{4}\//, '').replace(/-+
 
 /**
  * Prepared haystacks, computed once per index load rather than per keystroke.
- * 9,944 records is small enough that plain substring matching stays well under
+ * the corpus is small enough that plain substring matching stays well under
  * a frame, so there is no inverted index to keep in sync and nothing to get
  * subtly wrong about stemming.
  */

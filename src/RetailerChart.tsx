@@ -274,7 +274,7 @@ export default function RetailerChart() {
                 must not quietly make the stronger claim the page refuses to. */}
             {[
               { sole: false, label: 'Amazon included', full: 'Count every recall that names Amazon at all, even if it names other stores too' },
-              { sole: true, label: 'Amazon only', full: 'Count only the recalls where Amazon is the one and only store named' },
+              { sole: true, label: 'Amazon only', full: 'Count only the recalls where Amazon is the one and only big-name store named' },
             ].map((o) => (
               <button
                 key={o.label}
@@ -544,7 +544,7 @@ export default function RetailerChart() {
             {soleOnly && (
               <p className="m-0 mt-3.5 border-t border-[var(--color-rule)] pt-3 text-[14px] leading-snug text-[var(--color-ink-faint)]">
                 <span className="tabular-nums">{hover.amazonOnlyCount}</span> of{' '}
-                <span className="tabular-nums">{hover.recalls}</span> name Amazon and no one else
+                <span className="tabular-nums">{hover.recalls}</span> name Amazon and no other big-name store
               </p>
             )}
           </div>

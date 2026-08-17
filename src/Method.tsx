@@ -53,7 +53,7 @@ export default function Method() {
         <h1 className="m-0 max-w-[22ch] font-[family-name:var(--font-display)] text-[clamp(2rem,5.5vw,3.4rem)] font-normal leading-[1.18] tracking-[-0.02em] sm:leading-[1.12]">
           How this was counted, and where it falls short.
         </h1>
-        <p className="mt-6 mb-0 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        <p className="mt-6 mb-0 measure text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           Every figure on this site is computed from the federal record at build time. This page
           is the account of how, including the ways it could have been wrong and the one claim the
           evidence would not support.
@@ -245,7 +245,7 @@ export default function Method() {
             passage explaining why this window is shorter than the chart's,
             which was the page narrating its own construction at the same
             volume as its findings. The reason survives as one clause. */}
-        <p className="mt-5 mb-12 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        <p className="mt-5 mb-12 measure text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           How often CPSC fills each field in, across the {cov.total.toLocaleString()} recalls
           since {data.coverageFirstYear}. A shorter window than the chart, because some of these
           fields did not exist in {first.year}. The weak ones sit beside the strong ones, since a
@@ -341,26 +341,16 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
 
       <div className="disclosure" data-open={open} id={id} role="region" aria-hidden={!open}>
         <div>
-          {/* FULL WIDTH, on purpose, and it is a trade worth naming.
-
-              The 72ch cap resolved to 771px inside a 1000px column, so every
-              answer stopped 229px short of the question sitting directly above
-              it. Two blocks in the same row, one reaching the edge and one not,
-              reads as a layout fault rather than as a measure.
-
-              The cost is line length, and it is larger than first estimated.
-              Measured on the live page at a 1060px viewport: 980px of text at
-              an average glyph width of 7.64px is about 128 characters a line,
-              against a usual range of 45 to 75. Worth noting the old cap was
-              not comfortable either. `ch` measures the "0" glyph, 10.28px here,
-              while real prose averages 7.64px, so 72ch was already ~101
-              characters rather than the 72 it looks like.
-
-              Kept anyway, decided deliberately rather than by default. These
-              are five-to-seven-line answers opened one at a time, not running
-              text, and the alternative was a column that stopped 229px short of
-              its own question and read as a layout fault. */}
-          <p className="mt-0 mb-6 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+          {/* Held to the same reading measure as every other paragraph on the
+              site. This used to run the full column, on the argument that an
+              answer capped short of its own full-width question read as a layout
+              fault. The cost was a ~128-character line, well past comfortable,
+              and it made these answers the widest prose in the piece while
+              everything else sat in a tidy column. The measure wins: consistency
+              across the whole piece matters more than each answer reaching its
+              question's right edge, and the question row is a control, not prose,
+              so it is allowed to span wider. */}
+          <p className="mt-0 mb-6 measure text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
             {children}
           </p>
         </div>

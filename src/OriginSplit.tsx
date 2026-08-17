@@ -88,7 +88,7 @@ export default function OriginSplit() {
             the finding now. 95.6% is "almost all" without rounding up. */}
         The ones only Amazon sold are almost all made in China.
       </h3>
-      <p className="mt-5 mb-10 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+      <p className="mt-5 mb-10 measure text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
         {/* A BRIDGE, because this is a second finding and it used to land with
             no handoff from the first. A reader arriving here has just finished
             absorbing who SOLD these products; without a sentence connecting the
@@ -107,7 +107,7 @@ export default function OriginSplit() {
           "49.6%, or 185 of 373", and the fraction is what makes the percentage
           legible. This block was asking for the same trust without showing the
           same working. */}
-      <p className="mt-4 mb-10 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+      <p className="mt-4 mb-10 measure text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
         Split those{' '}
         <strong className="font-semibold text-[var(--color-ink)]">
           {latestOrigin.soleN + latestOrigin.restN}
@@ -133,7 +133,7 @@ export default function OriginSplit() {
         />
       </div>
 
-      <p className="mt-8 mb-0 max-w-[68ch] text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+      <p className="mt-8 mb-0 measure text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
         {everyYearHigher ? (
           <>
             That is a {latest.gap.toFixed(0)}-point difference, and it is not a {latest.year}{' '}
@@ -204,13 +204,13 @@ export default function OriginSplit() {
             )
           })}
         </ul>
-        <p className="m-0 mt-4 text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+        <p className="m-0 mt-4 measure text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
           Every number is positive, so in each year shown the Amazon-alone group was more
           Chinese-made than the rest. The lowest, {smallest.year}, is marked.
         </p>
       </div>
 
-      <p className="m-0 mt-10 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
+      <p className="m-0 mt-10 measure text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
         This is a correlation, and it is worth being clear about what it is not. Nothing here
         shows that Amazon causes unsafe manufacturing. The likeliest reason is duller: a
         marketplace like Amazon is full of small sellers shipping straight from overseas

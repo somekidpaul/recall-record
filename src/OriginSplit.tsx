@@ -122,7 +122,7 @@ export default function OriginSplit() {
       <div className="grid gap-4 sm:grid-cols-2">
         <Figure
           value={latest.soleChina}
-          pile="Recalls naming Amazon and no other store"
+          pile="Recalls naming Amazon and no other big-name store"
           n={latestOrigin.soleN}
           emphasis
         />

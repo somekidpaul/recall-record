@@ -565,10 +565,10 @@
       "year": 2019,
       "origin": {
         "coverage": 99.6,
-        "soleN": 21,
-        "restN": 219,
-        "soleChina": 66.7,
-        "restChina": 47.5
+        "soleN": 20,
+        "restN": 220,
+        "soleChina": 65,
+        "restChina": 47.7
       },
       "recalls": 241,
       "retailerFieldPopulated": 99.6,
@@ -579,12 +579,12 @@
         "homeDepot": 2.5,
         "ebay": 4.6
       },
-      "amazonOnly": 8.7,
-      "amazonOnlyCount": 21,
-      "soleAlsoDirect": 13,
+      "amazonOnly": 8.3,
+      "amazonOnlyCount": 20,
+      "soleAlsoDirect": 12,
       "soleAlsoStore": 13,
       "soleClean": 4,
-      "soleCleanPct": 19,
+      "soleCleanPct": 20,
       "soleCleanShare": 1.7,
       "online": {
         "strict": 49.8,
@@ -673,10 +673,10 @@
       "year": 2022,
       "origin": {
         "coverage": 100,
-        "soleN": 42,
-        "restN": 250,
-        "soleChina": 76.2,
-        "restChina": 46.4
+        "soleN": 41,
+        "restN": 251,
+        "soleChina": 75.6,
+        "restChina": 46.6
       },
       "recalls": 292,
       "retailerFieldPopulated": 100,
@@ -687,12 +687,12 @@
         "homeDepot": 4.8,
         "ebay": 2.7
       },
-      "amazonOnly": 14.4,
-      "amazonOnlyCount": 42,
-      "soleAlsoDirect": 16,
+      "amazonOnly": 14,
+      "amazonOnlyCount": 41,
+      "soleAlsoDirect": 15,
       "soleAlsoStore": 11,
       "soleClean": 24,
-      "soleCleanPct": 57.1,
+      "soleCleanPct": 58.5,
       "soleCleanShare": 8.2,
       "online": {
         "strict": 65.4,
@@ -709,10 +709,10 @@
       "year": 2023,
       "origin": {
         "coverage": 99.1,
-        "soleN": 65,
-        "restN": 256,
-        "soleChina": 80,
-        "restChina": 47.3
+        "soleN": 64,
+        "restN": 257,
+        "soleChina": 79.7,
+        "restChina": 47.5
       },
       "recalls": 324,
       "retailerFieldPopulated": 99.7,
@@ -723,12 +723,12 @@
         "homeDepot": 7.4,
         "ebay": 3.1
       },
-      "amazonOnly": 20.7,
-      "amazonOnlyCount": 67,
-      "soleAlsoDirect": 18,
+      "amazonOnly": 20.4,
+      "amazonOnlyCount": 66,
+      "soleAlsoDirect": 17,
       "soleAlsoStore": 10,
       "soleClean": 44,
-      "soleCleanPct": 65.7,
+      "soleCleanPct": 66.7,
       "soleCleanShare": 13.6,
       "online": {
         "strict": 63.3,
@@ -745,10 +745,10 @@
       "year": 2024,
       "origin": {
         "coverage": 99.7,
-        "soleN": 63,
-        "restN": 241,
-        "soleChina": 85.7,
-        "restChina": 54.4
+        "soleN": 61,
+        "restN": 243,
+        "soleChina": 88.5,
+        "restChina": 53.9
       },
       "recalls": 305,
       "retailerFieldPopulated": 100,
@@ -759,12 +759,12 @@
         "homeDepot": 4.6,
         "ebay": 3.6
       },
-      "amazonOnly": 20.7,
-      "amazonOnlyCount": 63,
-      "soleAlsoDirect": 19,
+      "amazonOnly": 20,
+      "amazonOnlyCount": 61,
+      "soleAlsoDirect": 17,
       "soleAlsoStore": 7,
       "soleClean": 44,
-      "soleCleanPct": 69.8,
+      "soleCleanPct": 72.1,
       "soleCleanShare": 14.4,
       "online": {
         "strict": 61.3,
@@ -1220,12 +1220,12 @@
     {
       "year": 2019,
       "amazonOnly": {
-        "n": 21,
-        "manufacturerKnown": 71.4
+        "n": 20,
+        "manufacturerKnown": 70
       },
       "everythingElse": {
-        "n": 220,
-        "manufacturerKnown": 47.7
+        "n": 221,
+        "manufacturerKnown": 48
       }
     },
     {
@@ -1253,34 +1253,34 @@
     {
       "year": 2022,
       "amazonOnly": {
-        "n": 42,
-        "manufacturerKnown": 21.4
+        "n": 41,
+        "manufacturerKnown": 22
       },
       "everythingElse": {
-        "n": 250,
-        "manufacturerKnown": 33.6
+        "n": 251,
+        "manufacturerKnown": 33.5
       }
     },
     {
       "year": 2023,
       "amazonOnly": {
-        "n": 67,
-        "manufacturerKnown": 28.4
+        "n": 66,
+        "manufacturerKnown": 28.8
       },
       "everythingElse": {
-        "n": 257,
-        "manufacturerKnown": 38.1
+        "n": 258,
+        "manufacturerKnown": 38
       }
     },
     {
       "year": 2024,
       "amazonOnly": {
-        "n": 63,
-        "manufacturerKnown": 20.6
+        "n": 61,
+        "manufacturerKnown": 19.7
       },
       "everythingElse": {
-        "n": 242,
-        "manufacturerKnown": 32.6
+        "n": 244,
+        "manufacturerKnown": 32.8
       }
     },
     {

@@ -64,7 +64,7 @@ export default function Check() {
         <h1 className="m-0 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(2.2rem,6vw,4rem)] font-normal leading-[1.16] tracking-[-0.02em] sm:leading-[1.10]">
           Check a product.
         </h1>
-        <p className="mt-6 mb-0 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        <p className="mt-6 mb-0 measure text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           Search {data.corpusTotal.toLocaleString()} federal recall notices going back to 1973.
           This looks at the product name, the notice title and the hazard, because most recalls
           never put the hazard in the product name.

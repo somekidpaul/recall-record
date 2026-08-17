@@ -43,7 +43,7 @@ export default function App() {
           {headlineQuantity} of every consumer product recall in America is something you could
           only buy on Amazon.
         </h1>
-        <p className="arrive mt-8 mb-0 max-w-[46ch] text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
+        <p className="arrive mt-8 mb-0 measure text-[21px] leading-[1.55] text-[var(--color-ink-soft)]">
           {/* No count-up on the opening figure any more. It is zero, and
               animating a number up to nothing is a flourish with no payload.
               The sentence carries it instead. */}
@@ -67,7 +67,7 @@ export default function App() {
         <h3 className="m-0 max-w-[24ch] font-[family-name:var(--font-display)] text-[clamp(1.7rem,3.6vw,2.6rem)] font-normal leading-[1.22] tracking-[-0.015em] sm:leading-[1.14]">
           Amazon is climbing. Everyone else is flat.
         </h3>
-        <p className="arrive mt-5 mb-12 max-w-[62ch] text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
+        <p className="arrive mt-5 mb-12 measure text-[19px] leading-[1.6] text-[var(--color-ink-soft)]">
           {/* DERIVED, because this sentence has already been wrong once. It read
               "to sixty percent", which described the measure the chart used to
               open on. Flipping the default to match the headline left the prose
@@ -157,7 +157,7 @@ export default function App() {
           </div>
         </div>
 
-        <p className="m-0 mt-10 text-[15px] text-[var(--color-ink-faint)]">
+        <p className="m-0 mt-10 measure text-[15px] text-[var(--color-ink-faint)]">
           Free government data. No tracking, no cookies, no accounts. Every number here is
           calculated straight from the source above when the page is built, so it cannot drift
           out of sync.

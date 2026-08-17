@@ -302,7 +302,7 @@ export default function RetailerChart() {
             The second sentence gives it a purpose, and the purpose is the point
             of the control existing: the finding does not depend on which of the
             two definitions you prefer. */}
-        <p className="m-0 basis-full text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
+        <p className="m-0 basis-full measure text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
           A single recall can name more than one store. <em>Amazon included</em> counts every
           recall that names Amazon at all, even alongside Walmart or Target. <em>Amazon only</em>{' '}
           counts just the ones where no other big-name store is named (the other lines on the chart
@@ -626,7 +626,7 @@ export default function RetailerChart() {
       </table>
       </div>
 
-      <figcaption className="mt-8 max-w-[62ch] text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
+      <figcaption className="mt-8 measure text-[17px] leading-[1.6] text-[var(--color-ink-soft)]">
         <p className="m-0">
           The share of US consumer product recalls that mention each company. CPSC writes down where a
           product was sold as one sentence, so this counts <em>mentions</em>, not sales or

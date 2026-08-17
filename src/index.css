@@ -204,6 +204,25 @@ body {
 }
 
 /*
+  ONE reading measure for all running body prose.
+
+  This replaces a scatter of max-w-[62ch], [68ch] and [72ch] plus a couple of
+  uncapped paragraphs that ran the full column. The `ch` unit was the problem:
+  it scales with font size, so a "62ch" caption at 15px and a "62ch" paragraph
+  at 19px resolved to different pixel widths and their right edges never lined
+  up. A fixed rem makes every paragraph stop at the same place, which is the
+  whole point of a measure.
+
+  46rem is ~736px, which is where the 19px body paragraphs already sat (62ch at
+  19px), so the main prose barely moves and only the strays are pulled into
+  line. Headings keep their own tighter caps: they are display type, not prose,
+  and want a shorter line.
+*/
+.measure {
+  max-width: 46rem;
+}
+
+/*
   Optical refinement. Baseline in current browsers, degrades silently.
 
   These are the LONGHANDS, deliberately. `text-wrap: pretty` is a shorthand

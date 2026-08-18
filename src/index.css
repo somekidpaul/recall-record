@@ -242,6 +242,27 @@ p { text-wrap-style: pretty; }
 }
 
 /*
+  POINTER FOCUS DRAWS NOTHING. KEYBOARD FOCUS STILL DRAWS THE RING.
+
+  The chart carries tabindex="0" and role="application" so arrow keys can walk
+  the years, which is the right call for a chart nobody should need a mouse to
+  read. The side effect is that CLICKING it also focuses it, and with only a
+  :focus-visible rule defined there was nothing suppressing the browser's own
+  default ring, so Chrome painted a blue box around the artwork on every click.
+  Caught by eye, not by any automated check, because it only exists after a real
+  pointer interaction.
+
+  This is the standard split rather than `outline: none`, which would have
+  deleted the indicator for keyboard users too. :focus-visible above still fires
+  for tab and arrow-key focus, so the orange ring is intact where it is load
+  bearing. Only the pointer case goes quiet, which is what a mouse user expects:
+  they just clicked the thing, they know where they are.
+*/
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/*
   TWO TIERS OF MOTION, and the distinction is the whole policy.
 
   Reduce Motion exists to stop motion that ambushes people: large travel,

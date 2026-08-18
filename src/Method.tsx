@@ -347,16 +347,22 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
 
       <div className="disclosure" data-open={open} id={id} role="region" aria-hidden={!open}>
         <div>
-          {/* Held to the same reading measure as every other paragraph on the
-              site. This used to run the full column, on the argument that an
-              answer capped short of its own full-width question read as a layout
-              fault. The cost was a ~128-character line, well past comfortable,
-              and it made these answers the widest prose in the piece while
-              everything else sat in a tidy column. The measure wins: consistency
-              across the whole piece matters more than each answer reaching its
-              question's right edge, and the question row is a control, not prose,
-              so it is allowed to span wider. */}
-          <p className="mt-0 mb-6 measure text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
+          {/* FULL WIDTH, deliberately, and the one place on the site that skips
+              the shared reading measure.
+
+              Every answer opens directly beneath its own question, and the
+              question row spans the whole column. Capping the answer at 46rem
+              left it stopping ~250px short of the row it belongs to, which reads
+              as a layout fault rather than as a measure: two stacked blocks, one
+              reaching the edge and one not.
+
+              The cost is real and worth naming: these lines run long, past what
+              is comfortable for continuous reading. It is accepted here because
+              these are five to seven line answers opened one at a time by a
+              reader who went looking for them, not running text somebody reads
+              top to bottom. Judged on the rendered page rather than in the
+              abstract. */}
+          <p className="mt-0 mb-6 text-[17px] leading-[1.65] text-[var(--color-ink-soft)]">
             {children}
           </p>
         </div>

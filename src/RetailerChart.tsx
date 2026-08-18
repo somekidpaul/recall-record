@@ -308,7 +308,7 @@ export default function RetailerChart() {
             The second sentence gives it a purpose, and the purpose is the point
             of the control existing: the finding does not depend on which of the
             two definitions you prefer. */}
-        <p className="m-0 basis-full measure text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
+        <p className="m-0 mt-9 basis-full measure text-[15px] leading-[1.5] text-[var(--color-ink-faint)]">
           A single recall can name more than one store. <em>Amazon included</em> counts every
           recall that mentions Amazon at all. <em>Amazon only</em> counts just the ones where it is
           the only big-name store. Either way, the climb is there.

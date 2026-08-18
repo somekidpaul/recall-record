@@ -817,10 +817,10 @@
       "year": 2026,
       "origin": {
         "coverage": 99.7,
-        "soleN": 188,
-        "restN": 202,
-        "soleChina": 95.7,
-        "restChina": 68.3
+        "soleN": 189,
+        "restN": 201,
+        "soleChina": 95.8,
+        "restChina": 68.2
       },
       "recalls": 391,
       "retailerFieldPopulated": 100,

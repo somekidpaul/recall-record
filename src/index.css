@@ -279,20 +279,56 @@ p { text-wrap-style: pretty; }
   cursor) always runs. It is the direct answer to something you just did, it
   travels a few pixels, and it never starts on its own.
 */
+/*
+  ONE TIMELINE, OWNED BY THE CHART, and this fixed two bugs at once.
+
+  Every animated mark in here used a bare `view()`, which builds a timeline from
+  the ELEMENT'S OWN box. For a line in a chart that is close to meaningless, and
+  measured on the live page it was actively wrong in two ways.
+
+  First, the lines did not draw together. `view()` on a path uses that path's
+  bounding box, and a climbing line is tall while a flat one is short. Measured
+  at 1280x900: Amazon's box is 136px and started at scrollY 800, eBay's is 21px
+  and started at 886. Five lines, five different timelines, all slightly out of
+  step for no reason a reader could name.
+
+  Second, and this is what got reported, the whole thing was over before you
+  could see it. Those small boxes made both phases tiny, so the draw finished
+  between scrollY 1388 and 1434 while the chart only fills the screen at 1387.
+  Ninety-seven percent drawn at the moment you arrive, which reads as a chart
+  that was already finished rather than one that draws for you.
+
+  The subject is now the chart itself, named once on the svg and shared by every
+  mark, so all five lines move on the same clock and the range means what it
+  looks like it means: a share of the chart's own trip through the viewport.
+
+  Ranges are computed from that geometry rather than picked. On desktop the svg
+  is 467px in a 900px viewport, so it is centred at cover 50% and fills the
+  screen at cover 66%, so the draw is set to FINISH there: at 1280x900 that puts
+  the last of the line down at scrollY 1389 against a chart that frames up at
+  1387. It starts at 42%, by which point the chart is already fully on screen, so
+  the whole draw happens in front of a reader who has arrived rather than during
+  their approach. The tail and label then land at 71% and 76%, still early enough
+  that the endpoint they annotate has not scrolled off the top.
+*/
+.chart-timeline {
+  view-timeline-name: --chart;
+}
+
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .draw-in {
     stroke-dasharray: var(--len);
     stroke-dashoffset: var(--len);
     animation: draw linear both;
-    animation-timeline: view();
-    animation-range: entry 25% cover 60%;
+    animation-timeline: --chart;
+    animation-range: cover 42% cover 66%;
   }
 
   /* No travel, just an entrance. */
   :root[data-motion="reduced"] .draw-in {
     animation: fade-in linear both;
-    animation-timeline: view();
-    animation-range: entry 25% cover 55%;
+    animation-timeline: --chart;
+    animation-range: cover 42% cover 62%;
   }
 }
 
@@ -355,16 +391,16 @@ p { text-wrap-style: pretty; }
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .tail-after {
     animation: label-in linear both;
-    animation-timeline: view();
-    animation-range: cover 60% cover 69%;
+    animation-timeline: --chart;
+    animation-range: cover 66% cover 71%;
   }
 }
 
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .label-after {
     animation: label-in linear both;
-    animation-timeline: view();
-    animation-range: cover 69% cover 80%;
+    animation-timeline: --chart;
+    animation-range: cover 71% cover 76%;
   }
 }
 @keyframes label-in {

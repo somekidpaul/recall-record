@@ -1,17 +1,17 @@
 {
   "partialYear": {
     "year": 2026,
-    "throughDate": "2026-08-13",
+    "throughDate": "2026-08-20",
     "monthsElapsed": 8
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 9962,
+  "corpusTotal": 9969,
   "windowContext": {
     "corpusFirstYear": 1973,
     "firstReliableYear": 2004,
     "preReliableRecalls": 2622,
-    "preReliableRetailerPct": 34.9,
+    "preReliableRetailerPct": 35.3,
     "amazonAtReliableStart": 0,
     "analyzedFrom": 2004
   },
@@ -19,7 +19,7 @@
   "firstYear": 2004,
   "coverageFirstYear": 2015,
   "ratioFirstYear": 2015,
-  "newestRecallDate": "2026-08-13",
+  "newestRecallDate": "2026-08-20",
   "series": [
     {
       "year": 2004,
@@ -817,41 +817,41 @@
       "year": 2026,
       "origin": {
         "coverage": 99.7,
-        "soleN": 189,
-        "restN": 201,
-        "soleChina": 95.8,
-        "restChina": 68.2
+        "soleN": 191,
+        "restN": 206,
+        "soleChina": 95.3,
+        "restChina": 68
       },
-      "recalls": 391,
+      "recalls": 398,
       "retailerFieldPopulated": 100,
       "retailers": {
-        "amazon": 61.1,
-        "walmart": 11.5,
-        "target": 4.6,
+        "amazon": 60.8,
+        "walmart": 11.6,
+        "target": 4.8,
         "homeDepot": 3.3,
         "ebay": 1
       },
-      "amazonOnly": 48.3,
-      "amazonOnlyCount": 189,
+      "amazonOnly": 48,
+      "amazonOnlyCount": 191,
       "soleAlsoDirect": 17,
       "soleAlsoStore": 7,
-      "soleClean": 168,
-      "soleCleanPct": 88.9,
-      "soleCleanShare": 43,
+      "soleClean": 170,
+      "soleCleanPct": 89,
+      "soleCleanShare": 42.7,
       "online": {
-        "strict": 77.2,
-        "mid": 87.5,
-        "loose": 87.5
+        "strict": 76.9,
+        "mid": 87.2,
+        "loose": 87.2
       },
-      "medianDescriptionChars": 85,
-      "amazonAmongShort": 63.8,
-      "amazonOfOnline": 69.9,
-      "onlineCount": 342,
-      "shortCount": 329
+      "medianDescriptionChars": 86,
+      "amazonAmongShort": 64,
+      "amazonOfOnline": 69.7,
+      "onlineCount": 347,
+      "shortCount": 333
     }
   ],
   "coverage": {
-    "total": 3622,
+    "total": 3629,
     "retailers": 99.9,
     "injuries": 99.9,
     "remedyOptions": 99.8,
@@ -953,7 +953,7 @@
       },
       {
         "year": 2026,
-        "pct": 20.5
+        "pct": 20.6
       }
     ],
     "importer": [
@@ -1047,7 +1047,7 @@
       },
       {
         "year": 2026,
-        "pct": 50.9
+        "pct": 51
       }
     ]
   },
@@ -1297,12 +1297,12 @@
     {
       "year": 2026,
       "amazonOnly": {
-        "n": 189,
-        "manufacturerKnown": 19
+        "n": 191,
+        "manufacturerKnown": 19.4
       },
       "everythingElse": {
-        "n": 202,
-        "manufacturerKnown": 21.8
+        "n": 207,
+        "manufacturerKnown": 21.7
       }
     }
   ],
@@ -1450,6 +1450,104 @@
   ],
   "recent": [
     {
+      "title": "CCM Hockey U.S. Recalls FMHVR Hybrid Visors and ACCHVR Replacement Visor Accessories Due to Risk of Injury from Laceration or Impact Hazards",
+      "product": "FMHVR Hybrid Visors and ACCHVR Replacement Visor Accessories",
+      "units": 12957,
+      "unitsRaw": "About 12,957",
+      "date": "2026-08-20",
+      "image": "https://www.cpsc.gov/s3fs-public/CCM-1.gif",
+      "imageCaption": "Recalled CCM Hybrid Visor (Style FMHVR)",
+      "url": "https://www.cpsc.gov/Recalls/2026/CCM-Hockey-US-Recalls-FMHVR-Hybrid-Visors-and-ACCHVR-Replacement-Visor-Accessories-Due-to-Risk-of-Injury-from-Laceration-or-Impact-Hazards",
+      "retailerText": "Monkey Sports, Play It Again Sports, Pure Hockey and independent sporting goods and online at https://us.ccmhockey.com/ from May 2024 through April 2026 for about $120 for the Hybrid Visor and about $55 for the Replacement Visor accessories.",
+      "hazard": "The recalled hockey visors and replacement visor accessories can crack upon impact, posing a risk of injury due to laceration or impact hazards.",
+      "remedy": "Consumers should stop using the recalled visors and visor accessories immediately and return the products to the nearest participating retailer for a free replacement. Consumers can choose from the FV1 full visor, FM780 combo cage, or FM580 combo cage. To find your nearest participating retailer, go to https://us.ccmhockey.com/product/storelocator. Consumers without access to a participating retailer should contact CCM directly and CCM will send a return prepaid envelope for the return of the recalled product. CCM will ship a replacement upon receipt of the returned recalled product.",
+      "remedyOption": "Replace"
+    },
+    {
+      "title": "Goal Zero Recalls YETI 3000X Power Stations Due to Serious Risk of Injury from Fire and Burn Hazards",
+      "product": "Goal Zero YETI 3000X Portable Power Stations",
+      "units": 46200,
+      "unitsRaw": "About 46,200",
+      "date": "2026-08-20",
+      "image": "https://www.cpsc.gov/s3fs-public/gzero-1.png",
+      "imageCaption": "Recalled Goal Zero YETI 3000X Portable Power Station",
+      "url": "https://www.cpsc.gov/Recalls/2026/Goal-Zero-Recalls-YETI-3000X-Power-Stations-Due-to-Serious-Risk-of-Injury-from-Fire-and-Burn-Hazards",
+      "retailerText": "REI stores nationwide and online at Costco.com, Backcountry.com, Goalzero.com and other online retailers from May 2020 through August 2025 for about $3,00.",
+      "hazard": "The recalled power station's circuit board can overheat, posing a risk of serious injury from fire and burn hazards.",
+      "remedy": "Consumers should stop using the power stations immediately and install the free repair in the form of a firmware update available through the Goal Zero application or contact Goal Zero for firmware installation at no cost.",
+      "remedyOption": "Repair"
+    },
+    {
+      "title": "JINHEZO Mini Waterproof LED Tea Lights Recalled Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Consumer Products with Button Cell Batteries; Imported by Mystic ZO",
+      "product": "JINHEZO Mini Waterproof LED Tea Lights",
+      "units": 2798,
+      "unitsRaw": "About 2,798",
+      "date": "2026-08-20",
+      "image": "https://www.cpsc.gov/s3fs-public/jinhezo-1.png",
+      "imageCaption": "Recalled JINHEZO Mini Waterproof LED Tea Lights",
+      "url": "https://www.cpsc.gov/Recalls/2026/JINHEZO-Mini-Waterproof-LED-Tea-Lights-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violate-Mandatory-Standard-for-Consumer-Products-with-Button-Cell-Batteries-Imported-by-Mystic-ZO",
+      "retailerText": "Online at Amazon.com from March 2024 through July 2026 for between $16 to $20 per pack.",
+      "hazard": "The LED Tea Lights violate the mandatory safety standard for consumer products with button cell and coin batteries because the button batteries can be accessed easily by children, posing an ingestion hazard. Additionally, the packaging and product do not have the warnings required under?Reese's Law. When button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, internal chemical burns and death.",
+      "remedy": "Consumers should stop using the recalled LED Tea Lights immediately and contact Mystic Zo for a full refund. To receive a refund, consumers will be asked to email their order number or bar code number, if available, along with a photo of the tea lights disposed of in the trash to jinhemaoyi2016@sina.com. Note: Button cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Koorlian Mattresses Recalled Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability; Sold on Amazon by Dream Bedding Technology",
+      "product": "Koorlian Mattresses",
+      "units": 251,
+      "unitsRaw": "About 251",
+      "date": "2026-08-20",
+      "image": "https://www.cpsc.gov/s3fs-public/koorlian-1.png",
+      "imageCaption": "Recalled Koorlian Mattress",
+      "url": "https://www.cpsc.gov/Recalls/2026/Koorlian-Mattresses-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-Hazard-Violate-Mandatory-Standard-for-Mattress-Flammability-Sold-on-Amazon-by-Dream-Bedding-Technology",
+      "retailerText": "Online at Amazon.com from November 2025 through March 2026 for between $110 and $170.",
+      "hazard": "The recalled mattresses violate the mandatory flammability standard for mattresses, posing a risk of serious injury or death from fire.",
+      "remedy": "Consumers should stop using the recalled mattress immediately and contact Dreams Bedding Technology to receive a free cover to put over their mattress to bring it into compliance with the mandatory flammability standards.",
+      "remedyOption": "Repair"
+    },
+    {
+      "title": "KTM North America Recalls Off-Road Motorcycles Due to Risk of Serious Injury or Death from Crash Hazard",
+      "product": "GASGAS and Husqvarna Off-Road Motorcycles",
+      "units": 21040,
+      "unitsRaw": "About 21,040 (In addition, about 4,140 were sold in Canada)",
+      "date": "2026-08-20",
+      "image": "https://www.cpsc.gov/s3fs-public/ggoffroad-1.png",
+      "imageCaption": "Recalled GASGAS Off-Road Motorcycle",
+      "url": "https://www.cpsc.gov/Recalls/2026/KTM-North-America-Recalls-Off-Road-Motorcycles-Due-to-Risk-of-Serious-Injury-or-Death-from-Crash-Hazard",
+      "retailerText": "GASGAS and Husqvarna authorized dealers nationwide from September 2020 through June 2023 for between $7,300 and $13,000.",
+      "hazard": "The rear brake caliper can crack or break, reducing the brake system's effectiveness, posing a risk of serious injury or death due to crash hazard.",
+      "remedy": "Consumers should stop riding the recalled motorcycles immediately and contact an authorized GASGAS or Husqvarna Motorcycle dealer to schedule a free repair at the dealership.",
+      "remedyOption": "Repair"
+    },
+    {
+      "title": "Modine Manufacturing Company Recalls Airedale Heating and Cooling Ventilation Fans Due to Fire Hazard",
+      "product": "Ventilation Fans in ClassMate® DX Cooling and Air Source Heat Pumps and SchoolMate® Water/Ground Source Heat Pumps",
+      "units": 6061,
+      "unitsRaw": "About 6,061 (In addition, about 735 were sold in Canada)",
+      "date": "2026-08-20",
+      "image": "https://www.cpsc.gov/s3fs-public/heapum-1.jpg",
+      "imageCaption": "Recalled Heat Pump",
+      "url": "https://www.cpsc.gov/Recalls/2026/Modine-Manufacturing-Company-Recalls-Airedale-Heating-and-Cooling-Ventilation-Fans-Due-to-Fire-Hazard",
+      "retailerText": "Independent dealers nationwide from August 2013 through January 2026 for between $15,000 and $25,000. The ventilation fans are also sold separately through independent dealers for between $250 and $450.",
+      "hazard": "The ventilation fan motor in the heat pumps can short circuit if water gets on the circuit board, causing the units to overheat and posing a fire hazard.",
+      "remedy": "Consumers should stop using the recalled heat pumps immediately and contact Modine Manufacturing Company for written instructions to unplug the recalled ventilation fan or to switch the internal disconnect in the fan to the \"off\" position. Consumers should contact their Modine distributor to arrange for their free inspection and service. Service technicians will inspect and repair or replace the recalled heating and cooling OA/EA ventilation fans in all units.",
+      "remedyOption": "Repair"
+    },
+    {
+      "title": "Workbless Pressure Washers Recalled Due to Risk of Serious Injury or Death from Shock and Electrocution Hazards",
+      "product": "Workbless Electric Pressure Washers",
+      "units": 2200,
+      "unitsRaw": "About 2,200 (In addition, about 657 in Canada)",
+      "date": "2026-08-20",
+      "image": "https://www.cpsc.gov/s3fs-public/workbless.jpg",
+      "imageCaption": "Recalled Workbless Electric Pressure Washer Model WB0301 - front view",
+      "url": "https://www.cpsc.gov/Recalls/2026/Workbless-Pressure-Washers-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Shock-and-Electrocution-Hazards",
+      "retailerText": "Amazon.com, BestBuy, Kohls, Lowe's, Overstock, Target and Walmart from April 2025 through July 2026 for between $97 and $140.",
+      "hazard": "The recalled pressure washers lack an integral ground-fault circuit-interrupter (GFCI) and an adequate-length power cord, posing serious risks of injury or death from shock and electrocution hazards.",
+      "remedy": "Consumers should stop using the recalled pressure washers immediately and contact Workbless for a full refund. Consumers will be asked to destroy the pressure washer by cutting the unplugged power cord in half and send a photo of the destroyed pressure washer to service@workbless.net. Consumers should then dispose of the destroyed recalled product.",
+      "remedyOption": "Refund"
+    },
+    {
       "title": "COMMOWNER Pressure Washers Recalled Due to Serious Risk of Injury or Death from Shock and Electrocution Hazards; Imported by AZ Home Concept",
       "product": "COMMOWNER Electric Pressure Washers, model numbers HD14P-Z and HX18",
       "units": 1694,
@@ -1489,104 +1587,6 @@
       "retailerText": "Online at Amazon.com from April 2025 through June 2025 for between $20 and $25.",
       "hazard": "The recalled magnetic cubes violate the mandatory standard for toys because the cubes were packaged with loose high-powered magnets, posing an ingestion hazard to children. When high-powered magnets are swallowed, the ingested magnets can attract each other, or other metal objects and become lodged in the digestive system. This can result in perforations, twisting, and/or blockage of the intestines, blood poisoning and death.",
       "remedy": "Consumers should take the recalled loose magnets away from children, stop using them immediately, and contact SKY CUBE HK for information on how to receive a $5 refund. Consumers will be asked to throw away the magnets and email a photo of the disposed magnets to recall@cubershop.com. Consumers may keep the cube.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Deli Jerry Fuel Containers Recalled Due to Risk of Serious Injury or Death from Burn Hazard and Child Poisoning; Violate Mandatory Standard for Portable Fuel Containers; Sold on Walmart.com by Deli OfficeSupplies",
-      "product": "Deli Jerry Fuel Containers",
-      "units": 1750,
-      "unitsRaw": "About 1,750",
-      "date": "2026-08-13",
-      "image": "https://www.cpsc.gov/s3fs-public/delijerry.jpg",
-      "imageCaption": "The recalled Deli Jerry fuel containers were sold in 5.3-gallon (20-liter), 6.6-gallon (25-liter) and 7.9-gallon (30-liter) capacities",
-      "url": "https://www.cpsc.gov/Recalls/2026/Deli-Jerry-Fuel-Containers-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Burn-Hazard-and-Child-Poisoning-Violate-Mandatory-Standard-for-Portable-Fuel-Containers-Sold-on-Walmart-com-by-Deli-OfficeSupplies",
-      "retailerText": "Online at Walmart.com from April 2025 through June 2026 for about $36.",
-      "hazard": "The recalled fuel containers violate the requirement for closures under the Children's Gasoline Burn Prevention Act. The closure is not child-resistant, posing a risk of burns and poisoning to children.",
-      "remedy": "Consumers should stop using the recalled fuel containers immediately and contact Deli OfficeSupplies for a full refund. Consumers will be asked to destroy the fuel container by writing in permanent maker \"RECALLED\" on the product and to send a photo of the destroyed fuel container to service@steelitetool.com. Consumers should then dispose of the recalled product in accordance with local and/or state disposal procedures.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "DUMOS Nine-Drawer Dressers Recalled Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
-      "product": "DUMOS Nine-Drawer Dressers",
-      "units": 8981,
-      "unitsRaw": "About 8,981",
-      "date": "2026-08-13",
-      "image": "https://www.cpsc.gov/s3fs-public/dumos-1.jpg",
-      "imageCaption": "Recalled DUMOS Nine-Drawer Television Stand Dresser – sold in white, black, gray and brown",
-      "url": "https://www.cpsc.gov/Recalls/2026/DUMOS-Nine-Drawer-Dressers-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Tip-Over-and-Entrapment-Hazards-Violate-Mandatory-Standard-for-Clothing-Storage-Units",
-      "retailerText": "Online at Amazon.com from December 2025 through June 2026 for about $54.",
-      "hazard": "The recalled dressers are unstable if they are not anchored to the wall, posing tip-over and entrapment hazards that can result in risks of serious injuries or death to children. The dressers violate the mandatory safety standards as required by the STURDY Act.",
-      "remedy": "Consumers should immediately stop using the recalled dressers if they are not anchored to the wall and place them in an area that children cannot access. Consumers should contact DUMOS for a full refund. Consumers will be asked to destroy the dressers by cutting the drawers in half and writing in permanent marker \"RECALLED\", and to send a photo of the destroyed dressers to dumosdresserrecall@dumos.com. Consumers should then dispose of the recalled products.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Fastbuy Recalls Zimtown Portable Gas and Fuel Cans Due to Risk of Serious Injury or Death from Burn Hazard and Child Poisoning; Violate Mandatory Standard for Portable Fuel Containers",
-      "product": "Zimtown Portable Gas and Fuel Cans",
-      "units": 200,
-      "unitsRaw": "About 200",
-      "date": "2026-08-13",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture17_0.gif",
-      "imageCaption": "Zimtown Portable Fuel Can 5.0 Gallon (Army Green)",
-      "url": "https://www.cpsc.gov/Recalls/2026/Fastbuy-Recalls-Zimtown-Portable-Gas-and-Fuel-Cans-Due-to-Risk-of-Serious-Injury-or-Death-from-Burn-Hazard-and-Child-Poisoning-Violate-Mandatory-Standard-for-Portable-Fuel-Containers",
-      "retailerText": "Online at Walmart.com and Zimtown.com from May 2026 through July 2026 for between $32 and $63.",
-      "hazard": "The fuel containers violate the requirement for closures under the Children's Gasoline Burn Prevention Act because the closure is not child-resistant, posing a risk of burns and poisoning to children.",
-      "remedy": "Consumers should stop using the gas and fuel containers immediately and contact Fastbuy for a full refund. Consumers should disassemble the spout, cut it into pieces with scissors and dispose of it separately from the container. Consumers will be asked to write \"RECALLED\" on the container and submit photos of the product to ZimtownFuelCanrecall@outlook.com separately.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "GigaCloud Technology USA Recalls Merax Murphy Beds Due to Risk of Serious Injury or Death from Impact and Crush Hazards",
-      "product": "Merax Full-Size and Twin-Size Murphy Beds",
-      "units": 1250,
-      "unitsRaw": "About 1,250",
-      "date": "2026-08-13",
-      "image": "https://www.cpsc.gov/s3fs-public/merax-1.jpg",
-      "imageCaption": "Recalled Merax Full-Size Murphy Bed - Model Number GX000392AAK (SKU Codes: WF530245, WF530246, WF530247, WF530248)",
-      "url": "https://www.cpsc.gov/Recalls/2026/GigaCloud-Technology-USA-Recalls-Merax-Murphy-Beds-Due-to-Risk-of-Serious-Injury-or-Death-from-Impact-and-Crush-Hazards",
-      "retailerText": "Online at Amazon.com, HomeDepot.com, Wayfair.com, Walmart.com, Target.com, Overstock.com, Temu.com and other websites from May 2024 through February 2026 for between $900 and $1,100.",
-      "hazard": "During assembly or disassembly, the frame of the wall bed can fall onto consumers, posing deadly impact, crush and laceration hazards.",
-      "remedy": "Consumers should stop using the recalled Murphy beds immediately and contact GigaCloud Technology for a free repair kit. Consumers that have not assembled the Murphy bed will receive a repair kit consisting of unloaded piston springs, updated assembly instructions and inspection instructions. Consumers that have assembled the Murphy bed will receive inspection instructions. If the consumer determines that the Murphy bed is assembled incorrectly, GigaCloud Technology will provide the consumer with a professional installer to correct or complete the installation, at no cost to the consumer.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "Goody King Magnetic Building Cubes and Blocks Recalled Due to Risk of Serious Injury or Death from Magnetic Ingestion Hazard; Imported by Yi Suen Commerce",
-      "product": "Goody King Magnetic Building Cubes and Blocks",
-      "units": 213500,
-      "unitsRaw": "About 213,500",
-      "date": "2026-08-13",
-      "image": "https://www.cpsc.gov/s3fs-public/GoodyKing-1.jpg",
-      "imageCaption": "Recalled Goody King Magnetic Building Cubes – Unicorn Model Number UN100",
-      "url": "https://www.cpsc.gov/Recalls/2026/Goody-King-Magnetic-Building-Cubes-and-Blocks-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Magnetic-Ingestion-Hazard-Imported-by-Yi-Suen-Commerce",
-      "retailerText": "Online at Amazon.com from January 2024 through July 2026 for between $17 and $50.",
-      "hazard": "The recalled magnetic building cubes contain magnets that can become loose if the cubes break or open, posing a magnet ingestion hazard to children. When high-powered magnets are swallowed, the ingested magnets can attract each other, or other metal objects, and become lodged in the digestive system. This can result in perforations, twisting, and/or blockage of the intestines, blood poisoning and death.",
-      "remedy": "Consumers should stop using the recalled magnetic building cubes immediately and contact Yi Suen Commerce for a full refund. Consumers will be provided with a pre-paid label to return the recalled magnetic cubes to receive a refund.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Hampton Bay Halwin 52-Inch Ceiling Fans Recalled Due to Impact and Injury Hazards; Manufactured by Youngo Limited",
-      "product": "Hampton Bay Halwin 52-inch Indoor/Outdoor Ceiling Fans",
-      "units": 9460,
-      "unitsRaw": "About 9,460",
-      "date": "2026-08-13",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture11_11.png",
-      "imageCaption": "Recalled Hampton Bay Halwin 52-inch Indoor/Outdoor Matte Black Ceiling Fan with adjustable white LED light and remote",
-      "url": "https://www.cpsc.gov/Recalls/2026/Hampton-Bay-Halwin-52-Inch-Ceiling-Fans-Recalled-Due-to-Impact-and-Injury-Hazards-Manufactured-by-Youngo-Limited",
-      "retailerText": "The Home Depot stores nationwide and online from January 2023 through October 2025 for about $180.",
-      "hazard": "The fan blades can separate from the fan motor flywheel, posing impact and injury hazards to consumers.",
-      "remedy": "Consumers should stop using the recalled ceiling fans immediately and contact Youngo for either a full refund by ACH payment or store credit in the form of a Home Depot gift card. To receive either option, consumers should contact Youngo with proof of purchase or a photograph of the serial number (located inside the mounting plate of the ceiling fan) and a photo showing proof of disposal of the product. Alternatively, consumers may return the product to a Home Depot retail store for full store credit in the form of a Home Depot gift card or refund back to the card used for purchase.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Mattresses Recalled Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability; Sold on Amazon by Qabefy",
-      "product": "Qabefy Mattresses",
-      "units": 774,
-      "unitsRaw": "About 774",
-      "date": "2026-08-13",
-      "image": "https://www.cpsc.gov/s3fs-public/qabefy-1.jpg",
-      "imageCaption": "Recalled Qabefy Twin-sized Mattress",
-      "url": "https://www.cpsc.gov/Recalls/2026/Mattresses-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-Hazard-Violate-Mandatory-Standard-for-Mattress-Flammability-Sold-on-Amazon-by-Qabefy",
-      "retailerText": "Online at Amazon.com from November 2025 through March 2026 for between $120 and $140.",
-      "hazard": "The recalled mattresses violate the mandatory flammability standard for mattresses, posing a risk of serious injury or death from fire.",
-      "remedy": "Consumers should stop using the recalled mattresses immediately and contact Qabefy for a full refund. Consumers will be asked to destroy the mattress, by writing in permanent marker \"Recalled,\" their name and the current date on the mattress's top surface, and to email a photo of the destroyed mattress to Sixiang2023@gmail.com. Consumers should then dispose of the recalled product.",
       "remedyOption": "Refund"
     }
   ],

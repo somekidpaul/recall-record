@@ -314,15 +314,12 @@ p { text-wrap-style: pretty; }
 */
 .chart-timeline {
   view-timeline-name: --chart;
-  /* Shrink the timeline's viewport from the bottom so its scrollport ends a
-     short way up the screen. `entry 0%` then fires the moment the chart's
-     top edge crosses that line, 85% of the way down the screen, so the draw is
-     already under way as the chart comes into view. This started at 50% (the
-     midline) and was pushed earlier twice by request. Expressed as
-     geometry rather than as a percentage tuned to one viewport, so it holds on
-     a phone and a desktop alike: the trigger is always the same fraction of
-     whatever screen is in use. */
-  view-timeline-inset: 0 15%;
+  /* No inset: `entry 0%` is the instant the chart's top edge touches the
+     bottom of the screen, which is as early as a view timeline can fire. This
+     started at 50% (the midline) and was pushed earlier three times by
+     request, landing here. Kept as a declared 0 rather than removed, so the
+     knob is still visible to whoever tunes it next. */
+  view-timeline-inset: 0 0;
 }
 
 @supports (animation-timeline: view()) {
@@ -331,7 +328,11 @@ p { text-wrap-style: pretty; }
     stroke-dashoffset: var(--len);
     animation: draw linear both;
     animation-timeline: --chart;
-    animation-range: entry 0% entry 100%;
+    /* Ends at entry 70%, not 100%: with no inset, entry 100% is the chart's
+       bottom edge clearing the screen bottom, i.e. the whole chart just
+       arrived. Finishing earlier than that means the line is complete by the
+       time the reader has the full chart in front of them. */
+    animation-range: entry 0% entry 70%;
   }
 
   /* No travel, just an entrance. */
@@ -402,7 +403,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .tail-after {
     animation: label-in linear both;
     animation-timeline: --chart;
-    animation-range: entry 100% contain 15%;
+    animation-range: entry 70% entry 85%;
   }
 }
 
@@ -410,7 +411,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .label-after {
     animation: label-in linear both;
     animation-timeline: --chart;
-    animation-range: contain 15% contain 30%;
+    animation-range: entry 85% entry 100%;
   }
 }
 @keyframes label-in {

@@ -315,13 +315,14 @@ p { text-wrap-style: pretty; }
 .chart-timeline {
   view-timeline-name: --chart;
   /* Shrink the timeline's viewport from the bottom so its scrollport ends a
-     third of the way up the screen. `entry 0%` then fires the moment the
-     chart's top edge crosses that line, two thirds of the way down the screen.
-     This was 50% (the midline) and got pushed earlier by request. Expressed as
+     short way up the screen. `entry 0%` then fires the moment the chart's
+     top edge crosses that line, 85% of the way down the screen, so the draw is
+     already under way as the chart comes into view. This started at 50% (the
+     midline) and was pushed earlier twice by request. Expressed as
      geometry rather than as a percentage tuned to one viewport, so it holds on
      a phone and a desktop alike: the trigger is always the same fraction of
      whatever screen is in use. */
-  view-timeline-inset: 0 33%;
+  view-timeline-inset: 0 15%;
 }
 
 @supports (animation-timeline: view()) {

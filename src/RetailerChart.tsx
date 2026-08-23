@@ -319,7 +319,7 @@ export default function RetailerChart() {
         <svg
           ref={svgRef}
           viewBox={`0 0 ${W} ${H}`}
-          className="chart-timeline w-full h-auto overflow-visible"
+          className="w-full h-auto overflow-visible"
           role="application"
           tabIndex={0}
           onKeyDown={onKeyDown}

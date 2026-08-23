@@ -279,67 +279,20 @@ p { text-wrap-style: pretty; }
   cursor) always runs. It is the direct answer to something you just did, it
   travels a few pixels, and it never starts on its own.
 */
-/*
-  ONE TIMELINE, OWNED BY THE CHART, and this fixed two bugs at once.
-
-  Every animated mark in here used a bare `view()`, which builds a timeline from
-  the ELEMENT'S OWN box. For a line in a chart that is close to meaningless, and
-  measured on the live page it was actively wrong in two ways.
-
-  First, the lines did not draw together. `view()` on a path uses that path's
-  bounding box, and a climbing line is tall while a flat one is short. Measured
-  at 1280x900: Amazon's box is 136px and started at scrollY 800, eBay's is 21px
-  and started at 886. Five lines, five different timelines, all slightly out of
-  step for no reason a reader could name.
-
-  Second, and this is what got reported, the whole thing was over before you
-  could see it. Those small boxes made both phases tiny, so the draw finished
-  between scrollY 1388 and 1434 while the chart only fills the screen at 1387.
-  Ninety-seven percent drawn at the moment you arrive, which reads as a chart
-  that was already finished rather than one that draws for you.
-
-  The subject is now the chart itself, named once on the svg and shared by every
-  mark, so all five lines move on the same clock and the range means what it
-  looks like it means: a share of the chart's own trip through the viewport.
-
-  The trigger is the chart's top edge crossing the MIDDLE of the screen, which
-  is what was asked for and is a better anchor than any cover percentage. It is
-  done with view-timeline-inset on the subject (see .chart-timeline) so that the
-  timeline's `entry` phase begins at the midline rather than the bottom edge.
-  The draw then runs across the whole entry phase: it starts the instant the
-  chart crosses centre and is complete once the chart has fully entered the
-  (half-height) scrollport, i.e. once its bottom edge has also crossed centre.
-  Tail and label follow in the contain phase, while the endpoint is still well
-  within the upper half of the screen.
-*/
-.chart-timeline {
-  view-timeline-name: --chart;
-  /* No inset: `entry 0%` is the instant the chart's top edge touches the
-     bottom of the screen, which is as early as a view timeline can fire. This
-     started at 50% (the midline) and was pushed earlier three times by
-     request, landing here. Kept as a declared 0 rather than removed, so the
-     knob is still visible to whoever tunes it next. */
-  view-timeline-inset: 0 0;
-}
-
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .draw-in {
     stroke-dasharray: var(--len);
     stroke-dashoffset: var(--len);
     animation: draw linear both;
-    animation-timeline: --chart;
-    /* Ends at entry 70%, not 100%: with no inset, entry 100% is the chart's
-       bottom edge clearing the screen bottom, i.e. the whole chart just
-       arrived. Finishing earlier than that means the line is complete by the
-       time the reader has the full chart in front of them. */
-    animation-range: entry 0% entry 70%;
+    animation-timeline: view();
+    animation-range: entry 25% cover 60%;
   }
 
   /* No travel, just an entrance. */
   :root[data-motion="reduced"] .draw-in {
     animation: fade-in linear both;
-    animation-timeline: --chart;
-    animation-range: entry 0% entry 90%;
+    animation-timeline: view();
+    animation-range: entry 25% cover 55%;
   }
 }
 
@@ -402,16 +355,16 @@ p { text-wrap-style: pretty; }
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .tail-after {
     animation: label-in linear both;
-    animation-timeline: --chart;
-    animation-range: entry 70% entry 85%;
+    animation-timeline: view();
+    animation-range: cover 60% cover 69%;
   }
 }
 
 @supports (animation-timeline: view()) {
   :root[data-motion="full"] .label-after {
     animation: label-in linear both;
-    animation-timeline: --chart;
-    animation-range: entry 85% entry 100%;
+    animation-timeline: view();
+    animation-range: cover 69% cover 80%;
   }
 }
 @keyframes label-in {

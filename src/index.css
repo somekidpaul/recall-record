@@ -314,13 +314,14 @@ p { text-wrap-style: pretty; }
 */
 .chart-timeline {
   view-timeline-name: --chart;
-  /* Shrink the timeline's viewport by half from the bottom. The scrollport the
-     timeline measures against now ends at the screen's vertical midline, so
-     `entry 0%` is the exact moment the chart's top edge crosses the middle of
-     the screen. That is the trigger asked for ("start when it hits the 50%
-     line") expressed as geometry rather than as a percentage tuned to one
-     viewport, so it holds on a phone and a desktop alike. */
-  view-timeline-inset: 0 50%;
+  /* Shrink the timeline's viewport from the bottom so its scrollport ends a
+     third of the way up the screen. `entry 0%` then fires the moment the
+     chart's top edge crosses that line, two thirds of the way down the screen.
+     This was 50% (the midline) and got pushed earlier by request. Expressed as
+     geometry rather than as a percentage tuned to one viewport, so it holds on
+     a phone and a desktop alike: the trigger is always the same fraction of
+     whatever screen is in use. */
+  view-timeline-inset: 0 33%;
 }
 
 @supports (animation-timeline: view()) {

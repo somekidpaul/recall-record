@@ -302,17 +302,25 @@ p { text-wrap-style: pretty; }
   mark, so all five lines move on the same clock and the range means what it
   looks like it means: a share of the chart's own trip through the viewport.
 
-  Ranges are computed from that geometry rather than picked. On desktop the svg
-  is 467px in a 900px viewport, so it is centred at cover 50% and fills the
-  screen at cover 66%, so the draw is set to FINISH there: at 1280x900 that puts
-  the last of the line down at scrollY 1389 against a chart that frames up at
-  1387. It starts at 42%, by which point the chart is already fully on screen, so
-  the whole draw happens in front of a reader who has arrived rather than during
-  their approach. The tail and label then land at 71% and 76%, still early enough
-  that the endpoint they annotate has not scrolled off the top.
+  The trigger is the chart's top edge crossing the MIDDLE of the screen, which
+  is what was asked for and is a better anchor than any cover percentage. It is
+  done with view-timeline-inset on the subject (see .chart-timeline) so that the
+  timeline's `entry` phase begins at the midline rather than the bottom edge.
+  The draw then runs across the whole entry phase: it starts the instant the
+  chart crosses centre and is complete once the chart has fully entered the
+  (half-height) scrollport, i.e. once its bottom edge has also crossed centre.
+  Tail and label follow in the contain phase, while the endpoint is still well
+  within the upper half of the screen.
 */
 .chart-timeline {
   view-timeline-name: --chart;
+  /* Shrink the timeline's viewport by half from the bottom. The scrollport the
+     timeline measures against now ends at the screen's vertical midline, so
+     `entry 0%` is the exact moment the chart's top edge crosses the middle of
+     the screen. That is the trigger asked for ("start when it hits the 50%
+     line") expressed as geometry rather than as a percentage tuned to one
+     viewport, so it holds on a phone and a desktop alike. */
+  view-timeline-inset: 0 50%;
 }
 
 @supports (animation-timeline: view()) {
@@ -321,14 +329,14 @@ p { text-wrap-style: pretty; }
     stroke-dashoffset: var(--len);
     animation: draw linear both;
     animation-timeline: --chart;
-    animation-range: cover 42% cover 66%;
+    animation-range: entry 0% entry 100%;
   }
 
   /* No travel, just an entrance. */
   :root[data-motion="reduced"] .draw-in {
     animation: fade-in linear both;
     animation-timeline: --chart;
-    animation-range: cover 42% cover 62%;
+    animation-range: entry 0% entry 90%;
   }
 }
 
@@ -392,7 +400,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .tail-after {
     animation: label-in linear both;
     animation-timeline: --chart;
-    animation-range: cover 66% cover 71%;
+    animation-range: entry 100% contain 15%;
   }
 }
 
@@ -400,7 +408,7 @@ p { text-wrap-style: pretty; }
   :root[data-motion="full"] .label-after {
     animation: label-in linear both;
     animation-timeline: --chart;
-    animation-range: cover 71% cover 76%;
+    animation-range: contain 15% contain 30%;
   }
 }
 @keyframes label-in {

@@ -259,6 +259,24 @@ async function loadRaw() {
   const res = await fetch(API)
   if (!res.ok) throw new Error(`CPSC API returned HTTP ${res.status}`)
   const json = await res.json()
+  /*
+   * The body has to actually be the recall array, and saying so beats crashing.
+   *
+   * During the CPSC outage of 2026-08-28/29 the API failed both ways on
+   * consecutive days: first a 404 (caught cleanly above), then a 200 whose body
+   * was not the array, which sailed past this point and died later as
+   * "TypeError: Cannot read properties of undefined (reading 'filter')". Same
+   * correct fail-closed outcome, useless error report. A guard that names the
+   * problem turns the next outage's log into a diagnosis instead of a puzzle.
+   */
+  if (!Array.isArray(json) || json.length < 9000) {
+    throw new Error(
+      `CPSC API returned HTTP 200 but not the recall corpus: ` +
+        (Array.isArray(json)
+          ? `an array of only ${json.length}`
+          : `a ${typeof json}${json && json.Message ? ` (Message: ${JSON.stringify(json.Message).slice(0, 120)})` : ''}`),
+    )
+  }
   console.log(`  fetched ${json.length} recalls in ${((Date.now() - t0) / 1000).toFixed(1)}s`)
 
   await mkdir(dirname(RAW), { recursive: true })

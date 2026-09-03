@@ -6,7 +6,7 @@
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 9970,
+  "corpusTotal": 9975,
   "windowContext": {
     "corpusFirstYear": 1973,
     "firstReliableYear": 2004,
@@ -816,50 +816,50 @@
     {
       "year": 2026,
       "origin": {
-        "coverage": 99.8,
+        "coverage": 99.3,
         "soleN": 191,
-        "restN": 210,
+        "restN": 213,
         "soleChina": 95.3,
         "restChina": 67.6
       },
-      "recalls": 402,
-      "retailerFieldPopulated": 99,
+      "recalls": 407,
+      "retailerFieldPopulated": 97.8,
       "retailers": {
-        "amazon": 60.2,
-        "walmart": 11.4,
+        "amazon": 59.5,
+        "walmart": 11.3,
         "target": 4.7,
         "homeDepot": 3.7,
         "ebay": 1
       },
-      "amazonOnly": 47.5,
+      "amazonOnly": 46.9,
       "amazonOnlyCount": 191,
       "soleAlsoDirect": 17,
       "soleAlsoStore": 7,
       "soleClean": 170,
       "soleCleanPct": 89,
-      "soleCleanShare": 42.3,
+      "soleCleanShare": 41.8,
       "online": {
-        "strict": 76.1,
-        "mid": 86.3,
-        "loose": 86.3
+        "strict": 75.2,
+        "mid": 85.3,
+        "loose": 85.3
       },
       "medianDescriptionChars": 85,
-      "amazonAmongShort": 63.2,
+      "amazonAmongShort": 62.3,
       "amazonOfOnline": 69.7,
       "onlineCount": 347,
-      "shortCount": 337
+      "shortCount": 342
     }
   ],
   "coverage": {
-    "total": 3633,
-    "retailers": 99.8,
+    "total": 3638,
+    "retailers": 99.6,
     "injuries": 99.9,
     "remedyOptions": 99.8,
     "images": 100,
-    "manufacturers": 35.2,
-    "manufacturerCountries": 99.7,
+    "manufacturers": 35.1,
+    "manufacturerCountries": 99.6,
     "hazards": 99.9,
-    "importers": 63.1
+    "importers": 63
   },
   "trend": {
     "manufacturer": [
@@ -953,7 +953,7 @@
       },
       {
         "year": 2026,
-        "pct": 20.4
+        "pct": 20.1
       }
     ],
     "importer": [
@@ -1047,7 +1047,7 @@
       },
       {
         "year": 2026,
-        "pct": 50.5
+        "pct": 49.9
       }
     ]
   },
@@ -1301,8 +1301,8 @@
         "manufacturerKnown": 19.4
       },
       "everythingElse": {
-        "n": 211,
-        "manufacturerKnown": 21.3
+        "n": 216,
+        "manufacturerKnown": 20.8
       }
     }
   ],
@@ -1450,6 +1450,20 @@
   ],
   "recent": [
     {
+      "title": "Branch Recalls Ergonomic Chairs Due to Fall Hazard",
+      "product": "Ergonomic Chairs",
+      "units": 16000,
+      "unitsRaw": "About 16,000 (In addition, about 180 were sold in Canada)",
+      "date": "2026-09-03",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture19_7.png?VersionId=tT.44Yp.0euajJKRGaT2PiEZ0TOAKpq0",
+      "imageCaption": "Recalled Ergonomic Chair Black / Black Standard – SKU 11-01-00-50-V5",
+      "url": "https://www.cpsc.gov/Recalls/2026/Branch-Recalls-Ergonomic-Chairs-Due-to-Fall-Hazard",
+      "retailerText": "",
+      "hazard": "The backrests of the chairs can detach, posing a fall hazard to consumers.",
+      "remedy": "Consumers should stop using the recalled chairs immediately and contact Branch for a free repair kit consisting of a replacement backrest, installation instructions, three bolts and an Allen key. Consumers will be provided with instructions on how to determine if their backrests are included in the recall and will be asked to submit photos of the manufacture label and removed backrest to obtain a repair kit. Branch is contacting all known purchasers directly.",
+      "remedyOption": "Repair"
+    },
+    {
       "title": "Clorox Puerto Rico Recalls 6 Million Scented Mistolin and Lestoil Multi-Purpose Cleaners Due to Risk of Exposure to Bacteria",
       "product": "Scented Mistolin® Dilutable Cleaners and Lestoil® Heavy Duty Multi-Purpose Cleaners sold in Puerto Rico and the U.S. Virgin Islands.",
       "units": null,
@@ -1461,6 +1475,34 @@
       "retailerText": "",
       "hazard": "The recalled products may contain bacteria, including Pseudomonas aeruginosa, which is an environmental organism found widely in soil and water. People with weakened immune systems or external medical devices who are exposed to Pseudomonas aeruginosa face a risk of serious infection that may require medical treatment. The bacteria can enter the body if inhaled, through the eyes, or through a break in the skin. People with healthy immune systems are usually not affected by the bacteria.",
       "remedy": "Consumers should stop using the recalled cleaners immediately. Consumers will be asked to register at https://mistolinrecall.expertinquiry.com/ and submit a picture of the 12-digit UPC code printed on the label and a picture of the date code printed on the side of the bottle and dispose of the product in its container with household trash. Consumers registering bottles in the affected scents with date codes printed on the bottle beginning with PR01 and followed by a five-digit number between 25091 and 26168 will receive a full refund of the purchase price, with receipt or of the manufacturer’s suggested retail price, without receipt.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "GIHNJSI Squeezy Dumplings Toys Recalled Due to Serious Ingestion, Choking and Obstruction Hazards; Sold on Amazon by Chenyuanhui",
+      "product": "Squeezy Dumplings",
+      "units": 8000,
+      "unitsRaw": "About 8,000",
+      "date": "2026-09-03",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture28_3.png?VersionId=Mn30te1YcddFAWLjo_Y6U.UFKc13tgz9",
+      "imageCaption": "Recalled GIHNJSI Squeezy Dumpling and plastic container",
+      "url": "https://www.cpsc.gov/Recalls/2026/GIHNJSI-Squeezy-Dumplings-Toys-Recalled-Due-to-Serious-Ingestion-Choking-and-Obstruction-Hazards-Sold-on-Amazon-by-Chenyuanhui",
+      "retailerText": "",
+      "hazard": "The squeezy toys contain water beads. If ingested, water beads expand and can pose deadly ingestion, choking, and intestinal obstruction hazards inside a child’s body, resulting in severe discomfort, vomiting, dehydration, and a risk of death to a child.",
+      "remedy": "Consumers should stop using the Squeezy Dumplings toys immediately and contact Chenyuanhui for a full refund. Consumers will be asked to write “RECALLED” in permanent marker on the Squeezy Dumpling and on its tan plastic container, throw the toy away and email a photo of the disposed toy to GIHNJSI_recall@163.com",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Gizoon Direct Recalls Six-Drawer Double Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violates Mandatory Standard for Clothing Storage Units",
+      "product": "Gizoon Six-Drawer Double Dressers",
+      "units": 4396,
+      "unitsRaw": "About 4,396",
+      "date": "2026-09-03",
+      "image": "https://cpsc.gov/s3fs-public/Picture23_2.jpg?VersionId=qKYa5xa8yU7nil8lqdPOIehxWs0EGf4f",
+      "imageCaption": "Recalled Gizoon Six-drawer Double Dressers -sold in white and black",
+      "url": "https://cpsc.gov/Recalls/2026/Gizoon-Direct-Recalls-Six-Drawer-Double-Dressers-Due-to-Risk-of-Serious-Injury-or-Death-from-Tip-Over-and-Entrapment-Hazards-Violates-Mandatory-Standard-for-Clothing-Storage-Units",
+      "retailerText": "",
+      "hazard": "The recalled dressers are unstable if they are not anchored to the wall, posing tip-over and entrapment hazards that can result in risks of serious injuries or death to children. The dressers violate the mandatory safety standards as required by the STURDY Act.",
+      "remedy": "Consumers should stop using the recalled dressers immediately if they are not anchored to the wall, place them in an area that children cannot access and contact Gizoon Direct for a full refund. Consumers will be asked to write in permanent marker \"RECALLED\" on the top and all sides of the dresser send a photo of the marked dresser to office@gizoon.com. Consumers should then dispose of the recalled product.",
       "remedyOption": "Refund"
     },
     {
@@ -1489,6 +1531,20 @@
       "retailerText": "",
       "hazard": "The toys violate the small ball ban because they contain small balls and are intended for children under three years of age, posing a deadly choking hazard.",
       "remedy": "Consumers should stop using the recalled toys immediately, take them away from children and contact SHEIN for a full refund. Consumers will be asked to affirm they disposed of the entire toy, including the small balls.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk of Serious Injury or Death from Choking Hazard",
+      "product": "Baby Sesame Street Elmo Silicone Teethers",
+      "units": 22660,
+      "unitsRaw": "About 22,660 (In addition, about 3,177 were sold in Canada)",
+      "date": "2026-09-03",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledBabySesameStreetElmoSiliconeTeether_0.png?VersionId=byxbtFY6tfobY6K1mG8R3b.hqkN_7BN5",
+      "imageCaption": "Recalled Baby Sesame Street Elmo Silicone Teether",
+      "url": "https://www.cpsc.gov/Recalls/2026/Skip-Hop-Recalls-Baby-Sesame-Street-Elmo-Silicone-Teethers-Due-to-Risk-of-Serious-Injury-or-Death-from-Choking-Hazard",
+      "retailerText": "",
+      "hazard": "The black eyes can detach from the recalled teether if frozen, posing a risk of serious injury or death from a choking hazard.",
+      "remedy": "Consumers should stop using the recalled teether immediately, take it away from children and contact Skip Hop Inc. at www.skiphoprecall.com to obtain a refund in the form of a gift card and further instructions on disposal of the product. The gift card can be used at any The William Carter Company brand store, including Carter’s, Skip Hop, OshKosh B’gosh and Little Planet.",
       "remedyOption": "Refund"
     },
     {
@@ -1531,62 +1587,6 @@
       "retailerText": "REI stores nationwide and online at Costco.com, Backcountry.com, Goalzero.com and other online retailers from May 2020 through August 2025 for about $3,00.",
       "hazard": "The recalled power station's circuit board can overheat, posing a risk of serious injury from fire and burn hazards.",
       "remedy": "Consumers should stop using the power stations immediately and install the free repair in the form of a firmware update available through the Goal Zero application or contact Goal Zero for firmware installation at no cost.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "JINHEZO Mini Waterproof LED Tea Lights Recalled Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Consumer Products with Button Cell Batteries; Imported by Mystic ZO",
-      "product": "JINHEZO Mini Waterproof LED Tea Lights",
-      "units": 2798,
-      "unitsRaw": "About 2,798",
-      "date": "2026-08-20",
-      "image": "https://www.cpsc.gov/s3fs-public/jinhezo-1.png",
-      "imageCaption": "Recalled JINHEZO Mini Waterproof LED Tea Lights",
-      "url": "https://www.cpsc.gov/Recalls/2026/JINHEZO-Mini-Waterproof-LED-Tea-Lights-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violate-Mandatory-Standard-for-Consumer-Products-with-Button-Cell-Batteries-Imported-by-Mystic-ZO",
-      "retailerText": "Online at Amazon.com from March 2024 through July 2026 for between $16 to $20 per pack.",
-      "hazard": "The LED Tea Lights violate the mandatory safety standard for consumer products with button cell and coin batteries because the button batteries can be accessed easily by children, posing an ingestion hazard. Additionally, the packaging and product do not have the warnings required under Reese's Law. When button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, internal chemical burns and death.",
-      "remedy": "Consumers should stop using the recalled LED Tea Lights immediately and contact Mystic Zo for a full refund. To receive a refund, consumers will be asked to email their order number or bar code number, if available, along with a photo of the tea lights disposed of in the trash to jinhemaoyi2016@sina.com. Note: Button cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Koorlian Mattresses Recalled Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability; Sold on Amazon by Dream Bedding Technology",
-      "product": "Koorlian Mattresses",
-      "units": 251,
-      "unitsRaw": "About 251",
-      "date": "2026-08-20",
-      "image": "https://www.cpsc.gov/s3fs-public/koorlian-1.png",
-      "imageCaption": "Recalled Koorlian Mattress",
-      "url": "https://www.cpsc.gov/Recalls/2026/Koorlian-Mattresses-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-Hazard-Violate-Mandatory-Standard-for-Mattress-Flammability-Sold-on-Amazon-by-Dream-Bedding-Technology",
-      "retailerText": "Online at Amazon.com from November 2025 through March 2026 for between $110 and $170.",
-      "hazard": "The recalled mattresses violate the mandatory flammability standard for mattresses, posing a risk of serious injury or death from fire.",
-      "remedy": "Consumers should stop using the recalled mattress immediately and contact Dreams Bedding Technology to receive a free cover to put over their mattress to bring it into compliance with the mandatory flammability standards.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "KTM North America Recalls Off-Road Motorcycles Due to Risk of Serious Injury or Death from Crash Hazard",
-      "product": "GASGAS and Husqvarna Off-Road Motorcycles",
-      "units": 21040,
-      "unitsRaw": "About 21,040 (In addition, about 4,140 were sold in Canada)",
-      "date": "2026-08-20",
-      "image": "https://www.cpsc.gov/s3fs-public/ggoffroad-1.png",
-      "imageCaption": "Recalled GASGAS Off-Road Motorcycle",
-      "url": "https://www.cpsc.gov/Recalls/2026/KTM-North-America-Recalls-Off-Road-Motorcycles-Due-to-Risk-of-Serious-Injury-or-Death-from-Crash-Hazard",
-      "retailerText": "GASGAS and Husqvarna authorized dealers nationwide from September 2020 through June 2023 for between $7,300 and $13,000.",
-      "hazard": "The rear brake caliper can crack or break, reducing the brake system's effectiveness, posing a risk of serious injury or death due to crash hazard.",
-      "remedy": "Consumers should stop riding the recalled motorcycles immediately and contact an authorized GASGAS or Husqvarna Motorcycle dealer to schedule a free repair at the dealership.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "Modine Manufacturing Company Recalls Airedale Heating and Cooling Ventilation Fans Due to Fire Hazard",
-      "product": "Ventilation Fans in ClassMate® DX Cooling and Air Source Heat Pumps and SchoolMate® Water/Ground Source Heat Pumps",
-      "units": 6061,
-      "unitsRaw": "About 6,061 (In addition, about 735 were sold in Canada)",
-      "date": "2026-08-20",
-      "image": "https://www.cpsc.gov/s3fs-public/heapum-1.jpg",
-      "imageCaption": "Recalled Heat Pump",
-      "url": "https://www.cpsc.gov/Recalls/2026/Modine-Manufacturing-Company-Recalls-Airedale-Heating-and-Cooling-Ventilation-Fans-Due-to-Fire-Hazard",
-      "retailerText": "Independent dealers nationwide from August 2013 through January 2026 for between $15,000 and $25,000. The ventilation fans are also sold separately through independent dealers for between $250 and $450.",
-      "hazard": "The ventilation fan motor in the heat pumps can short circuit if water gets on the circuit board, causing the units to overheat and posing a fire hazard.",
-      "remedy": "Consumers should stop using the recalled heat pumps immediately and contact Modine Manufacturing Company for written instructions to unplug the recalled ventilation fan or to switch the internal disconnect in the fan to the \"off\" position. Consumers should contact their Modine distributor to arrange for their free inspection and service. Service technicians will inspect and repair or replace the recalled heating and cooling OA/EA ventilation fans in all units.",
       "remedyOption": "Repair"
     }
   ],

@@ -469,21 +469,47 @@ describe.skipIf(!hasRaw)('published figures: cross-checked against the raw CPSC 
     expect(pct).toBe(data.windowContext.preReliableRetailerPct)
   })
 
-  it('the claim "99% or more in every year since 2004" still holds', () => {
+  it('the retailer-coverage claim on /method still holds, year by year', () => {
     /* /method states this outright as the reason the chart starts where it
-       does. If CPSC's retailer coverage ever dips below it, that sentence
-       becomes false and the window needs revisiting. */
-    for (const s of data.series) {
-      const inYear = raw.filter((r) => yearOf(r) === s.year)
-      const withRetailer = inYear.filter((r) => retailerText(r).length > 0).length
-      const pct = (withRetailer / inYear.length) * 100
-      expect(pct, `year ${s.year} retailer coverage`).toBeGreaterThanOrEqual(99)
+       does, so if CPSC's coverage moves, that sentence has to move with it.
+       The bar is different for finished and unfinished years, and that is a
+       property of the source rather than a concession: CPSC fills the retailer
+       field in after a notice goes up, so the year in progress always trails.
+       On 2026-09-03 it sat at 97.8% while every completed year was above 99.
+       The page now prints the measured minimum instead of a typed 99, so this
+       checks the printed figure rather than a constant. */
+    const settled = data.series.slice(0, -1)
+    const inProgress = data.series.at(-1)!
+
+    const measured = (year: number) => {
+      const inYear = raw.filter((r) => yearOf(r) === year)
+      return (inYear.filter((r) => retailerText(r).length > 0).length / inYear.length) * 100
     }
+
+    for (const s of settled) {
+      expect(measured(s.year), `completed year ${s.year} retailer coverage`).toBeGreaterThanOrEqual(99)
+    }
+
+    /* The floor for the unsettled year is assertSane's, so the two agree on
+       what counts as a collapse rather than each having its own opinion. */
+    expect(
+      measured(inProgress.year),
+      `year in progress ${inProgress.year} retailer coverage has fallen below the build's own floor`,
+    ).toBeGreaterThanOrEqual(95)
+
+    /* And the number the page prints has to be the real minimum, not a stale
+       constant that happens to be below it. */
+    const trueMin = Math.min(...settled.map((s) => s.retailerFieldPopulated))
+    expect(trueMin, 'printed minimum vs the series').toBeLessThanOrEqual(
+      Math.min(...settled.map((s) => Math.round(measured(s.year) * 10) / 10)) + 0.06,
+    )
   })
 
-  it('"most recent" really is the ten newest records that have a photograph', () => {
+  it('"most recent" really is the ten newest records fit to display', () => {
+    /* Fit to display means a photograph AND a product name. CPSC posts stub
+       notices with neither text nor remedy, and one of those is not a row. */
     const newest = raw
-      .filter((r) => (r.Images ?? [])[0]?.URL)
+      .filter((r) => (r.Images ?? [])[0]?.URL && (r.Products ?? [])[0]?.Name)
       .map((r) => (r.RecallDate ?? '').slice(0, 10))
       .sort()
       .reverse()

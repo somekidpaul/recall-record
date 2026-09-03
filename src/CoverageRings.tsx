@@ -99,6 +99,16 @@ function tone(v: number) {
 
 export default function CoverageRings() {
   const bent = FIELDS.filter((f) => !isExact(f.value))
+  /* MEASURED, NOT ASSERTED. The sentence below used to read "under a pixel of
+     arc", which was true of the five rings that were bent when it was written
+     (99.7 to 99.9%, gaps of 0.29 to 0.87px). On 2026-09-03 the retailers field
+     settled at 99.6%, a 1.16px gap, and the sentence quietly became false. The
+     shortfall is now taken from the rings actually on screen, and stated as a
+     percentage, which is the thing the reader can check against the printed
+     numbers anyway. */
+  const worstShortfall = bent.length
+    ? Math.round(Math.max(...bent.map((f) => 100 - f.value)) * 10) / 10
+    : 0
   /* Only show a band in the key if something on screen actually uses it. */
   const usedBands = BANDS.filter((b) => FIELDS.some((f) => tone(f.value) === b.color))
   return (
@@ -152,13 +162,14 @@ export default function CoverageRings() {
     {/* 65 words, then 27, now 22. The disclosure stays because a bent scale
         that does not say so is the exact failure the rest of this piece is
         about; what kept going was the explanation of the explanation.
-        "Under a pixel" is measured, not rhetorical: the five bent rings sit at
-        99.7 to 99.9%, whose true arc gaps are 0.29 to 0.87px on a 289.03px
-        circumference. */}
+        The shortfall it quotes is computed from the bent rings themselves, so
+        it cannot drift out of step with them the way the old fixed "under a
+        pixel of arc" did. */}
     {bent.length > 0 && (
       <p className="m-0 mt-6 max-w-[72ch] text-[15px] leading-[1.6] text-[var(--color-ink-faint)]">
-        {bent.length} of these miss 100% by under a pixel of arc, so anything short of 100% keeps
-        a visible gap. The printed numbers are exact.
+        {bent.length} of these fall short of 100% by {worstShortfall}% or less, too little to
+        show as a gap at this size, so anything short of 100% is drawn with one. The printed
+        numbers are exact.
       </p>
     )}
     </>

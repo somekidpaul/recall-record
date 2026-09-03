@@ -147,7 +147,7 @@ export function RecallRow({
       {/* Always rendered, height driven by CSS. Rendering it conditionally made
           opening animate and closing snap, because an unmounted element cannot
           transition. */}
-      <div className="disclosure" data-open={open} id={panelId} aria-hidden={!open}>
+      <div className="disclosure" data-open={open} id={panelId} inert={!open}>
         <div>
           <div
             /* grid-cols-[minmax(0,1fr)] on the single-column phone case, so the
@@ -166,6 +166,10 @@ export function RecallRow({
                 src={row.image}
                 alt={row.product}
                 loading="lazy"
+                /* The footer promises no tracking. This is the only third-party
+                   request the page makes, so it should not hand cpsc.gov the
+                   page the reader was on when it fired. */
+                referrerPolicy="no-referrer"
                 className="max-h-[260px] w-full rounded-xl border border-[var(--color-rule)] bg-[var(--color-paper-sunk)] object-contain p-4"
               />
             ) : (

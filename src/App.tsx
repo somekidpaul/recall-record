@@ -3,6 +3,7 @@ import Nav from './Nav'
 import CountUp from './CountUp'
 import BiggestRecalls from './BiggestRecalls'
 import OriginSplit from './OriginSplit'
+import { DataDownloads, ProvenanceNote } from './SiteFooter'
 import data from './data/recalls.json'
 
 const last = data.series.at(-1)!
@@ -132,35 +133,10 @@ export default function App() {
             </p>
           </div>
 
-          <div className="no-print flex flex-wrap gap-3">
-            <a
-              href="/recall-data.csv"
-              download
-              className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-            >
-              Download CSV
-            </a>
-            <a
-              href="/recall-data.json"
-              download
-              className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-            >
-              JSON
-            </a>
-            <a
-              href={data.source}
-              className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-            >
-              Go to the raw CPSC data
-            </a>
-          </div>
+          <DataDownloads />
         </div>
 
-        <p className="m-0 mt-10 measure text-[15px] text-[var(--color-ink-faint)]">
-          Free government data. No tracking, no cookies, no accounts. Every number here is
-          calculated straight from the source above when the page is built, so it cannot drift
-          out of sync.
-        </p>
+        <ProvenanceNote />
       </footer>
     </main>
   )

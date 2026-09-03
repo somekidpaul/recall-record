@@ -297,6 +297,60 @@ describe.skipIf(!hasRaw)('published figures: cross-checked against the raw CPSC 
     }
   })
 
+  /**
+   * ALL FIVE LINES, not just Amazon.
+   *
+   * Only the Amazon series was ever recounted from the feed, and that gap is
+   * precisely where a real defect lived undisturbed. The four comparator lines
+   * were matched with plain `includes`, so the stem "home depot" could not see
+   * CPSC's "homedepot.com", and the Home Depot line came out understated in
+   * fourteen of the twenty-three years: 5.5% published against a true 9.6% at
+   * its worst, in 2021. Two smaller errors ran the other way, "targeted
+   * national advertisements" counted as Target in 2009 and "bunniesbythebay"
+   * counted as eBay in 2015.
+   *
+   * The error was one-directional and it flattered the finding, which is the
+   * exact direction this suite exists to catch, and all fifty-two tests were
+   * green the entire time. A cross-check that covers one of five series is a
+   * cross-check with four blind spots.
+   *
+   * The patterns are written out here rather than imported from build-data,
+   * because a test that borrows the implementation's own matcher only proves
+   * the implementation agrees with itself. These state the intended rule
+   * independently: word boundaries, tolerate a squashed multi-word name,
+   * tolerate a possessive.
+   */
+  const RETAILER_PATTERNS: Record<string, RegExp> = {
+    /* Deliberately loose, and it has to stay that way to match the build.
+       Nothing else in the corpus contains the letters "amazon", and CPSC
+       published a notice reading "online atamazon.com", its own typo, which a
+       word boundary silently drops. */
+    amazon: /amazon/i,
+    walmart: /\bwalmart(?:'?s)?\b/i,
+    target: /\btarget(?:'?s)?\b/i,
+    /* \s* because the storefront is written "homedepot.com" at least as often
+       as "Home Depot". This is the one that was wrong. */
+    homeDepot: /\bhome\s*depot(?:'?s)?\b/i,
+    ebay: /\bebay(?:'?s)?\b/i,
+  }
+
+  it('every retailer line on the chart matches a fresh count from the feed', () => {
+    /* Hyphens stripped on the haystack, the same normalisation the build does,
+       so the Walmart line still sees the older "Wal-Mart" spelling. */
+    const hyphens = /[-‐-―]/g
+    for (const s of data.series) {
+      const inYear = raw.filter((r) => yearOf(r) === s.year)
+      if (!inYear.length) continue
+      for (const [key, re] of Object.entries(RETAILER_PATTERNS)) {
+        const published = s.retailers[key as keyof typeof s.retailers]
+        if (published == null) continue
+        const named = inYear.filter((r) => re.test(retailerText(r).replace(hyphens, ''))).length
+        const pct = Math.round((named / inYear.length) * 1000) / 10
+        expect(Math.abs(pct - published), `${s.year} ${key}: feed says ${pct}, page says ${published}`).toBeLessThanOrEqual(0.06)
+      }
+    }
+  })
+
   it('newestRecallDate is the latest date in the feed', () => {
     const latest = raw
       .map((r) => r.RecallDate)

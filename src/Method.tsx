@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useId, useState } from 'react'
 import Nav from './Nav'
 import CoverageRings from './CoverageRings'
+import { DataDownloads } from './SiteFooter'
 import data from './data/recalls.json'
-import { useId, useState } from 'react'
 
 const last = data.series.at(-1)!
 const first = data.series[0]
@@ -139,7 +139,7 @@ export default function Method() {
             on the same chart as twenty-one finished ones, and that is what the
             answer was always about. */}
         <Note title={`Why a partial ${p.year} still compares fairly`}>
-          The data runs through {data.newestRecallDate},
+          The data runs through {data.newestRecallDate},{' '}
           {p.monthsElapsed === 1 ? 'about a month in' : `about ${p.monthsElapsed} months in`}. That matters less than it sounds, because every
           number here is a percentage and not a total, so a shorter year is not a smaller
           one. The months were also checked one by one for a seasonal pattern that could tilt a partial
@@ -269,27 +269,8 @@ export default function Method() {
             Back to the record
           </a>
         </p>
-        <div className="no-print mt-8 flex flex-wrap gap-3">
-          <a
-            href="/recall-data.csv"
-            download
-            className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-          >
-            Download CSV
-          </a>
-          <a
-            href="/recall-data.json"
-            download
-            className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-          >
-            JSON
-          </a>
-          <a
-            href={data.source}
-            className="rounded-full border border-[var(--color-rule)] px-5 py-2.5 text-[15px] text-[var(--color-ink-soft)] transition-colors hover:border-[var(--color-ink-faint)] hover:text-[var(--color-ink)]"
-          >
-            Go to the raw CPSC data
-          </a>
+        <div className="mt-8">
+          <DataDownloads />
         </div>
       </footer>
     </main>
@@ -345,7 +326,7 @@ function Note({ title, children }: { title: string; children: React.ReactNode })
         </span>
       </button>
 
-      <div className="disclosure" data-open={open} id={id} role="region" aria-hidden={!open}>
+      <div className="disclosure" data-open={open} id={id} role="region" inert={!open}>
         <div>
           {/* FULL WIDTH, deliberately, and the one place on the site that skips
               the shared reading measure.

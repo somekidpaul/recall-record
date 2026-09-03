@@ -140,7 +140,7 @@ export default function Nav({ current }: { current: '/' | '/method' | '/check' }
         id="nav-panel"
         className="disclosure md:hidden"
         data-open={open}
-        aria-hidden={!open}
+        inert={!open}
       >
         <div>
           <nav aria-label="Sections" className="flex flex-col gap-1 pb-4">

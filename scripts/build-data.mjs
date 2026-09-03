@@ -509,11 +509,39 @@ function build(all) {
   const allYears = [...perYear.keys()].sort((a, b) => a - b)
   const populated = (rs) => pct(rs.filter((r) => retailerText(r).length > 0).length, rs.length)
 
-  // First year the field is reliable, and reliable in every year after it, so a
-  // single good year early on cannot be mistaken for the start of the record.
-  const firstReliableYear = allYears.find(
-    (y, i) => allYears.slice(i).every((z) => (populated(perYear.get(z)) ?? 0) >= 99),
+  /*
+   * First year the field is reliable, and reliable in every year after it, so a
+   * single good year early on cannot be mistaken for the start of the record.
+   *
+   * THE IN-PROGRESS YEAR DOES NOT GET A VOTE, and giving it one took the build
+   * down on 2026-09-03.
+   *
+   * CPSC fills the retailer field in after publication, so the newest year runs
+   * soft until it settles. That morning the corpus went from 9,970 records to
+   * 9,975 inside an hour and 2026 fell from exactly 99.0% to 97.8%. Because the
+   * test reads "this year AND every year after it", one soft year at the END
+   * disqualified every candidate before it, `find` returned undefined, and the
+   * next line crashed on `perYear.get(undefined)` with "Cannot read properties
+   * of undefined (reading 'filter')" before assertSane ever ran. Fail-closed,
+   * but the report named nothing and pointed at the wrong line.
+   *
+   * Completed years decide where the reliable era starts, which is the only
+   * thing this figure is used to say. Dropping the last year from the test can
+   * only ever move the answer earlier, never later, so it cannot manufacture a
+   * reliable start that is not there. A real collapse in the current year is
+   * still caught downstream: assertSane fails any year under 95%.
+   */
+  const settledYears = allYears.slice(0, -1)
+  const firstReliableYear = settledYears.find(
+    (y, i) => settledYears.slice(i).every((z) => (populated(perYear.get(z)) ?? 0) >= 99),
   )
+  if (firstReliableYear === undefined) {
+    throw new Error(
+      'No year has a 99% populated retailer field that holds for every later year, so the ' +
+        'chart has no honest starting point. Retailer field by completed year: ' +
+        settledYears.map((y) => `${y}=${populated(perYear.get(y))}%`).join(' '),
+    )
+  }
   const preReliable = all.filter(
     (r) => Number((r.RecallDate ?? '').slice(0, 4)) < firstReliableYear,
   )
@@ -661,6 +689,15 @@ function build(all) {
       const products = r.Products ?? []
       const image = (r.Images ?? [])[0]
       if (!image?.URL) return null
+      /* A STUB IS NOT A RECALL YET.
+         CPSC sometimes posts the shell of a notice before the text is written.
+         On 2026-09-03 one arrived with a photograph, an empty Products array
+         and an empty Remedies array, so /check rendered a nameless row under
+         "Most recent recalls" and the suite failed on a listed recall that
+         does not say what to do about it. Exactly one record in 8,287 is
+         nameless and it is that one, so this excludes stubs and nothing else:
+         Remedies is otherwise 100% populated in every year since 2020. */
+      if (!products[0]?.Name) return null
       const units = products.map((p) => parseUnits(p.NumberOfUnits)).filter((n) => n != null)
       const max = units.length ? Math.max(...units) : null
       return {

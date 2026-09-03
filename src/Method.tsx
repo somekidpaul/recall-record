@@ -7,6 +7,16 @@ import data from './data/recalls.json'
 const last = data.series.at(-1)!
 const first = data.series[0]
 
+/* THE FIELD-COVERAGE CLAIM IS MEASURED, NOT TYPED, because the typed one went
+   false. The page said "filled in on 99% or more of recalls in every single
+   year", which held until 2026-09-03, when five newly posted notices dropped
+   the in-progress year to 97.8% and made the sentence untrue. CPSC fills this
+   field in after publication, so the newest year always runs behind until it
+   settles; the completed years are the ones that can carry the claim. Derived
+   from the series, so it moves with the weekly refresh instead of rotting. */
+const settled = data.series.slice(0, -1)
+const minSettledRetailerPct = Math.min(...settled.map((s) => s.retailerFieldPopulated))
+
 /**
  * /method, the whole account of how the number was produced.
  *
@@ -72,9 +82,11 @@ export default function Method() {
           </strong>{' '}
           say where the product was sold at all. Counting how often Amazon gets named across years
           where most recalls name nobody would measure the empty field, not Amazon. From{' '}
-          {first.year} onward it is filled in on 99% or more of recalls in every single year, in
-          the same prose format it uses today, so the line can run the whole way without the
-          ground shifting under it.
+          {first.year} onward it is filled in on {minSettledRetailerPct}% or more of recalls in
+          every completed year, in the same prose format it uses today, so the line can run the
+          whole way without the ground shifting under it. CPSC fills this field in after a notice
+          goes up, so the year in progress always runs a little behind the finished ones:{' '}
+          {last.year} is at {last.retailerFieldPopulated}% today.
           {/* A closing sentence here used to add that the page "used to start in
               2015, which was a choice rather than a limit". True, and it is the
               best thing about how this was made, but it is about the page's

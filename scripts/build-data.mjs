@@ -215,8 +215,34 @@ const namesRetailer = (blob, stem) =>
   ).test(blob.replace(HYPHENS, ''))
 
 /** The five series on the main chart. */
+/**
+ * The five lines on the chart, and how each one is matched.
+ *
+ * These used to be matched with plain `includes`, which was a real error and it
+ * ran one way: it understated the comparators and so flattered the finding. The
+ * counts below are from the 9,969-record cached feed, 2004 on.
+ *
+ *   home depot   substring 283, word boundary 335.
+ *                CPSC writes the storefront as "homedepot.com" with no space,
+ *                which "home depot" cannot see. All 52 extra rows were read;
+ *                every one is a genuine homedepot.com mention. 2021 was
+ *                published as 5.5% against a true 9.6%.
+ *   target       substring caught "targeted national advertisements" (2009).
+ *   ebay         substring caught "bunniesbythebay.com" (2015).
+ *   walmart      identical either way, once hyphens are stripped.
+ *
+ * So four of the five want `namesRetailer`, the word-boundary matcher the rest
+ * of this file already uses. Amazon is the exception and stays on `includes`,
+ * for two reasons that both point the same way. It has zero false positives in
+ * the corpus, nothing else contains the letters "amazon". And it has exactly
+ * one true positive that word boundaries would throw away: a 2025 notice reads
+ * "online atamazon.com", CPSC's own typo for "at amazon.com", which `\b` cannot
+ * see past. Dropping it would also split Amazon from `amazonOnly` below, which
+ * matches on `includes('amazon')`, and assertSane requires amazonOnly never to
+ * exceed the Amazon line.
+ */
 const TRACKED = [
-  { key: 'amazon', label: 'Amazon', match: 'amazon' },
+  { key: 'amazon', label: 'Amazon', match: 'amazon', loose: true },
   { key: 'walmart', label: 'Walmart', match: 'walmart' },
   { key: 'target', label: 'Target', match: 'target' },
   { key: 'homeDepot', label: 'Home Depot', match: 'home depot' },
@@ -300,9 +326,15 @@ function build(all) {
     const n = blobs.length
 
     const retailers = Object.fromEntries(
-      // Hyphen-normalised so the chart's Walmart line catches the older
-      // "Wal-Mart" spelling, the same reason namesRetailer strips them.
-      TRACKED.map((t) => [t.key, pct(blobs.filter((b) => b.replace(HYPHENS, '').includes(t.match)).length, n)]),
+      // Both paths strip hyphens first, so the Walmart line catches the older
+      // "Wal-Mart" spelling. See TRACKED for why Amazon alone stays loose.
+      TRACKED.map((t) => [
+        t.key,
+        pct(
+          blobs.filter((b) => (t.loose ? b.replace(HYPHENS, '').includes(t.match) : namesRetailer(b, t.match))).length,
+          n,
+        ),
+      ]),
     )
 
     // Amazon named, and no other major retailer named alongside it.
@@ -695,9 +727,41 @@ function build(all) {
  * Fail loudly rather than silently shipping a stale or broken build.
  * A self-updating page that quietly rots into wrong numbers is worse than no page.
  */
-function assertSane(d) {
+/**
+ * How much of the corpus is allowed to disappear between two builds.
+ *
+ * Not zero. CPSC really does withdraw and merge notices after publication, and
+ * that is ordinary housekeeping rather than a fault: the corpus went 9,969 to
+ * 9,966 over eight days in August 2026, three records, all legitimate. A guard
+ * that fired on that would be turned off within a month, which is worse than
+ * no guard.
+ *
+ * 0.5% of the current corpus is about fifty records. Fifty notices vanishing in
+ * a week is not housekeeping, it is a truncated response or a changed endpoint,
+ * which is the case worth failing the build over.
+ */
+const MAX_SHRINK = 0.005
+
+function assertSane(d, previous) {
   const problems = []
-  if (d.corpusTotal < 9000) problems.push(`corpus shrank to ${d.corpusTotal}, expected 9000+`)
+  if (d.corpusTotal < 9000) problems.push(`corpus is ${d.corpusTotal}, expected 9000+`)
+
+  /* THE FLOOR ABOVE CANNOT SEE A SHRINK, only a collapse.
+     README claimed this script "asserts the corpus has not shrunk" while the
+     only check was that hardcoded 9,000. The corpus had already shrunk by three
+     records with nothing to notice, and a CPSC response truncated to, say,
+     9,100 records would have sailed through and quietly restated every figure
+     on the site. Comparing against the last PUBLISHED total is what makes the
+     claim true, and it is available for free: this runs before the new
+     recalls.json is written, so the file on disk is still the old one. */
+  if (previous && d.corpusTotal < previous * (1 - MAX_SHRINK)) {
+    const lost = previous - d.corpusTotal
+    problems.push(
+      `corpus shrank from ${previous} to ${d.corpusTotal}, losing ${lost} records ` +
+        `(${((lost / previous) * 100).toFixed(2)}%, over the ${(MAX_SHRINK * 100).toFixed(1)}% allowed)`,
+    )
+  }
+
   if (d.series.length < 10) problems.push(`only ${d.series.length} years of series`)
 
   const ageDays = (Date.now() - new Date(d.newestRecallDate).getTime()) / 864e5
@@ -719,9 +783,17 @@ function assertSane(d) {
   }
 }
 
+/* Read before write, so `previous` is the total the site is currently serving.
+   Absent on a first build or a clean checkout, and the guard skips rather than
+   inventing a baseline. */
+const previousTotal = await readFile(OUT, 'utf8').then(
+  (t) => JSON.parse(t).corpusTotal,
+  () => null,
+)
+
 const raw = await loadRaw()
 const data = build(raw)
-assertSane(data)
+assertSane(data, previousTotal)
 
 await mkdir(dirname(OUT), { recursive: true })
 await writeFile(OUT, JSON.stringify(data, null, 2))
@@ -862,6 +934,23 @@ await writeFile(
  * true of roughly a sixth of the corpus.
  */
 const IMAGE_PREFIX = 'https://www.cpsc.gov/'
+
+/**
+ * CPSC does not spell its own host one way, and only stripping the canonical
+ * form left 138 rows holding a whole absolute URL. The page then built
+ * `prefix + value` and requested
+ * `https://www.cpsc.gov/http://www.cpsc.gov/Global/Images/...`, a guaranteed
+ * 404, so those recalls showed "Loading the photograph…" and never resolved.
+ *
+ * 136 of the 138 were `http://` as well, which a browser blocks as mixed
+ * content on an https page, so folding them in here fixes a second failure at
+ * the same time by promoting them to the https host.
+ *
+ * Ordered longest-first so `https://cpsc.gov/` cannot shadow the www form. One
+ * row in the corpus points at recalls.justia.com, a genuinely different host,
+ * and it is left absolute on purpose; the renderer detects that case.
+ */
+const IMAGE_HOSTS = ['https://www.cpsc.gov/', 'http://www.cpsc.gov/', 'https://cpsc.gov/', 'http://cpsc.gov/']
 await writeFile(
   join(ROOT, 'public', 'search-images.json'),
   JSON.stringify({
@@ -872,7 +961,8 @@ await writeFile(
       .map((r) => {
         const u = (r.Images ?? [])[0]?.URL
         if (!u) return ''
-        return u.startsWith(IMAGE_PREFIX) ? u.slice(IMAGE_PREFIX.length) : u
+        const host = IMAGE_HOSTS.find((h) => u.startsWith(h))
+        return host ? u.slice(host.length) : u
       }),
   }),
 )

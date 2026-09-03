@@ -2,7 +2,11 @@ import { useEffect } from 'react'
 import Nav from './Nav'
 import RecallSearch from './RecallSearch'
 import type { RowView } from './RecallRow'
+import { DataDownloads, ProvenanceNote } from './SiteFooter'
 import data from './data/recalls.json'
+
+const last = data.series.at(-1)!
+const first = data.series[0]
 
 /**
  * /check, the lookup on its own.
@@ -76,6 +80,39 @@ export default function Check() {
           answers that before they ask, and it is the same rows a search
           returns, so nothing about the page changes shape when they start. */}
       <RecallSearch autoFocus defaultList={recent} defaultHeading="Most recent recalls" />
+
+      {/* This page had no footer at all, which was the wrong page to leave
+          without one. It is the most linkable route on the site and the one a
+          stranger is most likely to reach cold, from a search rather than from
+          the argument, so it was the page carrying no byline, no CPSC
+          attribution, no downloads and no statement that nothing is tracked. */}
+      <footer className="mt-24 border-t border-[var(--color-rule)] py-12">
+        <p className="m-0 text-[17px] leading-[1.55] text-[var(--color-ink)]">
+          <a
+            className="font-semibold underline decoration-[var(--color-signal)] decoration-2 underline-offset-4"
+            href="/"
+          >
+            Read the record
+          </a>{' '}
+          <span className="text-[var(--color-ink-soft)]">
+            for what these notices show over the last {last.year - first.year} years.
+          </span>
+        </p>
+        <p className="m-0 mt-3 text-[16px] leading-[1.6] text-[var(--color-ink-soft)]">
+          Designed and built by{' '}
+          <a
+            className="underline decoration-[var(--color-rule)] underline-offset-4 hover:decoration-[var(--color-ink)]"
+            href="https://somekidpaul.com"
+          >
+            Paul Buczkowski
+          </a>
+          .
+        </p>
+        <div className="mt-8">
+          <DataDownloads />
+        </div>
+        <ProvenanceNote />
+      </footer>
     </main>
   )
 }

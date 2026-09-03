@@ -4,16 +4,16 @@
   <text x="72" y="176" fill="#f4f1ee" font-family="Iowan Old Style,Palatino,Georgia,serif" font-size="62">Nearly half of US recalls now</text>
   <text x="72" y="242" fill="#f4f1ee" font-family="Iowan Old Style,Palatino,Georgia,serif" font-size="62">name only Amazon.</text>
 
-  <path d="M72.0,507.7 L111.4,510.7 L150.7,508.2 L190.1,512.1 L229.5,508.2 L268.8,502.0 L308.2,508.4 L347.5,508.7 L386.9,509.2 L426.3,511.9 L465.6,502.0 L505.0,505.0 L544.4,504.7 L583.7,500.8 L623.1,504.7 L662.5,505.7 L701.8,498.1 L741.2,490.4 L780.5,491.7 L819.9,491.7 L859.3,478.3 L898.6,483.3 L938.0,493.4" fill="none" stroke="#8fa8c8" stroke-width="3"/>
-  <path d="M72.0,511.4 L111.4,512.9 L150.7,514.4 L190.1,509.4 L229.5,514.4 L268.8,509.2 L308.2,511.1 L347.5,503.0 L386.9,508.4 L426.3,508.4 L465.6,512.9 L505.0,510.7 L544.4,503.3 L583.7,500.8 L623.1,507.7 L662.5,507.7 L701.8,504.7 L741.2,508.4 L780.5,500.8 L819.9,502.3 L859.3,497.8 L898.6,507.9 L938.0,510.2" fill="none" stroke="#7fb6bd" stroke-width="3"/>
-  <path d="M72.0,511.4 L111.4,516.6 L150.7,517.3 L190.1,518.3 L229.5,517.1 L268.8,515.6 L308.2,515.8 L347.5,514.1 L386.9,508.4 L426.3,513.6 L465.6,508.7 L505.0,508.2 L544.4,508.4 L583.7,512.4 L623.1,505.7 L662.5,515.8 L701.8,515.3 L741.2,508.4 L780.5,510.2 L819.9,503.7 L859.3,510.7 L898.6,511.4 L938.0,513.9" fill="none" stroke="#84bb93" stroke-width="3"/>
-  <path d="M72.0,522.0 L111.4,521.3 L150.7,521.3 L190.1,522.0 L229.5,522.0 L268.8,520.0 L308.2,517.8 L347.5,515.6 L386.9,514.1 L426.3,503.3 L465.6,515.3 L505.0,509.2 L544.4,497.3 L583.7,498.3 L623.1,503.7 L662.5,501.5 L701.8,490.4 L741.2,488.2 L780.5,487.5 L819.9,471.7 L859.3,472.7 L898.6,443.3 L938.0,403.6" fill="none" stroke="#fb7a52" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="938.0" cy="403.6" r="9" fill="#fb7a52"/>
+  <path d="M72.0,507.7 L111.4,510.7 L150.7,508.2 L190.1,512.1 L229.5,508.2 L268.8,502.0 L308.2,508.4 L347.5,508.7 L386.9,509.2 L426.3,511.9 L465.6,502.0 L505.0,505.0 L544.4,504.7 L583.7,500.8 L623.1,504.7 L662.5,505.7 L701.8,498.1 L741.2,490.4 L780.5,491.7 L819.9,491.7 L859.3,478.3 L898.6,483.3 L938.0,493.9" fill="none" stroke="#8fa8c8" stroke-width="3"/>
+  <path d="M72.0,511.4 L111.4,512.9 L150.7,514.4 L190.1,509.4 L229.5,514.4 L268.8,509.7 L308.2,511.1 L347.5,503.0 L386.9,508.4 L426.3,508.4 L465.6,512.9 L505.0,510.7 L544.4,503.3 L583.7,500.8 L623.1,507.7 L662.5,507.7 L701.8,504.7 L741.2,508.4 L780.5,500.8 L819.9,502.3 L859.3,497.8 L898.6,507.9 L938.0,510.4" fill="none" stroke="#7fb6bd" stroke-width="3"/>
+  <path d="M72.0,511.4 L111.4,516.6 L150.7,517.3 L190.1,518.3 L229.5,517.1 L268.8,515.6 L308.2,515.8 L347.5,514.1 L386.9,508.4 L426.3,513.6 L465.6,507.9 L505.0,505.0 L544.4,506.2 L583.7,509.7 L623.1,502.0 L662.5,512.9 L701.8,509.4 L741.2,498.3 L780.5,507.7 L819.9,500.8 L859.3,509.9 L898.6,506.2 L938.0,512.9" fill="none" stroke="#84bb93" stroke-width="3"/>
+  <path d="M72.0,522.0 L111.4,521.3 L150.7,521.3 L190.1,522.0 L229.5,522.0 L268.8,520.0 L308.2,517.8 L347.5,515.6 L386.9,514.1 L426.3,503.3 L465.6,515.3 L505.0,509.2 L544.4,497.3 L583.7,498.3 L623.1,503.7 L662.5,501.5 L701.8,490.4 L741.2,488.2 L780.5,487.5 L819.9,471.7 L859.3,472.7 L898.6,443.3 L938.0,404.8" fill="none" stroke="#fb7a52" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="938.0" cy="404.8" r="9" fill="#fb7a52"/>
 
-  <text x="962" y="397.6" fill="#fb7a52" font-family="Menlo,monospace" font-size="30" font-weight="bold">48%</text>
-  <text x="962" y="427.6" fill="#9b8f86" font-family="Menlo,monospace" font-size="19">Amazon</text>
-  <text x="72" y="556" fill="#9b8f86" font-family="Menlo,monospace" font-size="19">0% in 2004, 48% in 2026</text>
+  <text x="962" y="398.8333333333333" fill="#fb7a52" font-family="Menlo,monospace" font-size="30" font-weight="bold">47.5%</text>
+  <text x="962" y="428.8333333333333" fill="#9b8f86" font-family="Menlo,monospace" font-size="19">Amazon</text>
+  <text x="72" y="556" fill="#9b8f86" font-family="Menlo,monospace" font-size="19">0% in 2004, 47.5% in 2026</text>
 
-  <text x="72" y="586" fill="#9b8f86" font-family="Menlo,monospace" font-size="19">9,966 CPSC recalls · data through 2026-08-20</text>
+  <text x="72" y="586" fill="#9b8f86" font-family="Menlo,monospace" font-size="19">9,970 CPSC recalls · data through 2026-09-03</text>
   <text x="1128" y="586" fill="#9b8f86" font-family="Menlo,monospace" font-size="19" text-anchor="end">somekidpaul.com</text>
 </svg>

@@ -133,7 +133,14 @@ export default function RecallSearch({
       product: hit.row.n || titleFromUrl(hit.row.u),
       hazard: hit.row.h,
       url: hit.row.u ? prefix + hit.row.u : undefined,
-      image: images?.[hit.i] ? imgPrefix + images[hit.i] : undefined,
+      /* A stored value is normally a path under the CPSC host, but a handful
+         point somewhere else entirely and ship absolute. Concatenating those
+         onto the prefix produced a URL with two schemes in it, which 404s. */
+      image: images?.[hit.i]
+        ? /^https?:\/\//.test(images[hit.i])
+          ? images[hit.i]
+          : imgPrefix + images[hit.i]
+        : undefined,
       /* The tag only. The full instruction is 3MB across the corpus, so a
          search result names the remedy and links out for the detail. */
       remedyOption: hit.row.o || undefined,
@@ -291,7 +298,7 @@ export default function RecallSearch({
               />
             ))}
           </ol>
-          <div className="disclosure" data-open={showAllDefault} aria-hidden={!showAllDefault}>
+          <div className="disclosure" data-open={showAllDefault} inert={!showAllDefault}>
             <div>
               <ol start={DEFAULT_SHOWN + 1} className="m-0 list-none p-0">
                 {defaultList.slice(DEFAULT_SHOWN).map((r) => (

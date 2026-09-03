@@ -580,10 +580,25 @@ p { text-wrap-style: pretty; }
 
 .search-shell:hover { border-color: var(--color-ink-faint); }
 
-/* The input's own focus ring would draw a second box inside the shell, which
-   already shows focus. The shell keeps the visible indicator. */
+/* The input's own focus ring would draw a second box inside the shell, so the
+   shell wears the indicator instead.
+
+   IT HAS TO BE A RING, NOT A BORDER COLOUR, and that is the bug this replaces.
+   The rule here used to be `:focus-within { border-color: --color-ink-faint }`,
+   but both `[data-open='true']` above and `:hover` already set that exact
+   colour, so focusing an open field changed nothing on screen. On /check the
+   field is open from the moment the page loads, so it never had an indicator at
+   all. WCAG 2.4.7, on the one control that page exists for.
+
+   :has(:focus-visible) rather than :focus-within, so a pointer click still
+   draws nothing. That is the same call as `:focus:not(:focus-visible)` above,
+   made after a click on the chart put a box around it. Same 2px offset ring as
+   every other control, so keyboard focus looks like one thing sitewide. */
 .search-shell input:focus { outline: none; }
-.search-shell:focus-within { border-color: var(--color-ink-faint); }
+.search-shell:has(input:focus-visible) {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+}
 
 /* Search inputs get a UA clear button in WebKit that duplicates ours. */
 .search-shell input::-webkit-search-cancel-button { display: none; }

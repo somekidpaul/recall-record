@@ -2,14 +2,22 @@
 
 A weekly visual record of US consumer product recalls, built from CPSC public-domain data.
 
+**Live at [recallrecord.com](https://recallrecord.com)**
+
 ## The finding
 
-Nearly half of every US consumer product recall in 2026 so far (48.3%) names
-Amazon and no other major retailer. In 2015 it was 5.2%, about one in nineteen.
+Nearly half of every US consumer product recall in 2026 so far names Amazon and
+no other major retailer. In 2015 it was about one in nineteen.
 
 The obvious objection is that e-commerce simply grew. It does not hold. Online
 selling overall roughly doubled over the same period while Amazon quadrupled,
-and Walmart, Target and Home Depot are flat or falling.
+and no other store on the chart comes close. The biggest climb among them is
+Walmart's, and it is a few points against Amazon's forty.
+
+Exact figures are deliberately not repeated here. They move every week and a
+hand-typed copy in a README is a copy that goes stale silently, which is the
+one thing this project is not allowed to do. The site computes them at build
+time; read them there.
 
 ## Methodology, and its limits
 
@@ -46,10 +54,15 @@ npm run dev      # local dev on :5176
 npm run build    # data + typecheck + production build
 ```
 
-The data step asserts the corpus has not shrunk, every year's retailer field is
-populated, and the newest recall is under 28 days old. It exits non-zero
-otherwise, so a broken weekly rebuild fails loudly instead of silently shipping
-stale numbers.
+The data step asserts the corpus has not shrunk by more than 0.5% against the
+last published build, that every year's retailer field is populated, and that
+the newest recall is under 28 days old. It exits non-zero otherwise, so a broken
+weekly rebuild fails loudly instead of silently shipping stale numbers.
+
+`npm test` then re-counts the published figures against the raw federal feed,
+including all five retailer lines on the chart, and the weekly workflow runs it
+between building the data and committing it. A build whose numbers stop matching
+the source cannot reach the site.
 
 ## Source
 

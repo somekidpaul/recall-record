@@ -116,8 +116,8 @@ function topOf(G: Geom, d: Row, soleOnly: boolean, showControl: boolean) {
  * THE COMPARATORS DO NOT GET END-LABELS ANY MORE, and this replaced a function
  * that spent thirty lines fighting the symptom.
  *
- * In 2026 Walmart is 10.7%, Target 4.6%, Home Depot 3.2% and eBay 1.1%. All
- * four live inside the bottom twelfth of a chart scaled for Amazon, so their
+ * The comparators all sit in single digits while Amazon runs toward fifty, so
+ * all four live inside the bottom twelfth of a chart scaled for Amazon, and their
  * natural label positions were on top of each other. A declutter pass pushed
  * them apart by a minimum gap, which worked in the sense that the labels no
  * longer overlapped and failed in every other sense: measured, Home Depot
@@ -219,6 +219,27 @@ export default function RetailerChart() {
      a literal "Infinity× since ’04". */
   const ratio = data.series.find((r) => r.year === data.ratioFirstYear)!
   const amzFirst = soleOnly ? ratio.amazonOnly! : ratio.retailers.amazon!
+
+  /* THE COMPARATOR CLAIM IS DERIVED NOW, BECAUSE THE ASSERTED ONE HAD GONE
+     FALSE.
+     The payoff line under the objection toggle used to end "and Walmart, Target
+     and Home Depot are flat or falling over the same stretch". That was typed
+     once and never recomputed, and the data had moved out from under it:
+     Walmart climbs from 6.9% in 2015 and peaks at 17.7% in 2024, so it is
+     neither flat nor falling. Worse, App.tsx already tells the reader
+     "Walmart rises, then drops", which is correct, so the page contradicted
+     itself about a line the reader can watch climbing two inches above the
+     sentence.
+     Naming the biggest climber out of the series instead means the claim cannot
+     rot again: if Target ever overtakes Walmart the sentence renames itself,
+     and the figures move with the weekly refresh like every other number here.
+     Both ends are shares of ALL recalls, which is what the comparator lines on
+     this chart are, so the comparison stays inside one measure. */
+  const climb = COMPARATORS.map((c) => ({
+    label: c.label,
+    from: ratio.retailers[c.key]!,
+    to: last.retailers[c.key]!,
+  })).sort((a, b) => b.to - b.from - (a.to - a.from))[0]
 
   return (
     <figure className="m-0">
@@ -645,8 +666,9 @@ export default function RetailerChart() {
               Among recalls sold online at all, the share naming Amazon went from{' '}
               {ratio.amazonOfOnline}% in {ratio.year} to {last.amazonOfOnline}% in {last.year}.
               Online shopping growing cannot
-              explain a share measured inside online shopping, and Walmart, Target and Home Depot
-              are flat or falling over the same stretch.
+              explain a share measured inside online shopping. Over the same stretch the biggest
+              climb by any other store on this chart is {climb.label}, from {climb.from}% to{' '}
+              {climb.to}%.
             </strong>
           ) : (
             <strong className="font-semibold text-[var(--color-ink)]">The obvious objection is that everyone shops online now. Flip the &ldquo;obvious objection&rdquo; toggle above the chart to see whether it holds.</strong>

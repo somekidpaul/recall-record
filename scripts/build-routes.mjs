@@ -55,8 +55,6 @@ const ROUTES = [
     description: `Search ${corpus} US federal product recall notices going back to 1973, by product name, notice title or hazard. Free government data, with the gaps in it stated plainly.`,
     ogTitle: 'Check a product for recalls',
     ogDescription: `Search ${corpus} federal recall notices back to 1973. It also says what the record cannot tell you: only ${data.upcCoverage}% of notices carry a barcode.`,
-    imageAlt:
-      'A search field for looking up US product recall notices by product name, title or hazard.',
   },
   {
     file: 'method.html',
@@ -65,8 +63,6 @@ const ROUTES = [
     description: `Why this chart starts in ${data.firstYear}, what "names Amazon" actually measures, how the finding could have been fake, and how complete every field in the federal record is.`,
     ogTitle: 'How this was counted, and where it falls short',
     ogDescription: `Why the chart starts in ${data.firstYear}, what the number does and does not mean, and the one claim this evidence will not support.`,
-    imageAlt:
-      'Coverage rings showing how completely each field in the CPSC recall record is filled in.',
   },
 ]
 
@@ -160,13 +156,15 @@ for (const r of ROUTES) {
     'twitter:description',
     r.path,
   )
-  out = sub(
-    out,
-    /(<meta property="og:image:alt" content=")[^"]*(")/,
-    `$1${esc(r.imageAlt)}$2`,
-    'og:image:alt',
-    r.path,
-  )
+  /* og:image:alt IS DELIBERATELY NOT REWRITTEN, and that is a fix rather than
+     an omission.
+     These two routes used to carry their own alt text, describing a search
+     field on /check and the coverage rings on /method. But all three routes
+     point og:image at the same /og.png, which is the Amazon chart card, so the
+     picture in the unfurl and the sentence describing it were about different
+     things. Inheriting the home page's alt is both true and self-maintaining:
+     build-data.mjs regenerates it from the series every week, so it keeps
+     naming the figures the card actually shows. */
 
   /* og:type stays "article" on the essay and becomes "website" on the two
      utility pages, which is what they are. */
@@ -207,7 +205,6 @@ for (const r of ROUTES) {
     ['description', /name="description"\s+content="([^"]*)"/, esc(r.description)],
     ['og:title', /og:title" content="([^"]*)"/, esc(r.ogTitle)],
     ['og:description', /og:description"\s+content="([^"]*)"/, esc(r.ogDescription)],
-    ['og:image:alt', /og:image:alt" content="([^"]*)"/, esc(r.imageAlt)],
   ]
   for (const [what, pattern, expected] of roundTrip) {
     const got = (out.match(pattern) ?? [])[1]

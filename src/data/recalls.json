@@ -6,12 +6,12 @@
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 9975,
+  "corpusTotal": 9990,
   "windowContext": {
     "corpusFirstYear": 1973,
     "firstReliableYear": 2004,
     "preReliableRecalls": 2619,
-    "preReliableRetailerPct": 35.8,
+    "preReliableRetailerPct": 35.9,
     "amazonAtReliableStart": 0,
     "analyzedFrom": 2004
   },
@@ -816,48 +816,48 @@
     {
       "year": 2026,
       "origin": {
-        "coverage": 99.3,
+        "coverage": 99.5,
         "soleN": 191,
-        "restN": 213,
+        "restN": 229,
         "soleChina": 95.3,
-        "restChina": 67.6
+        "restChina": 67.2
       },
-      "recalls": 407,
-      "retailerFieldPopulated": 97.8,
+      "recalls": 422,
+      "retailerFieldPopulated": 96,
       "retailers": {
-        "amazon": 59.5,
-        "walmart": 11.3,
-        "target": 4.7,
-        "homeDepot": 3.7,
-        "ebay": 1
+        "amazon": 57.3,
+        "walmart": 11.1,
+        "target": 4.5,
+        "homeDepot": 3.6,
+        "ebay": 0.9
       },
-      "amazonOnly": 46.9,
+      "amazonOnly": 45.3,
       "amazonOnlyCount": 191,
       "soleAlsoDirect": 17,
       "soleAlsoStore": 7,
       "soleClean": 170,
       "soleCleanPct": 89,
-      "soleCleanShare": 41.8,
+      "soleCleanShare": 40.3,
       "online": {
-        "strict": 75.2,
-        "mid": 85.3,
-        "loose": 85.3
+        "strict": 72.5,
+        "mid": 82.2,
+        "loose": 82.2
       },
-      "medianDescriptionChars": 85,
-      "amazonAmongShort": 62.3,
+      "medianDescriptionChars": 84,
+      "amazonAmongShort": 59.8,
       "amazonOfOnline": 69.7,
       "onlineCount": 347,
-      "shortCount": 342
+      "shortCount": 356
     }
   ],
   "coverage": {
-    "total": 3638,
-    "retailers": 99.6,
+    "total": 3653,
+    "retailers": 99.4,
     "injuries": 99.9,
     "remedyOptions": 99.8,
     "images": 100,
     "manufacturers": 35.1,
-    "manufacturerCountries": 99.6,
+    "manufacturerCountries": 99.7,
     "hazards": 99.9,
     "importers": 63
   },
@@ -953,7 +953,7 @@
       },
       {
         "year": 2026,
-        "pct": 20.1
+        "pct": 20.9
       }
     ],
     "importer": [
@@ -1047,7 +1047,7 @@
       },
       {
         "year": 2026,
-        "pct": 49.9
+        "pct": 50.9
       }
     ]
   },
@@ -1301,12 +1301,26 @@
         "manufacturerKnown": 19.4
       },
       "everythingElse": {
-        "n": 216,
-        "manufacturerKnown": 20.8
+        "n": 231,
+        "manufacturerKnown": 22.1
       }
     }
   ],
   "biggest": [
+    {
+      "title": "Conair Expands Recall of Cuisinart Grill Brushes Due to Ingestion Hazard; Over 3.6 Million Brushes Now Recalled",
+      "product": "Metal Wire Bristle Grill Brushes",
+      "units": 1905805,
+      "unitsRaw": "About 1,905,805 additional brushes (Conair previously recalled 1,719,995 grill brushes in July 2026 for a total of 3,625,800)",
+      "date": "2026-08-27",
+      "image": "https://cpsc.gov/s3fs-public/Picture13_9.png?VersionId=da_heQvQ2I2ngaVAm7vdpZroOmVJMJUR",
+      "imageCaption": "Triple Bristle Grill Cleaning Brush",
+      "url": "https://cpsc.gov/Recalls/2026/Conair-Expands-Recall-of-Cuisinart-Grill-Brushes-Due-to-Ingestion-Hazard-Over-3-6-Million-Brushes-Now-Recalled",
+      "retailerText": "",
+      "hazard": "Small metal wire bristles can detach from the brushes and stick to the grill or food, posing an ingestion hazard and risk of serious internal injuries that could require surgery.",
+      "remedy": "Consumers should stop using the recalled grill brushes immediately and contact Conair for a full refund or a credit for use at Cuisinart.com for a full refund plus 20% of the cash refund amount. Consumers will be asked to discard the recalled grill brushes.",
+      "remedyOption": "Refund"
+    },
     {
       "title": "Louisville Ladder Recalls Over One Million Attic Stairway Ladders Due to Risk of Serious Injury or Death from Fall Hazard",
       "product": "Louisville, Featherlite, Lite & Century Attic Stairway Ladders with gas struts",
@@ -1432,32 +1446,46 @@
       "hazard": "The recalled dive sticks violate the federal dive sticks ban because they exceeded the compress limit, posing an impalement hazard. In shallow water, children may fall or land on a dive stick, resulting in serious piercing injuries. Facial and eye injuries are also possible when children attempt to retrieve the sticks underwater.",
       "remedy": "Consumers should stop using the recalled dive sticks immediately, take them away from children and dispose of them. Consumers will be asked to take a photo of the disposed dive sticks in the trash and email it to Joyin at support@joyin.com. Once received, Joyin will send the consumer redesigned dive sticks that meet federal regulations.",
       "remedyOption": "Replace"
-    },
-    {
-      "title": "Vitaquest International Recalls Multiple Iron Supplement Bottles and Packets Due to Risk of Serious Injury or Death from Poisoning to Young Children; Violates Mandatory Standard for Child-Resistant Packaging",
-      "product": "Various Brands of Iron-Containing Dietary Supplements",
-      "units": 356140,
-      "unitsRaw": "About 356,140",
-      "date": "2026-04-09",
-      "image": "https://www.cpsc.gov/s3fs-public/vitaquest-1.png",
-      "imageCaption": "Recalled Arey, Not Today, Grey (180ct) - front",
-      "url": "https://www.cpsc.gov/Recalls/2026/Vitaquest-International-Recalls-Multiple-Iron-Supplement-Bottles-and-Packets-Due-to-Risk-of-Serious-Injury-or-Death-from-Poisoning-to-Young-Children-Violates-Mandatory-Standard-for-Child-Resistant-Packaging",
-      "retailerText": "Credo Beauty, Erewhon, Healf, Nutrition World, The Vitamin Shoppe, Fullscript, Ulta Beauty stores nationwide, medical practitioners' offices, brands' websites and Amazon.com from April 2023 through February 2026 for between $13 and $130 depending on brand and size.",
-      "hazard": "The dietary supplements contain iron, which must be in child-resistant packaging as required by the Poison Prevention Packaging Act. The packaging of the supplements is not child-resistant, posing a risk of serious injury or death from poisoning if the contents are swallowed by young children.",
-      "remedy": "Consumers should immediately store the supplements out of sight and reach of children and contact Vitaquest International for information on how to obtain a free child-resistant replacement cap or storage pouch. Brand / Product Name Remedy Arey Not Today, Grey (60ct and 180ct) Cap Bari Life Complete Bariatric Vitamin - Watermelon (60ct) Storage pouch Bird&Be The Prenatal Essentials for Females (30 pkts) Storage pouch Bird&Be The Power Prenatal for Females (30 pkts) Storage pouch Bird&Be The Power Prenatal for Females + CoQ10 Boost (30pkts) Storage pouch Bird&Be Female Fertility Power Prenatal Pack (30 pkts) Storage pouch Bird&Be Complete Prenatal Pack (30 pkts) Storage pouch Bird&Be Female Fertility Power Prenatal + CoQ10 Pack (30 pkts) Storage pouch Biote Nutraceutical Iron+ (30ct) Cap Dr. Fuhrman Gentle Prenatal Multivitamin + D3 (120ct) Cap Dr. Fuhrman Pixie Vites Children's Multivitamin (120ct) Cap NuLife Advanced Bariatrics Multivitamin Chewable Tablets (60ct) Cap HMR Multi Daily Vitamin and Mineral Supplement (60ct) Cap Bariatric Pal Ultra Multi Bariatric Multivitamin (90ct) Cap Noevir Inner Care Premium BioEssentials (120ct) Cap Zenbean Kids Café Instant Coffee + Nutrition Latte, Original, Caramel, Chocolate, and Vanilla (30srv) Storage pouch Sakara The Foundation (30pkts) Storage pouch Sakara The Foundation: Prenatal (30pkts) Storage pouch",
-      "remedyOption": "Replace"
     }
   ],
   "recent": [
+    {
+      "title": "Adult Portable Bed Rails Recalled Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails; Sold on Amazon by Loyoda Direct and Loyoda",
+      "product": "Loyoda Adult Portable Bed Rails",
+      "units": 2200,
+      "unitsRaw": "About 2,200",
+      "date": "2026-09-03",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture12_11.jpg?VersionId=6cY_MUr2LLSwEY8N0XrfpzwyleCRSUpI",
+      "imageCaption": "Recalled Loyoda Bed Rail for Seniors",
+      "url": "https://cpsc.gov/Recalls/2026/Adult-Portable-Bed-Rails-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Asphyxiation-Violate-Mandatory-Standard-for-Adult-Portable-Bed-Rails-Sold-on-Amazon-by-Loyoda-Direct-and-Loyoda",
+      "retailerText": "Fangzhou Overseas Consulting Shenzhen Co., Ltd., doing business as Loyoda Direct, of China",
+      "hazard": "The recalled bed rails violate the mandatory standard for adult portable bed rails because users can become entrapped within the bed rail or between the bed rail and the side of the mattress, posing a serious entrapment hazard and risk of death by asphyxiation. The bed rails also do not meet retention strap requirements, posing a fall hazard. The bed rails’ push pins and push pin holes are incorrectly sized, posing a laceration hazard. In addition, the bed rails do not bear the required hazard warning labels.",
+      "remedy": "Consumers should stop using the recalled adult portable bed rails immediately and contact Loyoda for a full refund. Consumers will be asked to cut the black safety strap in half and write “RECALLED” on the upper and lower bed rails with a permanent marker, take a photo of the marked bed rail and email the photo to support@loyoda.com in order to receive a refund.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Audio Partnership Recalls Cambridge Audio Yoyo (M) Portable Bluetooth Speakers Due to Fire Hazard",
+      "product": "Cambridge Audio Yoyo (M) Portable Bluetooth Speakers",
+      "units": 714,
+      "unitsRaw": "About 714",
+      "date": "2026-09-03",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture4_75.png",
+      "imageCaption": "Recalled Portable Bluetooth Speakers",
+      "url": "https://cpsc.gov/Recalls/2026/Audio-Partnership-Recalls-Cambridge-Audio-Yoyo-M-Portable-Bluetooth-Speakers-Due-to-Fire-Hazard",
+      "retailerText": "",
+      "hazard": "The lithium-ion batteries in the Cambridge Audio Yoyo (M) Portable Bluetooth Speaker can overheat, posing a fire hazard.",
+      "remedy": "Consumers should stop using the recalled speakers immediately, disconnect them from the power supply, stop charging them, store them away from combustible materials and contact Audio Partnership for a full cash refund of $218 or Cambridge Audio online store voucher of $350. Once Audio Partnership has processed the request, consumers should then dispose of the product in accordance with any local and state ordinances. \n\nNote: Do not throw this recalled lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+      "remedyOption": "Refund"
+    },
     {
       "title": "Branch Recalls Ergonomic Chairs Due to Fall Hazard",
       "product": "Ergonomic Chairs",
       "units": 16000,
       "unitsRaw": "About 16,000 (In addition, about 180 were sold in Canada)",
       "date": "2026-09-03",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture19_7.png?VersionId=tT.44Yp.0euajJKRGaT2PiEZ0TOAKpq0",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture19_7.png",
       "imageCaption": "Recalled Ergonomic Chair Black / Black Standard – SKU 11-01-00-50-V5",
-      "url": "https://www.cpsc.gov/Recalls/2026/Branch-Recalls-Ergonomic-Chairs-Due-to-Fall-Hazard",
+      "url": "https://cpsc.gov/Recalls/2026/Branch-Recalls-Ergonomic-Chairs-Due-to-Fall-Hazard",
       "retailerText": "",
       "hazard": "The backrests of the chairs can detach, posing a fall hazard to consumers.",
       "remedy": "Consumers should stop using the recalled chairs immediately and contact Branch for a free repair kit consisting of a replacement backrest, installation instructions, three bolts and an Allen key. Consumers will be provided with instructions on how to determine if their backrests are included in the recall and will be asked to submit photos of the manufacture label and removed backrest to obtain a repair kit. Branch is contacting all known purchasers directly.",
@@ -1478,6 +1506,20 @@
       "remedyOption": "Refund"
     },
     {
+      "title": "Daikin Comfort Technologies Manufacturing Recalls Amana Through-The-Wall Air Conditioners and Heat Pumps Due to Risk of Serious Injury from Fire",
+      "product": "Amana Through the Wall (TTW) air conditioners or heat pumps",
+      "units": 4633,
+      "unitsRaw": "About 4,633 (In addition, about 126 were sold in Canada)",
+      "date": "2026-09-03",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture16_0.gif?VersionId=km63fjrexJ5ZKF0By1bgpwAmEGbbufi3",
+      "imageCaption": "Recalled Amana Through the Wall (TTW) air conditioners and heat pumps (models beginning with PB)",
+      "url": "https://cpsc.gov/Recalls/2026/Daikin-Comfort-Technologies-Manufacturing-Recalls-Amana-Through-The-Wall-Air-Conditioners-and-Heat-Pumps-Due-to-Risk-of-Serious-Injury-from-Fire",
+      "retailerText": "",
+      "hazard": "The snubber circuit can emit flames if it shorts, posing a risk of serious injury due to fire hazard.",
+      "remedy": "Consumers should stop using the recalled product immediately and contact Daikin Comfort Technologies Manufacturing, Inc. (DCT) to submit a request for a full refund of the unit. Consumers will be required to provide their contact information, cut the product’s cord, and then upload a photo of the product’s serial number and the cut cord to receive a full refund of the unit.",
+      "remedyOption": "Refund"
+    },
+    {
       "title": "GIHNJSI Squeezy Dumplings Toys Recalled Due to Serious Ingestion, Choking and Obstruction Hazards; Sold on Amazon by Chenyuanhui",
       "product": "Squeezy Dumplings",
       "units": 8000,
@@ -1485,8 +1527,8 @@
       "date": "2026-09-03",
       "image": "https://www.cpsc.gov/s3fs-public/Picture28_3.png?VersionId=Mn30te1YcddFAWLjo_Y6U.UFKc13tgz9",
       "imageCaption": "Recalled GIHNJSI Squeezy Dumpling and plastic container",
-      "url": "https://www.cpsc.gov/Recalls/2026/GIHNJSI-Squeezy-Dumplings-Toys-Recalled-Due-to-Serious-Ingestion-Choking-and-Obstruction-Hazards-Sold-on-Amazon-by-Chenyuanhui",
-      "retailerText": "",
+      "url": "https://cpsc.gov/Recalls/2026/GIHNJSI-Squeezy-Dumplings-Toys-Recalled-Due-to-Serious-Ingestion-Choking-and-Obstruction-Hazards-Sold-on-Amazon-by-Chenyuanhui",
+      "retailerText": "Xiamen Liuhui Electric Technology Co., Ltd., dba Chenyuanhui, of China",
       "hazard": "The squeezy toys contain water beads. If ingested, water beads expand and can pose deadly ingestion, choking, and intestinal obstruction hazards inside a child’s body, resulting in severe discomfort, vomiting, dehydration, and a risk of death to a child.",
       "remedy": "Consumers should stop using the Squeezy Dumplings toys immediately and contact Chenyuanhui for a full refund. Consumers will be asked to write “RECALLED” in permanent marker on the Squeezy Dumpling and on its tan plastic container, throw the toy away and email a photo of the disposed toy to GIHNJSI_recall@163.com",
       "remedyOption": "Refund"
@@ -1500,10 +1542,24 @@
       "image": "https://cpsc.gov/s3fs-public/Picture23_2.jpg?VersionId=qKYa5xa8yU7nil8lqdPOIehxWs0EGf4f",
       "imageCaption": "Recalled Gizoon Six-drawer Double Dressers -sold in white and black",
       "url": "https://cpsc.gov/Recalls/2026/Gizoon-Direct-Recalls-Six-Drawer-Double-Dressers-Due-to-Risk-of-Serious-Injury-or-Death-from-Tip-Over-and-Entrapment-Hazards-Violates-Mandatory-Standard-for-Clothing-Storage-Units",
-      "retailerText": "",
+      "retailerText": "Airiva LLC, dba Gizoon Direct, of City of Industry, California",
       "hazard": "The recalled dressers are unstable if they are not anchored to the wall, posing tip-over and entrapment hazards that can result in risks of serious injuries or death to children. The dressers violate the mandatory safety standards as required by the STURDY Act.",
       "remedy": "Consumers should stop using the recalled dressers immediately if they are not anchored to the wall, place them in an area that children cannot access and contact Gizoon Direct for a full refund. Consumers will be asked to write in permanent marker \"RECALLED\" on the top and all sides of the dresser send a photo of the marked dresser to office@gizoon.com. Consumers should then dispose of the recalled product.",
       "remedyOption": "Refund"
+    },
+    {
+      "title": "MONDRAKER USA Recalls Mountain Bicycles Equipped with ONOFF S9 Carbon MTB Handlebars Due to Risk of Serious Injury or Death from Fall Hazard",
+      "product": "Mondraker mountain bicycles equipped with ONOFF S9 Carbon MTB handlebars.",
+      "units": 177,
+      "unitsRaw": "About 177 (In addition, about 52 were sold in Canada)",
+      "date": "2026-09-03",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledONOFFS9CarbonMTBhandlebars.png?VersionId=tpmGUMXU_pn9nqN9GFG0_XJeaSboYTFg",
+      "imageCaption": "Recalled ONOFF S9 Carbon MTB handlebars",
+      "url": "https://cpsc.gov/Recalls/2026/MONDRAKER-USA-Recalls-Mountain-Bicycles-Equipped-with-ONOFF-S9-Carbon-MTB-Handlebars-Due-to-Risk-of-Serious-Injury-or-Death-from-Fall-Hazard",
+      "retailerText": "",
+      "hazard": "The affected handlebars may crack or fracture during use, which can lead to loss of control, posing a risk of serious injury or death from fall hazard.",
+      "remedy": "Consumers should stop using affected bicycles immediately and verify whether their bicycle is affected using the serial number verification tool available at: https://mondraker.com/wo/en/recall-s9. If the bicycle is identified as affected, consumers should contact an authorized Mondraker dealer to arrange a free replacement of the ONOFF S9 Carbon MTB handlebar.",
+      "remedyOption": "Replace"
     },
     {
       "title": "Nanjing Wu Hai Smart Home Appliance Store Recalls Alanca 6-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
@@ -1511,83 +1567,27 @@
       "units": 261,
       "unitsRaw": "About 261",
       "date": "2026-09-03",
-      "image": "https://cpsc.gov/s3fs-public/Picture1_56.jpg?VersionId=NuKGtVBjRIIDK6mvIyBPDMHweUM.P2TR",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture1_56.jpg",
       "imageCaption": "Recalled Alanca 6-Drawer Wood Dressers",
       "url": "https://cpsc.gov/Recalls/2026/Nanjing-Wu-Hai-Smart-Home-Appliance-Store-Recalls-Alanca-6-Drawer-Dressers-Due-to-Risk-of-Serious-Injury-or-Death-from-Tip-Over-and-Entrapment-Hazards-Violate-Mandatory-Standard-for-Clothing-Storage-Units",
-      "retailerText": "",
+      "retailerText": "Nanjing Wu Hai Smart Home Appliance Store, of China",
       "hazard": "The recalled dressers are unstable if they are not anchored to the wall, posing tip-over and entrapment hazards that can result in risks of serious injuries or death to children. The dressers violate the mandatory safety standards as required by the STURDY Act.",
       "remedy": "Consumers should stop using the recalled dressers immediately if they are not anchored to the wall, place them in an area that children cannot access and contact Nanjing Wu Hai Smart Home for full refund. Consumers will be asked to write in permanent marker “RECALLED” on the top, front and sides of the dressers, remove all drawers and send photos of the marked and disassembled dressers to Nanjingdresserrecall@NanjingWuhai.com.",
       "remedyOption": "Refund"
     },
     {
-      "title": "SHEIN Distribution Corporation Recalls Spiral Toys Due to Risk of Serious Injury or Death from Choking Hazard; Violate Small Ball Ban",
-      "product": "Spiral Toy",
-      "units": 963,
-      "unitsRaw": "About 963",
+      "title": "OKK Trading Recalls Rainbow Mystery Squishy Bun Toys Due to Risk of Serious Injury or Death from Water Bead Ingestion; Violate Mandatory Standard for Toys",
+      "product": "Rainbow Mystery Squishy Bun Toys",
+      "units": 7200,
+      "unitsRaw": "About 7,200",
       "date": "2026-09-03",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture8_13.jpg?VersionId=qxv3eR_II9QedJMp8myXi7I7m1DKszIq",
-      "imageCaption": "Recalled Spiral (Spinning) Toy with Three, Five, or Seven Levels",
-      "url": "https://cpsc.gov/Recalls/2026/SHEIN-Distribution-Corporation-Recalls-Spiral-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Choking-Hazard-Violate-Small-Ball-Ban",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture25_6.png?VersionId=5KO8mRoRiMhAFrklzw39wGeO11tRM2u7",
+      "imageCaption": "Recalled Rainbow Mystery Squishy Bun, tan container and packaging",
+      "url": "https://cpsc.gov/Recalls/2026/OKK-Trading-Recalls-Rainbow-Mystery-Squishy-Bun-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Water-Bead-Ingestion-Violate-Mandatory-Standard-for-Toys",
       "retailerText": "",
-      "hazard": "The toys violate the small ball ban because they contain small balls and are intended for children under three years of age, posing a deadly choking hazard.",
-      "remedy": "Consumers should stop using the recalled toys immediately, take them away from children and contact SHEIN for a full refund. Consumers will be asked to affirm they disposed of the entire toy, including the small balls.",
+      "hazard": "The squishy bun toys violate the mandatory safety standard for toys because the water beads inside the dumplings expand larger than permitted, posing a deadly ingestion hazard. If a water bead is ingested, it can pose ingestion, choking, and intestinal obstruction hazards inside a child’s body, resulting in severe discomfort, vomiting, dehydration and a risk of death to a child.",
+      "remedy": "Consumers should stop using the squishy dumpling toys immediately and contact OKK Trading for a full refund. Consumers will be asked to write “RECALLED” in permanent marker on the squeezy dumpling and its tan plastic container, throw the toy away, and email a photo of the disposed toy to recall@okktoys.com.",
       "remedyOption": "Refund"
-    },
-    {
-      "title": "Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk of Serious Injury or Death from Choking Hazard",
-      "product": "Baby Sesame Street Elmo Silicone Teethers",
-      "units": 22660,
-      "unitsRaw": "About 22,660 (In addition, about 3,177 were sold in Canada)",
-      "date": "2026-09-03",
-      "image": "https://www.cpsc.gov/s3fs-public/RecalledBabySesameStreetElmoSiliconeTeether_0.png?VersionId=byxbtFY6tfobY6K1mG8R3b.hqkN_7BN5",
-      "imageCaption": "Recalled Baby Sesame Street Elmo Silicone Teether",
-      "url": "https://www.cpsc.gov/Recalls/2026/Skip-Hop-Recalls-Baby-Sesame-Street-Elmo-Silicone-Teethers-Due-to-Risk-of-Serious-Injury-or-Death-from-Choking-Hazard",
-      "retailerText": "",
-      "hazard": "The black eyes can detach from the recalled teether if frozen, posing a risk of serious injury or death from a choking hazard.",
-      "remedy": "Consumers should stop using the recalled teether immediately, take it away from children and contact Skip Hop Inc. at www.skiphoprecall.com to obtain a refund in the form of a gift card and further instructions on disposal of the product. The gift card can be used at any The William Carter Company brand store, including Carter’s, Skip Hop, OshKosh B’gosh and Little Planet.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Truststone Group Recalls XO Poppy Power Trip Magnetic Wireless Power Banks Due to Fire and Burn Hazards; Sold Exclusively at TJX and Marshalls Stores",
-      "product": "XO Poppy Power Trip Magnetic Wireless Power Banks",
-      "units": 32400,
-      "unitsRaw": "About 32,400",
-      "date": "2026-09-03",
-      "image": "https://cpsc.gov/s3fs-public/XOpoppyPowerBank_teddyBearPrint.png?VersionId=.cRK1F74HgJuBur4vcqUt8zZoK3NOLq.",
-      "imageCaption": "Recalled XO Poppy Power Bank PY-PBK5M-TB2 (Teddy Bear Print)",
-      "url": "https://cpsc.gov/Recalls/2026/Truststone-Group-Recalls-XO-Poppy-Power-Trip-Magnetic-Wireless-Power-Banks-Due-to-Fire-and-Burn-Hazards-Sold-Exclusively-at-TJX-and-Marshalls-Stores",
-      "retailerText": "",
-      "hazard": "The lithium-ion battery in the recalled power banks can overheat and ignite, posing fire and burn hazards to consumers.",
-      "remedy": "Consumers should stop using the recalled power banks immediately and contact Truststone Group for a full refund in the form of a virtual gift card.  The virtual gift card can be used at any establishment that accepts Mastercard.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "CCM Hockey U.S. Recalls FMHVR Hybrid Visors and ACCHVR Replacement Visor Accessories Due to Risk of Injury from Laceration or Impact Hazards",
-      "product": "FMHVR Hybrid Visors and ACCHVR Replacement Visor Accessories",
-      "units": 12957,
-      "unitsRaw": "About 12,957",
-      "date": "2026-08-20",
-      "image": "https://www.cpsc.gov/s3fs-public/CCM-1.gif",
-      "imageCaption": "Recalled CCM Hybrid Visor (Style FMHVR)",
-      "url": "https://www.cpsc.gov/Recalls/2026/CCM-Hockey-US-Recalls-FMHVR-Hybrid-Visors-and-ACCHVR-Replacement-Visor-Accessories-Due-to-Risk-of-Injury-from-Laceration-or-Impact-Hazards",
-      "retailerText": "Monkey Sports, Play It Again Sports, Pure Hockey and independent sporting goods and online at https://us.ccmhockey.com/ from May 2024 through April 2026 for about $120 for the Hybrid Visor and about $55 for the Replacement Visor accessories.",
-      "hazard": "The recalled hockey visors and replacement visor accessories can crack upon impact, posing a risk of injury due to laceration or impact hazards.",
-      "remedy": "Consumers should stop using the recalled visors and visor accessories immediately and return the products to the nearest participating retailer for a free replacement. Consumers can choose from the FV1 full visor, FM780 combo cage, or FM580 combo cage. To find your nearest participating retailer, go to https://us.ccmhockey.com/product/storelocator. Consumers without access to a participating retailer should contact CCM directly and CCM will send a return prepaid envelope for the return of the recalled product. CCM will ship a replacement upon receipt of the returned recalled product.",
-      "remedyOption": "Replace"
-    },
-    {
-      "title": "Goal Zero Recalls YETI 3000X Power Stations Due to Serious Risk of Injury from Fire and Burn Hazards",
-      "product": "Goal Zero YETI 3000X Portable Power Stations",
-      "units": 46200,
-      "unitsRaw": "About 46,200",
-      "date": "2026-08-20",
-      "image": "https://www.cpsc.gov/s3fs-public/gzero-1.png",
-      "imageCaption": "Recalled Goal Zero YETI 3000X Portable Power Station",
-      "url": "https://www.cpsc.gov/Recalls/2026/Goal-Zero-Recalls-YETI-3000X-Power-Stations-Due-to-Serious-Risk-of-Injury-from-Fire-and-Burn-Hazards",
-      "retailerText": "REI stores nationwide and online at Costco.com, Backcountry.com, Goalzero.com and other online retailers from May 2020 through August 2025 for about $3,00.",
-      "hazard": "The recalled power station's circuit board can overheat, posing a risk of serious injury from fire and burn hazards.",
-      "remedy": "Consumers should stop using the power stations immediately and install the free repair in the form of a firmware update available through the Goal Zero application or contact Goal Zero for firmware installation at no cost.",
-      "remedyOption": "Repair"
     }
   ],
   "trackedRetailers": [

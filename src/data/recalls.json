@@ -6,7 +6,7 @@
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 10016,
+  "corpusTotal": 10019,
   "windowContext": {
     "corpusFirstYear": 1973,
     "firstReliableYear": 2004,
@@ -816,50 +816,50 @@
     {
       "year": 2026,
       "origin": {
-        "coverage": 99.3,
+        "coverage": 98.7,
         "soleN": 207,
         "restN": 238,
-        "soleChina": 94.7,
-        "restChina": 66.8
+        "soleChina": 93.7,
+        "restChina": 67.6
       },
-      "recalls": 448,
-      "retailerFieldPopulated": 100,
+      "recalls": 451,
+      "retailerFieldPopulated": 99.3,
       "retailers": {
-        "amazon": 59.4,
+        "amazon": 59,
         "walmart": 11.8,
         "target": 4.9,
         "homeDepot": 3.3,
         "ebay": 1.1
       },
-      "amazonOnly": 46.7,
+      "amazonOnly": 46.3,
       "amazonOnlyCount": 209,
       "soleAlsoDirect": 19,
       "soleAlsoStore": 7,
       "soleClean": 186,
       "soleCleanPct": 89,
-      "soleCleanShare": 41.5,
+      "soleCleanShare": 41.2,
       "online": {
-        "strict": 76.3,
-        "mid": 86.2,
-        "loose": 86.2
+        "strict": 75.8,
+        "mid": 85.6,
+        "loose": 85.6
       },
-      "medianDescriptionChars": 93,
-      "amazonAmongShort": 62.3,
+      "medianDescriptionChars": 91,
+      "amazonAmongShort": 61.9,
       "amazonOfOnline": 68.9,
       "onlineCount": 386,
-      "shortCount": 369
+      "shortCount": 373
     }
   ],
   "coverage": {
-    "total": 3679,
-    "retailers": 99.9,
-    "injuries": 99.9,
-    "remedyOptions": 99.8,
-    "images": 100,
+    "total": 3682,
+    "retailers": 99.8,
+    "injuries": 99.8,
+    "remedyOptions": 99.7,
+    "images": 99.9,
     "manufacturers": 35.1,
     "manufacturerCountries": 99.6,
     "hazards": 99.9,
-    "importers": 63
+    "importers": 62.9
   },
   "trend": {
     "manufacturer": [
@@ -953,7 +953,7 @@
       },
       {
         "year": 2026,
-        "pct": 21.2
+        "pct": 21.1
       }
     ],
     "importer": [
@@ -1047,7 +1047,7 @@
       },
       {
         "year": 2026,
-        "pct": 50.9
+        "pct": 50.6
       }
     ]
   },
@@ -1301,8 +1301,8 @@
         "manufacturerKnown": 20.1
       },
       "everythingElse": {
-        "n": 239,
-        "manufacturerKnown": 22.2
+        "n": 242,
+        "manufacturerKnown": 21.9
       }
     }
   ],
@@ -1313,9 +1313,9 @@
       "units": 1905805,
       "unitsRaw": "About 1,905,805 additional brushes (Conair previously recalled 1,719,995 grill brushes in July 2026 for a total of 3,625,800)",
       "date": "2026-08-27",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture13_9.png?VersionId=da_heQvQ2I2ngaVAm7vdpZroOmVJMJUR",
+      "image": "https://www.cpsc.gov/s3fs-public/Recall.2015.15707.LabelLARGE.jpg",
       "imageCaption": "Triple Bristle Grill Cleaning Brush",
-      "url": "https://cpsc.gov/Recalls/2026/Conair-Expands-Recall-of-Cuisinart-Grill-Brushes-Due-to-Ingestion-Hazard-Over-3-6-Million-Brushes-Now-Recalled",
+      "url": "https://www.cpsc.gov/Recalls/2026/Conair-Expands-Recall-of-Cuisinart-Grill-Brushes-Due-to-Ingestion-Hazard-Over-3-6-Million-Brushes-Now-Recalled",
       "retailerText": "Sold At:\nWalmart, Burlington, TJ Maxx and Ross and online including Amazon and Cuisinart.com from June 2009 through March 2026 for between $8 and $20.",
       "hazard": "Small metal wire bristles can detach from the brushes and stick to the grill or food, posing an ingestion hazard and risk of serious internal injuries that could require surgery.",
       "remedy": "Consumers should stop using the recalled grill brushes immediately and contact Conair for a full refund or a credit for use at Cuisinart.com for a full refund plus 20% of the cash refund amount. Consumers will be asked to discard the recalled grill brushes.",
@@ -1451,17 +1451,17 @@
   "recent": [
     {
       "title": "Char-Broil Recalls Bistro Pro Electric Grills Due to Risk of Electric Shock",
-      "product": "Charbroil Bistro Pro Electric Grills",
-      "units": 10605,
-      "unitsRaw": "About 10,605 (In addition, 342 were sold in Canada)",
+      "product": "LANCHEZ Pressure Washers",
+      "units": 329,
+      "unitsRaw": "329",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/RecalledBistroProElectricGrillGriddleBlack.png",
+      "image": "https://cpsc.gov/s3fs-public/RecalledBistroProElectricGrillGriddleBlack.png?VersionId=9rjXdwdvtkhcnPzZxs2v6zYovA4b7g9l",
       "imageCaption": "Recalled Bistro Pro Electric Grill & Griddle in Black",
       "url": "https://cpsc.gov/Recalls/2026/Char-Broil-Recalls-Bistro-Pro-Electric-Grills-Due-to-Risk-of-Electric-Shock",
-      "retailerText": "Sold At:\nAce Hardware, Lowe’s, Walmart, Wayfair, QVC and other hardware stores nationwide online at Amazon.com, Charbroil.com, Ace Hardware.com, Lowes.com, Walmart.com, Wayfair.com, QVC.com and other online retailers from October 2025 through June 2026 for between $150 and $250.",
+      "retailerText": "Sold Online At:\nAmazon.com, Walmart.com and Temu.com from February 2026 through June 2026 for between $88 and $266.",
       "hazard": "The grounding wire for the grill’s heating element can disconnect and lose fault protection, posing an electric shock hazard.",
-      "remedy": "Consumers should stop using the recalled electric grills immediately and contact Char-Broil for a free repair kit. Consumers will be asked to register at www.charbroil.com/BistroProFix to receive repair instructions, a screwdriver, a wrench, screws and a label to affix to the grill after repair. Char-Broil is offering a digital $25 gift card, valid at participating retailers, to consumers who provide photo documentation of the completed repair.",
-      "remedyOption": "Repair"
+      "remedy": "Consumers should stop using the recalled pressure washers immediately and contact LANCHEZ for a full refund. Consumers will be asked to unplug the pressure washer, destroy it by cutting the power cord in half and send a photo of the destroyed power washer, showing the model number, to service@lanchezpumps.com. Consumers should then dispose of the destroyed recalled product.",
+      "remedyOption": "Refund"
     },
     {
       "title": "Colerinsec Recalls Jerify Magnetic Stick Figure Toy Sets Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Toys",
@@ -1469,54 +1469,54 @@
       "units": 38507,
       "unitsRaw": "About 38,507",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/RecalledJerifyMagneticHumanoidToyColors.png",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledJerifyMagneticHumanoidToyColors.png?VersionId=g2rsOucOGzxKJ4hWOBeN22uGdXXmd_GU",
       "imageCaption": "Recalled Jerify Magnetic Humanoid Toy Colors",
-      "url": "https://cpsc.gov/Recalls/2026/Colerinsec-Recalls-Jerify-Magnetic-Stick-Figure-Toy-Sets-Due-to-Risk-of-Serious-Injury-or-Death-from-Magnet-Ingestion-Violate-Mandatory-Standard-for-Toys",
-      "retailerText": "Sold Online At:\nAmazon.com from October 2022 through May 2026 for about $21.",
+      "url": "https://www.cpsc.gov/Recalls/2026/Colerinsec-Recalls-Jerify-Magnetic-Stick-Figure-Toy-Sets-Due-to-Risk-of-Serious-Injury-or-Death-from-Magnet-Ingestion-Violate-Mandatory-Standard-for-Toys",
+      "retailerText": "Sold At:\nAmazon.com from October 2024 through June 2026 for about $27",
       "hazard": "The magnetic humanoid toy Sets violate the mandatory standard for toys because they can liberate loose high-powered magnets posing an ingestion hazard to children. When high-powered magnets are swallowed, the ingested magnets can attract each other or other metal objects and become lodged in the digestive system. This can result in perforations, twisting, and/or blockage of the intestines, blood poisoning and death.",
       "remedy": "Consumers should take the magnetic humanoid toys away from children immediately, stop using them and contact Colerinsec for a full refund. Consumers will be asked to throw away the magnetic toys and submit a photo of the disposed toys to coushdwugintwer@163.com.",
       "remedyOption": "Refund"
     },
     {
       "title": "Esjay US Recalls Toddler Busy Board Montessori Toys Due to Risk of Serious Injury or Death from Choking; Violates Small Parts Ban",
-      "product": "Esjay Toddler Busy Board Montessori Toys",
-      "units": 276000,
-      "unitsRaw": "About 276,000",
+      "product": "Tylö Halmstad and Kiruna Hybrid Saunas",
+      "units": 6000,
+      "unitsRaw": "About 6,000 (Sauna 360 previously recalled Tylö Halmstad and Kiruna Hybrid Saunas in October 2025)",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/RecalledEsjayBusyBoard.png",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledEsjayBusyBoard.png?VersionId=wrvtBjUySmPjKZkWXbUldm9hcJv4juRc",
       "imageCaption": "Recalled Esjay Busy Board",
-      "url": "https://cpsc.gov/Recalls/2026/Esjay-US-Recalls-Toddler-Busy-Board-Montessori-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Choking-Violates-Small-Parts-Ban",
-      "retailerText": "Sold Online At:\nAmazon.com from March 2023 to July 2026 for between $18 and $30.",
+      "url": "https://www.cpsc.gov/Recalls/2026/Esjay-US-Recalls-Toddler-Busy-Board-Montessori-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Choking-Violates-Small-Parts-Ban",
+      "retailerText": "Sold At:\nVarious distributors nationwide from July 2024 through July 2026 for between $6,000 and $12,000.",
       "hazard": "The recalled toy violates the small parts ban because the product is for children under three years of age and the red knobs can detach, posing a deadly choking hazard.",
-      "remedy": "Consumers should take the recalled toy away from children, stop using it immediately and contact Esjay for instructions on the repair. Consumers will be asked to unzip the page with red knobs, write “RECALLED” on both sides of the page and throw it away. Send a photo of the disposed page to Esjay US at esjay-service@outlook.com to receive a replacement page.",
+      "remedy": "Consumers should stop using the saunas immediately, even if they received the 2025 recall remedy and contact Sauna360 for another free repair. Sauna360 will provide a professional installer to retrofit the benches with additional hardware and supports.",
       "remedyOption": "Repair"
     },
     {
       "title": "Friedrich Air Conditioning Recalls KÜHL Window Air Conditioners Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
-      "product": "Kühl® Q and Kühl® S Window Air Conditioners",
-      "units": 2000,
-      "unitsRaw": "About 2,000",
+      "product": "Esjay Toddler Busy Board Montessori Toys",
+      "units": 276000,
+      "unitsRaw": "About 276,000",
       "date": "2026-09-17",
       "image": "https://cpsc.gov/s3fs-public/RecalledK%C3%9CHLQAirConditioner.png?VersionId=cB5kQu8CjtGmsN6W3OXZdk_WbFIHFngK",
       "imageCaption": "Recalled KÜHL® Q Air Conditioner",
       "url": "https://cpsc.gov/Recalls/2026/Friedrich-Air-Conditioning-Recalls-K%C3%9CHL-Window-Air-Conditioners-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
-      "retailerText": "Sold At:\nPC Richard & Son, Grainger, and Johnson Supply stores and other appliance distributors and retailers nationwide from January 2026 through August 2026 for between $1,300 and $2,000.",
+      "retailerText": "Sold Online At:\nAmazon.com from March 2023 to July 2026 for between $18 and $30.",
       "hazard": "The control board inside the motor of the recalled air conditioners can fail, posing a risk of serious injury or death from fire and burn hazards.",
-      "remedy": "Consumers should stop using the recalled air conditioners immediately and visit www.friedrich.com/product-recall to receive information on how to determine if their unit is covered by the recall. Consumers should have the air conditioner’s serial number, which can be found on the inside of the unit, when they visit the recall web page or call Friedrich about the recall. If your unit has a serial number that is included in the recall, the firm will send you instructions on how to obtain a refund or free replacement unit.",
-      "remedyOption": "Refund"
+      "remedy": "Consumers should take the recalled toy away from children, stop using it immediately and contact Esjay for instructions on the repair. Consumers will be asked to unzip the page with red knobs, write “RECALLED” on both sides of the page and throw it away. Send a photo of the disposed page to Esjay US at esjay-service@outlook.com to receive a replacement page.",
+      "remedyOption": "Repair"
     },
     {
       "title": "Hayward Industries Recalls Universal Pool Heaters Due to Risk of Serious Injury or Death from Carbon Monoxide Poisoning Hazard",
-      "product": "400,000 BTU Universal-HC Series Pool Heaters",
-      "units": 4600,
-      "unitsRaw": "About 4,600",
+      "product": "Infrared Saunas, Hybrid Infrared Saunas and Infrared Kits",
+      "units": 41580,
+      "unitsRaw": "About 41,580 (In addition, about 6,758 were sold in Canada)",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/LocationofNamePlate.png",
+      "image": "https://cpsc.gov/s3fs-public/LocationofNamePlate.png?VersionId=yobj_uuD_8dkCQdpGlJF2Z5Jod6mWycM",
       "imageCaption": "Location of Name Plate",
       "url": "https://cpsc.gov/Recalls/2026/Hayward-Industries-Recalls-Universal-Pool-Heaters-Due-to-Risk-of-Serious-Injury-or-Death-from-Carbon-Monoxide-Poisoning-Hazard-0",
-      "retailerText": "Sold At:\nPool equipment distributors, builders and service professionals nationwide from March 2026 through July 2026 for about $5,600.",
+      "retailerText": "Sold At:\nCostco stores and pool and spa dealerships nationwide and online at Costco.com and other online sites from May 2013 through July 2026 for between $6000 and $13,000.",
       "hazard": "During operation the heaters can produce high levels of carbon monoxide (CO), posing a risk of serious injury or death from carbon monoxide poisoning.",
-      "remedy": "Consumers should stop using the pool heater immediately and contact Hayward Industries to schedule a free in-home inspection and repair by a qualified technician.",
+      "remedy": "Consumers should stop using the infrared and hybrid saunas immediately and contact Sauna360 to schedule a free in-home repair from a professional installer.",
       "remedyOption": "Repair"
     },
     {
@@ -1525,26 +1525,26 @@
       "units": 195000,
       "unitsRaw": "About 195,000",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/JKMAX1.jpg",
+      "image": "https://www.cpsc.gov/s3fs-public/JKMAX1.jpg?VersionId=bZyGwMnKCwYAnzFi7a1bz2rJB1UWHQTe",
       "imageCaption": "Recalled JKMAX Heated Blanket (Brown)",
-      "url": "https://cpsc.gov/Recalls/2026/JKMAX-Recalls-Heated-Blankets-and-Heating-Pads-Due-to-Fire-and-Burn-Hazards",
-      "retailerText": "Sold Online At:\nAmazon.com from September 2022 through July 2026 as both a one-pack or a two-pack.",
+      "url": "https://www.cpsc.gov/Recalls/2026/JKMAX-Recalls-Heated-Blankets-and-Heating-Pads-Due-to-Fire-and-Burn-Hazards",
+      "retailerText": "Sold Online At:\nSHEIN.com from June 2025 through May 2026 for between $8 and $12.",
       "hazard": "The internal wire heating elements of the blankets and pads can overheat, posing fire and burn hazards to consumers.",
       "remedy": "Consumers should stop using the recalled blankets and pads immediately and contact JKMax for a full refund.",
       "remedyOption": "Refund"
     },
     {
       "title": "LANCHEZ Pressure Washers Recalled Due to Serious Risk of Injury or Death from Shock and Electrocution Hazards",
-      "product": "LANCHEZ Pressure Washers",
-      "units": 329,
-      "unitsRaw": "329",
+      "product": "Rainbow Mystery Squishy Bun Toys",
+      "units": 276,
+      "unitsRaw": "About 276",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/LANCHEZ1.png",
+      "image": "https://www.cpsc.gov/s3fs-public/LANCHEZ1.png?VersionId=o3o7V4gIsHs.2kSAz5jqv4OLFYiOxws_",
       "imageCaption": "Recalled LANCHEZ electric pressure washer — model KLC-BULL-135C (red)",
-      "url": "https://cpsc.gov/Recalls/2026/LANCHEZ-Pressure-Washers-Recalled-Due-to-Serious-Risk-of-Injury-or-Death-from-Shock-and-Electrocution-Hazards",
-      "retailerText": "Sold Online At:\nAmazon.com, Walmart.com and Temu.com from February 2026 through June 2026 for between $88 and $266.",
+      "url": "https://www.cpsc.gov/Recalls/2026/LANCHEZ-Pressure-Washers-Recalled-Due-to-Serious-Risk-of-Injury-or-Death-from-Shock-and-Electrocution-Hazards",
+      "retailerText": "Sold At:\nVarious third-party stores nationwide from June 2026 through July 2026 for about $3.",
       "hazard": "The recalled pressure washers lack an integral ground-fault circuit-interrupter (GFCI) and an adequate-length power cord, which may encourage use of an extension cord, posing serious risks of injury or death from shock and electrocution hazards.",
-      "remedy": "Consumers should stop using the recalled pressure washers immediately and contact LANCHEZ for a full refund. Consumers will be asked to unplug the pressure washer, destroy it by cutting the power cord in half and send a photo of the destroyed power washer, showing the model number, to service@lanchezpumps.com. Consumers should then dispose of the destroyed recalled product.",
+      "remedy": "Consumers should stop using the squishy dumpling toys immediately and contact Toyworld168 for a full refund. Consumers will be asked to write “RECALLED” in permanent marker on the squeezy dumpling and its tan plastic container, throw the toy away and email a photo of the disposed toy to toyworld16850@gmail.com.",
       "remedyOption": "Refund"
     },
     {
@@ -1553,41 +1553,41 @@
       "units": 84000,
       "unitsRaw": "About 84,000",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/melissa1.jpg",
+      "image": "https://www.cpsc.gov/s3fs-public/melissa1.jpg?VersionId=J92u0ZigmJ.FZNAuGV0auuVybu1KygNe",
       "imageCaption": "Recalled Lights & Sounds Fire Truck Activity Board",
-      "url": "https://cpsc.gov/Recalls/2026/Melissa-and-Doug-Recalls-Fire-Truck-Activity-Board-Toys-Due-to-Risk-of-Serious-Injury-from-Choking-Hazard-Sold-Exclusively-at-Target",
-      "retailerText": "Sold At:\nTarget stores nationwide and online at Target.com from July 2025 through August 2026 for about $30.",
+      "url": "https://www.cpsc.gov/Recalls/2026/Melissa-and-Doug-Recalls-Fire-Truck-Activity-Board-Toys-Due-to-Risk-of-Serious-Injury-from-Choking-Hazard-Sold-Exclusively-at-Target",
+      "retailerText": "Sold Online At:\nAmazon.com from November 2024 through July 2026 for about $170.",
       "hazard": "The fire hose port can come loose and detach, posing a risk of serious injury from choking hazard.",
       "remedy": "Consumers should stop using the fire truck activity board immediately and register at www.melissaanddoug.com/recall for instructions on how to receive a free replacement fire truck activity board, register for a full refund of $30 in the form of a check or receive a $40 melissaanddoug.com store credit. Consumers will be asked to remove the batteries, write in permanent marker the word “RECALL” on the front of the product along with a unique code provided during the online registration process, and to cut the black hose off from the toy. Consumers will then be directed to upload a photograph of the destroyed product to the registration page. Once their registration has been successfully confirmed, consumers should dispose of the product in their ordinary household trash.",
       "remedyOption": "Refund"
     },
     {
-      "title": "Regfear Recalls BedsPick Mattresses Due to Risk of Serious Injury or Death from Fire; Violate Mandatory Flammability Standard for Mattresses",
+      "title": "Sauna360 Recalls Infrared Saunas, Hybrid Infrared Saunas and Infrared Kits Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
       "product": "BedsPick Mattresses",
       "units": 818,
       "unitsRaw": "About 818",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture1_179.png",
-      "imageCaption": "Recalled BedsPick Mattress Prototype ID: AMGSW067",
-      "url": "https://cpsc.gov/Recalls/2026/Regfear-Recalls-BedsPick-Mattresses-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-Violate-Mandatory-Flammability-Standard-for-Mattresses",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledISSeries.png?VersionId=XctWjxvjeyI2Rm4VrmSGUqyJxMyUurjG",
+      "imageCaption": "Recalled IS Series",
+      "url": "https://www.cpsc.gov/Recalls/2026/Sauna360-Recalls-Infrared-Saunas-Hybrid-Infrared-Saunas-and-Infrared-Kits-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
       "retailerText": "Sold Online At:\nAmazon.com from February 2025 through May 2026 for between $140 to $200.",
-      "hazard": "The mattresses violate the mandatory flammability standard for mattresses, posing a risk of serious injury or death from fire.",
+      "hazard": "The infrared panels in the saunas and kits can short circuit, causing them to overheat, posing a risk of serious injury from fire and burn hazards.",
       "remedy": "Consumers should stop using the recalled mattresses immediately and contact Regfear for a full refund. Consumers will be asked to destroy the mattress, write in permanent marker “Recalled,” on the mattress’ top surface and email a photo of the destroyed mattress to BedsPickRecall@outlook.com. Consumers should then dispose of the recalled product. The refund will be issued after Regfear receives photos and written confirmation of disposal.",
       "remedyOption": "Refund"
     },
     {
-      "title": "Sauna360 Expands Recall of Tylö Halmstad and Kiruna Hybrid Saunas Due to Fall Hazard; New Remedy Provided",
-      "product": "Tylö Halmstad and Kiruna Hybrid Saunas",
-      "units": 6000,
-      "unitsRaw": "About 6,000 (Sauna 360 previously recalled Tylö Halmstad and Kiruna Hybrid Saunas in October 2025)",
+      "title": "SHEIN Distribution Corporation Recalls Pull and Chew Montessori Teething Toys Due to Risk of Serious Injury or Death from Choking Hazard; Violate Mandatory Standard for Toys",
+      "product": "Pull & Chew Montessori Teething Toys",
+      "units": 644,
+      "unitsRaw": "About 644",
       "date": "2026-09-17",
-      "image": "https://www.cpsc.gov/s3fs-public/RecalledSaunaModelTyl%C3%B6Halmstad2.png?VersionId=yzUAqF.nXZLd_yFiNYu_7WC2LThYuxHo",
-      "imageCaption": "Recalled Sauna Model Tylö Halmstad 2",
-      "url": "https://cpsc.gov/Recalls/2026/Sauna360-Expands-Recall-of-Tylo-Halmstad-and-Kiruna-Hybrid-Saunas-Due-to-Fall-Hazard-New-Remedy-Provided",
-      "retailerText": "Sold At:\nVarious distributors nationwide from July 2024 through July 2026 for between $6,000 and $12,000.",
-      "hazard": "The saunas contain a bench that can collapse, posing a fall hazard to consumers. The previous recall repair was ineffective; a new repair is now being offered.",
-      "remedy": "Consumers should stop using the saunas immediately, even if they received the 2025 recall remedy and contact Sauna360 for another free repair. Sauna360 will provide a professional installer to retrofit the benches with additional hardware and supports.",
-      "remedyOption": "Repair"
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledPullChewMontessoriTeethingToypink.png?VersionId=34eo.SfxioG2y05g6WayG.3B.uhWZ4X.",
+      "imageCaption": "Recalled Pull & Chew Montessori Teething Toy (pink)",
+      "url": "https://www.cpsc.gov/Recalls/2026/SHEIN-Distribution-Corporation-Recalls-Pull-and-Chew-Montessori-Teething-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Choking-Hazard-Violate-Mandatory-Standard-for-Toys",
+      "retailerText": "Sold Online At:\nAmazon.com from October 2022 through May 2026 for about $21.",
+      "hazard": "The recalled teething toys violate the mandatory safety standard for toys because the silicone strings are smaller and longer than permitted. The silicone strings can reach the back of the throat and become lodged, posing a risk of respiratory distress and a deadly choking hazard.",
+      "remedy": "Consumers should stop using the recalled teething toys immediately, take them away from children, and contact SHEIN for a refund. Consumers will be asked to cut the teething toy’s silicone strings and send a photo of the destroyed toy to productrecall@shein.com. Consumers should then dispose of the destroyed product.",
+      "remedyOption": "Refund"
     }
   ],
   "trackedRetailers": [

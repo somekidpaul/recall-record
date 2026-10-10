@@ -819,7 +819,7 @@
         "coverage": 99.6,
         "soleN": 222,
         "restN": 255,
-        "soleChina": 93.7,
+        "soleChina": 94.1,
         "restChina": 67.8
       },
       "recalls": 479,
@@ -1316,7 +1316,7 @@
       "image": "https://www.cpsc.gov/s3fs-public/walmart1.png",
       "imageCaption": "Expert Grill 16-inch Steel Fiber Scrub Brush and Scraper for Grills",
       "url": "https://www.cpsc.gov/Recalls/2027/Walmart-Recalls-Over-4-4-Million-Expert-Grill-Brushes-Due-to-Ingestion-Hazard",
-      "retailerText": "Sold At:\nWalmart and online including Walmart.com from January 2021 through August 2026 for between $1 and $28.",
+      "retailerText": "Sold At:\nWalmart and online, including Walmart.com from January 2021 through August 2026 for between $1 and $28.",
       "hazard": "Small metal wire bristles can detach from the brushes and stick to the grill or food, posing an ingestion hazard and risk of serious internal injuries that could require surgery.",
       "remedy": "Consumers should stop using the recalled grill brushes immediately and contact Walmart for a full refund or a credit for use at any Walmart store or Walmart.com. Consumers will be asked to return their recalled brushes to Walmart or discard them.",
       "remedyOption": "Refund"

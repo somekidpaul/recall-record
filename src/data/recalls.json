@@ -1,12 +1,12 @@
 {
   "partialYear": {
     "year": 2026,
-    "throughDate": "2026-10-08",
+    "throughDate": "2026-10-15",
     "monthsElapsed": 10
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 10047,
+  "corpusTotal": 10053,
   "windowContext": {
     "corpusFirstYear": 1973,
     "firstReliableYear": 2004,
@@ -19,7 +19,7 @@
   "firstYear": 2004,
   "coverageFirstYear": 2015,
   "ratioFirstYear": 2015,
-  "newestRecallDate": "2026-10-08",
+  "newestRecallDate": "2026-10-15",
   "series": [
     {
       "year": 2004,
@@ -817,46 +817,46 @@
       "year": 2026,
       "origin": {
         "coverage": 99.6,
-        "soleN": 222,
-        "restN": 255,
-        "soleChina": 94.1,
+        "soleN": 225,
+        "restN": 258,
+        "soleChina": 94.2,
         "restChina": 67.8
       },
-      "recalls": 479,
+      "recalls": 485,
       "retailerFieldPopulated": 100,
       "retailers": {
-        "amazon": 59.3,
-        "walmart": 11.7,
-        "target": 5,
+        "amazon": 59.2,
+        "walmart": 11.5,
+        "target": 4.9,
         "homeDepot": 3.3,
         "ebay": 1
       },
       "amazonOnly": 46.6,
-      "amazonOnlyCount": 223,
-      "soleAlsoDirect": 21,
+      "amazonOnlyCount": 226,
+      "soleAlsoDirect": 22,
       "soleAlsoStore": 8,
-      "soleClean": 198,
-      "soleCleanPct": 88.8,
-      "soleCleanShare": 41.3,
+      "soleClean": 200,
+      "soleCleanPct": 88.5,
+      "soleCleanShare": 41.2,
       "online": {
-        "strict": 76.6,
+        "strict": 76.5,
         "mid": 86.2,
         "loose": 86.2
       },
       "medianDescriptionChars": 89,
-      "amazonAmongShort": 62.7,
-      "amazonOfOnline": 68.8,
-      "onlineCount": 413,
-      "shortCount": 394
+      "amazonAmongShort": 62.6,
+      "amazonOfOnline": 68.7,
+      "onlineCount": 418,
+      "shortCount": 401
     }
   ],
   "coverage": {
-    "total": 3710,
+    "total": 3716,
     "retailers": 99.9,
     "injuries": 99.9,
     "remedyOptions": 99.8,
     "images": 100,
-    "manufacturers": 34.9,
+    "manufacturers": 34.8,
     "manufacturerCountries": 99.7,
     "hazards": 99.9,
     "importers": 62.9
@@ -953,7 +953,7 @@
       },
       {
         "year": 2026,
-        "pct": 20.7
+        "pct": 20.4
       }
     ],
     "importer": [
@@ -1047,7 +1047,7 @@
       },
       {
         "year": 2026,
-        "pct": 51.1
+        "pct": 51.3
       }
     ]
   },
@@ -1297,12 +1297,12 @@
     {
       "year": 2026,
       "amazonOnly": {
-        "n": 223,
-        "manufacturerKnown": 20.2
+        "n": 226,
+        "manufacturerKnown": 19.9
       },
       "everythingElse": {
-        "n": 256,
-        "manufacturerKnown": 21.1
+        "n": 259,
+        "manufacturerKnown": 20.8
       }
     }
   ],
@@ -1327,7 +1327,7 @@
       "units": 1905805,
       "unitsRaw": "About 1,905,805 additional brushes (Conair previously recalled 1,719,995 grill brushes in July 2026 for a total of 3,625,800)",
       "date": "2026-08-27",
-      "image": "https://www.cpsc.gov/s3fs-public/Picture13_9.png?VersionId=da_heQvQ2I2ngaVAm7vdpZroOmVJMJUR",
+      "image": "https://www.cpsc.gov/s3fs-public/Picture13_9.png",
       "imageCaption": "Triple Bristle Grill Cleaning Brush",
       "url": "https://cpsc.gov/Recalls/2026/Conair-Expands-Recall-of-Cuisinart-Grill-Brushes-Due-to-Ingestion-Hazard-Over-3-6-Million-Brushes-Now-Recalled",
       "retailerText": "Sold At:\nWalmart, Burlington, TJ Maxx and Ross and online including Amazon and Cuisinart.com from June 2009 through March 2026 for between $8 and $20.",
@@ -1450,16 +1450,100 @@
   ],
   "recent": [
     {
+      "title": "3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious Injury or Death from Fire Hazard",
+      "product": "Scotch™ Thermal Laminators",
+      "units": 53634,
+      "unitsRaw": "About 53,634",
+      "date": "2026-10-15",
+      "image": "https://www.cpsc.gov/s3fs-public/3M1.png",
+      "imageCaption": "Recalled Scotch™ Thermal Laminator model number TL1302Z",
+      "url": "https://cpsc.gov/Recalls/2027/3M-Company-Recalls-ScotchTM-Thermal-Laminators-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-Hazard",
+      "retailerText": "Sold Online At:\nAmazon.com from June 2024 through September 2026 for between $44 and $56.",
+      "hazard": "The recalled thermal laminators can overheat, posing a fire hazard.",
+      "remedy": "Consumers should stop using and unplug the recalled thermal laminators immediately and contact 3M Company to receive a full refund. Consumers will be asked to fill out the online recall registration form at https://www.scotchbrand.com/3M/en_US/scotch-brand/tl1302Z-laminator-recall/, confirm that their laminator is included in the recall and upload a photograph of the laminator with the unplugged power cord cut. The refund, in the form of a check, will be mailed to the consumer upon receipt of the completed form and confirmation that the laminator’s power cord has been cut. Consumers should dispose of the recalled laminator in accordance with local and state laws governing electronics recycling.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "HatsanUSA Recalls Blitz Air Rifles Due to Risk of Serious Injury or Death from Projectile Hazard",
+      "product": "Blitz and Blitz 777 air rifles",
+      "units": 16170,
+      "unitsRaw": "About 16,170",
+      "date": "2026-10-15",
+      "image": "https://cpsc.gov/s3fs-public/HatsanUSA1.png?VersionId=0VwobBMNRusrV6.lFO.B.TVEdMkijLUE",
+      "imageCaption": "Recalled Hatsan Blitz Air Rifle",
+      "url": "https://cpsc.gov/Recalls/2027/HatsanUSA-Recalls-Blitz-Air-Rifles-Due-to-Risk-of-Serious-Injury-or-Death-from-Projectile-Hazard",
+      "retailerText": "Sold At:\nIn store and online at various sporting goods stores and gun shops nationwide, online at hatsanairgunsusa.com and catalog sales including Utah Airguns, Airgun Depot and Pyramyd Air from February 2020 through March 2026 for between $800 and $1,100.",
+      "hazard": "The recalled air rifles can fire unexpectedly when releasing the bolt before the air rifle is fully cocked, posing a risk of serious injury or death from projectile hazard.",
+      "remedy": "Consumers should stop using the recalled air rifles immediately, make sure they are unloaded and contact HatsanUSA for a free trigger assembly replacement which will be mailed along with instructions. If the consumer does not want to complete the replacement of the air rifle trigger assembly on their own, HatsanUSA will provide a prepaid package to ship the product to HatsanUSA for inspection and replacement.",
+      "remedyOption": "Replace"
+    },
+    {
+      "title": "Loving Thyself Rocks Recalls Crystal Glass Cups Due to Risk of Serious Injury from Ingestion and Laceration Hazards",
+      "product": "Crystal Glass Cups with Loose Crystal Chips",
+      "units": 600,
+      "unitsRaw": "About 600",
+      "date": "2026-10-15",
+      "image": "https://cpsc.gov/s3fs-public/Loving1.png?VersionId=YajKbewdJZN.WuAQ5bKy31CnAD.M.dF3",
+      "imageCaption": "Recalled Crystal Glass Cups with Loose Crystal Chips (Blue Apatite and Amethyst)",
+      "url": "https://cpsc.gov/Recalls/2027/Loving-Thyself-Rocks-Recalls-Crystal-Glass-Cups-Due-to-Risk-of-Serious-Injury-from-Ingestion-and-Laceration-Hazards",
+      "retailerText": "Sold At:\nLoving Thyselfstore and on-line athttps://www.instagram.com/lovingthyselfrocksandfossils/?hl=en andhttps://www.instagram.com/lovingthyselfrocks/?hl=en and Etsy.com from April 2026 through September 2026 for between $20 and $50.",
+      "hazard": "Glass can break inside the recalled cups while in use, posing a risk of serious injury from ingestion and laceration hazards.",
+      "remedy": "Consumers should stop using the recalled crystal cup immediately and register at http://www.lovingthyselfrocks.com/recall to receive a full refund in the form of original payment. Consumer will be asked to fill out an online form and submit a photograph with the word “RECALL” written on the front of the crystal cup in permanent black marker. Consumers will be asked to attest to proper disposal of the recalled cup following the instructions on the firm’s website.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards",
+      "product": "Papablic Bedside Sleepers with Play Yard Extensions",
+      "units": 248,
+      "unitsRaw": "About 248",
+      "date": "2026-10-15",
+      "image": "https://cpsc.gov/s3fs-public/Papablic1.png?VersionId=r7Wi7teXmJjh5ErNC8jFoJKLuURlg1_z",
+      "imageCaption": "Recalled Papablic Convertible Bedside Sleeper",
+      "url": "https://cpsc.gov/Recalls/2027/Papablic-of-USA-Recalls-Convertible-Bedside-Sleepers-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-Suffocation-and-Fall-Hazards-Violate-Mandatory-Standard-for-Play-Yards",
+      "retailerText": "Sold Online At:\nAmazon.com and papablic.com from April 2025 through July 2026 for about $190.",
+      "hazard": "The bedside sleepers with play yard extensions violate the mandatory safety standard for play yards because the mattress can become displaced causing a baby to become entrapped between the sleeping pad and bottom posing a deadly suffocation hazard. In addition, the latching and locking mechanism can fail, causing the product to collapse, posing a risk of serious injury or deadly entrapment and fall hazards.",
+      "remedy": "Consumers should stop using the convertible bedside sleeper immediately and contact Papablic for a refund. Consumers will be asked to disassemble the product, cut the mattress and fabric components in half and email photos of the destroyed components to support@papablic.com. Upon receipt of proof of destruction, Papablic will issue a full refund and consumers should dispose of the product.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due to Phthalate Levels and Risk of Ingestion",
+      "product": "101 Dalmatians Faux Leather Coin Purses",
+      "units": 2100,
+      "unitsRaw": "About 2,100",
+      "date": "2026-10-15",
+      "image": "https://cpsc.gov/s3fs-public/Primark1.gif?VersionId=qL6beIA.A4xLU5bGk4ye649Xc2andmRf",
+      "imageCaption": "Recalled 101 Dalmatians Faux Leather Coin Purse (Model No. 2595301)",
+      "url": "https://cpsc.gov/Recalls/2027/Primark-Recalls-101-Dalmatians-Faux-Leather-Childrens-Coin-Purses-Due-to-Phthalate-Levels-and-Risk-of-Ingestion",
+      "retailerText": "Sold At:\nPrimark stores located in the Northeast and in Florida, Maryland and Illinois from March 2026 through June 2026 for about $9.",
+      "hazard": "The coin purses contain higher phthalate concentration levels. Phthalates can be harmful if young children are exposed to sufficient amounts, including through ingestion, and certain phthalates have been associated with adverse health effects, particularly effects on development and the hormone system.",
+      "remedy": "Consumers should stop using the coin purses immediately, keep them away from children and return them to a Primark store for a full refund in the original form of payment.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "usOpal Recalls Xalirium Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails",
+      "product": "Xalirium Adult Portable Bed Rails",
+      "units": 200,
+      "unitsRaw": "About 200",
+      "date": "2026-10-15",
+      "image": "https://cpsc.gov/s3fs-public/usOpal1.png?VersionId=l2dlrQynez_5Dol1XLli3zt6yQvWmiaY",
+      "imageCaption": "Recalled Xalirium Adult Portable Bed Rails",
+      "url": "https://cpsc.gov/Recalls/2027/usOpal-Recalls-Xalirium-Portable-Bed-Rails-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Asphyxiation-Violate-Mandatory-Standard-for-Adult-Portable-Bed-Rails",
+      "retailerText": "Sold Online At:\nAmazon.com from February 2026 through August 2026 for about $60.",
+      "hazard": "The recalled bed rails violate the mandatory standard for adult portable bed rails because when the bed rails are attached to a bed, users can become entrapped within the bed rail or between the bed rail and the side of the mattress, posing a serious entrapment hazard and risk of death by asphyxiation. The bed rails do not meet structural stability or retention strap requirements, posing a fall hazard. In addition, the bed rails do not bear the required hazard warning labels.",
+      "remedy": "Consumers should stop using the recalled adult portable bed rails immediately and contact usOpal for a full refund. Consumers will be asked to cut the black storage bag and straps and to cut the foam padding on the bed rails, write “RECALLED” on the upper and lower bed rails, and send a photo of the marked rails to xaliriumofficial@outlook.com. Consumers should then dispose of the recalled product.",
+      "remedyOption": "Refund"
+    },
+    {
       "title": "Decathlon America Recalls Van Rysel GRVL AF Bicycles Due to Risk of Serious Injury or Death from Crash Hazard",
       "product": "Van Rysel GRVL AF Bicycles",
       "units": 1150,
       "unitsRaw": "About 1,150",
       "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/Decathlon1.png?VersionId=SybjGiY4QTNlfjVKyrTmqk6gxka0WXEX",
+      "image": "https://www.cpsc.gov/s3fs-public/Decathlon1.png",
       "imageCaption": "Recalled USA Van Rysel GRVL AF Sword Brown CN FR (model number 8911304)",
       "url": "https://www.cpsc.gov/Recalls/2027/Decathlon-America-Recalls-Van-Rysel-GRVL-AF-Bicycles-Due-to-Risk-of-Serious-Injury-or-Death-from-Crash-Hazard",
       "retailerText": "Sold At:\nREI Co-op stores nationwide and online at REI.com from March 2025 through August 2026 for between $1,400 and $2,300.",
-      "hazard": "The recalled bicycles’ front lock nut can loosen during use, causing the front wheel to dislodge or loosen over time, posing a crash hazard.",
+      "hazard": "The recalled bicycles' front lock nut can loosen during use, causing the front wheel to dislodge or loosen over time, posing a crash hazard.",
       "remedy": "Consumers should stop using the recalled bicycles immediately and take them to the nearest Recreational Equipment (REI Co-op) location for a free inspection and repair service of the front fork assembly. Anyone unable to visit an REI Co-op location can contact Decathlon Customer Service directly for assistance. Recalled models can be identified by the Van Rysel Product ID on the top right of the product label under the frame, beginning with the number 5.",
       "remedyOption": "Repair"
     },
@@ -1469,7 +1553,7 @@
       "units": 42860,
       "unitsRaw": "About 42,860 (In addition, about 340 were sold in Canada)",
       "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/DR1.png?VersionId=ajfESu0SMRVXuVQ6FwXyW4EljclYdB_8",
+      "image": "https://www.cpsc.gov/s3fs-public/DR1.png",
       "imageCaption": "Recalled DR Power Pilot Trimmer Mower - model T4X1076DMN",
       "url": "https://www.cpsc.gov/Recalls/2027/DR-Power-Equipment-Recalls-Pilot-and-Premier-Trimmer-Mowers-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
       "retailerText": "Sold At:\nAce, TSC, Bomgaars, other home improvement, hardware and independent power equipment stores nationwide and online at drpower.com from November 2022 through July 2026 for between $380 to $550.",
@@ -1483,12 +1567,12 @@
       "units": 3630,
       "unitsRaw": "About 3,630 (In addition, 1,395 in Canada)",
       "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/giant2.jpg?VersionId=2.9hQavTnFlHQtTqaZt1b6eYjbvfmJpE",
+      "image": "https://www.cpsc.gov/s3fs-public/giant2.jpg",
       "imageCaption": "Recalled LED-Light Key",
       "url": "https://www.cpsc.gov/Recalls/2027/Giant-Bicycle-Recalls-LED-Light-Keys-Included-with-SureLock-Bike-Lock-Sets-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violates-Mandatory-Standard-for-Consumer-Products-with-Button-Cell-Batteries",
       "retailerText": "Sold At:\nGiant Bicycle authorized stores nationwide and online at https://www.giant-bicycles.com/us from March 2023 through August 2026 for between $25 and $65.",
-      "hazard": "The LED-light key that was included with certain SureLock Bicycle Lock sets violates the mandatory safety standard for consumer products with button cell and coin batteries because the button batteries can be accessed easily by children, posing an ingestion hazard. Additionally, the packaging and product do not have the warnings required under Reese’s Law. When button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, internal chemical burns, and death.",
-      "remedy": "Consumers should stop using the recalled LED-light key that was included with certain SureLock Bicycle Lock sets immediately and contact Giant Bicycle for a $5 refund. Consumers will be asked to bring the LED key to an authorized Giant retailer to participate in the recall and receive the refund. When returning the LED-light key to a retailer, consumers will be required to bring either the complete bicycle lock purchase or a picture of the serial number on the bicycle lock in order to verify the serial number is in the scope of the recall. Consumers may continue to use the bicycle lock and non-LED-light keys included with the SureLock Bicycle Lock sets.  \n\n\nNote: Button and Coin cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
+      "hazard": "The LED-light key that was included with certain SureLock Bicycle Lock sets violates the mandatory safety standard for consumer products with button cell and coin batteries because the button batteries can be accessed easily by children, posing an ingestion hazard.  Additionally, the packaging and product do not have the warnings required under Reese's Law. When button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, internal chemical burns, and death.",
+      "remedy": "Consumers should stop using the recalled LED-light key that was included with certain SureLock Bicycle Lock sets immediately and contact Giant Bicycle for a $5 refund. Consumers will be asked to bring the LED key to an authorized Giant retailer to participate in the recall and receive the refund. When returning the LED-light key to a retailer, consumers will be required to bring either the complete bicycle lock purchase or a picture of the serial number on the bicycle lock in order to verify the serial number is in the scope of the recall. Consumers may continue to use the bicycle lock and non-LED-light keys included with the SureLock Bicycle Lock sets. Note: Button and Coin cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
       "remedyOption": "Refund"
     },
     {
@@ -1497,96 +1581,12 @@
       "units": 2140,
       "unitsRaw": "About 2,140",
       "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/ONTHEWEI1.png?VersionId=r5NFULByKFKAi5FH2LxeXfBhF3YBa1V1",
+      "image": "https://www.cpsc.gov/s3fs-public/ONTHEWEI1.png",
       "imageCaption": "Recalled ONTHEWEI Baby Bath Seats",
       "url": "https://cpsc.gov/Recalls/2027/ONTHEWEI-Recalls-Baby-Bath-Seats-Due-to-Risk-of-Serious-Injury-or-Death-to-Children-from-Drowning-Violate-Mandatory-Standard-for-Infant-Bath-Seats",
       "retailerText": "Sold Online At:\nAmazon.com in April 2026 for between $40 and $50.",
       "hazard": "The recalled bath seats violate the mandatory standard for infant bath seats because they are unstable and can tip over while in use, posing a risk of serious injury or death due to drowning.",
-      "remedy": "Consumers should stop using the recalled bath seats immediately and contact ONTHEWEI for a full refund. Consumers will be asked to destroy the bath seat by writing in permanent marker “RECALLED” on the front of the bath seat, disassembling it by removing the back rest and arm restraints and cutting the three suction cups on the seat’s underside and send a photo of the destroyed bath seat showing the marked product to onthewei@outlook.com. Consumers should then dispose of the recalled product.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Pacearth Direct Recalls PACEARTH Swing Seats Due to Risk of Serious Injury from Fall Hazard",
-      "product": "PACEARTH Swing Seats",
-      "units": 110550,
-      "unitsRaw": "About 110,550",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/Pacearth1.png?VersionId=6goMOYTQD8FLkdV6m_fJapaB6rDrySAF",
-      "imageCaption": "PACEARTH Swing Seat",
-      "url": "https://www.cpsc.gov/Recalls/2027/Pacearth-Direct-Recalls-PACEARTH-Swing-Seats-Due-to-Risk-of-Serious-Injury-from-Fall-Hazard",
-      "retailerText": "Sold Online At:\nAmazon.com from May 2017 through June 2026 for between $27 and $57.",
-      "hazard": "The seats, metal carabiners or quick links, or webbing straps of the recalled swing seats can break during use, posing a risk of serious injury due to fall hazard.",
-      "remedy": "Consumers should stop using the recalled swing seats immediately and contact Pacearth Direct for a full refund. Consumers will be asked to write “RECALLED” on the swing seat with permanent marker, take a photo of it, including the PACEARTH logo and email to recall@pacearth.com.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
-      "product": "Romorgniz Six-Drawer Dressers",
-      "units": 12078,
-      "unitsRaw": "About 12,078",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/Romorgniz1.png?VersionId=EFxP0e7y9ygqy.paDOwtyQBSbNDVDrXD",
-      "imageCaption": "Recalled Romorgniz Six-drawer Dresser",
-      "url": "https://www.cpsc.gov/Recalls/2027/Romorgniz-Recalls-Six-Drawer-Dressers-Due-to-Risk-of-Serious-Injury-or-Death-from-Tip-Over-and-Entrapment-Hazards-Violate-Mandatory-Standard-for-Clothing-Storage-Units",
-      "retailerText": "Sold Online At:\nAmazon.com from May 2025 through August 2026 for between $100 and $170.",
-      "hazard": "The recalled dressers are unstable if they are not anchored to the wall, posing tip-over and entrapment hazards that can result in risks of serious injuries or death to children. The dressers violate the mandatory safety standards as required by the STURDY Act.",
-      "remedy": "Consumers should stop using the recalled dressers immediately if they are not anchored to the wall, place them in an area that children cannot access and contact Romorgniz for a full refund. Consumers will be asked to write in permanent marker “RECALLED” on the top, front and sides of the dresser, remove all drawers and send photos of the marked and disassembled dresser to Romorgnizrecall@outlook.com. Consumers should then dispose of the product.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Snow Peak Recalls Propane Fireplace Inserts and Lava Rocks Due to Risk of Serious Injury or Death from Burn and Fire Hazards",
-      "product": "Snow Peak Takibi Fireplace Propane Inserts and Lava Rocks",
-      "units": 100,
-      "unitsRaw": "About 100",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/SnowPeak1.png?VersionId=QT_F1IwOmvTYkIhHQPAT.J8ws.q6P4eS",
-      "imageCaption": "Recalled Takibi Propane Insert (model ST-332-US) with reddish brown lava rocks inside the Snow Peak’s Pack & Carry Fireplace",
-      "url": "https://www.cpsc.gov/Recalls/2027/Snow-Peak-Recalls-Propane-Fireplace-Inserts-and-Lava-Rocks-Due-to-Risk-of-Serious-Injury-or-Death-from-Burn-and-Fire-Hazards",
-      "retailerText": "Sold Online At:\nSnowpeak.com from July 2026 through July 2026 for about $350.",
-      "hazard": "The fireplace’s lava rocks can ignite and explode when heated in the propane insert, posing a risk of serious injury or death from burn and fire hazards.",
-      "remedy": "Consumers should stop using the propane insert and lava rocks fireplace accessories immediately and contact Snow Peak for a full refund. Consumers will be provided with a prepaid shipping label to return the propane insert and lava rocks. For replacement lava rocks only, the consumer can keep the propane inserts, and the firm will ship replacement lava rocks to the consumer. Do not use inserts until replacement lava rocks are received. Consumers should dispose of the recalled lava rocks in accordance with any local and state ordinances.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "The Conqueror Recalls Avengers Medals Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Magnets",
-      "product": "Avengers Infinity Gauntlet Medals",
-      "units": 476,
-      "unitsRaw": "About 476",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/Conqueror1.png?VersionId=U8ymO2VvQaJkiAF7mA41BL6lAbnsAJjG",
-      "imageCaption": "Recalled Avengers Infinity Gauntlet Medal showing faulty magnet",
-      "url": "https://www.cpsc.gov/Recalls/2027/The-Conqueror-Recalls-Avengers-Medals-Due-to-Risk-of-Serious-Injury-or-Death-from-Magnet-Ingestion-Violate-Mandatory-Standard-for-Magnets",
-      "retailerText": "Sold Online At:\nwww.theconqueror.events and through The Conqueror App from March 2026 through May 2026 for about $50.",
-      "hazard": "The recalled medals violate the mandatory safety standard for magnets because the high-powered magnets may detach, posing a deadly ingestion hazard to children. When high-powered magnets are swallowed, the ingested magnets can attract each other or other metal objects and become lodged in the digestive system. This can result in perforations, twisting, and/or blockage of the intestines, blood poisoning and death.",
-      "remedy": "Consumers should stop using the Avengers Infinity Gauntlet Medal immediately and contact The Conqueror for instructions on receiving a full refund or a replacement medal. Consumers will be asked to cut the ribbon from the medal and write “RECALLED” in permanent marker on the medal and ribbon, throw the product away and email a photo of the disposed medal and ribbon to support@theconqueror.events.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "ABC Trading Recalls Squishy Toys Due to Risk of Serious Injury or Death from Water Bead Ingestion; Violate Mandatory Standard for Toys",
-      "product": "Squishy Dumpling Toys, Crazy Squib Ball Toys",
-      "units": 37000,
-      "unitsRaw": "About 37,000",
-      "date": "2026-10-01",
-      "image": "https://www.cpsc.gov/s3fs-public/abc1.png",
-      "imageCaption": "Squishy Dumpling Packaging",
-      "url": "https://www.cpsc.gov/Recalls/2027/ABC-Trading-Recalls-Squishy-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Water-Bead-Ingestion-Violate-Mandatory-Standard-for-Toys",
-      "retailerText": "Sold At:\nABC Trading stores in Los Angeles, California and other stores nationwide from April 2026 through June 2026 for between 41 cents and $1.25.",
-      "hazard": "The squishy toys violate the mandatory safety standard for toys because the water beads inside the toys expand larger than permitted, posing a deadly ingestion hazard. If a water bead is ingested, it can pose ingestion, choking, and intestinal obstruction hazards inside a child's body, resulting in severe discomfort, vomiting, dehydration and a risk of death to a child.",
-      "remedy": "Consumers should stop using the squishy toys immediately and contact ABC Trading for a full refund. Consumers will be asked to write \"RECALLED\" in permanent marker on the squishy toys, throw the toy away and email a photo of the disposed toy to recallabc@gmail.com.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Agrish Reannounces and Expands Recall of Adult Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails; Additional Units Added",
-      "product": "Agrish Adult Portable Bed Rails, models 12014, AG-12011 and 12016",
-      "units": 35083,
-      "unitsRaw": "About 35,083 units (About 5,000 of these bed rails were previously recalled in January 2026)",
-      "date": "2026-10-01",
-      "image": "https://www.cpsc.gov/s3fs-public/Agrish1.jpg?VersionId=ZriNHiuMYDuMIDqI1iMQm8AgTDrlQGGb",
-      "imageCaption": "Recalled Agrish Adult Portable Bed Rail Model Number 12014",
-      "url": "https://cpsc.gov/Recalls/2027/Agrish-Reannounces-and-Expands-Recall-of-Adult-Portable-Bed-Rails-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Asphyxiation-Violate-Mandatory-Standard-for-Adult-Portable-Bed-Rails-Additional-Units-Added",
-      "retailerText": "Sold Online At:\nAmazon.com from April 2025 through May 2026 for between $50 and $80.",
-      "hazard": "The recalled bed rails violate the mandatory standard for adult portable bed rails because when the bed rails are attached to a bed, users can become entrapped within the bed rail or between the bed rail and the side of the mattress, posing a serious entrapment hazard and risk of death by asphyxiation. The bed rails do not meet structural stability or retention strap requirements, posing a fall hazard. Additionally, the bed rails’ push pins and push pin holes are incorrectly sized, posing a laceration hazard.",
-      "remedy": "Consumers should immediately stop using the recalled adult portable bed rails and contact Agrish Direct for a full refund. Consumers will be asked to go to http://www.agrish.online/recall to register for the recall and receive instructions on how to dispose of the recalled bed rail.",
+      "remedy": "Consumers should stop using the recalled bath seats immediately and contact ONTHEWEI for a full refund. Consumers will be asked to destroy the bath seat by writing in permanent marker \"RECALLED\" on the front of the bath seat, disassembling it by removing the back rest and arm restraints and cutting the three suction cups on the seat's underside and send a photo of the destroyed bath seat showing the marked product to onthewei@outlook.com. Consumers should then dispose of the recalled product.",
       "remedyOption": "Refund"
     }
   ],

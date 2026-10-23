@@ -1,17 +1,17 @@
 {
   "partialYear": {
     "year": 2026,
-    "throughDate": "2026-10-15",
+    "throughDate": "2026-10-22",
     "monthsElapsed": 10
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 10053,
+  "corpusTotal": 10058,
   "windowContext": {
     "corpusFirstYear": 1973,
     "firstReliableYear": 2004,
     "preReliableRecalls": 2619,
-    "preReliableRetailerPct": 35.9,
+    "preReliableRetailerPct": 36.2,
     "amazonAtReliableStart": 0,
     "analyzedFrom": 2004
   },
@@ -19,7 +19,7 @@
   "firstYear": 2004,
   "coverageFirstYear": 2015,
   "ratioFirstYear": 2015,
-  "newestRecallDate": "2026-10-15",
+  "newestRecallDate": "2026-10-22",
   "series": [
     {
       "year": 2004,
@@ -817,41 +817,41 @@
       "year": 2026,
       "origin": {
         "coverage": 99.6,
-        "soleN": 225,
-        "restN": 258,
-        "soleChina": 94.2,
-        "restChina": 67.8
+        "soleN": 228,
+        "restN": 260,
+        "soleChina": 94.3,
+        "restChina": 67.7
       },
-      "recalls": 485,
+      "recalls": 490,
       "retailerFieldPopulated": 100,
       "retailers": {
         "amazon": 59.2,
-        "walmart": 11.5,
-        "target": 4.9,
+        "walmart": 11.6,
+        "target": 5.1,
         "homeDepot": 3.3,
         "ebay": 1
       },
-      "amazonOnly": 46.6,
-      "amazonOnlyCount": 226,
+      "amazonOnly": 46.7,
+      "amazonOnlyCount": 229,
       "soleAlsoDirect": 22,
       "soleAlsoStore": 8,
-      "soleClean": 200,
-      "soleCleanPct": 88.5,
-      "soleCleanShare": 41.2,
+      "soleClean": 203,
+      "soleCleanPct": 88.6,
+      "soleCleanShare": 41.4,
       "online": {
-        "strict": 76.5,
-        "mid": 86.2,
-        "loose": 86.2
+        "strict": 76.3,
+        "mid": 86.1,
+        "loose": 86.1
       },
-      "medianDescriptionChars": 89,
-      "amazonAmongShort": 62.6,
+      "medianDescriptionChars": 91,
+      "amazonAmongShort": 62.9,
       "amazonOfOnline": 68.7,
-      "onlineCount": 418,
-      "shortCount": 401
+      "onlineCount": 422,
+      "shortCount": 404
     }
   ],
   "coverage": {
-    "total": 3716,
+    "total": 3721,
     "retailers": 99.9,
     "injuries": 99.9,
     "remedyOptions": 99.8,
@@ -859,7 +859,7 @@
     "manufacturers": 34.8,
     "manufacturerCountries": 99.7,
     "hazards": 99.9,
-    "importers": 62.9
+    "importers": 62.8
   },
   "trend": {
     "manufacturer": [
@@ -1047,7 +1047,7 @@
       },
       {
         "year": 2026,
-        "pct": 51.3
+        "pct": 50.8
       }
     ]
   },
@@ -1297,12 +1297,12 @@
     {
       "year": 2026,
       "amazonOnly": {
-        "n": 226,
-        "manufacturerKnown": 19.9
+        "n": 229,
+        "manufacturerKnown": 19.7
       },
       "everythingElse": {
-        "n": 259,
-        "manufacturerKnown": 20.8
+        "n": 261,
+        "manufacturerKnown": 21.1
       }
     }
   ],
@@ -1450,6 +1450,76 @@
   ],
   "recent": [
     {
+      "title": "BAMAMON Recalls LED Projecting Finger Light Toys Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Toys",
+      "product": "Bamamon LED Projecting Finger Light Toys",
+      "units": 6533,
+      "unitsRaw": "About 6,533",
+      "date": "2026-10-22",
+      "image": "https://www.cpsc.gov/s3fs-public/BAMAMON1.png?VersionId=W3oVbO0sGrOeCbuSHnCWvchTSX6zjsb3",
+      "imageCaption": "Recalled Bamamon LED Projecting Finger Lights Package",
+      "url": "https://www.cpsc.gov/Recalls/2027/BAMAMON-Recalls-LED-Projecting-Finger-Light-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violate-Mandatory-Standard-for-Toys",
+      "retailerText": "Sold At:\nAmazon.com from March 2025 through August 2026 for about $13 to $14.",
+      "hazard": "None reported.",
+      "remedy": "Consumers should stop using the toys immediately and contact Bamamon. Consumers will be asked to email a photograph showing the product being properly disposed of in the trash to bamamonproductrecall@outlook.com.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Costway Recalls Convertible High Chairs Due to Risk of Serious Injury or Death from Entrapment and Fall Hazards; Violate Mandatory Standard for High Chairs",
+      "product": "Costway Convertible High Chairs",
+      "units": 3332,
+      "unitsRaw": "About 3,332",
+      "date": "2026-10-22",
+      "image": "https://www.cpsc.gov/s3fs-public/Costway1.jpg?VersionId=6QI6ZOwq2at_xt2Htney.ggAup7z6tUT",
+      "imageCaption": "Recalled Costway High Chair (brown and white)",
+      "url": "https://www.cpsc.gov/Recalls/2027/Costway-Recalls-Convertible-High-Chairs-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Fall-Hazards-Violate-Mandatory-Standard-for-High-Chairs",
+      "retailerText": "Sold At:\nWalmart and Target stores nationwide and online at Costway.com from May 2023 through July 2026 for between $84 and $100.",
+      "hazard": "The convertible high chairs violate the mandatory safety standard for high chairs because they do not contain a passive restraint system and a child can slip through the opening between the feeding tray and seat and become entrapped or fall, posing a risk of serious injury or death.",
+      "remedy": "Consumers should immediately stop using the recalled high chairs and contact Costway for a free replacement high chair. Consumers will be asked to provide a receipt or a photo of the product and will receive a prepaid label to return the recalled product to Costway. Upon receipt of the recalled product, Costway will ship a replacement high chair free of charge.",
+      "remedyOption": "Replace"
+    },
+    {
+      "title": "FoShanShiNanHaiQuNuoAiTongZhuangShangHang Recalls CIYTI Light-Up Princess Costumes Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Toys",
+      "product": "CIYTI Light-Up Princess Costumes",
+      "units": 94,
+      "unitsRaw": "About 94",
+      "date": "2026-10-22",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledLightUpPrincessCostumeAccessories.png?VersionId=qVUy0DYD0R2MLHMLF4_TwMf9W1sNVnZB",
+      "imageCaption": "Recalled Light Up Princess Costume and Accessories",
+      "url": "https://www.cpsc.gov/Recalls/2027/FoShanShiNanHaiQuNuoAiTongZhuangShangHang-Recalls-CIYTI-Light-Up-Princess-Costumes-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violate-Mandatory-Standard-for-Toys",
+      "retailerText": "Sold Online At:\nAmazon from February 2025 through June 2025 for between $21 and $35.",
+      "hazard": "The costumes violate the mandatory safety standard for toys because the button cell batteries can be accessed easily by children, posing a deadly ingestion hazard. If button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, including internal chemical burns, and death.",
+      "remedy": "Consumers should take the princess costumes away from children immediately, stop using them and contact FoShanShiNanHaiQuNuoAiTongZhuangShangHang for a full refund. Consumers will be asked to write “RECALLED” with permanent marker on the dress, crown, wand, and remote, then throw away the toys and submit a photo of the disposed toys to Norakid2026@outlook.com.  \n\nNote: Button cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Lithonia Lighting Recalls RSX Luminaires with Adjustable Tilt Arm Mountings Due to Risk of Serious Injury from Impact Hazard",
+      "product": "Lithonia Lighting RSX Luminaires with AASP, AARP, AAWB, and AAWSC Adjustable Tilt Arm Mountings used for commercial outdoor lighting.",
+      "units": 11532,
+      "unitsRaw": "About 11,532",
+      "date": "2026-10-22",
+      "image": "https://www.cpsc.gov/s3fs-public/Lithonia1.jpg?VersionId=zDyzUJUbECG__LmdKyhfhlJNDKraVYJx",
+      "imageCaption": "Recalled RSX Luminaire with an Adjustable Tilt Arm",
+      "url": "https://cpsc.gov/Recalls/2027/Lithonia-Lighting-Recalls-RSX-Luminaires-with-Adjustable-Tilt-Arm-Mountings-Due-to-Risk-of-Serious-Injury-from-Impact-Hazard",
+      "retailerText": "Sold At:\nCommercial distributors nationwide including Turtle & Hughes Inc. and Consolidated Electrical Distributors for commercial outdoor lighting applications from August 2019 to August 2026 for between $400 and $2200.",
+      "hazard": "The knuckle of the recalled adjustable tilt arm mountings can fail, allowing the luminaire to fall from the mounting arm, posing a risk of serious injury due to impact hazard.",
+      "remedy": "Consumers should keep clear of the area directly beneath the Luminaire and contact Lithonia Lighting to schedule a free repair. Lithonia Lighting will arrange for a qualified professional to replace the recalled adjustable tilt arm mount with a new complete adjustable arm assembly.",
+      "remedyOption": "Repair"
+    },
+    {
+      "title": "VQQQ Gas Patio Heaters Recalled Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+      "product": "VQQQ Natural Gas Patio Heaters",
+      "units": 100,
+      "unitsRaw": "About 100",
+      "date": "2026-10-22",
+      "image": "https://www.cpsc.gov/s3fs-public/RecalledVQQQNaturalGasPatioHeater.png?VersionId=iVeyo1oowGdfTMY6i.RxENez.t..2CN_",
+      "imageCaption": "Recalled VQQQ Natural Gas Patio Heater",
+      "url": "https://www.cpsc.gov/Recalls/2027/VQQQ-Gas-Patio-Heaters-Recalled-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
+      "retailerText": "Sold Online At:\nAmazon.com from July 2024 through August 2026 for about $346.",
+      "hazard": "Components on the recalled patio heaters can malfunction causing gas to be released, posing a risk of serious injury or death from fire and burn hazards.",
+      "remedy": "Consumers should stop using the recalled patio heaters immediately, shut the valve at the portable gas source, disconnect the gas hose and contact VQQQ for a full refund. Consumers will be asked to write in permanent marker \"Recalled\" on the heater’s base and send a photo of the marked heater to vqqqrecall@163.com. Consumers should then dispose of the recalled product.",
+      "remedyOption": "Refund"
+    },
+    {
       "title": "3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious Injury or Death from Fire Hazard",
       "product": "Scotch™ Thermal Laminators",
       "units": 53634,
@@ -1517,76 +1587,6 @@
       "retailerText": "Sold At:\nPrimark stores located in the Northeast and in Florida, Maryland and Illinois from March 2026 through June 2026 for about $9.",
       "hazard": "The coin purses contain higher phthalate concentration levels. Phthalates can be harmful if young children are exposed to sufficient amounts, including through ingestion, and certain phthalates have been associated with adverse health effects, particularly effects on development and the hormone system.",
       "remedy": "Consumers should stop using the coin purses immediately, keep them away from children and return them to a Primark store for a full refund in the original form of payment.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "usOpal Recalls Xalirium Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails",
-      "product": "Xalirium Adult Portable Bed Rails",
-      "units": 200,
-      "unitsRaw": "About 200",
-      "date": "2026-10-15",
-      "image": "https://www.cpsc.gov/s3fs-public/usOpal1.png",
-      "imageCaption": "Recalled Xalirium Adult Portable Bed Rails",
-      "url": "https://cpsc.gov/Recalls/2027/usOpal-Recalls-Xalirium-Portable-Bed-Rails-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Asphyxiation-Violate-Mandatory-Standard-for-Adult-Portable-Bed-Rails",
-      "retailerText": "Sold Online At:\nAmazon.com from February 2026 through August 2026 for about $60.",
-      "hazard": "The recalled bed rails violate the mandatory standard for adult portable bed rails because when the bed rails are attached to a bed, users can become entrapped within the bed rail or between the bed rail and the side of the mattress, posing a serious entrapment hazard and risk of death by asphyxiation. The bed rails do not meet structural stability or retention strap requirements, posing a fall hazard. In addition, the bed rails do not bear the required hazard warning labels.",
-      "remedy": "Consumers should stop using the recalled adult portable bed rails immediately and contact usOpal for a full refund. Consumers will be asked to cut the black storage bag and straps and to cut the foam padding on the bed rails, write \"RECALLED\" on the upper and lower bed rails, and send a photo of the marked rails to xaliriumofficial@outlook.com. Consumers should then dispose of the recalled product.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Decathlon America Recalls Van Rysel GRVL AF Bicycles Due to Risk of Serious Injury or Death from Crash Hazard",
-      "product": "Van Rysel GRVL AF Bicycles",
-      "units": 1150,
-      "unitsRaw": "About 1,150",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/Decathlon1.png",
-      "imageCaption": "Recalled USA Van Rysel GRVL AF Sword Brown CN FR (model number 8911304)",
-      "url": "https://www.cpsc.gov/Recalls/2027/Decathlon-America-Recalls-Van-Rysel-GRVL-AF-Bicycles-Due-to-Risk-of-Serious-Injury-or-Death-from-Crash-Hazard",
-      "retailerText": "Sold At:\nREI Co-op stores nationwide and online at REI.com from March 2025 through August 2026 for between $1,400 and $2,300.",
-      "hazard": "The recalled bicycles' front lock nut can loosen during use, causing the front wheel to dislodge or loosen over time, posing a crash hazard.",
-      "remedy": "Consumers should stop using the recalled bicycles immediately and take them to the nearest Recreational Equipment (REI Co-op) location for a free inspection and repair service of the front fork assembly. Anyone unable to visit an REI Co-op location can contact Decathlon Customer Service directly for assistance. Recalled models can be identified by the Van Rysel Product ID on the top right of the product label under the frame, beginning with the number 5.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "DR Power Equipment Recalls Pilot and Premier Trimmer Mowers Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
-      "product": "DR Power Equipment Pilot and Premier Trimmer Mowers",
-      "units": 42860,
-      "unitsRaw": "About 42,860 (In addition, about 340 were sold in Canada)",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/DR1.png",
-      "imageCaption": "Recalled DR Power Pilot Trimmer Mower - model T4X1076DMN",
-      "url": "https://www.cpsc.gov/Recalls/2027/DR-Power-Equipment-Recalls-Pilot-and-Premier-Trimmer-Mowers-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
-      "retailerText": "Sold At:\nAce, TSC, Bomgaars, other home improvement, hardware and independent power equipment stores nationwide and online at drpower.com from November 2022 through July 2026 for between $380 to $550.",
-      "hazard": "Grass and debris can accumulate in the trimmer mowers and ignite, posing a risk of serious injury or death from fire and burn hazards.",
-      "remedy": "Consumers should stop using the recalled trimmer mowers immediately and contact DR Power Equipment for a free repair kit. If consumers have concerns about installing the repair kit, contact DR Power Equipment to schedule a free repair installation from an authorized dealer.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "Giant Bicycle Recalls LED-Light Keys Included with SureLock Bike Lock Sets Due to Risk of Serious Injury or Death from Battery Ingestion; Violates Mandatory Standard for Consumer Products with Button Cell Batteries",
-      "product": "LED-light bike lock keys",
-      "units": 3630,
-      "unitsRaw": "About 3,630 (In addition, 1,395 in Canada)",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/giant2.jpg",
-      "imageCaption": "Recalled LED-Light Key",
-      "url": "https://www.cpsc.gov/Recalls/2027/Giant-Bicycle-Recalls-LED-Light-Keys-Included-with-SureLock-Bike-Lock-Sets-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violates-Mandatory-Standard-for-Consumer-Products-with-Button-Cell-Batteries",
-      "retailerText": "Sold At:\nGiant Bicycle authorized stores nationwide and online at https://www.giant-bicycles.com/us from March 2023 through August 2026 for between $25 and $65.",
-      "hazard": "The LED-light key that was included with certain SureLock Bicycle Lock sets violates the mandatory safety standard for consumer products with button cell and coin batteries because the button batteries can be accessed easily by children, posing an ingestion hazard.  Additionally, the packaging and product do not have the warnings required under Reese's Law. When button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, internal chemical burns, and death.",
-      "remedy": "Consumers should stop using the recalled LED-light key that was included with certain SureLock Bicycle Lock sets immediately and contact Giant Bicycle for a $5 refund. Consumers will be asked to bring the LED key to an authorized Giant retailer to participate in the recall and receive the refund. When returning the LED-light key to a retailer, consumers will be required to bring either the complete bicycle lock purchase or a picture of the serial number on the bicycle lock in order to verify the serial number is in the scope of the recall. Consumers may continue to use the bicycle lock and non-LED-light keys included with the SureLock Bicycle Lock sets. Note: Button and Coin cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Death to Children from Drowning; Violate Mandatory Standard for Infant Bath Seats",
-      "product": "ONTHEWEI Baby Bath Seats",
-      "units": 2140,
-      "unitsRaw": "About 2,140",
-      "date": "2026-10-08",
-      "image": "https://www.cpsc.gov/s3fs-public/ONTHEWEI1.png",
-      "imageCaption": "Recalled ONTHEWEI Baby Bath Seats",
-      "url": "https://cpsc.gov/Recalls/2027/ONTHEWEI-Recalls-Baby-Bath-Seats-Due-to-Risk-of-Serious-Injury-or-Death-to-Children-from-Drowning-Violate-Mandatory-Standard-for-Infant-Bath-Seats",
-      "retailerText": "Sold Online At:\nAmazon.com in April 2026 for between $40 and $50.",
-      "hazard": "The recalled bath seats violate the mandatory standard for infant bath seats because they are unstable and can tip over while in use, posing a risk of serious injury or death due to drowning.",
-      "remedy": "Consumers should stop using the recalled bath seats immediately and contact ONTHEWEI for a full refund. Consumers will be asked to destroy the bath seat by writing in permanent marker \"RECALLED\" on the front of the bath seat, disassembling it by removing the back rest and arm restraints and cutting the three suction cups on the seat's underside and send a photo of the destroyed bath seat showing the marked product to onthewei@outlook.com. Consumers should then dispose of the recalled product.",
       "remedyOption": "Refund"
     }
   ],

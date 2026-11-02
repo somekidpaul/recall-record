@@ -255,10 +255,25 @@ describe('the origin split (second finding)', () => {
 describe('the remedy, which is what a person actually needs', () => {
   it('every listed recall says what to do about it', () => {
     /* The lookup told people their product was dangerous and not that a refund
-       existed. Remedies is 100% populated since 2020, so any gap here is a
-       pipeline fault, not a data one. */
+       existed, so every listed recall has to render a "What to do" block.
+
+       THE BAR IS THE PRODUCT'S BAR, which is prose OR the one-word tag, not
+       prose alone. RecallRow draws that block when `(remedy || remedyOption)`
+       is present, and when the prose is missing it falls back to "The notice
+       lists a remedy of <tag>. Open it for the full instructions." So a record
+       with a tag and no prose still tells the reader what to do.
+
+       This used to assert prose was non-empty, on the premise that Remedies is
+       100% populated since 2020. CPSC broke that premise on 2026-10-29 with the
+       Harkla Sensory Swings recall: a real notice, photo and hazard and all,
+       with RemedyOptions "Repair" but an empty Remedies array. The page handled
+       it fine and only this test failed, which is the test being stricter than
+       the thing it guards. The honest contract is that the block renders, so
+       that is what this checks now. A record with NEITHER prose nor tag draws
+       no block and still fails here, which is the real defect to catch. */
     for (const r of [...data.biggest, ...data.recent]) {
-      expect(r.remedy.length, `${r.date} ${r.product.slice(0, 30)}`).toBeGreaterThan(0)
+      const tellsReader = r.remedy.length > 0 || (r.remedyOption?.length ?? 0) > 0
+      expect(tellsReader, `${r.date} ${r.product.slice(0, 30)}: no remedy prose and no tag`).toBe(true)
     }
   })
 

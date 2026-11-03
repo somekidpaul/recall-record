@@ -4,6 +4,7 @@ import './index.css'
 import App from './App'
 import Check from './Check'
 import Method from './Method'
+import { Analytics } from '@vercel/analytics/react'
 
 /**
  * Three pages, no router library.
@@ -39,5 +40,6 @@ const Page = path === '/check' ? Check : path === '/method' ? Method : App
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Page />
+    <Analytics />
   </StrictMode>,
 )

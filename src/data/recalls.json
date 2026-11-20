@@ -1,17 +1,17 @@
 {
   "partialYear": {
     "year": 2026,
-    "throughDate": "2026-11-12",
+    "throughDate": "2026-11-19",
     "monthsElapsed": 11
   },
   "source": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
   "license": "US Government public domain",
-  "corpusTotal": 10089,
+  "corpusTotal": 10098,
   "windowContext": {
     "corpusFirstYear": 1973,
     "firstReliableYear": 2004,
     "preReliableRecalls": 2619,
-    "preReliableRetailerPct": 37.2,
+    "preReliableRetailerPct": 37.5,
     "amazonAtReliableStart": 0,
     "analyzedFrom": 2004
   },
@@ -19,7 +19,7 @@
   "firstYear": 2004,
   "coverageFirstYear": 2015,
   "ratioFirstYear": 2015,
-  "newestRecallDate": "2026-11-12",
+  "newestRecallDate": "2026-11-19",
   "series": [
     {
       "year": 2004,
@@ -816,48 +816,48 @@
     {
       "year": 2026,
       "origin": {
-        "coverage": 99.4,
-        "soleN": 241,
-        "restN": 277,
-        "soleChina": 94.6,
+        "coverage": 99.2,
+        "soleN": 246,
+        "restN": 280,
+        "soleChina": 94.7,
         "restChina": 67.1
       },
-      "recalls": 521,
+      "recalls": 530,
       "retailerFieldPopulated": 100,
       "retailers": {
-        "amazon": 59.5,
-        "walmart": 11.9,
-        "target": 5.6,
-        "homeDepot": 3.5,
-        "ebay": 1.2
+        "amazon": 59.8,
+        "walmart": 11.7,
+        "target": 5.5,
+        "homeDepot": 3.4,
+        "ebay": 1.1
       },
-      "amazonOnly": 46.4,
-      "amazonOnlyCount": 242,
-      "soleAlsoDirect": 23,
-      "soleAlsoStore": 9,
-      "soleClean": 214,
-      "soleCleanPct": 88.4,
+      "amazonOnly": 46.8,
+      "amazonOnlyCount": 248,
+      "soleAlsoDirect": 24,
+      "soleAlsoStore": 10,
+      "soleClean": 218,
+      "soleCleanPct": 87.9,
       "soleCleanShare": 41.1,
       "online": {
-        "strict": 77,
+        "strict": 77.2,
         "mid": 86.6,
         "loose": 86.6
       },
-      "medianDescriptionChars": 93,
-      "amazonAmongShort": 62.8,
-      "amazonOfOnline": 68.7,
-      "onlineCount": 451,
-      "shortCount": 417
+      "medianDescriptionChars": 94,
+      "amazonAmongShort": 62.9,
+      "amazonOfOnline": 69.1,
+      "onlineCount": 459,
+      "shortCount": 421
     }
   ],
   "coverage": {
-    "total": 3752,
+    "total": 3761,
     "retailers": 99.9,
     "injuries": 99.9,
     "remedyOptions": 99.8,
     "images": 100,
     "manufacturers": 34.6,
-    "manufacturerCountries": 99.7,
+    "manufacturerCountries": 99.6,
     "hazards": 99.9,
     "importers": 62.7
   },
@@ -953,7 +953,7 @@
       },
       {
         "year": 2026,
-        "pct": 19.6
+        "pct": 20
       }
     ],
     "importer": [
@@ -1047,7 +1047,7 @@
       },
       {
         "year": 2026,
-        "pct": 51.1
+        "pct": 50.8
       }
     ]
   },
@@ -1297,12 +1297,12 @@
     {
       "year": 2026,
       "amazonOnly": {
-        "n": 242,
-        "manufacturerKnown": 18.6
+        "n": 248,
+        "manufacturerKnown": 19
       },
       "everythingElse": {
-        "n": 279,
-        "manufacturerKnown": 20.4
+        "n": 282,
+        "manufacturerKnown": 20.9
       }
     }
   ],
@@ -1450,6 +1450,132 @@
   ],
   "recent": [
     {
+      "title": "CHE-US Recalls Magnetic Robot Toys Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Toys",
+      "product": "CHE-US Magnetic Robot Toys",
+      "units": 101282,
+      "unitsRaw": "About 101,282",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/CHE-US1_0.png?VersionId=hd_X3virMdw1i3M3SIhCpNLt1znSh53a",
+      "imageCaption": "Recalled CHE-US Magnetic Robot Stick Figures",
+      "url": "https://cpsc.gov/Recalls/2027/CHE-US-Recalls-Magnetic-Robot-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Magnet-Ingestion-Violate-Mandatory-Standard-for-Toys",
+      "retailerText": "Sold Online At:\nAmazon.com from April 2025 through August 2026 for between t $9 and $18.",
+      "hazard": "The recalled magnetic stick figures violate the mandatory standard for toys because when pulled apart, the figures’ arms and legs liberate high-powered magnets posing an ingestion hazard to children. When high-powered magnets are swallowed, the ingested magnets can attract each other, or other metal objects, and become lodged in the digestive system. This can result in perforations, twisting, and/or blockage of the intestines, blood poisoning and death.",
+      "remedy": "Consumers should stop using the stick figures immediately, take them away from children and contact CHE-US for a full refund. Consumers will be asked to send a photo of the toys in the trash to CHE-USMagneticRobotToysRecall@outlook.com. Consumers should then dispose of the recalled product.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Cipton Recalls Bicycle Helmets Due to Risk of Serious Injury or Death from Head Injury; Violate Mandatory Standard for Bicycle Helmets",
+      "product": "Cipton Bike Helmets",
+      "units": 16730,
+      "unitsRaw": "16,730",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Cipton1.jpg?VersionId=dfWdhUzGnJmD6AN78a2Eodzd7FsoIuZS",
+      "imageCaption": "Recalled Cipton Helmet",
+      "url": "https://cpsc.gov/Recalls/2027/Cipton-Recalls-Bicycle-Helmets-Due-to-Risk-of-Serious-Injury-or-Death-from-Head-Injury-Violate-Mandatory-Standard-for-Bicycle-Helmets",
+      "retailerText": "Sold At:\nDicks Sporting Goods and JC Penny nationwide and online at Dickssportinggoods.com from April 2024 through May 2026 for about $35.",
+      "hazard": "The recalled helmets violate the mandatory safety standard for bicycle helmets because the helmets do not comply with the impact attenuation, positional stability and certification requirements. The helmets can fail to protect the user in the event of a crash, posing a serious risk of injury or death due to head injury.",
+      "remedy": "Consumers should stop using the helmets immediately and contact Cipton for a full refund. Consumers will be asked to destroy the helmet by cutting the straps and writing in permanent marker “Recalled” on the helmet and send a photo of the destroyed helmet to Reply@customersupport123.com. Consumers should then dispose of the recalled product. \n\n\nNote: Do not throw this defective lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Defective lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this defective lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts defective lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Fidlock GmbH Recalls Hermetic Dry Bags Due to Risk of Serious Injury or Death from Magnet Ingestion Hazard",
+      "product": "Fidlock Hermetic Dry Bags",
+      "units": 490,
+      "unitsRaw": "About 490",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Fidlock1.png?VersionId=DHwBdcPggfGWFl1sUrgsC22TT83bDY_W",
+      "imageCaption": "Recalled Fidlock Hermetic dry bag",
+      "url": "https://cpsc.gov/Recalls/2027/Fidlock-GmbH-Recalls-Hermetic-Dry-Bags-Due-to-Risk-of-Serious-Injury-or-Death-from-Magnet-Ingestion-Hazard",
+      "retailerText": "Sold At:\nSports, water sports and outdoor stores nationwide and online at Fidlock.us and Amazon.com from January 2025 through September 2026 for between $30 and $35.",
+      "hazard": "The recalled bags’ adhesive closure strips can detach, causing the magnets to fall out, posing a risk of serious injury or death from a magnet ingestion hazard.",
+      "remedy": "Consumers should stop using the bags immediately and contact Fidlock USA to receive a replacement bag or a gift card for the Fidlock USA online shop. Customers who purchased the product from the FIDLOCK online store can receive a full refund in the form of a credit card refund or PayPal refund. Consumers will be asked to go to www.fidlock.us/pages/recall and send a photo of the product. Consumers should then dispose of the recalled product.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Hultafors Group North America Recalls Lighted Portfolios, Angle Locators, Calipers and Calculators Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Consumer Products with Button Cell Batteries",
+      "product": "Custom Leather Craft (CLC) Lighted Portfolio, Johnson Level & Tool (Johnson Level) Digital Angle Locator, Digital Caliper and Building Calculator",
+      "units": 229430,
+      "unitsRaw": "About 229,430",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Hultafors1.png?VersionId=4FF.4w62Md2j9ZmbCw_ppj_5bvo84WBB",
+      "imageCaption": "Recalled CLC Lighted Portfolio, Model L217",
+      "url": "https://cpsc.gov/Recalls/2027/Hultafors-Group-North-America-Recalls-Lighted-Portfolios-Angle-Locators-Calipers-and-Calculators-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violate-Mandatory-Standard-for-Consumer-Products-with-Button-Cell-Batteries",
+      "retailerText": "Sold At:\nThe Johnson Level Digital Angle Locator, Digital Caliper and Building Calculator were sold at Lowe’s Home Improvement, Menards, W.W. Grainger, True Value Hardware and other hardware stores nationwide and online at Amazon.com from February 2023 through November 2026 between $64 and $400. The CLC Lighted Portfolio and Johnson Level 7” Digital Angle Locator and Ruler were sold at Lowe’s Home Improvement, Menards, W.W. Grainger, True Value Hardware and other hardware stores nationwide and online at Amazon.com from March 2024 through November 2026 between $45 and $55.",
+      "hazard": "The various trade tools violate the mandatory safety standard for consumer products with button cell and coin batteries because the button batteries can be accessed easily by children, posing an ingestion hazard. Additionally, the packaging and product do not have the warnings required under Reese’s Law. When button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, internal chemical burns and death.",
+      "remedy": "Consumers should stop using the recalled trade tools immediately, place them in an area inaccessible to children and contact Hultafors Group North America. To obtain a refund, consumers will be asked to upload a photograph of the product at  www.HG2026.expertinquiry.com and certify that the product has been disposed of and will no longer be used. Upon verification, consumers will receive the retail price, as shown in table below in the form of a virtual Visa gift card. The virtual Visa gift card may be redeemed at any establishment that accepts Visa.\n\nNote: Button cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Kidsview Recalls Infant Bouncers Due to Risk of Collapse and Impact Injury to Infants",
+      "product": "Kidsview Infant Bouncer",
+      "units": 412,
+      "unitsRaw": "About 412",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Kidsview1.png?VersionId=2.sYwE6mTs0D0yy2P0AL7xVSE.h4fvhQ",
+      "imageCaption": "Recalled Kidsview Infant Bouncer",
+      "url": "https://cpsc.gov/Recalls/2027/Kidsview-Recalls-Infant-Bouncers-Due-to-Risk-of-Collapse-and-Impact-Injury-to-Infants",
+      "retailerText": "Sold Online At:\nAmazon.com from August 2022 through November 2023 for between $60 and $170.",
+      "hazard": "The bouncers can collapse while in use, posing a risk of impact injury to infants in the bouncer.",
+      "remedy": "Consumers should stop using the recalled infant bouncers immediately and contact Kidsview for an Amazon gift card. Consumers will be asked to check if their infant bouncer is recalled by viewing the date code located on a label on the back of the bouncer’s seat. Consumers with recalled bouncers will be instructed to write “RECALLED” on the product’s fabric seat with permanent marker, take a photo of it, including the label with the date code in the photo and email to haimaoziying@163.com.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Ororo Recalls Rechargeable Lithium-Ion Battery Packs Due to Risk of Serious Injury from Fire and Burn Hazards",
+      "product": "Ororo PD10K-Pro Rechargeable Lithium-Ion Battery Packs",
+      "units": 269,
+      "unitsRaw": "About 269 (In addition, about 24 were sold in Canada)",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Ororo1.gif?VersionId=8BOWWSJRrG7oR7n5exbg3vK8Lncyvnxc",
+      "imageCaption": "Recalled ororo PD10K-Pro Rechargeable Lithium-ion Battery Pack",
+      "url": "https://cpsc.gov/Recalls/2027/Ororo-Recalls-Rechargeable-Lithium-Ion-Battery-Packs-Due-to-Risk-of-Serious-Injury-from-Fire-and-Burn-Hazards",
+      "retailerText": "Sold Online At:\nOrorowear.com and Amazon.com from September 2026 through October 2026 for about $109.",
+      "hazard": "The recalled lithium-ion battery packs can overheat, posing a risk of serious injury from fire and burn hazards.",
+      "remedy": "Consumers should stop using the battery packs immediately and contact ororo for a full refund. Consumers will be asked to go to Ororowear.com/pd10k-pro-recall to register and to receive disposal instructions. Once registered, consumers should dispose of the recalled battery packs in accordance with local and state regulations.  \n\nNote: Do not throw this recalled lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Qpancy Recalls Children’s Pajama Sets Due to Risk of Serious Injury or Death from Burn Hazard; Violate Mandatory Standards for Children’s Sleepwear",
+      "product": "Qpancy Children’s Pajama Sets",
+      "units": 1309,
+      "unitsRaw": "About 1,309",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Qpancy1.png?VersionId=krHytMRChj8bP0rVxxlDQCa2dOFFds0e",
+      "imageCaption": "Recalled Qpancy Children’s Pajama Sets – Multicolored Cat and Pink Bows",
+      "url": "https://cpsc.gov/Recalls/2027/Qpancy-Recalls-Childrens-Pajama-Sets-Due-to-Risk-of-Serious-Injury-or-Death-from-Burn-Hazard-Violate-Mandatory-Standards-for-Childrens-Sleepwear",
+      "retailerText": "Sold Online At:\nAmazon.com from March 2026 through August 2026 for about $20.",
+      "hazard": "The recalled children’s pajama sets violate the mandatory safety standards for children’s sleepwear posing a risk of serious burn injuries.",
+      "remedy": "Consumers should stop using the recalled pajama sets immediately and contact Qpancy for a full refund. Consumers will be asked to cut the pajama in half and send a photo of the destroyed pajamas to qpancyrecall@outlook.com. Consumers should then dispose of the destroyed product.",
+      "remedyOption": "Refund"
+    },
+    {
+      "title": "Vanderhall Recalls Brawley GTS Electric Recreational Off Highway Vehicles (ROVs) Due to Risk of Serious Injury or Death from Crash Hazard",
+      "product": "Model Year 2024-2026 Vanderhall Brawley GTS electric recreational off highway vehicles",
+      "units": 220,
+      "unitsRaw": "220",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Vanderhall1.png?VersionId=_vrV9fNeVietQueXbiyi6Lme8WIUibK1",
+      "imageCaption": "Recalled Brawley GTS Electric Recreational Off Highway Vehicle (Ida Rose)",
+      "url": "https://cpsc.gov/Recalls/2027/Vanderhall-Recalls-Brawley-GTS-Electric-Recreational-Off-Highway-Vehicles-ROVs-Due-to-Risk-of-Serious-Injury-or-Death-from-Crash-Hazard",
+      "retailerText": "Sold At:\nVanderhall North America dealers in Utah, Ohio, Michigan, Texas, Montana, North Carolina, Oklahoma, Minnesota, Illinois, and Arizona from April 2024 through August 2026 for about $50,000.",
+      "hazard": "The braking system can unexpectedly engage when the vehicle is airborne causing the operator to experience a sudden brake lockup upon landing, posing a risk of serious injury or death from a crash hazard.",
+      "remedy": "Consumers should stop using their vehicles immediately and contact Vanderhall North America for instructions on how to receive updated firmware version 8.1.2 through the Vanderhall customer mobile app. The updated firmware was released on September 18, 2026, and can be identified by the Vanderhall logo. Owners requiring assistance updating their firmware should contact their dealer or Vanderhall directly for assistance.",
+      "remedyOption": "Repair"
+    },
+    {
+      "title": "Xentrawave Recalls Adult Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails; One Death Reported",
+      "product": "Xentrawave XT016 and XT026 Adult Portable Bed Rails",
+      "units": 2114,
+      "unitsRaw": "About 2,114",
+      "date": "2026-11-19",
+      "image": "https://www.cpsc.gov/s3fs-public/Xentrawave1.png?VersionId=rhUa6lBnJKXFe9FOaypClwbCWSeZq8Ne",
+      "imageCaption": "Recalled Xentrawave Adult Portable Bed Rail, model XT016",
+      "url": "https://cpsc.gov/Recalls/2027/Xentrawave-Recalls-Adult-Portable-Bed-Rails-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Asphyxiation-Violate-Mandatory-Standard-for-Adult-Portable-Bed-Rails-One-Death-Reported",
+      "retailerText": "Sold Online At:\nXentrawave at Amazon.com",
+      "hazard": "The recalled bed rails violate the mandatory standard for adult portable bed rails because users can become entrapped within the bed rail or between the bed rail and the side of the mattress, posing a serious entrapment hazard and risk of death by asphyxiation. In addition, the XT016 model adult bed rail does not meet structural stability or retention strap requirements, posing entrapment hazards, and its push pins and push pin holes are incorrectly sized, posing a laceration hazard.",
+      "remedy": "Consumers should stop using the recalled adult portable bed rails immediately and contact Xentrawave for a full refund. Consumers will be asked to cut the foam padding on the bed rail handle grips, take a photo of the destroyed bed rail and email the photo to xentrawavedirect@163.com or submit it online at https://xentrawahelp.com/xentrawave-bed-rail-safety-recall/.",
+      "remedyOption": "Refund"
+    },
+    {
       "title": "Allstar Recalls Sharper Image Tabletop and Infinity Fire Pits Due to Risk of Serious Injury from Burn and Fire Hazards",
       "product": "Sharper Image Tabletop Fire Pits and Sharper Image Tabletop Infinity Fire Pits",
       "units": 265000,
@@ -1462,132 +1588,6 @@
       "hazard": "Ignited flammable liquid can escape from the recalled fire pits or trigger flame jetting from the fuel containers, posing a risk of serious injury from burn and fire hazards.",
       "remedy": "Consumers should stop using the recalled fire pits immediately and contact Allstar for a full refund. Consumers will be asked to register at www.firepitrecall.expertinquiry.com, write “RECALLED – DO NOT USE” in permanent marker, and submit three photographs following the instructions on Allstar’s recall page. After registration is confirmed, consumers should dispose of any remaining fuel in accordance with local hazardous-waste requirements and discard the recalled fire pits safely.",
       "remedyOption": "Refund"
-    },
-    {
-      "title": "Boshengya Recalls Rugs Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Carpets and Rugs",
-      "product": "Boshengya Shag Area Rugs",
-      "units": 83,
-      "unitsRaw": "83",
-      "date": "2026-11-12",
-      "image": "https://cpsc.gov/s3fs-public/Boshengya1.png?VersionId=SMMQh1_t0sJeavc9lm.YfEWE5trdmBJ9",
-      "imageCaption": "Recalled Boshengya Shag Area Rug - Pink",
-      "url": "https://cpsc.gov/Recalls/2027/Boshengya-Recalls-Rugs-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-Hazard-Violate-Mandatory-Standard-for-Carpets-and-Rugs",
-      "retailerText": "Sold Online At:\nAmazon.com from September 2026 through October 2026 for between $30 and $65.",
-      "hazard": "The recalled rugs violate the mandatory standard for the flammability of carpets and rugs, posing a risk of serious injury or death from fire hazard.",
-      "remedy": "Consumers should stop using the rugs immediately and contact Boshengya for a full refund. Consumers will be asked to destroy the rug by cutting it in half and send a photo of the destroyed rug to boshengya666@outlook.com. Consumers will then dispose of the recalled product.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Cummins Recalls Portable Generators Due to Risk of Serious Injury from Fire and Burn Hazards",
-      "product": "Cummins Onan P5000iDF EFI Dual Fuel Portable Generators",
-      "units": 2960,
-      "unitsRaw": "About 2,960",
-      "date": "2026-11-12",
-      "image": "https://www.cpsc.gov/s3fs-public/Cummins1.png?VersionId=tZUE.QfqyptxwTEYJiAcJhpYOQ6NBdsp",
-      "imageCaption": "Recalled Cummins Onan P5000iDF EFI Dual Fuel Portable Generator",
-      "url": "https://cpsc.gov/Recalls/2027/Cummins-Recalls-Portable-Generators-Due-to-Risk-of-Serious-Injury-from-Fire-and-Burn-Hazards",
-      "retailerText": "Sold At:\nCamping World, Factory Pure, Northern Tool, AP Electric stores and online atCummins.com from May 2025 through August 2026 for between $1,640 and $1,930.",
-      "hazard": "The valves in the recalled generators were installed incorrectly, preventing fuel vapors from venting properly from the gasoline tank, causing excessive pressure to build up. This pressure can cause fuel to discharge or the fuel cap to eject, posing a risk of serious injury from fire and burn hazards.",
-      "remedy": "Consumers should stop using the recalled portable generators immediately and go to https://www.cummins.com/en-na/na/generators/portable-generators/safety-recalls/campaigns/7308 to check if the model and part number is included in the recall.  If your unit is affected, contact an authorized Cummins service location and arrange for a free repair at the service location. To find a service location near you, please use the Service Locator link at https://quickserve.cummins.com.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "Huffy Recalls Buzz Bicycles Cerana T2 E-Trikes Due to Risk of Serious Injury from Fall Hazard",
-      "product": "Buzz Bicycles Cerana T2 E-Trike",
-      "units": 286,
-      "unitsRaw": "About 286",
-      "date": "2026-11-12",
-      "image": "https://www.cpsc.gov/s3fs-public/Huffy1.jpg?VersionId=QLL20sS7WlVoNJa5y3bJY3doTHAPJyhs",
-      "imageCaption": "Recalled Buzz Bicycles Cerana T2 E-Trike, model E4004",
-      "url": "https://www.cpsc.gov/Recalls/2027/Huffy-Recalls-Buzz-Bicycles-Cerana-T2-E-Trikes-Due-to-Risk-of-Serious-Injury-from-Fall-Hazard",
-      "retailerText": "Sold At:\nIndependent bike shops nationwide and online atwww.buzzbicycles.com from November 2024 through July 2026 for between $1,400 and $2,500.",
-      "hazard": "The recalled tricycles’ rear wheels can become loose or separate from the rear frame, posing a risk of serious injury from a fall hazard.",
-      "remedy": "Consumers should stop using the recalled tricycles immediately and contact Huffy for free replacement rear axle assemblies. The rear wheel axle assemblies will be sent directly to consumers or to a third-party who will repair the tricycle. Huffy Corporation will reimburse consumers up to $100 for charges incurred by the third-party repair.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "Kakgold Recalls 4WD Remote-Controlled Car Toys Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Toys",
-      "product": "Kakgold 4WD Stunt Vehicle Toys",
-      "units": 294,
-      "unitsRaw": "About 294",
-      "date": "2026-11-12",
-      "image": "https://www.cpsc.gov/s3fs-public/Kakgold1.jpg?VersionId=9Wrjcyt_8XIgcQGX8kAtEkfaG7q0J0TL",
-      "imageCaption": "Recalled Kakgold 4WD Stunt Vehicle Toy – packaging front",
-      "url": "https://www.cpsc.gov/Recalls/2027/Kakgold-Recalls-4WD-Remote-Controlled-Car-Toys-Due-to-Risk-of-Serious-Injury-or-Death-from-Battery-Ingestion-Violate-Mandatory-Standard-for-Toys",
-      "retailerText": "Sold Online At:\nAmazon.com from July 2026 throughSeptember 2026 for between $34 and $50.",
-      "hazard": "The recalled remote-controlled cars violate the mandatory standard for toys because they contain button cell and lithium-ion batteries in the remote control that can be easily accessed by children, posing a deadly ingestion hazard to children. When button cell or coin batteries are swallowed, the ingested batteries can cause serious injuries, internal chemical burns and death",
-      "remedy": "Consumers should stop using the remote-controlled car toys immediately and contact Kakgold for information on how to receive a full refund. Consumers will be asked to write “RECALLED” on the product and email a photograph showing the product being properly disposed of in the trash to kakrecall@outlook.com.\n\nNote: Button cell batteries are hazardous. Batteries should be disposed of or recycled by following local hazardous waste procedures.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "QIOMALA Pressure Washers Recalled Due to Serious Risk of Injury or Death from Shock and Electrocution Hazards",
-      "product": "QIOMALA Pressure Washers",
-      "units": 80,
-      "unitsRaw": "80",
-      "date": "2026-11-12",
-      "image": "https://www.cpsc.gov/s3fs-public/QIOMALA1.jpg?VersionId=2eOSADecNaKPryrkec3fOM60wU397ZFW",
-      "imageCaption": "Recalled QIOMALA electric pressure washer-model HWT12P (green)",
-      "url": "https://cpsc.gov/Recalls/2027/QIOMALA-Pressure-Washers-Recalled-Due-to-Serious-Risk-of-Injury-or-Death-from-Shock-and-Electrocution-Hazards",
-      "retailerText": "Sold Online At:\nAmazon.comfrom April 2026through June 2026 for about $130.",
-      "hazard": "The recalled pressure washers lack an adequate-length power cord, which can encourage use of an extension cord, posing a serious risk of injury or death from shock and electrocution hazards.",
-      "remedy": "Consumers should stop using the recalled pressure washers immediately and contact QIOMALA for a full refund. Consumers will be asked to unplug the pressure washer, cut the power cord in half and send a photo of the destroyed power washer, showing the model number, to QIOMALA@163.com. Consumers should then dispose of the destroyed recalled product.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "SHEIN Distribution Corporation Recalls Baby Rattle and Teether Toy Sets Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Small Parts Ban",
-      "product": "Baby Rattle and Teether Toy Sets",
-      "units": 2657,
-      "unitsRaw": "About 2,657",
-      "date": "2026-11-12",
-      "image": "https://www.cpsc.gov/s3fs-public/SHEIN1.png?VersionId=nc4muf0nvKslmOn7pNfTB913BBvAarBo",
-      "imageCaption": "Recalled Baby Rattle and Teether Toy Set",
-      "url": "https://www.cpsc.gov/Recalls/2027/SHEIN-Distribution-Corporation-Recalls-Baby-Rattle-and-Teether-Toy-Sets-Due-to-Risk-of-Serious-Injury-or-Death-from-Choking-Violate-Mandatory-Small-Parts-Ban",
-      "retailerText": "Sold Online At:\nUS.Shein.com from November 2025 through July 2026 for about $10",
-      "hazard": "The recalled toy sets violate the small parts ban because they are intended for children under three years old and the purple and orange knobs can detach from the product, posing a deadly choking hazard to young children.",
-      "remedy": "Consumers should stop using the recalled toy sets immediately, take them away from children, and contact SHEIN for a refund. Consumers will be asked to affirm they disposed of the toy sets to receive a refund.",
-      "remedyOption": "Refund"
-    },
-    {
-      "title": "Arlopu Recalls Slide Playsets Due to Risk of Serious Injury and Death from Head and Neck Entrapment Hazards",
-      "product": "Arlopu Slide Playsets",
-      "units": 10318,
-      "unitsRaw": "About 10,318",
-      "date": "2026-11-05",
-      "image": "https://www.cpsc.gov/s3fs-public/RecalledArlopuSlidePlaysetModelKT_CS17.png?VersionId=MfN7UbcHK_zExySFYnWLsucVlxt7n1bC",
-      "imageCaption": "Recalled Arlopu Slide Playset, Model KT-CS17",
-      "url": "https://cpsc.gov/Recalls/2027/Arlopu-Recalls-Slide-Playsets-Due-to-Risk-of-Serious-Injury-and-Death-from-Head-and-Neck-Entrapment-Hazards",
-      "retailerText": "Sold Online At:\nAmazon.com and Walmart.com from April 2023 through August 2026 for between $90 and $130.",
-      "hazard": "The recalled products contain multiple openings where a child’s torso can fit through the opening, but a child’s head cannot, posing a risk of serious injury and death due to head and neck entrapment hazards. Additionally, the basketball nets on the recalled products with model number KT-CS17 can come unhooked from the rim, forming a loop large enough for a child’s head, posing entanglement and strangulation hazards.",
-      "remedy": "Consumers should stop using the Arlopu Slide Playsets immediately and store them away from children. Contact Arlopu for a free repair kit, which includes redesigned panels, basketball hoops and installation instructions. Consumers will be asked to provide a photo of the product showing the model number to arlopu_support@163.com. Upon receipt of the photo, the firm will mail the free repair kit directly to consumers. Once the repair has been completed, consumers should write “RECALLED” with permanent marker on the removed components and dispose of the removed components.",
-      "remedyOption": "Repair"
-    },
-    {
-      "title": "Baby Brezza Enterprises Recalls SuperFast Sterilizer Dryers Due to Overheating and Burn Hazards",
-      "product": "SuperFast Sterilizer Dryers",
-      "units": 29000,
-      "unitsRaw": "About 29,000 (In addition, about 4,500 were sold in Canada)",
-      "date": "2026-11-05",
-      "image": "https://www.cpsc.gov/s3fs-public/BabyBrezza1.png?VersionId=UIOZN2OT0VM54RvtyzVONZTL2ZjVC4vw",
-      "imageCaption": "Recalled Baby Brezza SuperFast Sterilizer Dryer model numbers BRZ0083 and BRZ0156",
-      "url": "https://www.cpsc.gov/Recalls/2027/Baby-Brezza-Enterprises-Recalls-SuperFast-Sterilizer-Dryers-Due-to-Overheating-and-Burn-Hazards",
-      "retailerText": "Sold At:\nTJ Maxx and Marshall’s storesnationwide and online at babybrezza.com, target.com and babylist.com from January 2024 through October 2026 for between $160 and $180.",
-      "hazard": "The recalled sterilizer dryers can overheat when plugged in and operating, posing a risk of injury from a burn hazard if the surface is handled.",
-      "remedy": "Consumers should stop using the recalled sterilizer dryers immediately and contact Baby Brezza Enterprises for a free replacement sterilizer dryer, including shipping at no cost to the consumer. Consumers will be asked to register at https://babybrezza.com/pages/about?view=v3-recalls, complete the recall form, unplug the product, cut the power cord to destroy the sterilizer dryer and upload photos. Send photos of the model number on the label of the dryer the destroyed appliance and the return authorization number to recall@babybrezza.com. After uploading the photos, consumers should dispose of the recalled sterilizer dryers in accordance with local and state ordinances.",
-      "remedyOption": "Replace"
-    },
-    {
-      "title": "Bose Recalls Lithium-Ion Battery Packs for S1 Pro and S1 Pro+ Bluetooth Speaker Systems Due to Risk of Injury from Fire and Overheating Hazards",
-      "product": "Bose S1 Pro System Battery Pack and S1 Pro+ System Battery Packs for use with Bose S1 Pro and Bose S1 Pro+ Speaker Systems.",
-      "units": 634759,
-      "unitsRaw": "About 634,759 (In addition, about 35,400 were sold in Canada)",
-      "date": "2026-11-05",
-      "image": "https://www.cpsc.gov/s3fs-public/BoseS1ProandS1ProPortableBluetoothSpeakerSystemsbackandfront%20%20.png?VersionId=xfJxKiKNxBlhXFvsz7oFEWA.b7tcmMcj",
-      "imageCaption": "Bose S1 Pro and S1 Pro+ Portable Bluetooth Speaker Systems (back and front)",
-      "url": "https://www.cpsc.gov/Recalls/2027/Bose-Recalls-Lithium-Ion-Battery-Packs-for-S1-Pro-and-S1-Pro-Bluetooth-Speaker-Systems-Due-to-Risk-of-Injury-from-Fire-and-Overheating-Hazards-0",
-      "retailerText": "Sold At:\nBose, Best Buy and other retail stores and distributors nationwide and online at Amazon.com, Bose.com, BestBuy.com, Walmart.com and other websites from December 2017 through July 2026 for between $100 and $160 for the individual battery packs. The speaker systems were sold with the battery packs for $700.",
-      "hazard": "The recalled lithium-ion battery packs can overheat and ignite, posing a risk of injury from fire and overheating hazards.",
-      "remedy": "Consumers should remove the recalled battery packs installed in any S1 Pro and S1 Pro+ Portable Bluetooth Speaker Systems and stop using the battery packs immediately. Once the battery pack is removed, consumers may continue to use their S1 Pro and S1 Pro+ Portable Bluetooth Speakers while connected to AC power. Consumers will be asked to register and provide the affected battery pack’s serial number at www.support.bose.com/s1-battery-recall to receive a free replacement battery pack. For battery packs that are not installed in the speaker systems, consumers can simply view the serial number and provide that number to the website listed above. Consumers should dispose of the affected battery pack in accordance with local and state regulations. \n\nNote: Do not throw this recalled lithium-ion battery pack in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery pack for disposal. Before taking your battery pack to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
-      "remedyOption": "Replace"
     }
   ],
   "trackedRetailers": [
